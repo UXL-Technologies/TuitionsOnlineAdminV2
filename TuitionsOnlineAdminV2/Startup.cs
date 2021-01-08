@@ -18,10 +18,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using TuitionsOnlineAdmin.DataStore.EntityFramework;
 using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -57,6 +61,18 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ICreateGraduateCourseUseCase, CreateGraduateCourseUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
+
+
+            services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IPostGraduateCourseRepository, PostGraduateCourseRepository>();
+
+
+            services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IDoctorateCourseRepository, DoctorateCourseRepository>();
+
+
             var connection = Configuration.GetConnectionString("DefaultConnection");
            services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));
         }

@@ -8,5 +8,8 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
     public interface IUnitOfWork
     {
         void CreateGraduateCourse(GraduateCourse graduateCourse);
+        void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
+        void CreateDoctorateCourse(DoctorateCourse doctorateCourse);
+
     }
 }

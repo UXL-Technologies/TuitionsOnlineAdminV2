@@ -1,15 +1,21 @@
 ﻿@*Author:Sanjana*@
 
 @page "/fetchdata"
-@using TuitionsOnlineAdmin.CoreBusiness 
+@using TuitionsOnlineAdmin.CoreBusiness
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
+
 
 @inject ICreateGraduateCourseUseCase  createGraduateCourseUseCase
+@inject ICreatePostGraduateCourseUseCase  createPostGraduateCourseUseCase
+@inject ICreateDoctorateCourseUseCase  createDoctorateCourseUseCase
 
- 
+
 <h1>Graduate Course</h1>
-<button @onclick="SaveGraduateCourse">Submit</button>
-
+<button @onclick="SaveGraduateCourse">SubmitGraduateCourse</button>
+<button @onclick="SavePostGraduateCourse">SubmitPostGraduateCourse</button>
+<button @onclick="SaveDoctorateCourse">SubmitDoctorateCourse</button>
 
 
 @code{
@@ -24,5 +30,39 @@
         createGraduateCourseUseCase.CreateGraduateCourse(graduateCourse);
 
     }
+    PostGraduateCourse postGraduateCourse = new PostGraduateCourse()
+    {
+        PostGraduateCourseId = "1001",
+        PostGraduateCourseName = "M tech",
+        Active = true
+    };
+    protected void SavePostGraduateCourse()
+    {
+        createPostGraduateCourseUseCase.CreatePostGraduateCourse(postGraduateCourse);
+
+
+
+    }
+
+
+
+
+
+
+    DoctorateCourse doctorateCourse = new DoctorateCourse()
+    {
+        DoctorateCourseId = "1003",
+        DoctorateCourseName = "B sc",
+        Active = true
+    };
+    protected void SaveDoctorateCourse()
+    {
+        createDoctorateCourseUseCase.CreateDoctorateCourse(doctorateCourse);
+
+
+
+    }
+
+
 
 }

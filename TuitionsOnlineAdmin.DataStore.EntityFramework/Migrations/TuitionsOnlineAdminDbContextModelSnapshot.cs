@@ -18,6 +18,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.DoctorateCourse", b =>
+                {
+                    b.Property<string>("DoctorateCourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DoctorateCourseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DoctorateCourseId");
+
+                    b.ToTable("DoctorateCourse");
+                });
+
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.GraduateCourse", b =>
                 {
                     b.Property<string>("GraduateCourseId")
@@ -32,6 +48,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("GraduateCourseId");
 
                     b.ToTable("GraduateCourse");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.PostGraduateCourse", b =>
+                {
+                    b.Property<string>("PostGraduateCourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PostGraduateCourseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PostGraduateCourseId");
+
+                    b.ToTable("PostGraduateCourse");
                 });
 #pragma warning restore 612, 618
         }
