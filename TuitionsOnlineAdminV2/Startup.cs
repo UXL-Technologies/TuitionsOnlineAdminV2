@@ -18,6 +18,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TuitionsOnlineAdmin.DataStore.EntityFramework;
 using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
+using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
@@ -71,6 +73,10 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IDoctorateCourseRepository, DoctorateCourseRepository>();
+
+            services.AddTransient<ICreateCertificateCourseUseCase, CreateCertificateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ICertificateCourseRepository, CertificateCourseRepository>();
 
 
             var connection = Configuration.GetConnectionString("DefaultConnection");

@@ -15,11 +15,14 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly IDoctorateCourseRepository doctorateCourseRepository;
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository)
+        private readonly ICertificateCourseRepository certificateCourseRepository;
+
+        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository)
         {
             this.graduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
+            this.certificateCourseRepository = certificateCourseRepository;
 
         }
 
@@ -38,6 +41,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             postGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
+        }
+
+        public void CreateCertificateCourse(CertificateCourse certificateCourse)
+        {
+            certificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
         }
     }
 }

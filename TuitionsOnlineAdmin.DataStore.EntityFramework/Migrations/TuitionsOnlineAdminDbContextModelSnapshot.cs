@@ -18,6 +18,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.CertificateCourse", b =>
+                {
+                    b.Property<string>("CertificateCourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CertificateCourseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CertificateCourseId");
+
+                    b.ToTable("CertificateCourse");
+                });
+
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.DoctorateCourse", b =>
                 {
                     b.Property<string>("DoctorateCourseId")

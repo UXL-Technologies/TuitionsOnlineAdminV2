@@ -9,7 +9,7 @@ using TuitionsOnlineAdmin.DataStore.EntityFramework;
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
     [DbContext(typeof(TuitionsOnlineAdminDbContext))]
-    [Migration("20210108114013_init")]
+    [Migration("20210108124242_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.CertificateCourse", b =>
+                {
+                    b.Property<string>("CertificateCourseId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CertificateCourseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CertificateCourseId");
+
+                    b.ToTable("CertificateCourse");
+                });
 
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.DoctorateCourse", b =>
                 {

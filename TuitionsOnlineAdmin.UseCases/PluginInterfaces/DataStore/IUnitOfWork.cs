@@ -10,6 +10,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         void CreateGraduateCourse(GraduateCourse graduateCourse);
         void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
         void CreateDoctorateCourse(DoctorateCourse doctorateCourse);
+        void CreateCertificateCourse(CertificateCourse certificateCourse);
 
     }
 }

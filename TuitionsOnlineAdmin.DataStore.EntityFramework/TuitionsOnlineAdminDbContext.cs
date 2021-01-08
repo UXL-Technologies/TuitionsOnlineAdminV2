@@ -16,5 +16,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<GraduateCourse> GraduateCourse { get; set; }
         public DbSet<PostGraduateCourse> PostGraduateCourse { get; set; }
         public DbSet<DoctorateCourse> DoctorateCourse { get; set; }
+
+        public DbSet<CertificateCourse> CertificateCourse { get; set; }
     }
 }

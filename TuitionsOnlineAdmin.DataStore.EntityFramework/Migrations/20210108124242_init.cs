@@ -7,6 +7,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "CertificateCourse",
+                columns: table => new
+                {
+                    CertificateCourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CertificateCourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CertificateCourse", x => x.CertificateCourseId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DoctorateCourse",
                 columns: table => new
                 {
@@ -48,6 +61,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CertificateCourse");
+
             migrationBuilder.DropTable(
                 name: "DoctorateCourse");
 
