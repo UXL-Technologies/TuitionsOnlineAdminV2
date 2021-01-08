@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using TuitionsOnlineAdmin.CoreBusiness;
+
+namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
+{
+    public interface IUnitOfWork
+    {
+        void CreateGraduateCourse(GraduateCourse graduateCourse);
+    }
+}

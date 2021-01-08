@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TuitionsOnlineAdmin.DataStore.EntityFramework;
+using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
+using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -47,6 +54,11 @@ namespace TuitionsOnlineAdminV2
             services.AddServerSideBlazor()
                 .AddMicrosoftIdentityConsentHandler();
             services.AddSingleton<WeatherForecastService>();
+            services.AddTransient<ICreateGraduateCourseUseCase, CreateGraduateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+           services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
