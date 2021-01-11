@@ -1,46 +1,100 @@
-﻿@page "/fetchdata"
+﻿@*Author:Sanjana*@
 
-@using TuitionsOnlineAdminV2.Data
-@inject WeatherForecastService ForecastService
-
-<h1>Weather forecast</h1>
-
-<p>This component demonstrates fetching data from a service</p>
-
-@if (forecasts == null)
+@page "/fetchdata"
+@using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
 {
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 
-@code {
-    private WeatherForecast[] forecasts;
+@inject ICreateGraduateCourseUseCase  createGraduateCourseUseCase
+@inject ICreatePostGraduateCourseUseCase  createPostGraduateCourseUseCase
+@inject ICreateDoctorateCourseUseCase  createDoctorateCourseUseCase
+@inject ICreateCertificateCourseUseCase  createCertificateCourseUseCase
+@inject ICreateCityUseCase  createCityUseCase
 
-    protected override async Task OnInitializedAsync()
+<h1>Graduate Course</h1>
+<button @onclick="SaveGraduateCourse">SubmitGraduateCourse</button>
+<button @onclick="SavePostGraduateCourse">SubmitPostGraduateCourse</button>
+<button @onclick="SaveDoctorateCourse">SubmitDoctorateCourse</button>
+<button @onclick="SaveCertificateCourse">SubmitCertificateCourse</button>
+<button @onclick="SaveCity">SubmitCity</button>
+
+@code{
+    GraduateCourse graduateCourse = new GraduateCourse()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        
+        GraduateCourseName = "BE",
+        Active = true
+    };
+    protected void SaveGraduateCourse()
+    {
+        createGraduateCourseUseCase.CreateGraduateCourse(graduateCourse);
+
     }
+    PostGraduateCourse postGraduateCourse = new PostGraduateCourse()
+    {
+       
+        PostGraduateCourseName = "M tech",
+        Active = true
+    };
+    protected void SavePostGraduateCourse()
+    {
+        createPostGraduateCourseUseCase.CreatePostGraduateCourse(postGraduateCourse);
+
+
+
+    }
+
+
+
+
+
+
+    DoctorateCourse doctorateCourse = new DoctorateCourse()
+    {
+        
+        DoctorateCourseName = "B sc",
+        Active = true
+    };
+    protected void SaveDoctorateCourse()
+    {
+        createDoctorateCourseUseCase.CreateDoctorateCourse(doctorateCourse);
+
+
+
+    }
+
+    CertificateCourse certificateCourse = new CertificateCourse()
+    {
+        CertificateCourseName = "BTech",
+        Active = true
+    };
+    protected void SaveCertificateCourse()
+    {
+        createCertificateCourseUseCase.CreateCertificateCourse(certificateCourse);
+
+
+
+    }
+
+    City city = new City()
+    {
+      
+        CityName = "BArc",
+        Active = true,
+        PinCode = 560012
+    };
+    protected void SaveCity()
+    {
+        createCityUseCase.CreateCity(city);
+
+
+
+    }
+
+
+
 }

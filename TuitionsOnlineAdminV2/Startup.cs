@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TuitionsOnlineAdmin.DataStore.EntityFramework;
+using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
+using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen;
+using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
+using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -47,6 +62,31 @@ namespace TuitionsOnlineAdminV2
             services.AddServerSideBlazor()
                 .AddMicrosoftIdentityConsentHandler();
             services.AddSingleton<WeatherForecastService>();
+            services.AddTransient<ICreateGraduateCourseUseCase, CreateGraduateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
+
+
+            services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IPostGraduateCourseRepository, PostGraduateCourseRepository>();
+
+
+            services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IDoctorateCourseRepository, DoctorateCourseRepository>();
+
+            services.AddTransient<ICreateCertificateCourseUseCase, CreateCertificateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ICertificateCourseRepository, CertificateCourseRepository>();
+
+            services.AddTransient<ICreateCityUseCase, CreateCityUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ICityRepository, CityRepository>();
+
+
+            var connection = Configuration.GetConnectionString("DefaultConnection");
+           services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
