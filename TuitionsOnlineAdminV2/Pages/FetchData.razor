@@ -6,23 +6,26 @@
 @using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
+{
 
 @inject ICreateGraduateCourseUseCase  createGraduateCourseUseCase
 @inject ICreatePostGraduateCourseUseCase  createPostGraduateCourseUseCase
 @inject ICreateDoctorateCourseUseCase  createDoctorateCourseUseCase
 @inject ICreateCertificateCourseUseCase  createCertificateCourseUseCase
-
+@inject ICreateCityUseCase  createCityUseCase
 
 <h1>Graduate Course</h1>
 <button @onclick="SaveGraduateCourse">SubmitGraduateCourse</button>
 <button @onclick="SavePostGraduateCourse">SubmitPostGraduateCourse</button>
 <button @onclick="SaveDoctorateCourse">SubmitDoctorateCourse</button>
 <button @onclick="SaveCertificateCourse">SubmitCertificateCourse</button>
+<button @onclick="SaveCity">SubmitCity</button>
 
 @code{
     GraduateCourse graduateCourse = new GraduateCourse()
     {
-        GraduateCourseId = "1002",
+        
         GraduateCourseName = "BE",
         Active = true
     };
@@ -33,7 +36,7 @@
     }
     PostGraduateCourse postGraduateCourse = new PostGraduateCourse()
     {
-        PostGraduateCourseId = "1001",
+       
         PostGraduateCourseName = "M tech",
         Active = true
     };
@@ -52,7 +55,7 @@
 
     DoctorateCourse doctorateCourse = new DoctorateCourse()
     {
-        DoctorateCourseId = "1003",
+        
         DoctorateCourseName = "B sc",
         Active = true
     };
@@ -66,13 +69,27 @@
 
     CertificateCourse certificateCourse = new CertificateCourse()
     {
-        CertificateCourseId = "1004",
         CertificateCourseName = "BTech",
         Active = true
     };
     protected void SaveCertificateCourse()
     {
         createCertificateCourseUseCase.CreateCertificateCourse(certificateCourse);
+
+
+
+    }
+
+    City city = new City()
+    {
+      
+        CityName = "BArc",
+        Active = true,
+        PinCode = 560012
+    };
+    protected void SaveCity()
+    {
+        createCityUseCase.CreateCity(city);
 
 
 

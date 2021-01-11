@@ -1,4 +1,9 @@
-﻿using System;
+﻿//Authors: SA, BM, SM
+// Date:08-Jan-2021
+//Aim: defining the unitOfWork
+
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
@@ -17,12 +22,16 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ICertificateCourseRepository certificateCourseRepository;
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository)
+        private readonly ICityRepository cityRepository;
+
+
+        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository)
         {
             this.graduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
             this.certificateCourseRepository = certificateCourseRepository;
+            this.cityRepository = cityRepository;
 
         }
 
@@ -46,6 +55,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public void CreateCertificateCourse(CertificateCourse certificateCourse)
         {
             certificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
+        }
+
+        public void CreateCity(City city)
+        {
+           cityRepository.CreateCityRepository(city);
         }
     }
 }

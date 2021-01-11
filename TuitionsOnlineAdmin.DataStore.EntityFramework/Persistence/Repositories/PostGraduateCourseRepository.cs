@@ -1,4 +1,10 @@
-﻿using System;
+﻿//Authors: SA, BM, SM
+// Date:08-Jan-2021
+//Aim: defining the Repository for postGraduate course
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
@@ -17,7 +23,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         }
 
-
+        //To create a single record for PostGraduateCourse
         public void CreatePostGraduateRepository(PostGraduateCourse postGraduateCourse)
         {
             _database.PostGraduateCourse.Add(postGraduateCourse);

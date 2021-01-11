@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,8 +11,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "CertificateCourse",
                 columns: table => new
                 {
-                    CertificateCourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CertificateCourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CertificateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CertificateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -20,11 +21,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "City",
+                columns: table => new
+                {
+                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    PinCode = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_City", x => x.CityId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DoctorateCourse",
                 columns: table => new
                 {
-                    DoctorateCourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DoctorateCourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DoctorateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DoctorateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -36,8 +51,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "GraduateCourse",
                 columns: table => new
                 {
-                    GraduateCourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    GraduateCourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GraduateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GraduateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -49,8 +64,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "PostGraduateCourse",
                 columns: table => new
                 {
-                    PostGraduateCourseId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PostGraduateCourseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostGraduateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PostGraduateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -63,6 +78,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CertificateCourse");
+
+            migrationBuilder.DropTable(
+                name: "City");
 
             migrationBuilder.DropTable(
                 name: "DoctorateCourse");
