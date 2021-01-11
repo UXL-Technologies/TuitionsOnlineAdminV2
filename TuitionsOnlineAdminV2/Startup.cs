@@ -22,6 +22,9 @@ using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScre
 using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen;
 using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces;
+
+using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen;
+using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
@@ -30,6 +33,8 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen;
+using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -83,6 +88,18 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ICreateCityUseCase, CreateCityUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICityRepository, CityRepository>();
+
+            services.AddTransient<ICreateCurrencyUseCase, CreateCurrencyUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ICurrencyRepository, CurrencyRepository>();
+
+            services.AddTransient<ICreateSubjectUseCase, CreateSubjectUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
+
+           // services.AddTransient<ICreateClassUseCase, CreateClassUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IClassRepository, ClassRepository>();
 
 
             var connection = Configuration.GetConnectionString("DefaultConnection");

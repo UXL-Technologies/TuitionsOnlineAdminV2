@@ -10,8 +10,8 @@ using TuitionsOnlineAdmin.DataStore.EntityFramework;
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
     [DbContext(typeof(TuitionsOnlineAdminDbContext))]
-    [Migration("20210111073120_initial")]
-    partial class initial
+    [Migration("20210111113654_shravan")]
+    partial class shravan
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,28 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("CityId");
 
                     b.ToTable("City");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.Currency", b =>
+                {
+                    b.Property<Guid>("CurrencyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CurrencyName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<bool>("Default")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CurrencyId");
+
+                    b.ToTable("Currency");
                 });
 
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.DoctorateCourse", b =>
@@ -117,6 +139,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("PostGraduateCourseId");
 
                     b.ToTable("PostGraduateCourse");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.Subject", b =>
+                {
+                    b.Property<Guid>("SubjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("SubjectId");
+
+                    b.ToTable("Subject");
                 });
 #pragma warning restore 612, 618
         }

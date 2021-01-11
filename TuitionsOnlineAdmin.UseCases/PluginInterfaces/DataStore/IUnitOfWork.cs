@@ -21,6 +21,9 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         void CreateCertificateCourse(CertificateCourse certificateCourse);
         //To add the single record of the City to the database
         void CreateCity(City city);
+        void CreateCurrency(Currency currency);
 
+        void CreateSubject(Subject subject);
+      //  void CreateClass(Class class);
     }
 }

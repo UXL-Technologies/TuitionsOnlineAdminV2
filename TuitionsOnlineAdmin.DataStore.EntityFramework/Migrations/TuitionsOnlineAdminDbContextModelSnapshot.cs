@@ -60,6 +60,28 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.ToTable("City");
                 });
 
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.Currency", b =>
+                {
+                    b.Property<Guid>("CurrencyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CurrencyName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<bool>("Default")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CurrencyId");
+
+                    b.ToTable("Currency");
+                });
+
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.DoctorateCourse", b =>
                 {
                     b.Property<Guid>("DoctorateCourseId")
@@ -115,6 +137,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("PostGraduateCourseId");
 
                     b.ToTable("PostGraduateCourse");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.Subject", b =>
+                {
+                    b.Property<Guid>("SubjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("SubjectId");
+
+                    b.ToTable("Subject");
                 });
 #pragma warning restore 612, 618
         }

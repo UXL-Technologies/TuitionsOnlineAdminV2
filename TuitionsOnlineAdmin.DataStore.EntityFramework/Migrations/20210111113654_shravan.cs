@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
-    public partial class initial : Migration
+    public partial class shravan : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,6 +32,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_City", x => x.CityId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Currency",
+                columns: table => new
+                {
+                    CurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CurrencyName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    Default = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Currency", x => x.CurrencyId);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,6 +86,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 {
                     table.PrimaryKey("PK_PostGraduateCourse", x => x.PostGraduateCourseId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Subject",
+                columns: table => new
+                {
+                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SubjectName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subject", x => x.SubjectId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -83,6 +110,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "City");
 
             migrationBuilder.DropTable(
+                name: "Currency");
+
+            migrationBuilder.DropTable(
                 name: "DoctorateCourse");
 
             migrationBuilder.DropTable(
@@ -90,6 +120,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "PostGraduateCourse");
+
+            migrationBuilder.DropTable(
+                name: "Subject");
         }
     }
 }

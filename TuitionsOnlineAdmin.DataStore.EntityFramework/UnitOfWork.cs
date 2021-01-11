@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
@@ -24,14 +25,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ICityRepository cityRepository;
 
+        private readonly ICurrencyRepository currencyRepository;
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository)
+        private readonly ISubjectRepository subjectRepository;
+
+        private readonly IClassRepository classRepository;
+
+
+        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IClassRepository classRepository)
         {
             this.graduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
             this.certificateCourseRepository = certificateCourseRepository;
             this.cityRepository = cityRepository;
+            this.currencyRepository = currencyRepository;
+            this.subjectRepository = subjectRepository;
+            this.classRepository = classRepository;
 
         }
 
@@ -61,5 +71,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         {
            cityRepository.CreateCityRepository(city);
         }
+
+        public void CreateCurrency(Currency currency)
+        {
+            currencyRepository.CreateCurrencyRepository(currency);
+        }
+
+        public void CreateSubject(Subject subject)
+        {
+            subjectRepository.CreateSubjectRepository(subject);
+        }
+        //public void CreateClass(Class class)
+        //{
+        //    classRepository.CreateClassRepository(class);
+        //}
     }
 }
