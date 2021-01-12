@@ -14,7 +14,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IGraduateCourseRepository  graduateCourseRepository;
+        private readonly IGraduateCourseRepository  instanceOfIGraduateCourseRepository;
 
         private readonly IPostGraduateCourseRepository postGraduateCourseRepository;
 
@@ -27,7 +27,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository)
         {
-            this.graduateCourseRepository = graduateCourseRepository;
+            this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
             this.certificateCourseRepository = certificateCourseRepository;
@@ -42,7 +42,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public void CreateGraduateCourse(GraduateCourse graduateCourse)
         {
-            graduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
+            instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
 
 
         }
@@ -60,6 +60,12 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public void CreateCity(City city)
         {
            cityRepository.CreateCityRepository(city);
+        }
+
+        public List<GraduateCourse> ViewGraduateCourses(string searchKey)
+        {
+            var graduateCourseList = instanceOfIGraduateCourseRepository.ViewGraduateCourseRepository(searchKey);
+            return graduateCourseList;
         }
     }
 }

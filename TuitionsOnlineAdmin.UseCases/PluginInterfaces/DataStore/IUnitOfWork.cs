@@ -22,5 +22,8 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To add the single record of the City to the database
         void CreateCity(City city);
 
+        //To view graduate courses
+        List<GraduateCourse> ViewGraduateCourses(string searchKey);
+
     }
 }
