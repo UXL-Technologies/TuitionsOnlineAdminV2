@@ -24,6 +24,9 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         void CreateCurrency(Currency currency);
 
         void CreateSubject(Subject subject);
-      //  void CreateClass(Class class);
+       void CreateGrade(Grade grade);
+        void CreateTeacherVideo(TeacherVideo teacherVideo);
+
+        void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
     }
 }

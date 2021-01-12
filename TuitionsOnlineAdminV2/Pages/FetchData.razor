@@ -9,6 +9,9 @@
 @using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
 
 
 
@@ -20,7 +23,9 @@
 @inject ICreateCityUseCase  createCityUseCase
 @inject ICreateCurrencyUseCase  createCurrencyUseCase
 @inject ICreateSubjectUseCase  createSubjectUseCase
-
+@inject ICreateGradeUseCase  createGradeUseCase
+@inject ICreateTeacherVideoUseCase  createTeacherVideoUseCase
+@inject ICreateHighSchoolBoardUseCase  createHighSchoolBoardUseCase
 
 
 <h1>Graduate Course</h1>
@@ -31,6 +36,9 @@
 <button @onclick="SaveCity">SubmitCity</button>
 <button @onclick="SaveCurrency">SubmitCurrency</button>
 <button @onclick="SaveSubject">SubmitSubject</button>
+<button @onclick="SaveGrade">SubmitGrade</button>
+<button @onclick="SaveTeacherVideo">SubmitTeacherVideo</button>
+<button @onclick="SaveHighSchoolBoard">SubmitHighSchoolBoard</button>
 
 
 @code{
@@ -55,7 +63,6 @@
     {
         createPostGraduateCourseUseCase.CreatePostGraduateCourse(postGraduateCourse);
 
-
     }
 
 
@@ -68,9 +75,6 @@
     protected void SaveDoctorateCourse()
     {
         createDoctorateCourseUseCase.CreateDoctorateCourse(doctorateCourse);
-
-
-
     }
 
     CertificateCourse certificateCourse = new CertificateCourse()
@@ -81,9 +85,6 @@
     protected void SaveCertificateCourse()
     {
         createCertificateCourseUseCase.CreateCertificateCourse(certificateCourse);
-
-
-
     }
 
     City city = new City()
@@ -96,9 +97,6 @@
     protected void SaveCity()
     {
         createCityUseCase.CreateCity(city);
-
-
-
     }
 
 
@@ -112,9 +110,6 @@
     protected void SaveCurrency()
     {
         createCurrencyUseCase.CreateCurrency(currency);
-
-
-
     }
 
     Subject subject = new Subject()
@@ -127,26 +122,47 @@
     protected void SaveSubject()
     {
         createSubjectUseCase.CreateSubject(subject);
+    }
 
+    Grade grade = new Grade()
+    {
 
+        GradeName = "EC",
+        Active = true
+    };
+
+    protected void SaveGrade()
+    {
+        createGradeUseCase.CreateGrade(grade);
 
     }
 
-    //Class class = new Class()
-    //{
 
-    //    ClassName = "EE",
-    //    Active = true
+    TeacherVideo teacherVideo = new TeacherVideo()
+    {
 
-    //};
+        VideoURL = "https://www.w3schools.com/",
+        Active = true
+    };
 
-    //protected void SaveClass()
-    //{
-    //    createClassUseCase.CreateClass(class);
+    protected void SaveTeacherVideo()
+    {
+        createTeacherVideoUseCase.CreateTeacherVideo(teacherVideo);
 
+    }
 
+    HighSchoolBoard highSchoolBoard = new HighSchoolBoard()
+    {
 
-    //}
+        HighSchoolBoardName = "School Of India",
+        Active = true
+    };
+
+    protected void SaveHighSchoolBoard()
+    {
+        createHighSchoolBoardUseCase.CreateHighSchoolBoard(highSchoolBoard);
+
+    }
 
 
 }

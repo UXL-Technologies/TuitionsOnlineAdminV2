@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IGraduateCourseRepository  graduateCourseRepository;
+        private readonly IGraduateCourseRepository graduateCourseRepository;
 
         private readonly IPostGraduateCourseRepository postGraduateCourseRepository;
 
@@ -29,10 +29,14 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ISubjectRepository subjectRepository;
 
-        private readonly IClassRepository classRepository;
+        private readonly IGradeRepository gradeRepository;
 
+        private readonly ITeacherVideoRepository teacherVideoRepository;
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IClassRepository classRepository)
+        private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
+
+        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository,
+            ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository)
         {
             this.graduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
@@ -41,8 +45,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.cityRepository = cityRepository;
             this.currencyRepository = currencyRepository;
             this.subjectRepository = subjectRepository;
-            this.classRepository = classRepository;
-
+            this.gradeRepository = gradeRepository;
+            this.teacherVideoRepository = teacherVideoRepository;
+            this.highSchoolBoardRepository = highSchoolBoardRepository;
         }
 
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -69,7 +74,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public void CreateCity(City city)
         {
-           cityRepository.CreateCityRepository(city);
+            cityRepository.CreateCityRepository(city);
         }
 
         public void CreateCurrency(Currency currency)
@@ -81,9 +86,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         {
             subjectRepository.CreateSubjectRepository(subject);
         }
-        //public void CreateClass(Class class)
-        //{
-        //    classRepository.CreateClassRepository(class);
-        //}
+        public void CreateGrade(Grade grade)
+        {
+            gradeRepository.CreateGradeRepository(grade);
+        }
+
+        public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        {
+            teacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
+        }
+
+        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        {
+            highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+
+        }
     }
 }
+
+

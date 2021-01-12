@@ -29,6 +29,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<Currency> Currency { get; set; }
 
         public DbSet<Subject> Subject { get; set; }
-        public DbSet<Class> Class { get; set; }
+        public DbSet<Grade> Grade { get; set; }
+
+        public DbSet<TeacherVideo> TeacherVideo { get; set; }
+
+        public DbSet<HighSchoolBoard> HighSchoolBoard { get; set; }
     }
 }

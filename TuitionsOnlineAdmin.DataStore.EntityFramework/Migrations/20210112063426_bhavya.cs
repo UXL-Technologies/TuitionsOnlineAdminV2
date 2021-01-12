@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
-    public partial class shravan : Migration
+    public partial class bhavya : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,6 +62,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Grade",
+                columns: table => new
+                {
+                    GradeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GradeName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Grade", x => x.GradeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GraduateCourse",
                 columns: table => new
                 {
@@ -72,6 +85,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GraduateCourse", x => x.GraduateCourseId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HighSchoolBoard",
+                columns: table => new
+                {
+                    HighSchoolBoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HighSchoolBoardName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HighSchoolBoard", x => x.HighSchoolBoardId);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +125,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 {
                     table.PrimaryKey("PK_Subject", x => x.SubjectId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TeacherVideo",
+                columns: table => new
+                {
+                    TeacherVideoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VideoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeacherVideo", x => x.TeacherVideoId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -116,13 +155,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "DoctorateCourse");
 
             migrationBuilder.DropTable(
+                name: "Grade");
+
+            migrationBuilder.DropTable(
                 name: "GraduateCourse");
+
+            migrationBuilder.DropTable(
+                name: "HighSchoolBoard");
 
             migrationBuilder.DropTable(
                 name: "PostGraduateCourse");
 
             migrationBuilder.DropTable(
                 name: "Subject");
+
+            migrationBuilder.DropTable(
+                name: "TeacherVideo");
         }
     }
 }

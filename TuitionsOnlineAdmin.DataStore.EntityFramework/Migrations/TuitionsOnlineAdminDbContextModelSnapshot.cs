@@ -101,6 +101,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.ToTable("DoctorateCourse");
                 });
 
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.Grade", b =>
+                {
+                    b.Property<Guid>("GradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("GradeName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("GradeId");
+
+                    b.ToTable("Grade");
+                });
+
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.GraduateCourse", b =>
                 {
                     b.Property<Guid>("GraduateCourseId")
@@ -118,6 +137,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("GraduateCourseId");
 
                     b.ToTable("GraduateCourse");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.HighSchoolBoard", b =>
+                {
+                    b.Property<Guid>("HighSchoolBoardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HighSchoolBoardName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("HighSchoolBoardId");
+
+                    b.ToTable("HighSchoolBoard");
                 });
 
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.PostGraduateCourse", b =>
@@ -156,6 +194,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("SubjectId");
 
                     b.ToTable("Subject");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.TeacherVideo", b =>
+                {
+                    b.Property<Guid>("TeacherVideoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("VideoURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TeacherVideoId");
+
+                    b.ToTable("TeacherVideo");
                 });
 #pragma warning restore 612, 618
         }
