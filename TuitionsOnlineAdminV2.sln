@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TuitionsOnlineAdminV2", "TuitionsOnlineAdminV2\TuitionsOnlineAdminV2.csproj", "{162AB0EA-767E-408E-8DC8-1430C07340D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuitionsOnlineAdmin.CoreBusiness", "TuitionsOnlineAdmin.CoreBusiness\TuitionsOnlineAdmin.CoreBusiness.csproj", "{8229CE50-4282-4D86-BEE8-8C7E0CA87C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TuitionsOnlineAdmin.CoreBusiness", "TuitionsOnlineAdmin.CoreBusiness\TuitionsOnlineAdmin.CoreBusiness.csproj", "{8229CE50-4282-4D86-BEE8-8C7E0CA87C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuitionsOnlineAdmin.UseCases", "TuitionsOnlineAdmin.UseCases\TuitionsOnlineAdmin.UseCases.csproj", "{A01F7AE8-F1C1-4668-B099-2457F27C135E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TuitionsOnlineAdmin.UseCases", "TuitionsOnlineAdmin.UseCases\TuitionsOnlineAdmin.UseCases.csproj", "{A01F7AE8-F1C1-4668-B099-2457F27C135E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuitionsOnlineAdmin.DataStore.EntityFramework", "TuitionsOnlineAdmin.DataStore.EntityFramework\TuitionsOnlineAdmin.DataStore.EntityFramework.csproj", "{54EFCB08-E8A4-4750-AA9A-44A8EE683E22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TuitionsOnlineAdmin.DataStore.EntityFramework", "TuitionsOnlineAdmin.DataStore.EntityFramework\TuitionsOnlineAdmin.DataStore.EntityFramework.csproj", "{54EFCB08-E8A4-4750-AA9A-44A8EE683E22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
