@@ -12,6 +12,7 @@
 @using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces
 
 
 
@@ -26,6 +27,7 @@
 @inject ICreateGradeUseCase  createGradeUseCase
 @inject ICreateTeacherVideoUseCase  createTeacherVideoUseCase
 @inject ICreateHighSchoolBoardUseCase  createHighSchoolBoardUseCase
+@inject ICreateTeacherBasicInformationUseCase  createTeacherBasicInformationUseCase
 
 
 <h1>Graduate Course</h1>
@@ -39,6 +41,7 @@
 <button @onclick="SaveGrade">SubmitGrade</button>
 <button @onclick="SaveTeacherVideo">SubmitTeacherVideo</button>
 <button @onclick="SaveHighSchoolBoard">SubmitHighSchoolBoard</button>
+<button @onclick="SaveTeacherBasicInformation">SubmitTeacherBasicInformation</button>
 
 
 @code{
@@ -161,6 +164,25 @@
     protected void SaveHighSchoolBoard()
     {
         createHighSchoolBoardUseCase.CreateHighSchoolBoard(highSchoolBoard);
+
+    }
+
+    TeacherBasicInformation teacherBasicInformation = new TeacherBasicInformation()
+    {
+
+        TeacherFullName = "Teacher",
+        Active = true,
+        EmailAddress="abc@gmail.com",
+        ContactTeleNumber=1122334455,
+        TeacherPhotographUrl="url.com",
+        PreferredLanguage="Kannada",
+        AlternateLanguage="English",
+        ExperienceInYears=2
+    };
+
+    protected void SaveTeacherBasicInformation()
+    {
+        createTeacherBasicInformationUseCase.CreateTeacherBasicInformation(teacherBasicInformation);
 
     }
 

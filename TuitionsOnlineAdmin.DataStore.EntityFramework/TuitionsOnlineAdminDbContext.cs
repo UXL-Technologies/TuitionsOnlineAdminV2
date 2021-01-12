@@ -34,5 +34,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<TeacherVideo> TeacherVideo { get; set; }
 
         public DbSet<HighSchoolBoard> HighSchoolBoard { get; set; }
+
+        public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
     }
 }

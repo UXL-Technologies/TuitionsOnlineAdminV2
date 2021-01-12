@@ -10,7 +10,7 @@ using TuitionsOnlineAdmin.DataStore.EntityFramework;
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
     [DbContext(typeof(TuitionsOnlineAdminDbContext))]
-    [Migration("20210112063426_bhavya")]
+    [Migration("20210112085709_bhavya")]
     partial class bhavya
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,41 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                     b.HasKey("SubjectId");
 
                     b.ToTable("Subject");
+                });
+
+            modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.TeacherBasicInformation", b =>
+                {
+                    b.Property<Guid>("TeacherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AlternateLanguage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ContactTeleNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmailAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExperienceInYears")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PreferredLanguage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherPhotographUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TeacherId");
+
+                    b.ToTable("TeacherBasicInformation");
                 });
 
             modelBuilder.Entity("TuitionsOnlineAdmin.CoreBusiness.TeacherVideo", b =>

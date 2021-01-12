@@ -17,12 +17,14 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid GradeId { get; set; }
+
         //property to store GradeName 
         [Required(ErrorMessage = "Please enter the name of the grade.")]
         [MinLength(3, ErrorMessage = "Please enter a minimum of 3 characters.")]
         [MaxLength(50, ErrorMessage = "The grade name you have entered is too long. Please restrict the name to less than 50 alphabets.")]
         [RegularExpression(@"^[A-Za-z\s]{1,}[\.]{0,}[A-Za-z.\s]{0,}", ErrorMessage = "Please use only alphabets in the name of the grade.")]
         public string GradeName { get; set; }
+
         //property to store Active status 
         public bool Active { get; set; } = true;
     }

@@ -16,12 +16,14 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid HighSchoolBoardId { get; set; }
+
         //property to store HighSchoolBoardName 
         [Required(ErrorMessage = "Please enter the name of the high school board.")]
         [MinLength(3, ErrorMessage = "Please enter a minimum of 3 characters.")]
         [MaxLength(100, ErrorMessage = "The high school board name you have entered is too long. Please restrict the name to less than 100 alphabets.")]
         [RegularExpression(@"^[A-Za-z\s]{1,}[\.]{0,}[A-Za-z.\s]{0,}", ErrorMessage = "Please use only alphabets in the name of the high school board.")]
         public string HighSchoolBoardName { get; set; }
+
         //property to store Active status 
         public bool Active { get; set; } = true;
     }

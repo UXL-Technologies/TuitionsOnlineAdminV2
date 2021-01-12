@@ -35,8 +35,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
 
+        private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
+
         public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository,
-            ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository)
+            ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
+            ITeacherBasicInformationRepository teacherBasicInformationRepository)
         {
             this.graduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
@@ -48,6 +51,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.gradeRepository = gradeRepository;
             this.teacherVideoRepository = teacherVideoRepository;
             this.highSchoolBoardRepository = highSchoolBoardRepository;
+            this.teacherBasicInformationRepository = teacherBasicInformationRepository;
         }
 
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -99,6 +103,12 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
         {
             highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+
+        }
+
+        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        {
+            teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
 
         }
     }

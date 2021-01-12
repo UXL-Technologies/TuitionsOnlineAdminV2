@@ -127,6 +127,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TeacherBasicInformation",
+                columns: table => new
+                {
+                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactTeleNumber = table.Column<int>(type: "int", nullable: false),
+                    TeacherPhotographUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PreferredLanguage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AlternateLanguage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExperienceInYears = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeacherBasicInformation", x => x.TeacherId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeacherVideo",
                 columns: table => new
                 {
@@ -168,6 +187,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "Subject");
+
+            migrationBuilder.DropTable(
+                name: "TeacherBasicInformation");
 
             migrationBuilder.DropTable(
                 name: "TeacherVideo");

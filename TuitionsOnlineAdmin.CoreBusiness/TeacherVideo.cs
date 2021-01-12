@@ -16,8 +16,11 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid TeacherVideoId { get; set; }
+
         //property to store VideoURL 
+        [Url(ErrorMessage = "This does not seem like an url . Please check and enter again.")]
         public string VideoURL { get; set; }
+
         //property to store Active status 
         public bool Active { get; set; } = true;
     }
