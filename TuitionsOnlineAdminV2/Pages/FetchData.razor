@@ -7,13 +7,28 @@
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
-{
+@using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces
+
+
+
 
 @inject ICreateGraduateCourseUseCase  createGraduateCourseUseCase
 @inject ICreatePostGraduateCourseUseCase  createPostGraduateCourseUseCase
 @inject ICreateDoctorateCourseUseCase  createDoctorateCourseUseCase
 @inject ICreateCertificateCourseUseCase  createCertificateCourseUseCase
 @inject ICreateCityUseCase  createCityUseCase
+@inject ICreateCurrencyUseCase  createCurrencyUseCase
+@inject ICreateSubjectUseCase  createSubjectUseCase
+@inject ICreateGradeUseCase  createGradeUseCase
+@inject ICreateTeacherVideoUseCase  createTeacherVideoUseCase
+@inject ICreateHighSchoolBoardUseCase  createHighSchoolBoardUseCase
+@inject ICreateTeacherBasicInformationUseCase  createTeacherBasicInformationUseCase
+
 
 @*<p>This component demonstrates fetching data from a service</p>
 =======*@
@@ -23,6 +38,13 @@
 <button @onclick="SaveDoctorateCourse">SubmitDoctorateCourse</button>
 <button @onclick="SaveCertificateCourse">SubmitCertificateCourse</button>
 <button @onclick="SaveCity">SubmitCity</button>
+<button @onclick="SaveCurrency">SubmitCurrency</button>
+<button @onclick="SaveSubject">SubmitSubject</button>
+<button @onclick="SaveGrade">SubmitGrade</button>
+<button @onclick="SaveTeacherVideo">SubmitTeacherVideo</button>
+<button @onclick="SaveHighSchoolBoard">SubmitHighSchoolBoard</button>
+<button @onclick="SaveTeacherBasicInformation">SubmitTeacherBasicInformation</button>
+
 
 @code{
     GraduateCourse graduateCourse = new GraduateCourse()
@@ -47,13 +69,7 @@
     {
         createPostGraduateCourseUseCase.CreatePostGraduateCourse(postGraduateCourse);
 
-
-
     }
-
-
-
-
 
 
     DoctorateCourse doctorateCourse = new DoctorateCourse()
@@ -65,9 +81,6 @@
     protected void SaveDoctorateCourse()
     {
         createDoctorateCourseUseCase.CreateDoctorateCourse(doctorateCourse);
-
-
-
     }
 
     CertificateCourse certificateCourse = new CertificateCourse()
@@ -78,9 +91,6 @@
     protected void SaveCertificateCourse()
     {
         createCertificateCourseUseCase.CreateCertificateCourse(certificateCourse);
-
-
-
     }
 
     City city = new City()
@@ -93,11 +103,91 @@
     protected void SaveCity()
     {
         createCityUseCase.CreateCity(city);
+    }
 
 
+    Currency currency = new Currency()
+    {
+
+        CurrencyName = "INR",
+        Active = true,
+        Default = true
+    };
+    protected void SaveCurrency()
+    {
+        createCurrencyUseCase.CreateCurrency(currency);
+    }
+
+    Subject subject = new Subject()
+    {
+
+        SubjectName = "ME",
+        Active = true
+
+    };
+    protected void SaveSubject()
+    {
+        createSubjectUseCase.CreateSubject(subject);
+    }
+
+    Grade grade = new Grade()
+    {
+
+        GradeName = "EC",
+        Active = true
+    };
+
+    protected void SaveGrade()
+    {
+        createGradeUseCase.CreateGrade(grade);
 
     }
 
+
+    TeacherVideo teacherVideo = new TeacherVideo()
+    {
+
+        VideoURL = "https://www.w3schools.com/",
+        Active = true
+    };
+
+    protected void SaveTeacherVideo()
+    {
+        createTeacherVideoUseCase.CreateTeacherVideo(teacherVideo);
+
+    }
+
+    HighSchoolBoard highSchoolBoard = new HighSchoolBoard()
+    {
+
+        HighSchoolBoardName = "School Of India",
+        Active = true
+    };
+
+    protected void SaveHighSchoolBoard()
+    {
+        createHighSchoolBoardUseCase.CreateHighSchoolBoard(highSchoolBoard);
+
+    }
+
+    TeacherBasicInformation teacherBasicInformation = new TeacherBasicInformation()
+    {
+
+        TeacherFullName = "Teacher",
+        Active = true,
+        EmailAddress="abc@gmail.com",
+        ContactTeleNumber=1122334455,
+        TeacherPhotographUrl="url.com",
+        PreferredLanguage="Kannada",
+        AlternateLanguage="English",
+        ExperienceInYears=2
+    };
+
+    protected void SaveTeacherBasicInformation()
+    {
+        createTeacherBasicInformationUseCase.CreateTeacherBasicInformation(teacherBasicInformation);
+
+    }
 
 
 }

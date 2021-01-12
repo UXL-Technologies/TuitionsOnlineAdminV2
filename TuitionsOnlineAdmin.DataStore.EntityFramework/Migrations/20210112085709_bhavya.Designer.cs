@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TuitionsOnlineAdmin.DataStore.EntityFramework;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
     [DbContext(typeof(TuitionsOnlineAdminDbContext))]
-    partial class TuitionsOnlineAdminDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210112085709_bhavya")]
+    partial class bhavya
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
