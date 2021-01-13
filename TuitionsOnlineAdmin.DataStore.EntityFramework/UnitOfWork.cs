@@ -23,15 +23,33 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         private readonly ICertificateCourseRepository certificateCourseRepository;
 
         private readonly ICityRepository cityRepository;
+        private readonly ICurrencyRepository currencyRepository;
+
+        private readonly ISubjectRepository subjectRepository;
+
+        private readonly IGradeRepository gradeRepository;
+
+        private readonly ITeacherVideoRepository teacherVideoRepository;
+
+        private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
+
+        private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
 
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository)
+        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
+            ITeacherBasicInformationRepository teacherBasicInformationRepository)
         {
             this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
             this.certificateCourseRepository = certificateCourseRepository;
             this.cityRepository = cityRepository;
+            this.currencyRepository = currencyRepository;
+            this.subjectRepository = subjectRepository;
+            this.gradeRepository = gradeRepository;
+            this.teacherVideoRepository = teacherVideoRepository;
+            this.highSchoolBoardRepository = highSchoolBoardRepository;
+            this.teacherBasicInformationRepository = teacherBasicInformationRepository;
 
         }
 
@@ -70,32 +88,33 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public void CreateCurrency(Currency currency)
         {
-            throw new NotImplementedException();
-        }
-
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
-        {
-            throw new NotImplementedException();
+            currencyRepository.CreateCurrencyRepository(currency);
         }
 
         public void CreateSubject(Subject subject)
         {
-            throw new NotImplementedException();
+            subjectRepository.CreateSubjectRepository(subject);
         }
-
         public void CreateGrade(Grade grade)
         {
-            throw new NotImplementedException();
+            gradeRepository.CreateGradeRepository(grade);
+        }
+
+        public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        {
+            teacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
+        }
+
+        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        {
+            highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+
+        }
+
+        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        {
+            teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+
         }
     }
 }

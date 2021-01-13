@@ -8,7 +8,7 @@ using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
 
 namespace TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen
 {
-   public class CreateSubjectUseCase
+   public class CreateSubjectUseCase: ICreateSubjectUseCase
     {
         private readonly IUnitOfWork unitOfWork;
         public CreateSubjectUseCase(IUnitOfWork unitOfWork)
