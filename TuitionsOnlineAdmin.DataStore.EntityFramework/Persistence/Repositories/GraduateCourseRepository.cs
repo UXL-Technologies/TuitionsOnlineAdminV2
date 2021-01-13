@@ -28,6 +28,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             instanceOfDbContext.SaveChanges();
         }
 
+        public string UpdateGraduateCourseRepository(GraduateCourse graduateCourse)
+        {
+            instanceOfDbContext.GraduateCourse.Add(graduateCourse);
+            instanceOfDbContext.SaveChanges();
+            return "Done";
+        }
+
         //To view graduate courses based on the search criteria 
         public List<GraduateCourse> ViewGraduateCourseRepository(string searchKey)
         {

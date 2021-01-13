@@ -30,6 +30,8 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
        void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
         void CreateSubject(Subject subject);
         void CreateGrade(Grade grade);
+        string UpdateGraduateCourse(GraduateCourse graduate);
+    
 
     }
 }

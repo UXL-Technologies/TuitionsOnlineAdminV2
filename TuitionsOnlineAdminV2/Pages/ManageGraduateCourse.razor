@@ -2,81 +2,99 @@
     Date: 11-01-2021
     Aim : To create an graduate course,edit,deactivate and display the graduate courses*@
 
+
+
 @page "/graduatecourse"
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
-@inject ICreateGraduateCourseUseCase  instanceOfICreateGraduateCourseUseCase
-@inject IViewGraduateCourseUseCase  instanceOfIViewGraduateCourseUseCase
+@using TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen.Interfaces
+@inject ICreateGraduateCourseUseCase instanceOfICreateGraduateCourseUseCase
+@inject IViewGraduateCourseUseCase instanceOfIViewGraduateCourseUseCase
+@inject IUpdateGraduateCourseUseCase instanceOfIUpdateGraduateCourseUseCase
 
-    <div>
-        <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
-                   ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
-                   SizeMode="SizeMode.Small"
-                   NullText="Search for graduate courses ...."></DxTextBox>
-    </div>
-    <br />
-    <DxDataGrid Data="@graduateCourseList"
-                RowInserting="@((newCourse) => CreateGraduateCourse(newCourse))"
-                PageSize="5">
-        <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="500px" />
-        <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" />
-        <DxDataGridCommandColumn Width="100px" />
-    </DxDataGrid>
 
-    @code {
-        @* To hold the hold the Course details*@
-        IEnumerable<GraduateCourse> graduateCourseList = Enumerable.Empty<GraduateCourse>();
-        @*To hold the search text*@
-        String searchkey;
-        @*The init method is to inoke the get graduate  course list*@
-        protected override void OnInitialized()
+
+<div>
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for graduate courses ...."></DxTextBox>
+</div>
+<br />
+<DxDataGrid Data="@graduateCourseList"
+            RowInserting="@((newCourse) => CreateGraduateCourse(newCourse))"
+            RowUpdating="@((updatingCourse, newValue) => UpdateGraduateCourse(updatingCourse, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="500px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" />
+    <DxDataGridCommandColumn Width="100px" />
+</DxDataGrid>
+
+
+
+@code {@* To hold the hold the Course details*@ IEnumerable<GraduateCourse> graduateCourseList = Enumerable.Empty<GraduateCourse>(); @*To hold the search text*@ String searchkey; @*The init method is to inoke the get graduate  course list*@ protected override void OnInitialized()
+{ @*To invoke the GetGraduateCourses() to fetch the graduate course list to be displayed*@ // GetGraduateCourses(searchkey);
+
+
+
+} @*To get graduate course list to be displayed in the data grid columns*@ public void GetGraduateCourses(String searchkeyword)
+{
+    graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
+}
+void OnTextChanged(String searchText)
+{
+    Console.WriteLine(searchText); @*The StateHasChanged makes sure that the component is notified to re - render the data*@ InvokeAsync(StateHasChanged);
+    searchkey = searchText; @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@ GetGraduateCourses(searchkey);
+} @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@ void CreateGraduateCourse(Dictionary<string, object> newCourse)
+{ @* To hold the new course to be created *@ GraduateCourse createGraduateCourse = new GraduateCourse(); @*The new value comes in the form of ke value pair*@ foreach (var field in newCourse.Keys)
+{ @*For each incoming key we check and assign the values to newGraduateCourse *@ switch (field)
+{
+    case "GraduateCourseName":
+        createGraduateCourse.GraduateCourseName = (string)newCourse[field];
+        break;
+    case "Active":
+        createGraduateCourse.Active = (bool)newCourse[field];
+        break;
+}
+}
+Console.WriteLine(createGraduateCourse); @*To invoke the method to create new graduate course*@ instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse); @*The StateHasChanged makes sure that the component is notified to re-render the data*@ InvokeAsync(StateHasChanged); @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@GetGraduateCourses(searchkey);
+
+
+
+}
+
+
+
+void UpdateGraduateCourse(GraduateCourse updatingCourse, Dictionary<string, object> newValue)
+{
+    Console.WriteLine(updatingCourse);
+
+    GraduateCourse updateGraduateCourse = new GraduateCourse();
+
+
+
+    foreach (var course in newValue.Keys)
+    {
+        switch (course)
         {
-
-            @*To invoke the GetGraduateCourses() to fetch the graduate course list to be displayed*@
-           // GetGraduateCourses(searchkey);
-
+            case "GraduateCourseName":
+                updateGraduateCourse.GraduateCourseName = (string)newValue[course];
+                break;
+            case "Active":
+                updateGraduateCourse.Active = (bool)newValue[course];
+                break;
         }
-        @*To get graduate course list to be displayed in the data grid columns*@
-        public void GetGraduateCourses(String searchkeyword)
-        {
-            graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
-        }
-        void OnTextChanged(String searchText)
-        {
-            Console.WriteLine(searchText);
-            @*The StateHasChanged makes sure that the component is notified to re - render the data*@
-            InvokeAsync(StateHasChanged);
-            searchkey = searchText;
-            @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-            GetGraduateCourses(searchkey);
-        }
-        @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-        void CreateGraduateCourse(Dictionary<string, object> newCourse)
-        {
-            @* To hold the new course to be created *@
-            GraduateCourse createGraduateCourse = new GraduateCourse();
-            @*The new value comes in the form of ke value pair*@
-            foreach (var field in newCourse.Keys)
-            {
-                @*For each incoming key we check and assign the values to newGraduateCourse *@
-                switch (field)
-                {
-                    case "GraduateCourseName":
-                        createGraduateCourse.GraduateCourseName = (string)newCourse[field];
-                        break;
-                    case "Active":
-                        createGraduateCourse.Active = (bool)newCourse[field];
-                        break;
-                }
-            }
-            Console.WriteLine(createGraduateCourse);
-            @*To invoke the method to create new graduate course*@
-            instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
-            @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-            InvokeAsync(StateHasChanged);
-            @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-            GetGraduateCourses(searchkey);
-
-        }
-
     }
+    Console.WriteLine(updateGraduateCourse);
+    instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(updateGraduateCourse);
+    InvokeAsync(StateHasChanged);
+    GetGraduateCourses(searchkey);
+
+
+
+}
+
+
+
+
+}

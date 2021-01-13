@@ -23,6 +23,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         private readonly ICertificateCourseRepository certificateCourseRepository;
 
         private readonly ICityRepository cityRepository;
+
         private readonly ICurrencyRepository currencyRepository;
 
         private readonly ISubjectRepository subjectRepository;
@@ -34,6 +35,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
 
         private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
+
+        
 
 
         public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
@@ -114,6 +117,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
             teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+
+        }
+
+        public string UpdateGraduateCourse(GraduateCourse graduate)
+        {
+            instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduate);
+            return "Done";
 
         }
     }
