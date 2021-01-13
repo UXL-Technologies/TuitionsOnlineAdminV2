@@ -24,6 +24,12 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //To view graduate courses
         List<GraduateCourse> ViewGraduateCourses(string searchKey);
+        void CreateCurrency(Currency currency);
+        void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+        void CreateTeacherVideo(TeacherVideo teacherVideo);
+        void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        void CreateSubject(Subject subject);
+        void CreateGrade(Grade grade);
 
     }
 }

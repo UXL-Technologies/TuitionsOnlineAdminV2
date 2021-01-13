@@ -1,9 +1,4 @@
-﻿//Authors: SA, BM, SM
-// Date:08-Jan-2021
-//Aim: defining the Database context
-
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
