@@ -1,0 +1,32 @@
+﻿
+//Authors: SA, BM, SM
+//Date:11-Jan-2021
+//Aim: defining the Repository for City
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
+
+namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
+{
+    public class CityRepository : ICityRepository 
+        
+    {
+        private readonly TuitionsOnlineAdminDbContext _database;
+
+        public CityRepository(TuitionsOnlineAdminDbContext _database)
+        {
+
+            this._database = _database;
+        }
+
+        //To create a single record for City
+        public void CreateCityRepository(City city)
+        {
+            _database.City.Add(city);
+            _database.SaveChanges();
+        }
+    }
+}
