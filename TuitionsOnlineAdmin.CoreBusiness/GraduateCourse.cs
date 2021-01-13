@@ -13,8 +13,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
    public class GraduateCourse
     {
         //property to store gradutae course Id
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public Guid GraduateCourseId { get; set; }
         //property to store gradutae course name
         [Required(ErrorMessage = "Please enter the name of the graduate course.")]

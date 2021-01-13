@@ -122,7 +122,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public string UpdateGraduateCourse(GraduateCourse graduate)
         {
-            instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduate);
+            instanceOfIGraduateCourseRepository.UpdateGraduateCourseRepository(graduate);
             return "Done";
 
         }

@@ -30,7 +30,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         public string UpdateGraduateCourseRepository(GraduateCourse graduateCourse)
         {
-            instanceOfDbContext.GraduateCourse.Add(graduateCourse);
+            GraduateCourse graduateCourseToBeUpdated = instanceOfDbContext.GraduateCourse.FirstOrDefault(s => s.GraduateCourseId == graduateCourse.GraduateCourseId);
+            graduateCourseToBeUpdated = graduateCourse;
+            instanceOfDbContext.GraduateCourse.Append(graduateCourseToBeUpdated);
             instanceOfDbContext.SaveChanges();
             return "Done";
         }
