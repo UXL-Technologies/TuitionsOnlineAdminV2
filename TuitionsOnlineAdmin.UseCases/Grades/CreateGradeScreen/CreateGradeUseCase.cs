@@ -13,18 +13,18 @@ namespace TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen
 {
     public class CreateGradeUseCase : ICreateGradeUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateGradeUseCase(IUnitOfWork unitOfWork)
+        public CreateGradeUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         public void CreateGrade(Grade grade)
         {
 
             Console.WriteLine("I have reached create grade");
-            unitOfWork.CreateGrade(grade);
+            instanceOfIUnitOfWork.CreateGrade(grade);
         }
     }
 }

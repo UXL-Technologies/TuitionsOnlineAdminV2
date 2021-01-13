@@ -12,20 +12,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class TeacherBasicInformationRepository : ITeacherBasicInformationRepository
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
 
-        public TeacherBasicInformationRepository(TuitionsOnlineAdminDbContext _database)
+        public TeacherBasicInformationRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
 
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
         //To create a single record for TeacherBasicInformation
 
         public void CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation)
         {
-            _database.TeacherBasicInformation.Add(teacherBasicInformation);
-            _database.SaveChanges();
+            instanceOfDbContext.TeacherBasicInformation.Add(teacherBasicInformation);
+            instanceOfDbContext.SaveChanges();
         }
     }
 }

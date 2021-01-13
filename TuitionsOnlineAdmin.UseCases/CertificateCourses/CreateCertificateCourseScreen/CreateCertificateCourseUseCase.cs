@@ -14,16 +14,16 @@ namespace TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourse
 {
    public class CreateCertificateCourseUseCase : ICreateCertificateCourseUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public  CreateCertificateCourseUseCase(IUnitOfWork unitOfWork)
+        public  CreateCertificateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         public void CreateCertificateCourse(CertificateCourse certificateCourse)
         {
             Console.WriteLine("I have reached CreateCertificateCourse ");
-            unitOfWork.CreateCertificateCourse(certificateCourse);
+            instanceOfIUnitOfWork.CreateCertificateCourse(certificateCourse);
         }
     }
 }

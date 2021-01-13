@@ -31,5 +31,9 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         void CreateSubject(Subject subject);
         void CreateGrade(Grade grade);
 
+
+        string UpdateGraduateCourse(GraduateCourse graduateCourse);
+
+
     }
 }

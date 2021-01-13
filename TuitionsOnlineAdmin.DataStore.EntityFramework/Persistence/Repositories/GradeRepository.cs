@@ -12,17 +12,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class GradeRepository : IGradeRepository
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public GradeRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public GradeRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
         //To create a single record for Grade
         public void CreateGradeRepository(Grade grade)
         {
-            _database.Grade.Add(grade);
-            _database.SaveChanges();
+            instanceOfDbContext.Grade.Add(grade);
+            instanceOfDbContext.SaveChanges();
         }
     }
 }

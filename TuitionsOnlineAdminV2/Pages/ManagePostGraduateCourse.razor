@@ -1,0 +1,54 @@
+﻿@*Author:SA,BM,SM , Date:13-01-2021
+    Aim:To create view edit the postgraduate course*@
+
+@page "/postgraduatecourse"
+
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
+@inject ICreatePostGraduateCourseUseCase  instanceOfICreatePostGraduateCourseUseCase
+
+<h3>ManagePostGraduateCourse</h3>
+@*Table*@
+<DxDataGrid Data="@postGraduateCourseList"
+            RowInserting="@((newCourse) => CreatePostGraduateCourse(newCourse))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(PostGraduateCourse.PostGraduateCourseName)" Width="500px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(PostGraduateCourse.Active)" />
+    <DxDataGridCommandColumn Width="100px" />
+</DxDataGrid>
+
+
+@code {
+
+    @* To hold the hold the Course details*@
+    IEnumerable<PostGraduateCourse> postGraduateCourseList = Enumerable.Empty<PostGraduateCourse>();
+
+    @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
+    void CreatePostGraduateCourse(Dictionary<string, object> newCourse)
+    {
+        
+        @* To hold the new course to be created *@
+        PostGraduateCourse createPostGraduateCourse = new PostGraduateCourse();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newCourse.Keys)
+        {
+            @*For each incoming key we check and assign the values to newGraduateCourse *@
+            switch (field)
+            {
+                case "PostGraduateCourseName":
+                    createPostGraduateCourse.PostGraduateCourseName = (string)newCourse[field];
+                    break;
+                case "Active":
+                    createPostGraduateCourse.Active = (bool)newCourse[field];
+                    break;
+            }
+        }
+        
+
+        @*To invoke the method to create new graduate course*@
+        instanceOfICreatePostGraduateCourseUseCase.CreatePostGraduateCourse(createPostGraduateCourse);
+
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+
+    }
+}

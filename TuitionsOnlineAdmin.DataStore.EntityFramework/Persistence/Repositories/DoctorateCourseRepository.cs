@@ -14,18 +14,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class DoctorateCourseRepository : IDoctorateCourseRepository
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public DoctorateCourseRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public DoctorateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
 
         }
 
         //To create a single record for DoctorateCourse
         public void CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse )
         {
-            _database.DoctorateCourse.Add(doctorateCourse);
-            _database.SaveChanges();
+            instanceOfDbContext.DoctorateCourse.Add(doctorateCourse);
+            instanceOfDbContext.SaveChanges();
         }
     }
 }

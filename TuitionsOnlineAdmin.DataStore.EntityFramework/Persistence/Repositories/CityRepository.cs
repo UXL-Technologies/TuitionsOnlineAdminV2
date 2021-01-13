@@ -14,19 +14,19 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     public class CityRepository : ICityRepository 
         
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
 
-        public CityRepository(TuitionsOnlineAdminDbContext _database)
+        public CityRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
 
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
         //To create a single record for City
         public void CreateCityRepository(City city)
         {
-            _database.City.Add(city);
-            _database.SaveChanges();
+            instanceOfDbContext.City.Add(city);
+            instanceOfDbContext.SaveChanges();
         }
     }
 }

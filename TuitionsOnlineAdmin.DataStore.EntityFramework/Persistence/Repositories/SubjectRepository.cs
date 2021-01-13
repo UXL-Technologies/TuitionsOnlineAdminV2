@@ -12,17 +12,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class SubjectRepository : ISubjectRepository
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public SubjectRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public SubjectRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
 
         }
         //To create a single record for Subject
         public void CreateSubjectRepository(Subject subject)
         {
-            _database.Subject.Add(subject);
-            _database.SaveChanges();
+            instanceOfDbContext.Subject.Add(subject);
+            instanceOfDbContext.SaveChanges();
 
         }
     }

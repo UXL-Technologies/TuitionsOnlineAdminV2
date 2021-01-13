@@ -14,16 +14,16 @@ namespace TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen
 {
     public class CreateCurrencyUseCase : ICreateCurrencyUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateCurrencyUseCase(IUnitOfWork unitOfWork)
+        public CreateCurrencyUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
         public void CreateCurrency(Currency currency)
         {
-            unitOfWork.CreateCurrency(currency);
+            instanceOfIUnitOfWork.CreateCurrency(currency);
         }
     }
 }

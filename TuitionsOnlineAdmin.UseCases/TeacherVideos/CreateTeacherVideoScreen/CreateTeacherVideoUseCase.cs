@@ -13,17 +13,17 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen
 {
     public class CreateTeacherVideoUseCase : ICreateTeacherVideoUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateTeacherVideoUseCase(IUnitOfWork unitOfWork)
+        public CreateTeacherVideoUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         public void CreateTeacherVideo(TeacherVideo teacherVideo)
         {
             Console.WriteLine("I have reached create teacherVideo");
-            unitOfWork.CreateTeacherVideo(teacherVideo);
+            instanceOfIUnitOfWork.CreateTeacherVideo(teacherVideo);
         }
     }
 }

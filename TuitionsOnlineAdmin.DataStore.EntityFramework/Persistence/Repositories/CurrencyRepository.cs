@@ -14,17 +14,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     public class CurrencyRepository : ICurrencyRepository
 
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public CurrencyRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public CurrencyRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
 
         }
         //To create a single record for Currency
         public void CreateCurrencyRepository(Currency currency)
         {
-            _database.Currency.Add(currency);
-            _database.SaveChanges();
+            instanceOfDbContext.Currency.Add(currency);
+            instanceOfDbContext.SaveChanges();
 
         }
     }

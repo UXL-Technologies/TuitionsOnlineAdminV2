@@ -13,14 +13,14 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScree
 {
     public class CreateGraduateCourseUseCase : ICreateGraduateCourseUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateGraduateCourseUseCase(IUnitOfWork unitOfWork) {
-            this.unitOfWork = unitOfWork;
+        public CreateGraduateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork) {
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         public void CreateGraduateCourse(GraduateCourse graduateCourse)
         {
-            unitOfWork.CreateGraduateCourse(graduateCourse);
+            instanceOfIUnitOfWork.CreateGraduateCourse(graduateCourse);
         }
     }
 }

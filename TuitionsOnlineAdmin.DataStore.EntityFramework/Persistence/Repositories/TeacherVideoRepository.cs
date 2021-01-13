@@ -13,18 +13,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     public class TeacherVideoRepository : ITeacherVideoRepository
     {
 
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public TeacherVideoRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public TeacherVideoRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
 
         //To create a single record for TeacherVideo
         public void CreateTeacherVideoRepository(TeacherVideo teacherVideo)
         {
-            _database.TeacherVideo.Add(teacherVideo);
-            _database.SaveChanges();
+            instanceOfDbContext.TeacherVideo.Add(teacherVideo);
+            instanceOfDbContext.SaveChanges();
         }
 
 

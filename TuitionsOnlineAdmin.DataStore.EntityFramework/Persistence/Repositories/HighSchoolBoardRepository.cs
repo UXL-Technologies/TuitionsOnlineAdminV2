@@ -12,17 +12,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class HighSchoolBoardRepository : IHighSchoolBoardRepository
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public HighSchoolBoardRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public HighSchoolBoardRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
         //To create a single record for HighSchoolBoard
         public void CreateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard)
         {
-            _database.HighSchoolBoard.Add(highSchoolBoard);
-            _database.SaveChanges();
+            instanceOfDbContext.HighSchoolBoard.Add(highSchoolBoard);
+            instanceOfDbContext.SaveChanges();
         }
 
     }

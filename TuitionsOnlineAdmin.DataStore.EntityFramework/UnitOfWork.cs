@@ -16,68 +16,79 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
     {
         private readonly IGraduateCourseRepository  instanceOfIGraduateCourseRepository;
 
-        private readonly IPostGraduateCourseRepository postGraduateCourseRepository;
+        private readonly IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository;
 
-        private readonly IDoctorateCourseRepository doctorateCourseRepository;
+        private readonly IDoctorateCourseRepository instanceOfIDoctorateCourseRepository;
 
-        private readonly ICertificateCourseRepository certificateCourseRepository;
+        private readonly ICertificateCourseRepository instanceOfICertificateCourseRepository;
 
-        private readonly ICityRepository cityRepository;
-        private readonly ICurrencyRepository currencyRepository;
+        private readonly ICityRepository instanceOfICityRepository;
 
-        private readonly ISubjectRepository subjectRepository;
+        private readonly ICurrencyRepository instanceOfICurrencyRepository;
 
-        private readonly IGradeRepository gradeRepository;
+        private readonly ISubjectRepository instanceOfISubjectRepository;
 
-        private readonly ITeacherVideoRepository teacherVideoRepository;
+        private readonly IGradeRepository instanceOfIGradeRepository;
 
-        private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
+        private readonly ITeacherVideoRepository instanceOfITeacherVideoRepository;
 
-        private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
+        private readonly IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository;
+
+        private readonly ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository;
 
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
-            ITeacherBasicInformationRepository teacherBasicInformationRepository)
+        public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
+            ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
+            ICurrencyRepository instanceOfICurrencyRepository, ISubjectRepository instanceOfISubjectRepository, IGradeRepository instanceOfIGradeRepository,
+            ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository,
+            ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository)
         {
-            this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
-            this.postGraduateCourseRepository = postGraduateCourseRepository;
-            this.doctorateCourseRepository = doctorateCourseRepository;
-            this.certificateCourseRepository = certificateCourseRepository;
-            this.cityRepository = cityRepository;
-            this.currencyRepository = currencyRepository;
-            this.subjectRepository = subjectRepository;
-            this.gradeRepository = gradeRepository;
-            this.teacherVideoRepository = teacherVideoRepository;
-            this.highSchoolBoardRepository = highSchoolBoardRepository;
-            this.teacherBasicInformationRepository = teacherBasicInformationRepository;
+            this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
+            this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
+            this.instanceOfIDoctorateCourseRepository = instanceOfIDoctorateCourseRepository;
+            this.instanceOfICertificateCourseRepository = instanceOfICertificateCourseRepository;
+            this.instanceOfICityRepository = instanceOfICityRepository;
+            this.instanceOfICurrencyRepository = instanceOfICurrencyRepository;
+            this.instanceOfISubjectRepository = instanceOfISubjectRepository;
+            this.instanceOfIGradeRepository = instanceOfIGradeRepository;
+            this.instanceOfITeacherVideoRepository = instanceOfITeacherVideoRepository;
+            this.instanceOfIHighSchoolBoardRepository = instanceOfIHighSchoolBoardRepository;
+            this.instanceOfITeacherBasicInformationRepository = instanceOfITeacherBasicInformationRepository;
 
         }
 
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
-            doctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
+            instanceOfIDoctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
         }
 
         public void CreateGraduateCourse(GraduateCourse graduateCourse)
         {
             instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
+        }
 
+
+        //To updateGraduateCourse
+        public string UpdateGraduateCourse(GraduateCourse graduateCourse)
+        {
+            instanceOfIGraduateCourseRepository.UpdateGraduateCourseRepository(graduateCourse);
+            return "done";
 
         }
 
         public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
-            postGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
+            instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
         }
 
         public void CreateCertificateCourse(CertificateCourse certificateCourse)
         {
-            certificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
+            instanceOfICertificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
         }
 
         public void CreateCity(City city)
         {
-           cityRepository.CreateCityRepository(city);
+            instanceOfICityRepository.CreateCityRepository(city);
         }
 
         public List<GraduateCourse> ViewGraduateCourses(string searchKey)
@@ -88,32 +99,32 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public void CreateCurrency(Currency currency)
         {
-            currencyRepository.CreateCurrencyRepository(currency);
+            instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
         }
 
         public void CreateSubject(Subject subject)
         {
-            subjectRepository.CreateSubjectRepository(subject);
+            instanceOfISubjectRepository.CreateSubjectRepository(subject);
         }
         public void CreateGrade(Grade grade)
         {
-            gradeRepository.CreateGradeRepository(grade);
+            instanceOfIGradeRepository.CreateGradeRepository(grade);
         }
 
         public void CreateTeacherVideo(TeacherVideo teacherVideo)
         {
-            teacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
+            instanceOfITeacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
         }
 
         public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
         {
-            highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+            instanceOfIHighSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
 
         }
 
         public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
-            teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+            instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
 
         }
     }

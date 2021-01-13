@@ -16,5 +16,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
 
         //To hold the contract for viewing graduate course 
         List<GraduateCourse> ViewGraduateCourseRepository(string searchKey);
+
+        string UpdateGraduateCourseRepository(GraduateCourse graduateCourse);
     }
 }

@@ -13,17 +13,17 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCou
 {
    public  class CreatePostGraduateCourseUseCase : ICreatePostGraduateCourseUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreatePostGraduateCourseUseCase(IUnitOfWork unitOfWork)
+        public CreatePostGraduateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
         public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             Console.WriteLine("I have reached create postgraduate course");
-               unitOfWork.CreatePostGraduateCourse (postGraduateCourse);
+            instanceOfIUnitOfWork.CreatePostGraduateCourse (postGraduateCourse);
         }
 
        

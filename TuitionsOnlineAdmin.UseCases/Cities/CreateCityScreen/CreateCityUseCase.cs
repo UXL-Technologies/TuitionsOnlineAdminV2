@@ -14,19 +14,19 @@ namespace TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen
    public  class CreateCityUseCase: ICreateCityUseCase
 
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateCityUseCase(IUnitOfWork unitOfWork)
+        public CreateCityUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
         public void CreateCity(City city)
         {
             
                 Console.WriteLine("I have reached create city");
-                unitOfWork.CreateCity(city);
+            instanceOfIUnitOfWork.CreateCity(city);
             
         }
 

@@ -10,11 +10,11 @@ namespace TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen
 {
    public class CreateSubjectUseCase: ICreateSubjectUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
-        public CreateSubjectUseCase(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
+        public CreateSubjectUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
 
@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen
         public void CreateSubject(Subject subject)
         {
             Console.WriteLine("I have reached create subject");
-            unitOfWork.CreateSubject(subject);
+            instanceOfIUnitOfWork.CreateSubject(subject);
         }
     }
 }

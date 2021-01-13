@@ -13,16 +13,16 @@ namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScr
 {
     public class CreateDoctorateCourseUseCase : ICreateDoctorateCourseUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
-        public  CreateDoctorateCourseUseCase(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
+        public  CreateDoctorateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
 
         }
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
             Console.WriteLine("I have reached create doctorate course");
-            unitOfWork.CreateDoctorateCourse(doctorateCourse);
+            instanceOfIUnitOfWork.CreateDoctorateCourse(doctorateCourse);
         }
     }
 }

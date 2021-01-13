@@ -13,12 +13,12 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScr
 {
     public class CreateHighSchoolBoardUseCase : ICreateHighSchoolBoardUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateHighSchoolBoardUseCase(IUnitOfWork unitOfWork)
+        public CreateHighSchoolBoardUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
 
@@ -26,7 +26,7 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScr
         {
 
             Console.WriteLine("I have reached create HighSchoolBoard");
-            unitOfWork.CreateHighSchoolBoard(highSchoolBoard);
+            instanceOfIUnitOfWork.CreateHighSchoolBoard(highSchoolBoard);
         }
     }
 }

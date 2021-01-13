@@ -12,18 +12,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class CertificateCourseRepository: ICertificateCourseRepository
     {
-        private readonly TuitionsOnlineAdminDbContext _database;
-        public CertificateCourseRepository(TuitionsOnlineAdminDbContext _database)
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        public CertificateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
-            this._database = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
 
         //To create a single record for CertificateCourse
         public void CreateCertificateCourseRepository(CertificateCourse certificateCourse)
         {
-            _database.CertificateCourse.Add(certificateCourse);
-            _database.SaveChanges();
+            instanceOfDbContext.CertificateCourse.Add(certificateCourse);
+            instanceOfDbContext.SaveChanges();
         }
 
     }

@@ -16,9 +16,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
 
 
-        public GraduateCourseRepository(TuitionsOnlineAdminDbContext _database)
+        public GraduateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
        {
-            this.instanceOfDbContext = _database;
+            this.instanceOfDbContext = instanceOfDbContext;
         }
 
         //To create a single record for GraduateCourse
@@ -26,6 +26,14 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
        {
             instanceOfDbContext.GraduateCourse.Add(graduateCourse);
             instanceOfDbContext.SaveChanges();
+        }
+
+        //To Update a record for GraduateCourse
+        public string UpdateGraduateCourseRepository(GraduateCourse graduateCourse)
+        {
+            instanceOfDbContext.GraduateCourse.Add(graduateCourse);
+            instanceOfDbContext.SaveChanges();
+            return "done";
         }
 
         //To view graduate courses based on the search criteria 

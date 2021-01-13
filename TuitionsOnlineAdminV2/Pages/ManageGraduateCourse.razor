@@ -15,6 +15,9 @@
                    NullText="Search for graduate courses ...."></DxTextBox>
     </div>
     <br />
+
+
+    @*Table*@
     <DxDataGrid Data="@graduateCourseList"
                 RowInserting="@((newCourse) => CreateGraduateCourse(newCourse))"
                 PageSize="5">
@@ -55,7 +58,7 @@
         {
             @* To hold the new course to be created *@
             GraduateCourse createGraduateCourse = new GraduateCourse();
-            @*The new value comes in the form of ke value pair*@
+            @*The new value comes in the form of key value pair*@
             foreach (var field in newCourse.Keys)
             {
                 @*For each incoming key we check and assign the values to newGraduateCourse *@

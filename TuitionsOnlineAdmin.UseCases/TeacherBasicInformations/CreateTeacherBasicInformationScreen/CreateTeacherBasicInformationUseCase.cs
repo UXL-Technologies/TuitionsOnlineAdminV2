@@ -13,12 +13,12 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
 {
     public class CreateTeacherBasicInformationUseCase: ICreateTeacherBasicInformationUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateTeacherBasicInformationUseCase(IUnitOfWork unitOfWork)
+        public CreateTeacherBasicInformationUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
      
@@ -26,7 +26,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
         public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
             Console.WriteLine("I have reached create TeacherBasicInformation");
-            unitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
+            instanceOfIUnitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
         }
     }
 }
