@@ -23,13 +23,6 @@
 <button @onclick="SaveDoctorateCourse">SubmitDoctorateCourse</button>
 <button @onclick="SaveCertificateCourse">SubmitCertificateCourse</button>
 <button @onclick="SaveCity">SubmitCity</button>
-<button @onclick="SaveCurrency">SubmitCurrency</button>
-<button @onclick="SaveSubject">SubmitSubject</button>
-<button @onclick="SaveGrade">SubmitGrade</button>
-<button @onclick="SaveTeacherVideo">SubmitTeacherVideo</button>
-<button @onclick="SaveHighSchoolBoard">SubmitHighSchoolBoard</button>
-<button @onclick="SaveTeacherBasicInformation">SubmitTeacherBasicInformation</button>
-
 
 @code{
 
@@ -62,7 +55,13 @@
     {
         createPostGraduateCourseUseCase.CreatePostGraduateCourse(postGraduateCourse);
 
+
+
     }
+
+
+
+
 
 
     DoctorateCourse doctorateCourse = new DoctorateCourse()
@@ -74,6 +73,9 @@
     protected void SaveDoctorateCourse()
     {
         createDoctorateCourseUseCase.CreateDoctorateCourse(doctorateCourse);
+
+
+
     }
 
     CertificateCourse certificateCourse = new CertificateCourse()
@@ -84,6 +86,9 @@
     protected void SaveCertificateCourse()
     {
         createCertificateCourseUseCase.CreateCertificateCourse(certificateCourse);
+
+
+
     }
 
     City city = new City()
@@ -99,82 +104,82 @@
     }
 
 
-    Currency currency = new Currency()
-    {
+    //Currency currency = new Currency()
+    //{
 
-        CurrencyName = "INR",
-        Active = true,
-        Default = true
-    };
-    protected void SaveCurrency()
-    {
-       // createCurrencyUseCase.CreateCurrency(currency);
-    }
+    //    CurrencyName = "INR",
+    //    Active = true,
+    //    Default = true
+    //};
+    //protected void SaveCurrency()
+    //{
+    //    // createCurrencyUseCase.CreateCurrency(currency);
+    //}
 
-    Subject subject = new Subject()
-    {
+    //Subject subject = new Subject()
+    //{
 
-        SubjectName = "ME",
-        Active = true
+    //    SubjectName = "ME",
+    //    Active = true
 
-    };
-    protected void SaveSubject()
-    {
-      //  createSubjectUseCase.CreateSubject(subject);
-    }
+    //};
+    //protected void SaveSubject()
+    //{
+    //    //  createSubjectUseCase.CreateSubject(subject);
+    //}
 
-    Grade grade = new Grade()
-    {
+    //Grade grade = new Grade()
+    //{
 
-        GradeName = "EC",
-        Active = true
-    };
+    //    GradeName = "EC",
+    //    Active = true
+    //};
 
-    protected void SaveGrade()
-    {
-        //createGradeUseCase.CreateGrade(grade);
+    //protected void SaveGrade()
+    //{
+    //    //createGradeUseCase.CreateGrade(grade);
 
-    }
+    //}
 
 
-    TeacherVideo teacherVideo = new TeacherVideo()
-    {
+    //TeacherVideo teacherVideo = new TeacherVideo()
+    //{
 
-        VideoURL = "https://www.w3schools.com/",
-        Active = true
-    };
+    //    VideoURL = "https://www.w3schools.com/",
+    //    Active = true
+    //};
 
-    protected void SaveTeacherVideo()
-    {
-       // createTeacherVideoUseCase.CreateTeacherVideo(teacherVideo);
+    //protected void SaveTeacherVideo()
+    //{
+    //   // createTeacherVideoUseCase.CreateTeacherVideo(teacherVideo);
 
-    }
+    //}
 
-    HighSchoolBoard highSchoolBoard = new HighSchoolBoard()
-    {
+    //HighSchoolBoard highSchoolBoard = new HighSchoolBoard()
+    //{
 
-        HighSchoolBoardName = "School Of India",
-        Active = true
-    };
+    //    HighSchoolBoardName = "School Of India",
+    //    Active = true
+    //};
 
-    protected void SaveHighSchoolBoard()
-    {
-        //createHighSchoolBoardUseCase.CreateHighSchoolBoard(highSchoolBoard);
+    //protected void SaveHighSchoolBoard()
+    //{
+    //    //createHighSchoolBoardUseCase.CreateHighSchoolBoard(highSchoolBoard);
 
-    }
+    //}
 
-    TeacherBasicInformation teacherBasicInformation = new TeacherBasicInformation()
-    {
+    //TeacherBasicInformation teacherBasicInformation = new TeacherBasicInformation()
+    //{
 
-        TeacherFullName = "Teacher",
-        Active = true,
-        EmailAddress="abc@gmail.com",
-        ContactTeleNumber=1122334455,
-        TeacherPhotographUrl="url.com",
-        PreferredLanguage="Kannada",
-        AlternateLanguage="English",
-        ExperienceInYears=2
-    };
+    //    TeacherFullName = "Teacher",
+    //    Active = true,
+    //    EmailAddress="abc@gmail.com",
+    //    ContactTeleNumber=1122334455,
+    //    TeacherPhotographUrl="url.com",
+    //    PreferredLanguage="Kannada",
+    //    AlternateLanguage="English",
+    //    ExperienceInYears=2
+    //};
 
     protected void SaveTeacherBasicInformation()
     {

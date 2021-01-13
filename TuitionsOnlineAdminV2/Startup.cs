@@ -22,29 +22,18 @@ using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScre
 using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen;
 using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces;
-
-using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen;
-using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface;
-using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen;
-using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces;
-using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen;
-using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces;
+//using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen;
+//using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
-using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen;
-using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
-using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen;
-using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces;
-using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen;
-using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -83,36 +72,23 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<IViewGraduateCourseUseCase, ViewGraduateCourseUseCase>();
 
 
-            services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();          
+            services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IPostGraduateCourseRepository, PostGraduateCourseRepository>();
 
 
-            services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();          
+            services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IDoctorateCourseRepository, DoctorateCourseRepository>();
 
             services.AddTransient<ICreateCertificateCourseUseCase, CreateCertificateCourseUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICertificateCourseRepository, CertificateCourseRepository>();
 
             services.AddTransient<ICreateCityUseCase, CreateCityUseCase>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICityRepository, CityRepository>();
 
-            services.AddTransient<ICreateCurrencyUseCase, CreateCurrencyUseCase>();
-            services.AddTransient<ICurrencyRepository, CurrencyRepository>();
-
-            services.AddTransient<ICreateSubjectUseCase, CreateSubjectUseCase>();
-            services.AddTransient<ISubjectRepository, SubjectRepository>();
-
-           services.AddTransient<ICreateTeacherVideoUseCase, CreateTeacherVideoUseCase>();
-           services.AddTransient<ITeacherVideoRepository, TeacherVideoRepository>();
-
-            services.AddTransient<ICreateGradeUseCase, CreateGradeUseCase>();
-            services.AddTransient<IGradeRepository, GradeRepository>();
-
-            services.AddTransient<ICreateHighSchoolBoardUseCase, CreateHighSchoolBoardUseCase>();
-            services.AddTransient<IHighSchoolBoardRepository, HighSchoolBoardRepository>();
-
-            services.AddTransient<ICreateTeacherBasicInformationUseCase, CreateTeacherBasicInformationUseCase>();
-            services.AddTransient<ITeacherBasicInformationRepository, TeacherBasicInformationRepository>();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
            services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));

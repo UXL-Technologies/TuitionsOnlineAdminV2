@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
-using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
@@ -25,33 +24,15 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ICityRepository cityRepository;
 
-        private readonly ICurrencyRepository currencyRepository;
 
-        private readonly ISubjectRepository subjectRepository;
-
-        private readonly IGradeRepository gradeRepository;
-
-        private readonly ITeacherVideoRepository teacherVideoRepository;
-
-        private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
-
-        private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
-
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository,
-            ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
-            ITeacherBasicInformationRepository teacherBasicInformationRepository)
+        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository)
         {
             this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
             this.certificateCourseRepository = certificateCourseRepository;
             this.cityRepository = cityRepository;
-            this.currencyRepository = currencyRepository;
-            this.subjectRepository = subjectRepository;
-            this.gradeRepository = gradeRepository;
-            this.teacherVideoRepository = teacherVideoRepository;
-            this.highSchoolBoardRepository = highSchoolBoardRepository;
-            this.teacherBasicInformationRepository = teacherBasicInformationRepository;
+
         }
 
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -78,7 +59,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public void CreateCity(City city)
         {
-            cityRepository.CreateCityRepository(city);
+           cityRepository.CreateCityRepository(city);
         }
 
         public List<GraduateCourse> ViewGraduateCourses(string searchKey)
@@ -87,34 +68,34 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return graduateCourseList;
         }
 
-        public void CreateCurrency(Currency currency)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreateCurrency(Currency currency)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void CreateSubject(Subject subject)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreateSubject(Subject subject)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void CreateGrade(Grade grade)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CreateGrade(Grade grade)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
