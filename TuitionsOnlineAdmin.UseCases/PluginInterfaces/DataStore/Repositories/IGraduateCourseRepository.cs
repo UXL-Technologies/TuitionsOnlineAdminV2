@@ -13,5 +13,8 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     {
         //To hold the contract for creating the GraduateCourse and store it in a database
         void CreateGraduateCourseRepository(GraduateCourse graduateCourse);
+
+        //To hold the contract for viewing graduate course 
+        List<GraduateCourse> ViewGraduateCourseRepository(string searchKey);
     }
 }
