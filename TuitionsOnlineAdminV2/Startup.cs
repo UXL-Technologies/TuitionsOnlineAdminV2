@@ -30,6 +30,8 @@ using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen;
 using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
@@ -75,6 +77,7 @@ namespace TuitionsOnlineAdminV2
                 .AddMicrosoftIdentityConsentHandler();
             services.AddSingleton<WeatherForecastService>();
             services.AddTransient<ICreateGraduateCourseUseCase, CreateGraduateCourseUseCase>();
+            services.AddTransient<IViewGraduateCourseUseCase, ViewGraduateCourseUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
 
