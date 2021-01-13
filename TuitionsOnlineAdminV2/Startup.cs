@@ -31,8 +31,6 @@ using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
-using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen;
-using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
@@ -78,6 +76,7 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ICreateGraduateCourseUseCase, CreateGraduateCourseUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
+            services.AddTransient<IViewGraduateCourseUseCase, ViewGraduateCourseUseCase>();
 
 
             services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();          

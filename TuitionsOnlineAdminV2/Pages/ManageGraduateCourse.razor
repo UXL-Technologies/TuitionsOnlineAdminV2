@@ -1,6 +1,22 @@
 ﻿@* Authors: Thanvi & Vanditha
     Date: 11-01-2021
     Aim : To create an graduate course,edit,deactivate and display the graduate courses*@
+
 @page "/graduatecourse"
-   
+    @*Authors: Thanvi &Vandith date : 11-01-2021
+    for testing data grid*@
+    <DxDataGrid Data="@DataSource"
+                PageSize="5">
+        <DxDataGridDateEditColumn Field="@nameof(WeatherForecast.Date)" DisplayFormat="D" Width="500px"/>
+        <DxDataGridCheckBoxColumn Field="@nameof(WeatherForecast.Active)" />
+        <DxDataGridCommandColumn Width="100px" />
+    </DxDataGrid>
+    @code {
+        [Inject] protected WeatherForecastService ForecastService { get; set; }
+        IEnumerable<WeatherForecast> DataSource = Enumerable.Empty<WeatherForecast>();
+
+        protected override void OnInitialized()
+        {
+            DataSource = ForecastService.GetForecast();
+        }
     }

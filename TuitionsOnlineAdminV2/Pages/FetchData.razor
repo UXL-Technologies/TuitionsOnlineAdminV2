@@ -7,28 +7,13 @@
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
-@using TuitionsOnlineAdmin.UseCases.Curriencies.CreateCurrencyScreen.Interface
-@using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces
-@using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces
-@using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces
-@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
-@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces
-
-
-
-
+@using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
 @inject ICreateGraduateCourseUseCase  createGraduateCourseUseCase
 @inject ICreatePostGraduateCourseUseCase  createPostGraduateCourseUseCase
 @inject ICreateDoctorateCourseUseCase  createDoctorateCourseUseCase
 @inject ICreateCertificateCourseUseCase  createCertificateCourseUseCase
 @inject ICreateCityUseCase  createCityUseCase
-@inject ICreateCurrencyUseCase  createCurrencyUseCase
-@inject ICreateSubjectUseCase  createSubjectUseCase
-@inject ICreateGradeUseCase  createGradeUseCase
-@inject ICreateTeacherVideoUseCase  createTeacherVideoUseCase
-@inject ICreateHighSchoolBoardUseCase  createHighSchoolBoardUseCase
-@inject ICreateTeacherBasicInformationUseCase  createTeacherBasicInformationUseCase
-
+@inject IViewGraduateCourseUseCase instanceOfViewGraduateCourseUseCase
 
 @*<p>This component demonstrates fetching data from a service</p>
 =======*@
@@ -47,10 +32,18 @@
 
 
 @code{
+
+    List<GraduateCourse> graduateCourseList = new List<GraduateCourse>();
+
+    protected override void OnInitialized()
+    {
+        graduateCourseList = instanceOfViewGraduateCourseUseCase.ViewGraduateCourse("");
+    }
+
     GraduateCourse graduateCourse = new GraduateCourse()
     {
 
-        GraduateCourseName = "BE",
+        GraduateCourseName = "BCom",
         Active = true
     };
     protected void SaveGraduateCourse()

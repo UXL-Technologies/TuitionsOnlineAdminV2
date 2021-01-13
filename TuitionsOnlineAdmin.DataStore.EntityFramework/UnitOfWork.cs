@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IGraduateCourseRepository graduateCourseRepository;
+        private readonly IGraduateCourseRepository  instanceOfIGraduateCourseRepository;
 
         private readonly IPostGraduateCourseRepository postGraduateCourseRepository;
 
@@ -41,7 +41,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
             ITeacherBasicInformationRepository teacherBasicInformationRepository)
         {
-            this.graduateCourseRepository = graduateCourseRepository;
+            this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
             this.postGraduateCourseRepository = postGraduateCourseRepository;
             this.doctorateCourseRepository = doctorateCourseRepository;
             this.certificateCourseRepository = certificateCourseRepository;
@@ -61,7 +61,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public void CreateGraduateCourse(GraduateCourse graduateCourse)
         {
-            graduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
+            instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
 
 
         }
@@ -81,37 +81,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             cityRepository.CreateCityRepository(city);
         }
 
-        public void CreateCurrency(Currency currency)
+        public List<GraduateCourse> ViewGraduateCourses(string searchKey)
         {
-            currencyRepository.CreateCurrencyRepository(currency);
-        }
-
-        public void CreateSubject(Subject subject)
-        {
-            subjectRepository.CreateSubjectRepository(subject);
-        }
-        public void CreateGrade(Grade grade)
-        {
-            gradeRepository.CreateGradeRepository(grade);
-        }
-
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
-        {
-            teacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
-        }
-
-        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
-        {
-            highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
-
-        }
-
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-        {
-            teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
-
+            var graduateCourseList = instanceOfIGraduateCourseRepository.ViewGraduateCourseRepository(searchKey);
+            return graduateCourseList;
         }
     }
 }
-
-
