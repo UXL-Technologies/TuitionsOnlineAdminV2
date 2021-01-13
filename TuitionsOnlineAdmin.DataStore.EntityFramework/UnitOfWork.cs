@@ -68,34 +68,34 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return graduateCourseList;
         }
 
-        //public void CreateCurrency(Currency currency)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void CreateCurrency(Currency currency)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public void CreateTeacherVideo(TeacherVideo teacherVideo)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public void CreateSubject(Subject subject)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void CreateSubject(Subject subject)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public void CreateGrade(Grade grade)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void CreateGrade(Grade grade)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
