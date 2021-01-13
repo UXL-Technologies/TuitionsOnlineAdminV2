@@ -1,21 +1,49 @@
 ﻿@* Authors: Thanvi & Vanditha
     Date: 11-01-2021
     Aim : To create an graduate course,edit,deactivate and display the graduate courses*@
-@page "/graduatecourse"
-    @*Authors: Thanvi &Vandith date : 11-01-2021
-    for testing data grid*@
-    <DxDataGrid Data="@DataSource"
-                PageSize="5">
-        <DxDataGridDateEditColumn Field="@nameof(WeatherForecast.Date)" DisplayFormat="D" Width="500px"/>
-        <DxDataGridCheckBoxColumn Field="@nameof(WeatherForecast.Active)" />
-        <DxDataGridCommandColumn Width="100px" />
-    </DxDataGrid>
-    @code {
-        [Inject] protected WeatherForecastService ForecastService { get; set; }
-        IEnumerable<WeatherForecast> DataSource = Enumerable.Empty<WeatherForecast>();
 
-        protected override void OnInitialized()
-        {
-            DataSource = ForecastService.GetForecast();
+@page "/graduatecourse"
+@using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
+@inject ICreateGraduateCourseUseCase  instanceOfICreateGraduateCourseUseCase
+
+
+<DxDataGrid Data="@instanceOfGraduateCourse"
+            RowInserting="@((newValues) => OnRowInserting(newValues))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="500px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" />
+    <DxDataGridCommandColumn Width="100px" />
+</DxDataGrid>
+
+@code {
+    @* To hold the hold the Course details*@
+    IEnumerable<GraduateCourse> instanceOfGraduateCourse = Enumerable.Empty<GraduateCourse>();
+    @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
+    void OnRowInserting(Dictionary<string, object> newValue)
+    {
+        @* To hold the new course to be created *@
+        GraduateCourse newGraduateCourse = new GraduateCourse();
+        @*The new value comes in the form of ke value pair*@
+            Console.WriteLine(newValue);
+            foreach (var field in newValue.Keys)
+            {
+            @*For each incoming key we check and assign the values to newGraduateCourse *@
+            switch (field)
+            {
+                case "GraduateCourseName":
+                    newGraduateCourse.GraduateCourseName = (string)newValue[field];
+                    break;
+                case "Active":
+                    newGraduateCourse.Active = (bool)newValue[field];
+                    break;
+            }
         }
-    }
+        Console.WriteLine(newGraduateCourse);
+        @*To invoke the method to create new graduate course*@
+        instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(newGraduateCourse);
+
+}
+
+
+
+}
