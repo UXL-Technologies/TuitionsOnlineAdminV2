@@ -10,8 +10,8 @@ using TuitionsOnlineAdmin.DataStore.EntityFramework;
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
     [DbContext(typeof(TuitionsOnlineAdminDbContext))]
-    [Migration("20210111073120_initial")]
-    partial class initial
+    [Migration("20210113054636_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
