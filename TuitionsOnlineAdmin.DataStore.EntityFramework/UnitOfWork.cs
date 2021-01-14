@@ -80,6 +80,12 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         {
             instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
         }
+        //creating view postgraduate course in unitofwork
+        public List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey)
+        {
+            var postGraduateCourseList = instanceOfIPostGraduateCourseRepository.ViewPostGraduateCourseRepository(searchKey);
+            return postGraduateCourseList;
+        }
 
         public void CreateCertificateCourse(CertificateCourse certificateCourse)
         {

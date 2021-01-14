@@ -4,7 +4,18 @@
 @page "/postgraduatecourse"
 
 @using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces
 @inject ICreatePostGraduateCourseUseCase  instanceOfICreatePostGraduateCourseUseCase
+@inject IViewPostGraduateCourseUseCase    instanceOfIViewPostGraduateCourseUseCase
+
+
+<div>
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for graduate courses ...."></DxTextBox>
+</div>
+<br />
 
 <h3>ManagePostGraduateCourse</h3>
 @*Table*@
@@ -22,10 +33,42 @@
     @* To hold the hold the Course details*@
     IEnumerable<PostGraduateCourse> postGraduateCourseList = Enumerable.Empty<PostGraduateCourse>();
 
+    @*To hold the search text*@
+    String searchkey;
+    @*The init method is to inoke the get graduate  course list*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetPostGraduateCourses() to fetch the graduate course list to be displayed*@
+        GetPostGraduateCourses(searchkey);
+
+    }
+    @*To get post graduate course list to be displayed in the data grid columns*@
+    public void GetPostGraduateCourses(String searchkeyword)
+    {
+        postGraduateCourseList = instanceOfIViewPostGraduateCourseUseCase.ViewPostGraduateCourse(searchkeyword);
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*The StateHasChanged makes sure that the component is notified to re - render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetPostGraduateCourses(searchkey);
+    }
+
+
+
+
+
+
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
     void CreatePostGraduateCourse(Dictionary<string, object> newCourse)
     {
-        
+
         @* To hold the new course to be created *@
         PostGraduateCourse createPostGraduateCourse = new PostGraduateCourse();
         @*The new value comes in the form of key value pair*@
@@ -42,13 +85,17 @@
                     break;
             }
         }
-        
+        Console.WriteLine(createPostGraduateCourse);
 
-        @*To invoke the method to create new graduate course*@
+
+        @*To invoke the method to create new post graduate course*@
         instanceOfICreatePostGraduateCourseUseCase.CreatePostGraduateCourse(createPostGraduateCourse);
 
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetPostGraduateCourses(searchkey);
+
 
     }
 }

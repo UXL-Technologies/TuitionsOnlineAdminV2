@@ -30,6 +30,8 @@ using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen;
@@ -38,6 +40,8 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen;
@@ -78,11 +82,13 @@ namespace TuitionsOnlineAdminV2
             services.AddSingleton<WeatherForecastService>();
             services.AddTransient<ICreateGraduateCourseUseCase, CreateGraduateCourseUseCase>();
             services.AddTransient<IViewGraduateCourseUseCase, ViewGraduateCourseUseCase>();
+            services.AddTransient<IUpdateGraduateCourseUseCase, UpdateGraduateCourseUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
 
 
             services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();
+            services.AddTransient<IViewPostGraduateCourseUseCase, ViewPostGraduateCourseUseCase>();
             services.AddTransient<IPostGraduateCourseRepository, PostGraduateCourseRepository>();
 
 

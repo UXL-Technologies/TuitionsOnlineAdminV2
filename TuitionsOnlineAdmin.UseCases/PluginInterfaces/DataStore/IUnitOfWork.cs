@@ -15,6 +15,11 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         void CreateGraduateCourse(GraduateCourse graduateCourse);
         //To add the single record of the PostGraduateCourse to the database
         void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
+
+        //To view post Graduate courses
+        List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey);
+
+
         //To add the single record of the DoctorateCourse to the database
         void CreateDoctorateCourse(DoctorateCourse doctorateCourse);
         //To add the single record of the CertificateCourse to the database
