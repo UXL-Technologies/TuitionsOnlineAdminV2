@@ -1,1 +1,8 @@
-﻿
+﻿.searchbox {
+    width: 290px;
+    text-align: center;
+    margin: 11px 47px -7px 170px;
+}
+.table_style {
+    background-color: #f5f3f3;
+}
