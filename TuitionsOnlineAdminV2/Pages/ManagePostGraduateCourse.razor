@@ -1,12 +1,14 @@
-﻿@*Author:SA,BM,SM , Date:13-01-2021
+﻿@*Author:SA,BM,SM , Date:14-01-2021
     Aim:To create view edit the postgraduate course*@
 
 @page "/postgraduatecourse"
 
 @using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.UpdatePostGraduateCourseScreen.Interface
 @inject ICreatePostGraduateCourseUseCase  instanceOfICreatePostGraduateCourseUseCase
 @inject IViewPostGraduateCourseUseCase    instanceOfIViewPostGraduateCourseUseCase
+@inject IUpdatePostGraduateCourseUseCase instanceOfIUpdatePostGraduateCourseUseCase
 
 
 <div>
@@ -21,6 +23,7 @@
 @*Table*@
 <DxDataGrid Data="@postGraduateCourseList"
             RowInserting="@((newCourse) => CreatePostGraduateCourse(newCourse))"
+            RowUpdating="@((postGraduateCourseToBeUpdated, newValue) => UpdatePostGraduateCourse(postGraduateCourseToBeUpdated, newValue))"
             PageSize="5">
     <DxDataGridColumn Field="@nameof(PostGraduateCourse.PostGraduateCourseName)" Width="500px" />
     <DxDataGridCheckBoxColumn Field="@nameof(PostGraduateCourse.Active)" />
@@ -61,10 +64,6 @@
     }
 
 
-
-
-
-
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
     void CreatePostGraduateCourse(Dictionary<string, object> newCourse)
     {
@@ -96,6 +95,38 @@
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
         GetPostGraduateCourses(searchkey);
 
+
+    }
+   
+    @*Author:SA,BM,SM , Date:14-01-2021
+      Aim:update post graduate course   *@
+
+    void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, Dictionary<string, object> newValue)
+    {
+        Console.WriteLine(postGraduateCourseToBeUpdated);
+        Console.WriteLine(newValue);
+
+
+        foreach (var course in newValue.Keys)
+        {
+            switch (course)
+            {
+                case "PostGraduateCourseName":
+                    postGraduateCourseToBeUpdated.PostGraduateCourseName = (string)newValue[course];
+                    break;
+                case "Active":
+                    postGraduateCourseToBeUpdated.Active = (bool)newValue[course];
+                    break;
+            }
+
+            Console.WriteLine(postGraduateCourseToBeUpdated);
+            instanceOfIUpdatePostGraduateCourseUseCase.UpdatePostGraduateCourse(postGraduateCourseToBeUpdated);
+            @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+            InvokeAsync(StateHasChanged);
+            @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+            GetPostGraduateCourses(searchkey);
+
+        }
 
     }
 }

@@ -19,6 +19,11 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To view post Graduate courses
         List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey);
 
+        //Authors: SA, BM, SM
+        //Date:14-Jan-2021
+        //To update post Graduate courses
+        string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
+
 
         //To add the single record of the DoctorateCourse to the database
         void CreateDoctorateCourse(DoctorateCourse doctorateCourse);

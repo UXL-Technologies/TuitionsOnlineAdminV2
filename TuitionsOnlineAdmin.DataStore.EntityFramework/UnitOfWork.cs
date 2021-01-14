@@ -80,11 +80,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         {
             instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
         }
+
+        //Authors: SA, BM, SM
+        // Date:14-Jan-2021
         //creating view postgraduate course in unitofwork
         public List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey)
         {
             var postGraduateCourseList = instanceOfIPostGraduateCourseRepository.ViewPostGraduateCourseRepository(searchKey);
             return postGraduateCourseList;
+        }
+
+        //Authors: SA, BM, SM
+        // Date:14-Jan-2021
+        //To updatePostGraduateCourse
+
+        public string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
+        {
+            instanceOfIPostGraduateCourseRepository.UpdatePostGraduateCourseRepository(postGraduateCourse);
+            return "done";
+
         }
 
         public void CreateCertificateCourse(CertificateCourse certificateCourse)

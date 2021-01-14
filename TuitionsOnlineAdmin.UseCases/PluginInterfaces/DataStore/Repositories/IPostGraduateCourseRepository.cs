@@ -17,5 +17,10 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for viewing post graduate course 
         List<PostGraduateCourse> ViewPostGraduateCourseRepository(string searchKey);
 
+        //Authors: SA, BM, SM
+        //Date:14-Jan-2021
+        //To hold the contract for updating post graduate course 
+        string UpdatePostGraduateCourseRepository(PostGraduateCourse postGraduateCourse);
+
     }
 }

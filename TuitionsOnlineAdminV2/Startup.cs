@@ -40,6 +40,8 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.UpdatePostGraduateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.UpdatePostGraduateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen;
@@ -90,6 +92,7 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();
             services.AddTransient<IViewPostGraduateCourseUseCase, ViewPostGraduateCourseUseCase>();
             services.AddTransient<IPostGraduateCourseRepository, PostGraduateCourseRepository>();
+            services.AddTransient<IUpdatePostGraduateCourseUseCase, UpdatePostGraduateCourseUseCase>();
 
 
             services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();

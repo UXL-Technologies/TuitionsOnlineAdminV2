@@ -31,6 +31,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             instanceOfDbContext.SaveChanges();
         }
 
+
+        //To Update a record for PostGraduateCourse
+        public string UpdatePostGraduateCourseRepository(PostGraduateCourse postGraduateCourse)
+        {
+            PostGraduateCourse postGraduateCourseToBeUpdated = instanceOfDbContext.PostGraduateCourse.FirstOrDefault(s => s.PostGraduateCourseId == postGraduateCourse.PostGraduateCourseId);
+            postGraduateCourseToBeUpdated = postGraduateCourse;
+            instanceOfDbContext.PostGraduateCourse.Append(postGraduateCourseToBeUpdated);
+            instanceOfDbContext.SaveChanges();
+            return "Done";
+        }
+
         //To view post graduate courses based on the search criteria 
         public List<PostGraduateCourse> ViewPostGraduateCourseRepository(string searchKey)
         {

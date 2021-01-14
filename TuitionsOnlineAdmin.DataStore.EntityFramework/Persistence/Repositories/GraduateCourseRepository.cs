@@ -28,6 +28,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             instanceOfDbContext.SaveChanges();
         }
 
+        //Authors: SA, BM, SM
+        // Date:14-Jan-2021
         //To Update a record for GraduateCourse
         public string UpdateGraduateCourseRepository(GraduateCourse graduateCourse)
         {
