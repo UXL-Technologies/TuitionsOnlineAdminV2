@@ -23,7 +23,7 @@
 <br />
 <DxDataGrid Data="@graduateCourseList"
             RowInserting="@((newCourse) => CreateGraduateCourse(newCourse))"
-            RowUpdating="@((updatingCourse, newValue) => UpdateGraduateCourse(updatingCourse, newValue))"
+            RowUpdating="@((graduateCourseToBeUpdated, newValue) => UpdateGraduateCourse(graduateCourseToBeUpdated, newValue))"
             PageSize="5">
     <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="500px" />
     <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" />
@@ -37,8 +37,6 @@ protected override void OnInitialized()
 { @*To invoke the GetGraduateCourses() to fetch the graduate course list to be displayed*@ 
      GetGraduateCourses(searchkey);
 
-
-
 } @*To get graduate course list to be displayed in the data grid columns*@ 
 public void GetGraduateCourses(String searchkeyword)
 {
@@ -46,7 +44,6 @@ public void GetGraduateCourses(String searchkeyword)
 }
 void OnTextChanged(String searchText)
 {
-    Console.WriteLine(searchText);
     @*The StateHasChanged makes sure that the component is notified to re - render the data*@ InvokeAsync(StateHasChanged);
     searchkey = searchText;
 @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
@@ -68,50 +65,32 @@ foreach (var field in newCourse.Keys)
         break;
 }
 }
-Console.WriteLine(createGraduateCourse); 
+
 @*To invoke the method to create new graduate course*@
 instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
 @*The StateHasChanged makes sure that the component is notified to re-render the data*@ 
 InvokeAsync(StateHasChanged);
 @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetGraduateCourses(searchkey);
-
-
-
+   GetGraduateCourses(searchkey);
 }
 
-
-
-void UpdateGraduateCourse(GraduateCourse updatingCourse, Dictionary<string, object> newValue)
+void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
 {
-    Console.WriteLine(updatingCourse);
-
-    GraduateCourse updateGraduateCourse = new GraduateCourse();
-
-
-
     foreach (var course in newValue.Keys)
     {
         switch (course)
         {
             case "GraduateCourseName":
-                updatingCourse.GraduateCourseName = (string)newValue[course];
+                graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
                 break;
             case "Active":
-                updatingCourse.Active = (bool)newValue[course];
+                graduateCourseToBeUpdated.Active = (bool)newValue[course];
                 break;
         }
     }
-    Console.WriteLine(updatingCourse);
-    instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(updatingCourse);
+    instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
     InvokeAsync(StateHasChanged);
     GetGraduateCourses(searchkey);
-
-
-
 }
-
-
-
 
 }
