@@ -56,10 +56,24 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.instanceOfITeacherBasicInformationRepository = instanceOfITeacherBasicInformationRepository;
 
         }
-
+        
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
             instanceOfIDoctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
+        }
+
+        ////Authors: SA, BM, SM
+        // Date:14-Jan-2021
+        //To View DoctorateCourse
+        public List<DoctorateCourse> ViewDoctorateCourses(string searchKey)
+        {
+            var doctorateCourseList = instanceOfIDoctorateCourseRepository.ViewDoctorateCourseRepository(searchKey);
+            return doctorateCourseList;
+        }
+        public string UpdateDoctorateCourse(DoctorateCourse doctorateCourse)
+        {
+            instanceOfIDoctorateCourseRepository.UpdateDoctorateCourseRepository(doctorateCourse);
+            return "done";
         }
 
         public void CreateGraduateCourse(GraduateCourse graduateCourse)

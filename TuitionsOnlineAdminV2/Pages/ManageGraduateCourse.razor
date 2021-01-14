@@ -25,9 +25,9 @@
             RowInserting="@((newCourse) => CreateGraduateCourse(newCourse))"
             RowUpdating="@((graduateCourseToBeUpdated, newValue) => UpdateGraduateCourse(graduateCourseToBeUpdated, newValue))"
             PageSize="5">
-    <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="500px" />
-    <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" />
-    <DxDataGridCommandColumn Width="100px" />
+    <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="300px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)"  Width="200px" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
 </DxDataGrid>
 
 @code {

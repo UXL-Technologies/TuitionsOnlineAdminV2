@@ -11,14 +11,18 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen
 {
+    //property dependency injection
     public class CreateDoctorateCourseUseCase : ICreateDoctorateCourseUseCase
     {
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-        public  CreateDoctorateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
+
+        //constructor dependency injection
+        public CreateDoctorateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
-
         }
+
+        //Calling the method create doctorate courses in IunitOfwork
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
             Console.WriteLine("I have reached create doctorate course");

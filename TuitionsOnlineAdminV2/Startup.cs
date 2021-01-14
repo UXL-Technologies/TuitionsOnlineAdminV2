@@ -26,6 +26,10 @@ using TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen;
 using TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
@@ -97,6 +101,9 @@ namespace TuitionsOnlineAdminV2
 
             services.AddTransient<ICreateDoctorateCourseUseCase, CreateDoctorateCourseUseCase>();
             services.AddTransient<IDoctorateCourseRepository, DoctorateCourseRepository>();
+            services.AddTransient<IViewDoctorateCourseUseCase, ViewDoctorateCourseUseCase>();
+            services.AddTransient<IUpdateDoctorateCourseUseCase, UpdateDoctorateCourseUseCase>();
+
 
             services.AddTransient<ICreateCertificateCourseUseCase, CreateCertificateCourseUseCase>();
             services.AddTransient<ICertificateCourseRepository, CertificateCourseRepository>();
