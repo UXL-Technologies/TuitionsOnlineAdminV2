@@ -1,0 +1,121 @@
+﻿@* Authors: SA,BM,SM
+     Date: 14-01-2021
+    Aim : To create, view ,edit Subject *@
+
+@page "/subject"
+@using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Subjects.UpdateSubjectScreen.Interface
+@inject ICreateSubjectUseCase instanceOfICreateSubjectUseCase
+@inject IViewSubjectUseCase instanceOfIViewSubjectUseCase
+@inject IUpdateSubjectUseCase instanceOfIUpdateSubjectUseCase
+
+<div>
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for subjects ...."></DxTextBox>
+</div>
+<br />
+
+@*Table*@
+<DxDataGrid Data="@subjectList"
+            RowInserting="@((newSubject) => CreateSubject(newSubject))"
+            RowUpdating="@((subjectToBeUpdated, newValue) => UpdateSubject(subjectToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(Subject.SubjectName)" Width="300px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(Subject.Active)" Width="200px" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+</DxDataGrid>
+
+@code {
+
+    @* To hold the hold the Subject details*@
+    IEnumerable<Subject> subjectList = Enumerable.Empty<Subject>();
+    @*To hold the search text*@
+    String searchkey;
+    @*The init method is to invoke the Subject list when the page is loaded*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetSubjects() to fetch the Subject list to be displayed*@
+        GetSubjects(searchkey);
+
+    }
+    @*To get Subject list to be displayed in the data grid columns*@
+    public void GetSubjects(String searchkeyword)
+    {
+        subjectList = instanceOfIViewSubjectUseCase.ViewSubject(searchkeyword);
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*To invoke the component to re-render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetSubjects(searchkey);
+    }
+
+
+    //create Subject
+    @*The CreateSubject() method is responsible for capturing the details enetred by the user and send it to the database.*@
+    void CreateSubject(Dictionary<string, object> newSubject)
+    {
+        @* To hold the new Subject to be created *@
+        Subject createSubject = new Subject();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newSubject.Keys)
+        {
+            @*For each incoming key we check and assign the values to newSubject *@
+            switch (field)
+            {
+                case "SubjectName":
+                    createSubject.SubjectName = (string)newSubject[field];
+                    break;
+                case "Active":
+                    createSubject.Active = (bool)newSubject[field];
+                    break;
+            }
+        }
+
+        @*To invoke the method to create new Subject*@
+        instanceOfICreateSubjectUseCase.CreateSubject(createSubject);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
+        GetSubjects(searchkey);
+
+    }
+
+    //To take and update the value for  Subject
+    void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var subject in newValue.Keys)
+        {
+            switch (subject)
+            {
+                case "SubjectName":
+                    subjectToBeUpdated.SubjectName = (string)newValue[subject];
+                    break;
+                case "Active":
+                    subjectToBeUpdated.Active = (bool)newValue[subject];
+                    break;
+            }
+
+        }
+
+        @*subjectToBeUpdated this variable holds the updated value and is sent to the database*@
+        instanceOfIUpdateSubjectUseCase.UpdateSubject(subjectToBeUpdated);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetSubjects(searchkey);
+
+    }
+
+
+}

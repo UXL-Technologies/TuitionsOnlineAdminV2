@@ -39,6 +39,14 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //To add the single record of the CertificateCourse to the database
         void CreateCertificateCourse(CertificateCourse certificateCourse);
+        //Authors: SA, BM, SM
+        //Date:15-Jan-2021
+        //To view CertificateCourses
+        List<CertificateCourse> ViewCertificateCourses(string searchKey);
+        //To update CertificateCourse
+        string UpdateCertificateCourse(CertificateCourse certificateCourse);
+
+
         //To add the single record of the City to the database
         void CreateCity(City city);
 
@@ -46,10 +54,36 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         List<GraduateCourse> ViewGraduateCourses(string searchKey);
         void CreateCurrency(Currency currency);
        void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+
+        //Authors: SA, BM, SM
+        //Date:15-Jan-2021
+        //To Create TeacherVideo
         void CreateTeacherVideo(TeacherVideo teacherVideo);
-       void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        //To view TeacherVideo
+        List<TeacherVideo> ViewTeacherVideos(string searchKey);
+        //To update TeacherVideo
+        string UpdateTeacherVideo(TeacherVideo teacherVideo);
+
+
+        void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+
+        //Authors: SA, BM, SM
+        //Date:15-Jan-2021
+        //To Create Subject
         void CreateSubject(Subject subject);
+        //To view Subject
+        List<Subject> ViewSubjects(string searchKey);
+        //To update Subject
+        string UpdateSubject(Subject subject);
+
+        //Authors: SA, BM, SM
+        //Date:15-Jan-2021
+        //To Create Grade
         void CreateGrade(Grade grade);
+        //To view Grade
+        List<Grade> ViewGrades(string searchKey);
+        //To update Grade
+        string UpdateGrade(Grade grade);
 
 
         string UpdateGraduateCourse(GraduateCourse graduateCourse);

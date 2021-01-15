@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScr
 {
    public interface IUpdateDoctorateCourseUseCase
     {
+        //Declaring a method to update the DoctorateCourse
         string UpdateDoctorateCourse(DoctorateCourse doctorateCourse);
     }
 }

@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScree
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
-        //Calling the method view doctorate courses in IunitOfwork
+        //Calling the unit of work for fetching the database
 
         public List<DoctorateCourse> ViewDoctorateCourse(string searchKey)
         {

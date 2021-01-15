@@ -10,7 +10,7 @@ using TuitionsOnlineAdmin.DataStore.EntityFramework;
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
     [DbContext(typeof(TuitionsOnlineAdminDbContext))]
-    [Migration("20210114062417_init")]
+    [Migration("20210115054623_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

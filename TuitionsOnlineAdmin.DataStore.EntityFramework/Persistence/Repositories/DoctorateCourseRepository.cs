@@ -32,7 +32,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         //Authors: SA, BM, SM
         // Date:14-Jan-2021
-        //To view DoctorateCourse based on the search criteria 
         //To update doctorate course
         public string UpdateDoctorateCourseRepository(DoctorateCourse doctorateCourse)
         {
@@ -44,6 +43,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         }
 
+        //To view DoctorateCourse based on the search criteria 
         public List<DoctorateCourse> ViewDoctorateCourseRepository(string searchKey)
         {
 

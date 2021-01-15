@@ -1,0 +1,119 @@
+﻿@* Authors: SA,BM,SM
+    Date: 15-01-2021
+    Aim : To create an Certificate course,edit,deactivate and display the Certificate courses*@
+
+@page "/certificatecourse"
+@using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.CertificateCourses.UpdateCertificateCourseScreen.Interface
+@inject ICreateCertificateCourseUseCase instanceOfICreateCertificateCourseUseCase
+@inject IViewCertificateCourseUseCase instanceOfIViewCertificateCourseUseCase
+@inject IUpdateCertificateCourseUseCase instanceOfIUpdateCertificateCourseUseCase
+
+<div>
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for certificate courses ...."></DxTextBox>
+</div>
+<br />
+
+@*Table*@
+<DxDataGrid Data="@certificateCourseList"
+            RowInserting="@((newCourse) => CreateCertificateCourse(newCourse))"
+            RowUpdating="@((certificateCourseToBeUpdated, newValue) => UpdateCertificateCourse(certificateCourseToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(CertificateCourse.CertificateCourseName)" Width="300px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(CertificateCourse.Active)" Width="200px" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+</DxDataGrid>
+
+
+@code {
+    @* To hold the hold the Course details*@
+    IEnumerable<CertificateCourse> certificateCourseList = Enumerable.Empty<CertificateCourse>();
+    @*To hold the search text*@
+    String searchkey;
+    @*The init method is to inoke the get Certificate Course list*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetCertificateCourses() to fetch the certificateCourse list to be displayed*@
+        GetCertificateCourses(searchkey);
+
+    }
+    @*To get certificate Course list to be displayed in the data grid columns*@
+    public void GetCertificateCourses(String searchkeyword)
+    {
+        certificateCourseList = instanceOfIViewCertificateCourseUseCase.ViewCertificateCourse(searchkeyword);
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*The StateHasChanged makes sure that the component is notified to re - render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCertificateCourses(searchkey);
+    }
+    @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
+    void CreateCertificateCourse(Dictionary<string, object> newCourse)
+    {
+        @* To hold the new course to be created *@
+        CertificateCourse createCertificateCourse = new CertificateCourse();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newCourse.Keys)
+        {
+            @*For each incoming key we check and assign the values to newCertificateCourse *@
+            switch (field)
+            {
+                case "CertificateCourseName":
+                    createCertificateCourse.CertificateCourseName = (string)newCourse[field];
+                    break;
+                case "Active":
+                    createCertificateCourse.Active = (bool)newCourse[field];
+                    break;
+            }
+        }
+        Console.WriteLine(createCertificateCourse);
+        @*To invoke the method to create new certificate Course*@
+        instanceOfICreateCertificateCourseUseCase.CreateCertificateCourse(createCertificateCourse);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCertificateCourses(searchkey);
+
+    }
+
+    //To take and update the value for  CertificateCourse
+    void UpdateCertificateCourse(CertificateCourse certificateCourseToBeUpdated, Dictionary<string, object> newValue)
+    {
+        @*The new value comes in the form of key value pair*@
+        foreach (var course in newValue.Keys)
+
+        {
+            
+            switch (course)
+            {
+                case "CertificateCourseName":
+                    certificateCourseToBeUpdated.CertificateCourseName = (string)newValue[course];
+                    break;
+                case "Active":
+                    certificateCourseToBeUpdated.Active = (bool)newValue[course];
+                    break;
+            }
+
+        }
+
+        @*certificateCourseToBeUpdated this variable holds the updated value and is sent to the database*@
+        instanceOfIUpdateCertificateCourseUseCase.UpdateCertificateCourse(certificateCourseToBeUpdated);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCertificateCourses(searchkey);
+
+    }
+}
+

@@ -12,14 +12,16 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen
 {
-   public class CreateCertificateCourseUseCase : ICreateCertificateCourseUseCase
+    //property dependency injection
+    public class CreateCertificateCourseUseCase : ICreateCertificateCourseUseCase
     {
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-
-        public  CreateCertificateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
+        //constructor dependency injection
+        public CreateCertificateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
+        //Calling the method create certificate courses in IunitOfwork
         public void CreateCertificateCourse(CertificateCourse certificateCourse)
         {
             Console.WriteLine("I have reached CreateCertificateCourse ");

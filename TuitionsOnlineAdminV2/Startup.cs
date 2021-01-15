@@ -18,6 +18,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using TuitionsOnlineAdmin.DataStore.EntityFramework;
 using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
+using TuitionsOnlineAdmin.UseCases.CertificateCourses.UpdateCertificateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.CertificateCourses.UpdateCertificateCourseScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen;
+using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen;
@@ -32,6 +36,10 @@ using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen;
 using TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.Grades.UpdateGradeScreen;
+using TuitionsOnlineAdmin.UseCases.Grades.UpdateGradeScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.Grades.ViewGradeScreen;
+using TuitionsOnlineAdmin.UseCases.Grades.ViewGradeScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen;
@@ -50,10 +58,18 @@ using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScr
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.Subjects.UpdateSubjectScreen;
+using TuitionsOnlineAdmin.UseCases.Subjects.UpdateSubjectScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen;
+using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.TeacherVideos.ViewTeacherVideoScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherVideos.ViewTeacherVideoScreen.Interfaces;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -107,6 +123,8 @@ namespace TuitionsOnlineAdminV2
 
             services.AddTransient<ICreateCertificateCourseUseCase, CreateCertificateCourseUseCase>();
             services.AddTransient<ICertificateCourseRepository, CertificateCourseRepository>();
+            services.AddTransient<IViewCertificateCourseUseCase, ViewCertificateCourseUseCase>();
+            services.AddTransient<IUpdateCertificateCourseUseCase, UpdateCertificateCourseUseCase>();
 
             services.AddTransient<ICreateCityUseCase, CreateCityUseCase>();
             services.AddTransient<ICityRepository, CityRepository>();
@@ -116,12 +134,18 @@ namespace TuitionsOnlineAdminV2
 
             services.AddTransient<ICreateSubjectUseCase, CreateSubjectUseCase>();
             services.AddTransient<ISubjectRepository, SubjectRepository>();
+            services.AddTransient<IViewSubjectUseCase, ViewSubjectUseCase>();
+            services.AddTransient<IUpdateSubjectUseCase, UpdateSubjectUseCase>();
+            services.AddTransient<IUpdateTeacherVideoUseCase, UpdateTeacherVideoUseCase>();
 
             services.AddTransient<ICreateTeacherVideoUseCase, CreateTeacherVideoUseCase>();
             services.AddTransient<ITeacherVideoRepository, TeacherVideoRepository>();
+            services.AddTransient<IViewTeacherVideoUseCase, ViewTeacherVideoUseCase>();
 
             services.AddTransient<ICreateGradeUseCase, CreateGradeUseCase>();
             services.AddTransient<IGradeRepository, GradeRepository>();
+            services.AddTransient<IViewGradeUseCase, ViewGradeUseCase>();
+            services.AddTransient<IUpdateGradeUseCase, UpdateGradeUseCase>();
 
             services.AddTransient<ICreateHighSchoolBoardUseCase, CreateHighSchoolBoardUseCase>();
             services.AddTransient<IHighSchoolBoardRepository, HighSchoolBoardRepository>();

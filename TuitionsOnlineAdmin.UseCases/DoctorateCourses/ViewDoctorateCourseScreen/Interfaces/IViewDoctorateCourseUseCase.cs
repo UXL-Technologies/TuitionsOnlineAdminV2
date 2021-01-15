@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:14-Jan-2021
-//Aim: defining the Interface for UpdateDoctorateCourseUsecase ;
+//Aim: defining the Interface for view DoctorateCourseUsecase ;
 
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScree
 {
   public  interface IViewDoctorateCourseUseCase
     {
+        //Declaring a method to view the DoctorateCourse
         List<DoctorateCourse> ViewDoctorateCourse(string searchKey);
     }
 }
