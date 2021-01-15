@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 // Date:14-Jan-2021
-//Aim: defining the Repository for postGraduate course
+//Aim: implementing the inteface IPostGraduateCourseRepository
 
 
 
@@ -15,8 +15,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class PostGraduateCourseRepository : IPostGraduateCourseRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
-
+        //constructor dependency injection
         public PostGraduateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
 

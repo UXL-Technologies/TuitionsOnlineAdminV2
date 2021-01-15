@@ -12,6 +12,7 @@
 
 
 <div>
+    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -20,7 +21,7 @@
 <br />
 
 <h3>ManagePostGraduateCourse</h3>
-@*Table*@
+@*Table is used to display the data *@
 <DxDataGrid Data="@postGraduateCourseList"
             RowInserting="@((newCourse) => CreatePostGraduateCourse(newCourse))"
             RowUpdating="@((postGraduateCourseToBeUpdated, newValue) => UpdatePostGraduateCourse(postGraduateCourseToBeUpdated, newValue))"
@@ -97,9 +98,9 @@
 
 
     }
-   
+
     @*Author:SA,BM,SM , Date:14-01-2021
-      Aim:update post graduate course   *@
+        Aim:update post graduate course   *@
 
     void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, Dictionary<string, object> newValue)
     {

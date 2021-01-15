@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
-//Date:12-Jan-2021
-//Aim: defining the Repository for Grade
+//Date:15-Jan-2021
+//Aim: implementing the inteface IGradeRepository
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class GradeRepository : IGradeRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public GradeRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
             this.instanceOfDbContext = instanceOfDbContext;

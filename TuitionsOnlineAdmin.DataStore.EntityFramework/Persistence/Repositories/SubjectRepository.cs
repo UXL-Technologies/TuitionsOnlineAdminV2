@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:11-Jan-2021
-//Aim: defining the entity for subject
+//Aim:  implementing the inteface ISubjectRepository
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class SubjectRepository : ISubjectRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public SubjectRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
             this.instanceOfDbContext = instanceOfDbContext;

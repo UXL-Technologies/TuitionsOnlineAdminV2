@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:12-Jan-2021
-//Aim: defining the Repository for HighSchoolBoard
+//Aim: implementing the inteface IHighSchoolBoardRepository
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class HighSchoolBoardRepository : IHighSchoolBoardRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public HighSchoolBoardRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
             this.instanceOfDbContext = instanceOfDbContext;

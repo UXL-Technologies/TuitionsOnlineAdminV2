@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 // Date:08-Jan-2021
-//Aim: defining the Repository for Graduate course
+//Aim: implementing the inteface IGraduateCourseRepository
 
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class GraduateCourseRepository : IGraduateCourseRepository
     {
-       private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
-
-
+        //property dependency injection
+        private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public GraduateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
        {
             this.instanceOfDbContext = instanceOfDbContext;

@@ -10,15 +10,15 @@
 @inject IViewGradeUseCase instanceOfIViewGradeUseCase
 @inject IUpdateGradeUseCase instanceOfIUpdateGradeUseCase
 <div>
+    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
-
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
                NullText="Search for Grades ...."></DxTextBox>
 </div>
 <br />
 
-@*Table*@
+@*Table is used to display the data *@
 <DxDataGrid Data="@gradeList"
             RowInserting="@((newGrade) => CreateGrade(newGrade))"
             RowUpdating="@((gradeToBeUpdated, newValue) => UpdateGrade(gradeToBeUpdated, newValue))"

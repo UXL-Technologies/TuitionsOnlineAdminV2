@@ -1,7 +1,7 @@
 ﻿
 //Authors: SA, BM, SM
 //Date:11-Jan-2021
-//Aim: defining the Repository for City
+//Aim:implementing the inteface ICityRepository
 
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     public class CityRepository : ICityRepository 
         
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
-
+        //constructor dependency injection
         public CityRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
 

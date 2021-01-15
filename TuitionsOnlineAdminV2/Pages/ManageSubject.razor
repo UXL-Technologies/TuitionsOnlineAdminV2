@@ -11,6 +11,7 @@
 @inject IUpdateSubjectUseCase instanceOfIUpdateSubjectUseCase
 
 <div>
+    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -18,7 +19,7 @@
 </div>
 <br />
 
-@*Table*@
+@*Table is used to display the data *@
 <DxDataGrid Data="@subjectList"
             RowInserting="@((newSubject) => CreateSubject(newSubject))"
             RowUpdating="@((subjectToBeUpdated, newValue) => UpdateSubject(subjectToBeUpdated, newValue))"

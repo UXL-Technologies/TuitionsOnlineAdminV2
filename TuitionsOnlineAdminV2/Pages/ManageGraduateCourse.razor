@@ -12,6 +12,7 @@
 
 
 <div>
+    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -20,13 +21,13 @@
 <br />
 
 
-@*Table*@
+@*Table is used to display the data *@
 <DxDataGrid Data="@graduateCourseList"
             RowInserting="@((newCourse) => CreateGraduateCourse(newCourse))"
             RowUpdating="@((graduateCourseToBeUpdated, newValue) => UpdateGraduateCourse(graduateCourseToBeUpdated, newValue))"
             PageSize="5">
     <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="300px" />
-    <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)"  Width="200px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" Width="200px" />
     <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
 </DxDataGrid>
 

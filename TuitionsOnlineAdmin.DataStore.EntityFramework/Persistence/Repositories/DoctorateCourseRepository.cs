@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 // Date:08-Jan-2021
-//Aim: defining the Repository for Doctorate course
+//Aim: implementing the inteface IDoctorateCourseRepository
 
 
 
@@ -15,7 +15,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class DoctorateCourseRepository : IDoctorateCourseRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public DoctorateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
             this.instanceOfDbContext = instanceOfDbContext;

@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:11-Jan-2021
-//Aim: defining the Repository for currency
+//Aim: implementing the inteface ICurrencyRepository
 
 
 using System;
@@ -14,7 +14,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     public class CurrencyRepository : ICurrencyRepository
 
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public CurrencyRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
             this.instanceOfDbContext = instanceOfDbContext;

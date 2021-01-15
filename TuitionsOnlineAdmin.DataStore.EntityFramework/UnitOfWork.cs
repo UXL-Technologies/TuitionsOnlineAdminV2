@@ -56,45 +56,53 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.instanceOfITeacherBasicInformationRepository = instanceOfITeacherBasicInformationRepository;
 
         }
-        
+        //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
             instanceOfIDoctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
         }
         //Authors: SA, BM, SM
         // Date:14-Jan-2021
-        //To View DoctorateCourse
+        //to view a DoctorateCourse  by invoking ViewDoctorateCourseRepository of DoctorateCourseRepository
         public List<DoctorateCourse> ViewDoctorateCourses(string searchKey)
         {
             var doctorateCourseList = instanceOfIDoctorateCourseRepository.ViewDoctorateCourseRepository(searchKey);
             return doctorateCourseList;
         }
-        //To update DoctorateCourse
+        //to update a DoctorateCourse  by invoking UpdateDoctorateCourseRepository of DoctorateCourseRepository
         public string UpdateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
             instanceOfIDoctorateCourseRepository.UpdateDoctorateCourseRepository(doctorateCourse);
             return "done";
         }
-        //To Create GraduateCourse
+
+        //to create a GraduateCourse  by invoking CreateGraduateCourseRepository of GraduateCourseRepository
         public void CreateGraduateCourse(GraduateCourse graduateCourse)
         {
             instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
         }
-        //To updateGraduateCourse
+        //to view a GraduateCourse  by invoking ViewGraduateCourseRepository of GraduateCourseRepository
+        public List<GraduateCourse> ViewGraduateCourses(string searchKey)
+        {
+            var graduateCourseList = instanceOfIGraduateCourseRepository.ViewGraduateCourseRepository(searchKey);
+            return graduateCourseList;
+        }
+
+        //to update a GraduateCourse  by invoking UpdateGraduateCourseRepository of GraduateCourseRepository
         public string UpdateGraduateCourse(GraduateCourse graduateCourse)
         {
             instanceOfIGraduateCourseRepository.UpdateGraduateCourseRepository(graduateCourse);
             return "done";
         }
 
-        //to create postgraduate course
+        //to create a PostGraduateCourse by invoking CreatePostGraduateRepository of PostGraduateRepository
         public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
         }
         //Authors: SA, BM, SM
         // Date:14-Jan-2021
-        //creating view postgraduate course in unitofwork
+        //to view a PostGraduateCourse by invoking ViewPostGraduateCourseRepository of PostGraduateCourseRepository
         public List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey)
         {
             var postGraduateCourseList = instanceOfIPostGraduateCourseRepository.ViewPostGraduateCourseRepository(searchKey);
@@ -102,21 +110,21 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
         //Authors: SA, BM, SM
         // Date:14-Jan-2021
-        //To updatePostGraduateCourse
+        //to update a PostGraduateCourse by invoking UpdatePostGraduateCourseRepository of PostGraduateCourseRepository
         public string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             instanceOfIPostGraduateCourseRepository.UpdatePostGraduateCourseRepository(postGraduateCourse);
             return "done";
         }
 
-        //to create CertificateCourse
+        //to create a CertificateCourse by invoking CreateCertificateCourseRepository of CertificateCourseRepository
         public void CreateCertificateCourse(CertificateCourse certificateCourse)
         {
             instanceOfICertificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021
-        //creating view CertificateCourse in unitofwork
+        //to view a CertificateCourse  by invoking ViewCertificateCourseRepository of CertificateCourseRepository
         public List<CertificateCourse> ViewCertificateCourses(string searchKey)
         {
             var certificateCourseList = instanceOfICertificateCourseRepository.ViewCertificateCourseRepository(searchKey);
@@ -124,7 +132,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021
-        //To update CertificateCourse
+        //to update a CertificateCourse by invoking UpdateCertificateCourseRepository of CertificateCourseRepository
         public string UpdateCertificateCourse(CertificateCourse certificateCourse)
         {
             instanceOfICertificateCourseRepository.UpdateCertificateCourseRepository(certificateCourse);
@@ -137,36 +145,31 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             instanceOfICityRepository.CreateCityRepository(city);
         }
 
-        public List<GraduateCourse> ViewGraduateCourses(string searchKey)
-        {
-            var graduateCourseList = instanceOfIGraduateCourseRepository.ViewGraduateCourseRepository(searchKey);
-            return graduateCourseList;
-        }
-
+       
         public void CreateCurrency(Currency currency)
         {
             instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
         }
-        //To Create subject 
+        //to view a Subject by invoking CreateSubjectRepository of SubjectRepository
         public void CreateSubject(Subject subject)
         {
             instanceOfISubjectRepository.CreateSubjectRepository(subject);
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021
-        //To View Subject
+        //to view a Subject by invoking ViewSubjectRepository of SubjectRepository
         public List<Subject> ViewSubjects(string searchKey)
         {
             var subjectList = instanceOfISubjectRepository.ViewSubjectRepository(searchKey);
             return subjectList;
         }
-        //To update Subject
+        //to update a Subject by invoking UpdateSubjectRepository of SubjectRepository
         public string UpdateSubject(Subject subject)
         {
             instanceOfISubjectRepository.UpdateSubjectRepository(subject);
             return "done";
         }
-        //to create grade
+        //to create a Grade  by invoking CreateGradeRepository of GradeRepository
         public void CreateGrade(Grade grade)
         {
             instanceOfIGradeRepository.CreateGradeRepository(grade);
@@ -174,13 +177,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         //Authors: SA, BM, SM
         // Date:15-Jan-2021
-        //To View Grade
+        //to view a Grade by invoking ViewGradeRepository of GradeRepository
         public List<Grade> ViewGrades(string searchKey)
         {
             var gradeList = instanceOfIGradeRepository.ViewGradeRepository(searchKey);
             return gradeList;
         }
-        //To update Grade
+        //to update a Grade  by invoking UpdateGradeRepository of GradeRepository
         public string UpdateGrade(Grade grade)
         {
             instanceOfIGradeRepository.UpdateGradeRepository(grade);

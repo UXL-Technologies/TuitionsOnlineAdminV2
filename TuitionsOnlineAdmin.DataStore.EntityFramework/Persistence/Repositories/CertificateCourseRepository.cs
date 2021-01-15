@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 // Date:08-Jan-2021
-//Aim: defining the Repository for Certificate course
+//Aim: implementing the inteface ICertificateCourseRepository
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class CertificateCourseRepository : ICertificateCourseRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+        //constructor dependency injection
         public CertificateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
         {
             this.instanceOfDbContext = instanceOfDbContext;
