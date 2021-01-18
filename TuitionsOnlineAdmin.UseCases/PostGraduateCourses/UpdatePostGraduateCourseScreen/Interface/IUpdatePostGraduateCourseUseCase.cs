@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.UpdatePostGraduateCou
 {
    public interface IUpdatePostGraduateCourseUseCase
     {
+        //Declaring a method to update the PostGraduateCourse
         string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
     }
 }

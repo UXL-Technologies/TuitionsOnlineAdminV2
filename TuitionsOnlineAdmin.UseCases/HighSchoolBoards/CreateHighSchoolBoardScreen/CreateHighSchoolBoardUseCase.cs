@@ -13,15 +13,16 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScr
 {
     public class CreateHighSchoolBoardUseCase : ICreateHighSchoolBoardUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-
+        //constructor dependency injection
         public CreateHighSchoolBoardUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
-
+        //Calling the method create highSchoolBoards in IunitOfwork
         public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
         {
 

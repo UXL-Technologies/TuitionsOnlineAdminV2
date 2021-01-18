@@ -12,6 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScree
 {
    public interface IUpdateGraduateCourseUseCase
     {
+        //Declaring a method to update the graduateCourse
         string UpdateGraduateCourse(GraduateCourse graduateCourse);
     }
 }

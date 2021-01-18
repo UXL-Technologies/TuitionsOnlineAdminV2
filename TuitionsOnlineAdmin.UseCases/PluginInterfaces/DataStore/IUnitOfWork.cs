@@ -64,8 +64,14 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update TeacherVideo
         string UpdateTeacherVideo(TeacherVideo teacherVideo);
 
-
+        //Authors: SA, BM, SM
+        //Date:18-Jan-2021
+        //To Create Grade
         void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        //To view Grade
+        List<HighSchoolBoard> ViewHighSchoolBoards(string searchKey);
+        //To update HighSchoolBoard
+        string UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
 
         //Authors: SA, BM, SM
         //Date:15-Jan-2021

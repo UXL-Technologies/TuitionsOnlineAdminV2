@@ -12,6 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCours
 {
    public interface IViewPostGraduateCourseUseCase
     {
-         List<PostGraduateCourse> ViewPostGraduateCourse(string searchKey);
+        //Declaring a method to view the PostGraduateCourse
+        List<PostGraduateCourse> ViewPostGraduateCourse(string searchKey);
     }
 }

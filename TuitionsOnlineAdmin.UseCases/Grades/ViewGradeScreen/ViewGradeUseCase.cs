@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:15-Jan-2021
-//Aim: Implementing the interface IUpdateGradeUsecase ;
+//Aim: Implementing the interface IViewGradeUsecase ;
 
 using System;
 using System.Collections.Generic;

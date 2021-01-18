@@ -13,5 +13,12 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     {
         //To hold the contract for creating the HighSchoolBoard and store it in a database
         void CreateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard);
+
+        //Authors: SA, BM, SM
+        //Date:18-Jan-2021
+        //To hold the contract for viewing HighSchoolBoard
+        List<HighSchoolBoard> ViewHighSchoolBoardRepository(string searchKey);
+        //To hold the contract for updating HighSchoolBoard
+        string UpdateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard);
     }
 }

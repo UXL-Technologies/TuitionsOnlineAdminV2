@@ -19,6 +19,7 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen
 
     public class ViewGraduateCourseUseCase : IViewGraduateCourseUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
 
         //dependency injection

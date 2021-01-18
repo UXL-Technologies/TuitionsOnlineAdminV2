@@ -19,6 +19,7 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCours
 
     public class ViewPostGraduateCourseUseCase : IViewPostGraduateCourseUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
 
         //dependency injection
@@ -28,9 +29,6 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCours
         }
 
         //Calling the unit of work for fetching the database
-
-        
-
         public List<PostGraduateCourse> ViewPostGraduateCourse(string searchKey)
         {
             var postGraduateCourseList = instanceOfIUnitOfWork.ViewPostGraduateCourses(searchKey);

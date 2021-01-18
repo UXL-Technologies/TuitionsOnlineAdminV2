@@ -13,13 +13,15 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.UpdatePostGraduateCou
 {
     public class UpdatePostGraduateCourseUseCase : IUpdatePostGraduateCourseUseCase
     {
-
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
+        //constructor dependency injection
         public UpdatePostGraduateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
 
         }
+        //Calling the method update PostGraduateCourse in IunitOfwork
         public string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             instanceOfIUnitOfWork.UpdatePostGraduateCourse(postGraduateCourse);

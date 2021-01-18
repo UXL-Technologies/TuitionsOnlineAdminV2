@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
@@ -27,5 +28,38 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             instanceOfDbContext.SaveChanges();
         }
 
+
+        //Authors: SA, BM, SM
+        // Date:18-Jan-2021
+        //To view HighSchoolBoard based on the search criteria 
+        public List<HighSchoolBoard> ViewHighSchoolBoardRepository(string searchKey)
+        {
+
+            //if the seach key is present the list is displayed
+            if (searchKey != null)
+            {
+                List<HighSchoolBoard> highSchoolBoardList = new List<HighSchoolBoard>();
+                highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.Where(s => s.HighSchoolBoardName.Contains(searchKey)).ToList();
+                return highSchoolBoardList;
+            }
+            //if not entire list of data is displayed
+            else
+
+            {
+                var highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.ToList();
+                return highSchoolBoardList;
+            }
+        }
+
+        //To update HighSchoolBoard
+        public string UpdateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard)
+        {
+            HighSchoolBoard highSchoolBoardToBeUpdated = instanceOfDbContext.HighSchoolBoard.FirstOrDefault(s => s.HighSchoolBoardId == highSchoolBoard.HighSchoolBoardId);
+            highSchoolBoardToBeUpdated = highSchoolBoard;
+            instanceOfDbContext.HighSchoolBoard.Append(highSchoolBoardToBeUpdated);
+            instanceOfDbContext.SaveChanges();
+            return "Done";
+
+        }
     }
 }

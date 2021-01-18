@@ -13,11 +13,13 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScree
 {
     public class CreateGraduateCourseUseCase : ICreateGraduateCourseUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-
+        //constructor dependency injection
         public CreateGraduateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork) {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
+        //Calling the method create graduate Courses in IunitOfwork
         public void CreateGraduateCourse(GraduateCourse graduateCourse)
         {
             instanceOfIUnitOfWork.CreateGraduateCourse(graduateCourse);

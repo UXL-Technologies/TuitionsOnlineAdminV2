@@ -209,11 +209,27 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
 
+
+        //to create a HighSchoolBoard by invoking CreateHighSchoolBoardrepository of HighSchoolBoardRepository
         public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
         {
             instanceOfIHighSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
-
         }
+        //Authors: SA, BM, SM
+        // Date:18-Jan-2021
+        //to view a HighSchoolBoard  by invoking ViewHighSchoolBoardrepository of HighSchoolBoardRepository
+        public List<HighSchoolBoard> ViewHighSchoolBoards(string searchKey)
+        {
+            var highSchoolBoardList = instanceOfIHighSchoolBoardRepository.ViewHighSchoolBoardRepository(searchKey);
+            return highSchoolBoardList;
+        }
+        //to update a highSchoolBoard by invoking updateHighSchoolBoardrepository of HighSchoolBoardRepository
+        public string UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        {
+            instanceOfIHighSchoolBoardRepository.UpdateHighSchoolBoardRepository(highSchoolBoard);
+            return "done";
+        }
+
 
         public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {

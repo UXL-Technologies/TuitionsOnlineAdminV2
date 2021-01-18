@@ -15,12 +15,15 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScree
     public class UpdateGraduateCourseUseCase : IUpdateGraduateCourseUseCase
 
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
+        //constructor dependency injection
         public UpdateGraduateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
 
         }
+        //Calling the method update graduate Courses in IunitOfwork
         public string UpdateGraduateCourse(GraduateCourse graduateCourse)
         {
             instanceOfIUnitOfWork.UpdateGraduateCourse(graduateCourse);

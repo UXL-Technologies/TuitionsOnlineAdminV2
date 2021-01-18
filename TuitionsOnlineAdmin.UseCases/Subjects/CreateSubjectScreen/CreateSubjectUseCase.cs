@@ -11,11 +11,12 @@ using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
 
 namespace TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen
 {
-    //property dependency injection
+    
     public class CreateSubjectUseCase: ICreateSubjectUseCase
     {
-        //constructor dependency injection
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
+        //dependency injection
         public CreateSubjectUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {

@@ -1,0 +1,124 @@
+﻿@* Authors: SA,BM,SM
+     Date: 18-01-2021
+    Aim : To create, view ,edit HighSchoolBoard *@
+
+@page "/highSchoolBoard"
+@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.ViewHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.UpdateHighSchoolBoardScreen.Interface
+@inject ICreateHighSchoolBoardUseCase instanceOfICreateHighSchoolBoardUseCase
+@inject IViewHighSchoolBoardUseCase instanceOfIViewHighSchoolBoardUseCase
+@inject IUpdateHighSchoolBoardUseCase instanceOfIUpdateHighSchoolBoardUseCase
+<div>
+    @* this TextBox is used to search the data  *@
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for HighSchoolBoards ...."></DxTextBox>
+</div>
+<br />
+
+@*Table is used to display the data *@
+<DxDataGrid Data="@highSchoolBoardList"
+            RowInserting="@((newHighSchoolBoard) => CreateHighSchoolBoard(newHighSchoolBoard))"
+            RowUpdating="@((highSchoolBoardToBeUpdated, newValue) => UpdateHighSchoolBoard(highSchoolBoardToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(HighSchoolBoard.HighSchoolBoardName)" Width="300px" Caption="HighSchoolBoard" />
+    <DxDataGridCheckBoxColumn Field="@nameof(HighSchoolBoard.Active)" Width="200px" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+</DxDataGrid>
+
+
+@code {
+
+    @* To hold the hold the HighSchoolBoard details*@
+    IEnumerable<HighSchoolBoard> highSchoolBoardList = Enumerable.Empty<HighSchoolBoard>();
+    @*To hold the search text*@
+    String searchkey;
+    @*The init method is to invoke the HighSchoolBoard list when the page is loaded*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetHighSchoolBoards() to fetch the HighSchoolBoard list to be displayed*@
+        GetHighSchoolBoards(searchkey);
+
+    }
+
+    @*To get HighSchoolBoard list to be displayed in the data grid columns*@
+    public void GetHighSchoolBoards(String searchkeyword)
+    {
+        highSchoolBoardList = instanceOfIViewHighSchoolBoardUseCase.ViewHighSchoolBoard(searchkeyword);
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*To invoke the component to re-render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetHighSchoolBoards(searchkey);
+    }
+
+    //create HighSchoolBoard
+    @*The CreateHighSchoolBoard() method is responsible for capturing the details enetred by the user and send it to the database.*@
+    void CreateHighSchoolBoard(Dictionary<string, object> newHighSchoolBoard)
+    {
+        @* To hold the new HighSchoolBoard to be created *@
+        HighSchoolBoard createHighSchoolBoard = new HighSchoolBoard();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newHighSchoolBoard.Keys)
+        {
+            @*For each incoming key we check and assign the values to newHighSchoolBoard *@
+            switch (field)
+            {
+                case "HighSchoolBoardName":
+                    createHighSchoolBoard.HighSchoolBoardName = (string)newHighSchoolBoard[field];
+                    break;
+                case "Active":
+                    createHighSchoolBoard.Active = (bool)newHighSchoolBoard[field];
+                    break;
+            }
+        }
+
+        @*To invoke the method to create new HighSchoolBoard*@
+        instanceOfICreateHighSchoolBoardUseCase.CreateHighSchoolBoard(createHighSchoolBoard);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created HighSchoolBoard along with the existing the course list *@
+        GetHighSchoolBoards(searchkey);
+
+
+    }
+
+
+
+    //To take and update the value for  HighSchoolBoard
+    void UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoardToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var highSchoolBoard in newValue.Keys)
+        {
+            switch (highSchoolBoard)
+            {
+                case "HighSchoolBoardName":
+                    highSchoolBoardToBeUpdated.HighSchoolBoardName = (string)newValue[highSchoolBoard];
+                    break;
+                case "Active":
+                    highSchoolBoardToBeUpdated.Active = (bool)newValue[highSchoolBoard];
+                    break;
+            }
+
+        }
+
+        @*HighSchoolBoardToBeUpdated this variable holds the updated value and is sent to the database*@
+        instanceOfIUpdateHighSchoolBoardUseCase.UpdateHighSchoolBoard(highSchoolBoardToBeUpdated);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetHighSchoolBoards(searchkey);
+
+    }
+
+}

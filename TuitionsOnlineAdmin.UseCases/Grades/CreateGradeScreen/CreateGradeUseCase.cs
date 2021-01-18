@@ -11,15 +11,18 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen
 {
+
     public class CreateGradeUseCase : ICreateGradeUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-
+        //constructor dependency injection
         public CreateGradeUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
+        //Calling the method create Grades in IunitOfwork
         public void CreateGrade(Grade grade)
         {
 

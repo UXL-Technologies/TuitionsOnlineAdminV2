@@ -48,6 +48,10 @@ using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen;
 using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen;
 using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.UpdateHighSchoolBoardScreen;
+using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.UpdateHighSchoolBoardScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.ViewHighSchoolBoardScreen;
+using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.ViewHighSchoolBoardScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen;
@@ -149,9 +153,12 @@ namespace TuitionsOnlineAdminV2
 
             services.AddTransient<ICreateHighSchoolBoardUseCase, CreateHighSchoolBoardUseCase>();
             services.AddTransient<IHighSchoolBoardRepository, HighSchoolBoardRepository>();
+            services.AddTransient<IViewHighSchoolBoardUseCase, ViewHighSchoolBoardUseCase>();
+            services.AddTransient<IUpdateHighSchoolBoardUseCase, UpdateHighSchoolBoardUseCase>();
 
             services.AddTransient<ICreateTeacherBasicInformationUseCase, CreateTeacherBasicInformationUseCase>();
             services.AddTransient<ITeacherBasicInformationRepository, TeacherBasicInformationRepository>();
+
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));

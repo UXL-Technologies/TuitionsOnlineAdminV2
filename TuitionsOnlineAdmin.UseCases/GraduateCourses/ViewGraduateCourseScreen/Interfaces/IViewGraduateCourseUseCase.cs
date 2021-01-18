@@ -12,6 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.
     
     public interface IViewGraduateCourseUseCase
     {
+        //Declaring a method to view the Graduate course
         List<GraduateCourse> ViewGraduateCourse(string searchKey);
     }
 }
