@@ -13,5 +13,14 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     {
         //To hold the contract for creating the TeacherBasicInformation and store it in a database
         void CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);
+
+
+        //Authors: SA, BM, SM
+        //Date:18-Jan-2021
+        //To hold the contract for viewing TeacherBasicInformation
+        List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchKey);
+
+        //To hold the contract for updating TeacherBasicInformation
+        string UpdateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);
     }
 }

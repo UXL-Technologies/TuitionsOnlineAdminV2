@@ -1,8 +1,8 @@
 ﻿@* Authors: SA,BM,SM
      Date: 18-01-2021
-    Aim : To create, view ,edit HighSchoolBoard *@
+    Aim : To create, view ,edit HighSchoolBoard page *@
 
-@page "/highSchoolBoard"
+@page "/highschoolboard"
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.ViewHighSchoolBoardScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.UpdateHighSchoolBoardScreen.Interface
@@ -14,7 +14,7 @@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
-               NullText="Search for HighSchoolBoards ...."></DxTextBox>
+               NullText="Search for High School Boards ...."></DxTextBox>
 </div>
 <br />
 
@@ -23,7 +23,7 @@
             RowInserting="@((newHighSchoolBoard) => CreateHighSchoolBoard(newHighSchoolBoard))"
             RowUpdating="@((highSchoolBoardToBeUpdated, newValue) => UpdateHighSchoolBoard(highSchoolBoardToBeUpdated, newValue))"
             PageSize="5">
-    <DxDataGridColumn Field="@nameof(HighSchoolBoard.HighSchoolBoardName)" Width="300px" Caption="HighSchoolBoard" />
+    <DxDataGridColumn Field="@nameof(HighSchoolBoard.HighSchoolBoardName)" Width="300px" Caption="High School Board" />
     <DxDataGridCheckBoxColumn Field="@nameof(HighSchoolBoard.Active)" Width="200px" />
     <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
 </DxDataGrid>

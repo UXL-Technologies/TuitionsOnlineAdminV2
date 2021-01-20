@@ -13,6 +13,7 @@ namespace TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen.Interface
 {
     public interface ICreateCurrencyUseCase
     {
+        //Declaring a method to create the Currency
         void CreateCurrency(Currency currency);
     }
 }

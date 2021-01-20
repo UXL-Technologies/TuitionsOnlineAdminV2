@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store TeacherVideoId 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid TeacherVideoId { get; set; }
+        public int TeacherVideoId { get; set; }
 
         //property to store VideoURL 
         [Url(ErrorMessage = "This does not seem like an url . Please check and enter again.")]

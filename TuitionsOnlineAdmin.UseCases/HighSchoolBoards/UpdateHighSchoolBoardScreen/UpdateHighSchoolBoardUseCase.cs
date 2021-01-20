@@ -1,8 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:18-Jan-2021
-//Aim: defining the Class for HighSchoolBoardUsecase ;
-
-
+//Aim: defining the Class for HighSchoolBoardUsecase
 using System;
 using System.Collections.Generic;
 using System.Text;

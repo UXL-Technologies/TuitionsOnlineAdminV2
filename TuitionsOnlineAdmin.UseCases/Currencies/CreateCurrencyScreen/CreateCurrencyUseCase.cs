@@ -14,13 +14,14 @@ namespace TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen
 {
     public class CreateCurrencyUseCase : ICreateCurrencyUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-
+        //constructor dependency injection
         public CreateCurrencyUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
-
+        //Calling the method create Currency in IunitOfwork
         public void CreateCurrency(Currency currency)
         {
             instanceOfIUnitOfWork.CreateCurrency(currency);

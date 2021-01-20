@@ -13,6 +13,10 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
     {
         //To add the single record of the GraduateCourse to the database
         void CreateGraduateCourse(GraduateCourse graduateCourse);
+        //To view graduate courses
+        List<GraduateCourse> ViewGraduateCourses(string searchKey);
+        //To update GraduateCourse
+        string UpdateGraduateCourse(GraduateCourse graduateCourse);
 
         //Authors: SA, BM, SM
         //Date:14-Jan-2021
@@ -49,11 +53,33 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //To add the single record of the City to the database
         void CreateCity(City city);
+        //To view Cities
+        List<City> ViewCities(string searchKey);
+        //To update City
+        string UpdateCity(City city);
 
-        //To view graduate courses
-        List<GraduateCourse> ViewGraduateCourses(string searchKey);
+       
+
+
+        //To add the single record of the Currency to the database
         void CreateCurrency(Currency currency);
-       void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+        //Authors: SA, BM, SM
+        //Date:18-Jan-2021
+        //To view Currencies
+        List<Currency> ViewCurrencies(string searchKey);
+        //To update Currency
+        string UpdateCurrency(Currency currency);
+
+
+
+        //Authors: SA, BM, SM
+        //Date:18-Jan-2021
+        //To Create TeacherBasicInformation
+        void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+        //To view TeacherBasicInformation
+        List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey);
+        //To update TeacherBasicInformation
+        string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
 
         //Authors: SA, BM, SM
         //Date:15-Jan-2021
@@ -66,9 +92,9 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
-        //To Create Grade
+        //To Create HighSchoolBoard
         void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
-        //To view Grade
+        //To view HighSchoolBoard
         List<HighSchoolBoard> ViewHighSchoolBoards(string searchKey);
         //To update HighSchoolBoard
         string UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
@@ -92,7 +118,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         string UpdateGrade(Grade grade);
 
 
-        string UpdateGraduateCourse(GraduateCourse graduateCourse);
+      
 
         
 

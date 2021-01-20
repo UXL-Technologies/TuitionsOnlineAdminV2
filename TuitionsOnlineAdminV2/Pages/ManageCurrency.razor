@@ -1,0 +1,128 @@
+﻿@* Authors: SA,BM,SM
+     Date: 15-01-2021
+    Aim : To create, view ,edit Currency *@
+
+@page "/currency"
+@using TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Currencies.ViewCurrencyScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Currencies.UpdateCurrencyScreen.Interface
+@inject ICreateCurrencyUseCase instanceOfICreateCurrencyUseCase
+@inject IViewCurrencyUseCase instanceOfIViewCurrencyUseCase
+@inject IUpdateCurrencyUseCase instanceOfIUpdateCurrencyUseCase
+
+<div>
+    @* this TextBox is used to search the data  *@
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for Currencies ...."></DxTextBox>
+</div>
+<br />
+
+@*Table is used to display the data *@
+<DxDataGrid Data="@currencyList"
+            RowInserting="@((newCurrency) => CreateCurrency(newCurrency))"
+            RowUpdating="@((currencyToBeUpdated, newValue) => UpdateCurrency(currencyToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(Currency.CurrencyName)" Width="300px" Caption="Currency" />
+    <DxDataGridCheckBoxColumn Field="@nameof(Currency.Active)" Width="200px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(Currency.Default)" Width="200px" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+</DxDataGrid>
+
+@code {
+
+    @* To hold the hold the Currency details*@
+    IEnumerable<Currency> currencyList = Enumerable.Empty<Currency>();
+    @*To hold the search text*@
+    String searchkey;
+    @*The init method is to invoke the Currency list when the page is loaded*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetCurrencies() to fetch the Currency list to be displayed*@
+        GetCurrencies(searchkey);
+
+    }
+
+    @*To get Currency list to be displayed in the data grid columns*@
+    public void GetCurrencies(String searchkeyword)
+    {
+        currencyList = instanceOfIViewCurrencyUseCase.ViewCurrency(searchkeyword);
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*To invoke the component to re-render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCurrencies(searchkey);
+    }
+
+    //create Currency
+    @*The CreateCurrency() method is responsible for capturing the details enetred by the user and send it to the database.*@
+    void CreateCurrency(Dictionary<string, object> newCurrency)
+    {
+        @* To hold the new Currency to be created *@
+        Currency createCurrency = new Currency();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newCurrency.Keys)
+        {
+            @*For each incoming key we check and assign the values to newCurrency *@
+            switch (field)
+            {
+                case "CurrencyName":
+                    createCurrency.CurrencyName = (string)newCurrency[field];
+                    break;
+                case "Active":
+                    createCurrency.Active = (bool)newCurrency[field];
+                    break;
+                case "Default":
+                    createCurrency.Default = (bool)newCurrency[field];
+                    break;
+            }
+        }
+
+        @*To invoke the method to create new Currency*@
+        instanceOfICreateCurrencyUseCase.CreateCurrency(createCurrency);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created Currency along with the existing the course list *@
+        GetCurrencies(searchkey);
+
+
+    }
+    //To take and update the value for  Currency
+    void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var currency in newValue.Keys)
+        {
+            switch (currency)
+            {
+                case "CurrencyName":
+                    currencyToBeUpdated.CurrencyName = (string)newValue[currency];
+                    break;
+                case "Active":
+                    currencyToBeUpdated.Active = (bool)newValue[currency];
+                    break;
+                case "Default":
+                    currencyToBeUpdated.Default = (bool)newValue[currency];
+                    break;
+            }
+
+        }
+
+        @*CurrencyToBeUpdated this variable holds the updated value and is sent to the database*@
+        instanceOfIUpdateCurrencyUseCase.UpdateCurrency(currencyToBeUpdated);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCurrencies(searchkey);
+
+    }
+
+}

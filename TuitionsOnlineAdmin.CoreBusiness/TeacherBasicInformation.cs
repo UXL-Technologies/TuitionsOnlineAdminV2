@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store TeacherId .
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid TeacherId { get; set; }
+        public int TeacherId { get; set; }
 
         //property to store TeacherFullName 
         [Required(ErrorMessage = "Please enter teacher’s full name")]
@@ -34,9 +34,10 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public string EmailAddress { get; set; }
 
         //property to store ContactTeleNumber 
-        [Required(ErrorMessage = "Please enter the contact number")]
-        [Range(10, 10, ErrorMessage = "Please enter a contact number of minimum 10 characters.")]
-        public int ContactTeleNumber { get; set; }
+
+        [Required(ErrorMessage = "Please enter your contact number.")]
+        [RegularExpression(@"^[789]\d{9}$", ErrorMessage = "Please enter a valid contact number of 10 digits.")]
+        public string ContactTeleNumber { get; set; }
 
         //property to store TeacherPhotographUrl 
         [Url(ErrorMessage = "This does not seem like an url . Please check and enter again.")]

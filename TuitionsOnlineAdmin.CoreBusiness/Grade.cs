@@ -16,7 +16,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store GradeId 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid GradeId { get; set; }
+        public int GradeId { get; set; }
 
         //property to store GradeName 
         [Required(ErrorMessage = "Please enter the name of the grade.")]

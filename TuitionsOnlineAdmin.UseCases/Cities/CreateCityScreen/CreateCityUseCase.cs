@@ -11,23 +11,24 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen
 {
-   public  class CreateCityUseCase: ICreateCityUseCase
+    public class CreateCityUseCase : ICreateCityUseCase
 
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
-
+        //constructor dependency injection
         public CreateCityUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
-
+        //Calling the method create Cities in IunitOfwork
         public void CreateCity(City city)
         {
-            
-                Console.WriteLine("I have reached create city");
+
+            Console.WriteLine("I have reached create city");
             instanceOfIUnitOfWork.CreateCity(city);
-            
+
         }
 
 

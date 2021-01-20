@@ -139,18 +139,48 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
 
-
+        //to create a City by invoking CreateCityRepository of CityRepository
         public void CreateCity(City city)
         {
             instanceOfICityRepository.CreateCityRepository(city);
         }
+        //to view a City by invoking ViewCityRepository of CityRepository
+        public List<City> ViewCities(string searchKey)
+        {
+            var cityList = instanceOfICityRepository.ViewCityRepository(searchKey);
+            return cityList;
+        }
+        //to update a City by invoking UpdateCityRepository of CityRepository
+        public string UpdateCity(City city)
+        {
+            instanceOfICityRepository.UpdateCityRepository(city);
+            return "done";
+        }
 
-       
+
+
+        //to Create a Currency by invoking CreateCurrencyRepository of CurrencyRepository
         public void CreateCurrency(Currency currency)
         {
             instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
         }
-        //to view a Subject by invoking CreateSubjectRepository of SubjectRepository
+        //Authors: SA, BM, SM
+        // Date:18-Jan-2021
+        //to view a Currency by invoking ViewCurrencyRepository of CurrencyRepository
+        public List<Currency> ViewCurrencies(string searchKey)
+        {
+            var currencyList = instanceOfICurrencyRepository.ViewCurrencyRepository(searchKey);
+            return currencyList;
+        }
+        //to update a Currency by invoking UpdateCurrencyRepository of CurrencyRepository
+        public string UpdateCurrency(Currency currency)
+        {
+            instanceOfICurrencyRepository.UpdateCurrencyRepository(currency);
+            return "done";
+        }
+
+
+        //to Create a Subject by invoking CreateSubjectRepository of SubjectRepository
         public void CreateSubject(Subject subject)
         {
             instanceOfISubjectRepository.CreateSubjectRepository(subject);
@@ -230,11 +260,27 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
 
-
+        //to create a TeacherBasicInformation by invoking CreateTeacherBasicInformationrepository of TeacherBasicInformationRepository
         public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
             instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
 
+        }
+
+        //Authors: SA, BM, SM
+        // Date:18-Jan-2021
+        //to view a TeacherBasicInformation  by invoking ViewTeacherBasicInformationrepository of TeacherBasicInformationRepository
+        public List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey)
+        {
+            var teacherBasicInformationList = instanceOfITeacherBasicInformationRepository.ViewTeacherBasicInformationRepository(searchKey);
+            return teacherBasicInformationList;
+        }
+
+        //to update a TeacherBasicInformation by invoking updateTeacherBasicInformationrepository of TeacherBasicInformationRepository
+        public string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        {
+            instanceOfITeacherBasicInformationRepository.UpdateTeacherBasicInformationRepository(teacherBasicInformation);
+            return "done";
         }
     }
 }

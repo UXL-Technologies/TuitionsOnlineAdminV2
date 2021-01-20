@@ -12,9 +12,10 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen
 {
-    //property dependency injection
+    
     public class CreateCertificateCourseUseCase : ICreateCertificateCourseUseCase
     {
+        //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
         //constructor dependency injection
         public CreateCertificateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)

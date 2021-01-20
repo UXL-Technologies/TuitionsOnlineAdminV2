@@ -1,0 +1,125 @@
+﻿@* Authors: SA,BM,SM
+     Date: 18-01-2021
+    Aim : To create, view ,edit City *@
+
+@page "/city"
+@using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Cities.ViewCityScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Cities.UpdateCityScreen.Interface
+@inject ICreateCityUseCase instanceOfICreateCityUseCase
+@inject IViewCityUseCase instanceOfIViewCityUseCase
+@inject IUpdateCityUseCase instanceOfIUpdateCityUseCase
+
+<div>
+    @* this TextBox is used to search the data  *@
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for Cities ...."></DxTextBox>
+</div>
+<br />
+
+@*Table is used to display the data *@
+<DxDataGrid Data="@cityList"
+            RowInserting="@((newCity) => CreateCity(newCity))"
+            RowUpdating="@((cityToBeUpdated, newValue) => UpdateCity(cityToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(City.CityName)" Width="300px" Caption="City" />
+    <DxDataGridCheckBoxColumn Field="@nameof(City.Active)" Width="200px" />
+    <DxDataGridSpinEditColumn Field="@nameof(City.PinCode)" Width="300px" Caption="PinCode" TextAlignment="DataGridTextAlign.Left" ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+</DxDataGrid>
+
+@code {
+
+    @* To hold the hold the City details*@
+    IEnumerable<City> cityList = Enumerable.Empty<City>();
+    @*To hold the search text*@
+    String searchkey;
+    @*The init method is to invoke the City list when the page is loaded*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetCities() to fetch the City list to be displayed*@
+        GetCities(searchkey);
+
+    }
+    @*To get City list to be displayed in the data grid columns*@
+    public void GetCities(String searchkeyword)
+    {
+        cityList = instanceOfIViewCityUseCase.ViewCity(searchkeyword);
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*To invoke the component to re-render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCities(searchkey);
+    }
+
+    //create City
+    @*The CreateCity() method is responsible for capturing the details enetred by the user and send it to the database.*@
+    void CreateCity(Dictionary<string, object> newCity)
+    {
+        @* To hold the new City to be created *@
+        City createCity = new City();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newCity.Keys)
+        {
+            @*For each incoming key we check and assign the values to newCity *@
+            switch (field)
+            {
+                case "CityName":
+                    createCity.CityName = (string)newCity[field];
+                    break;
+                case "Active":
+                    createCity.Active = (bool)newCity[field];
+                    break;
+                case "PinCode":
+                    createCity.PinCode = (int)newCity[field];
+                    break;
+            }
+        }
+
+        @*To invoke the method to create new City*@
+        instanceOfICreateCityUseCase.CreateCity(createCity);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created City along with the existing the course list *@
+    GetCities(searchkey);
+}
+//To take and update the value for  City
+void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var city in newValue.Keys)
+    {
+        switch (city)
+        {
+            case "CityName":
+                cityToBeUpdated.CityName = (string)newValue[city];
+                break;
+            case "Active":
+                cityToBeUpdated.Active = (bool)newValue[city];
+                break;
+            case "PinCode":
+                cityToBeUpdated.PinCode = (int)newValue[city];
+                break;
+        }
+
+    }
+
+        @*CityToBeUpdated this variable holds the updated value and is sent to the database*@
+        instanceOfIUpdateCityUseCase.UpdateCity(cityToBeUpdated);
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetCities(searchkey);
+
+    }
+
+}

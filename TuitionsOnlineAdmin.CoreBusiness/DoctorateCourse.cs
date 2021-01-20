@@ -17,11 +17,11 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store DoctorateCourseId 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid DoctorateCourseId { get; set; }
+        public int DoctorateCourseId { get; set; }
         //property to store DoctorateCourseName
         [Required(ErrorMessage = "Please enter the name of the doctorate course.")]
         [MinLength(3, ErrorMessage = "Please enter a minimum of 3 characters.")]
-        [MaxLength(300, ErrorMessage = "The  doctorate course name you have entered is too long. Please restrict the name to less than 300 alphabets.")]
+        [MaxLength(150, ErrorMessage = "The  doctorate course name you have entered is too long. Please restrict the name to less than 300 alphabets.")]
         [RegularExpression(@"^[A-Za-z\s]{1,}[\.]{0,}[A-Za-z.\s]{0,}", ErrorMessage = "Please use only alphabets in the name of the  doctorate course.")]
         public string DoctorateCourseName { get; set; }
         //property to store Active status 

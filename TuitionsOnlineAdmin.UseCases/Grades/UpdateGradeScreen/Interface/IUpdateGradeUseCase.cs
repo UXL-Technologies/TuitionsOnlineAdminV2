@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
 //Date:15-Jan-2021
-//Aim:  Interface to declare UpdateGrade ;
+//Aim: defining the Interface for GradeUsecase ;
 
 
 using System;
