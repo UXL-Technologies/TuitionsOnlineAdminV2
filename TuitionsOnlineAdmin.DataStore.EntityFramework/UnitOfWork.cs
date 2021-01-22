@@ -123,9 +123,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         //to create a CertificateCourse by invoking CreateCertificateCourseRepository of CertificateCourseRepository
-        public void CreateCertificateCourse(CertificateCourse certificateCourse)
+        public string CreateCertificateCourse(CertificateCourse certificateCourse)
         {
-            instanceOfICertificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
+           string result =  instanceOfICertificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021

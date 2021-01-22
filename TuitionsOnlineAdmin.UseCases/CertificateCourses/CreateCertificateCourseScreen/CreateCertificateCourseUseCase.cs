@@ -26,8 +26,8 @@ namespace TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourse
         public string CreateCertificateCourse(CertificateCourse certificateCourse)
         {
             Console.WriteLine("I have reached CreateCertificateCourse ");
-            instanceOfIUnitOfWork.CreateCertificateCourse(certificateCourse);
-            return "Done";
+            string result= instanceOfIUnitOfWork.CreateCertificateCourse(certificateCourse);
+            return result;
         }
     }
 }

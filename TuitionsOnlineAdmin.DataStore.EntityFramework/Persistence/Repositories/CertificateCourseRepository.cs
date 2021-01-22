@@ -23,8 +23,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To create a single record for CertificateCourse
         public string CreateCertificateCourseRepository(CertificateCourse certificateCourse)
         {
-            instanceOfDbContext.CertificateCourse.Add(certificateCourse);
-            instanceOfDbContext.SaveChanges();
+           
             try
             {
                 instanceOfDbContext.CertificateCourse.Add(certificateCourse);
@@ -34,7 +33,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_CERTIFICATECOURSE + " ,the error number is 101";
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_CERTIFICATECOURSE;
 
             }
         }
@@ -43,30 +42,45 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view Certificate Courses based on the search criteria 
         public List<CertificateCourse> ViewCertificateCourseRepository(string searchKey)
         {
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
-                List<CertificateCourse> certificateCourseList = new List<CertificateCourse>();
-                certificateCourseList = instanceOfDbContext.CertificateCourse.Where(s => s.CertificateCourseName.Contains(searchKey)).ToList();
-                return certificateCourseList;
-            }
-            //if not entire list of data is displayed
-            else
+            try {
+                if (searchKey != null)
+                {
+                    List<CertificateCourse> certificateCourseList = new List<CertificateCourse>();
+                    certificateCourseList = instanceOfDbContext.CertificateCourse.Where(s => s.CertificateCourseName.Contains(searchKey)).ToList();
+                    return certificateCourseList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            {
-                var certificateCourseList = instanceOfDbContext.CertificateCourse.ToList();
-                return certificateCourseList;
+                {
+                    var certificateCourseList = instanceOfDbContext.CertificateCourse.ToList();
+                    return certificateCourseList;
+                }
             }
+            catch (Exception) {
+                List<CertificateCourse> certificateCourseList = new List<CertificateCourse>();
+                return certificateCourseList = null;
+
+            }
+            //if the seach key is present the list is displayed
+
 
         }
         //To update CertificateCourse
         public string UpdateCertificateCourseRepository(CertificateCourse certificateCourse)
         {
-            CertificateCourse certificateCourseToBeUpdated = instanceOfDbContext.CertificateCourse.FirstOrDefault(s => s.CertificateCourseId == certificateCourse.CertificateCourseId);
-            certificateCourseToBeUpdated = certificateCourse;
-            instanceOfDbContext.CertificateCourse.Append(certificateCourseToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                CertificateCourse certificateCourseToBeUpdated = instanceOfDbContext.CertificateCourse.FirstOrDefault(s => s.CertificateCourseId == certificateCourse.CertificateCourseId);
+                certificateCourseToBeUpdated = certificateCourse;
+                instanceOfDbContext.CertificateCourse.Append(certificateCourseToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_CERTIFICATECOURSE;
+            }
+          
 
         }
     }

@@ -42,7 +42,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
 
         //To add the single record of the CertificateCourse to the database
-        void CreateCertificateCourse(CertificateCourse certificateCourse);
+        string CreateCertificateCourse(CertificateCourse certificateCourse);
         //Authors: SA, BM, SM
         //Date:15-Jan-2021
         //To view CertificateCourses
