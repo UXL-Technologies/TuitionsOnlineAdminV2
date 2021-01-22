@@ -14,6 +14,6 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCou
     public interface ICreatePostGraduateCourseUseCase
     {
         //Declaring a method to create the PostGraduateCourse
-        void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
+        string CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
     }
 }

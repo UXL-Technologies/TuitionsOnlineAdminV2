@@ -13,7 +13,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
    public interface ICertificateCourseRepository
     {
         //To hold the contract for creating the CertificateCourse and store it in a database
-        void CreateCertificateCourseRepository(CertificateCourse certificateCourse);
+        string CreateCertificateCourseRepository(CertificateCourse certificateCourse);
 
         //Authors: SA, BM, SM
         //Date:15-Jan-2021

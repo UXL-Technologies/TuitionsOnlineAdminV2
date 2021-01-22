@@ -20,6 +20,23 @@
 </div>
 <br />
 
+<div>
+
+    @* To display the success message on click of save *@
+    @if (saveMessage && @result == "done")
+    {
+        <p class="success_message_style">
+            Your postgraduate course has been created 😊
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @result
+        </p>
+    }
+</div>
+
 <h3>ManagePostGraduateCourse</h3>
 @*Table is used to display the data *@
 <DxDataGrid Data="@postGraduateCourseList"
@@ -38,10 +55,14 @@
     IEnumerable<PostGraduateCourse> postGraduateCourseList = Enumerable.Empty<PostGraduateCourse>();
 
     @*To hold the search text*@
-    String searchkey;
+String searchkey;
+
+public string result;
+
+bool saveMessage = false;
     @*The init method is to inoke the get graduate  course list*@
-    protected override void OnInitialized()
-    {
+protected override void OnInitialized()
+{
 
         @*To invoke the GetPostGraduateCourses() to fetch the graduate course list to be displayed*@
         GetPostGraduateCourses(searchkey);
@@ -89,15 +110,15 @@
 
 
         @*To invoke the method to create new post graduate course*@
-        instanceOfICreatePostGraduateCourseUseCase.CreatePostGraduateCourse(createPostGraduateCourse);
+        result=instanceOfICreatePostGraduateCourseUseCase.CreatePostGraduateCourse(createPostGraduateCourse);
+        saveMessage = true; 
 
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-        GetPostGraduateCourses(searchkey);
+    GetPostGraduateCourses(searchkey);
 
-
-    }
+}
 
     @*Author:SA,BM,SM , Date:14-01-2021
         Aim:update post graduate course   *@

@@ -19,6 +19,22 @@
 </div>
 <br />
 
+<div>
+
+    @* To display the success message on click of save *@
+    @if (saveMessage && @result == "done")
+    {
+        <p class="success_message_style">
+            Your doctorate course has been created 😊
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @result
+        </p>
+    }
+</div>
 @*Table is used to display the data *@
 <DxDataGrid Data="@doctorateCourseList"
             RowInserting="@((newCourse) => CreateDoctorateCourse(newCourse))"
@@ -35,6 +51,11 @@
     IEnumerable<DoctorateCourse> doctorateCourseList = Enumerable.Empty<DoctorateCourse>();
     @*To hold the search text*@
     String searchkey;
+
+
+    public string result;
+
+    bool saveMessage = false;
     @*The init method is to invoke the doctoratecourse list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -83,7 +104,9 @@
         }
 
         @*To invoke the method to create new Doctorate course*@
-        instanceOfICreateDoctorateCourseUseCase.CreateDoctorateCourse(createDoctorateCourse);
+        result = instanceOfICreateDoctorateCourseUseCase.CreateDoctorateCourse(createDoctorateCourse);
+        Console.WriteLine(saveMessage);
+        saveMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@

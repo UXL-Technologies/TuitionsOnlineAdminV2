@@ -21,10 +21,22 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             this.instanceOfDbContext = instanceOfDbContext;
         }
         //To create a single record for CertificateCourse
-        public void CreateCertificateCourseRepository(CertificateCourse certificateCourse)
+        public string CreateCertificateCourseRepository(CertificateCourse certificateCourse)
         {
             instanceOfDbContext.CertificateCourse.Add(certificateCourse);
             instanceOfDbContext.SaveChanges();
+            try
+            {
+                instanceOfDbContext.CertificateCourse.Add(certificateCourse);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception ex)
+            {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_CERTIFICATECOURSE + " ,the error number is 101";
+
+            }
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021

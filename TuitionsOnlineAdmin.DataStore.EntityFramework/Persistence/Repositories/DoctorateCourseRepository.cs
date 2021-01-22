@@ -25,10 +25,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //To create a single record for DoctorateCourse
-        public void CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse )
+        public string CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse )
         {
             instanceOfDbContext.DoctorateCourse.Add(doctorateCourse);
             instanceOfDbContext.SaveChanges();
+
+            try
+            {
+                instanceOfDbContext.DoctorateCourse.Add(doctorateCourse);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception ex)
+            {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_DOCTORATECOURSE + " ,the error number is 103";
+
+            }
         }
 
 

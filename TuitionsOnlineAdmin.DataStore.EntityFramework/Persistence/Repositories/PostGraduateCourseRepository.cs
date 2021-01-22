@@ -26,10 +26,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //To create a single record for PostGraduateCourse
-        public void CreatePostGraduateRepository(PostGraduateCourse postGraduateCourse)
+        public string CreatePostGraduateRepository(PostGraduateCourse postGraduateCourse)
         {
             instanceOfDbContext.PostGraduateCourse.Add(postGraduateCourse);
             instanceOfDbContext.SaveChanges();
+
+            try
+            {
+                instanceOfDbContext.PostGraduateCourse.Add(postGraduateCourse);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception ex)
+            {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_POSTGRADUATECOURSE + " ,the error number is 102";
+
+            }
         }
 
 

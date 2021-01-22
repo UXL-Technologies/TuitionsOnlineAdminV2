@@ -15,18 +15,35 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     {
         //property dependency injection
         private readonly TuitionsOnlineAdminDbContext instanceOfDbContext;
+
+        
         //constructor dependency injection
         public GraduateCourseRepository(TuitionsOnlineAdminDbContext instanceOfDbContext)
-       {
+        {
             this.instanceOfDbContext = instanceOfDbContext;
         }
 
-        //To create a single record for GraduateCourse
-        public void CreateGraduateCourseRepository(GraduateCourse graduateCourse)
-       {
+        public string CreateGraduateCourseRepository(GraduateCourse graduateCourse)
+        {
             instanceOfDbContext.GraduateCourse.Add(graduateCourse);
             instanceOfDbContext.SaveChanges();
+
+            try
+            {
+                instanceOfDbContext.GraduateCourse.Add(graduateCourse);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception ex)
+            {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_GRADUATECOURSE + " ,the error number is 101";
+
+            }
         }
+
+        //To create a single record for GraduateCourse
+
 
         //Authors: SA, BM, SM
         // Date:14-Jan-2021
@@ -43,6 +60,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view graduate courses based on the search criteria 
         public List<GraduateCourse> ViewGraduateCourseRepository(string searchKey)
         {
+
             //if the seach key is present the list is displayed
             if (searchKey != null)
             {
@@ -58,5 +76,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 return graduateCourseList;
             }
         }
+
+       
     }
 }

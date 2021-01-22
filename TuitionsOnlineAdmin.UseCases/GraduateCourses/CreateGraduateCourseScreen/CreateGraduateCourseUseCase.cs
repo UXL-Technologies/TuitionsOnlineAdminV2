@@ -20,9 +20,10 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScree
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create graduate Courses in IunitOfwork
-        public void CreateGraduateCourse(GraduateCourse graduateCourse)
+        public string CreateGraduateCourse(GraduateCourse graduateCourse)
         {
             instanceOfIUnitOfWork.CreateGraduateCourse(graduateCourse);
+            return "done";
         }
     }
 }

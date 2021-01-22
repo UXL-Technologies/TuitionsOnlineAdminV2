@@ -23,10 +23,11 @@ namespace TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourse
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create certificate courses in IunitOfwork
-        public void CreateCertificateCourse(CertificateCourse certificateCourse)
+        public string CreateCertificateCourse(CertificateCourse certificateCourse)
         {
             Console.WriteLine("I have reached CreateCertificateCourse ");
             instanceOfIUnitOfWork.CreateCertificateCourse(certificateCourse);
+            return "Done";
         }
     }
 }

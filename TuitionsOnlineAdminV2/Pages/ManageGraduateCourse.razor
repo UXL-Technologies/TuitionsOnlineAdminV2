@@ -12,6 +12,7 @@
 
 
 <div>
+  
     @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
@@ -19,6 +20,25 @@
                NullText="Search for graduate courses ...."></DxTextBox>
 </div>
 <br />
+
+<div>
+  
+    @* To display the success message on click of save *@
+    @if (saveMessage && @result=="done")
+    {
+        <p class="success_message_style">
+            Your graduate course has been created 😊
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @result
+        </p>
+    }
+</div>
+       
+   
 
 
 @*Table is used to display the data *@
@@ -29,13 +49,22 @@
     <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="300px" />
     <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" Width="200px" />
     <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+
+
 </DxDataGrid>
+
+
 
 @code {
     @* To hold the hold the Course details*@
     IEnumerable<GraduateCourse> graduateCourseList = Enumerable.Empty<GraduateCourse>();
     @*To hold the search text*@
     String searchkey;
+
+    public string result;
+
+    bool saveMessage = false;
+
     @*The init method is to inoke the get graduate  course list*@
     protected override void OnInitialized()
     {
@@ -62,7 +91,7 @@
         GetGraduateCourses(searchkey);
     }
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-    void CreateGraduateCourse(Dictionary<string, object> newCourse)
+   void CreateGraduateCourse(Dictionary<string, object> newCourse)
     {
         @* To hold the new course to be created *@
         GraduateCourse createGraduateCourse = new GraduateCourse();
@@ -82,7 +111,11 @@
         }
         Console.WriteLine(createGraduateCourse);
         @*To invoke the method to create new graduate course*@
-        instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
+        result = instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
+        Console.WriteLine(saveMessage);
+        saveMessage = true;
+
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
