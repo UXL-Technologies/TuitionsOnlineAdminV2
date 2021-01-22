@@ -22,10 +22,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //To create a single record for HighSchoolBoard
-        public void CreateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard)
+        public string CreateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard)
         {
-            instanceOfDbContext.HighSchoolBoard.Add(highSchoolBoard);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.HighSchoolBoard.Add(highSchoolBoard);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_HIGHSCHOOLBOARD;
+            }
         }
 
 
@@ -34,31 +41,44 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view HighSchoolBoard based on the search criteria 
         public List<HighSchoolBoard> ViewHighSchoolBoardRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<HighSchoolBoard> highSchoolBoardList = new List<HighSchoolBoard>();
+                    highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.Where(s => s.HighSchoolBoardName.Contains(searchKey)).ToList();
+                    return highSchoolBoardList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.ToList();
+                    return highSchoolBoardList;
+                }
+            }
+            catch (Exception) {
                 List<HighSchoolBoard> highSchoolBoardList = new List<HighSchoolBoard>();
-                highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.Where(s => s.HighSchoolBoardName.Contains(searchKey)).ToList();
-                return highSchoolBoardList;
-            }
-            //if not entire list of data is displayed
-            else
+                return highSchoolBoardList = null;
 
-            {
-                var highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.ToList();
-                return highSchoolBoardList;
             }
+            //if the seach key is present the list is displayed
+
         }
 
         //To update HighSchoolBoard
         public string UpdateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard)
         {
-            HighSchoolBoard highSchoolBoardToBeUpdated = instanceOfDbContext.HighSchoolBoard.FirstOrDefault(s => s.HighSchoolBoardId == highSchoolBoard.HighSchoolBoardId);
-            highSchoolBoardToBeUpdated = highSchoolBoard;
-            instanceOfDbContext.HighSchoolBoard.Append(highSchoolBoardToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                HighSchoolBoard highSchoolBoardToBeUpdated = instanceOfDbContext.HighSchoolBoard.FirstOrDefault(s => s.HighSchoolBoardId == highSchoolBoard.HighSchoolBoardId);
+                highSchoolBoardToBeUpdated = highSchoolBoard;
+                instanceOfDbContext.HighSchoolBoard.Append(highSchoolBoardToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_HIGHSCHOOLBOARD;
+            }
 
         }
     }
