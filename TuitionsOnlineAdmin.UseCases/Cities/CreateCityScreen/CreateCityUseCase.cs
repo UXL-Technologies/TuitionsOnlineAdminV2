@@ -23,12 +23,12 @@ namespace TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create Cities in IunitOfwork
-        public void CreateCity(City city)
+        public string CreateCity(City city)
         {
 
             Console.WriteLine("I have reached create city");
-            instanceOfIUnitOfWork.CreateCity(city);
-
+           string result =  instanceOfIUnitOfWork.CreateCity(city);
+            return result; 
         }
 
 

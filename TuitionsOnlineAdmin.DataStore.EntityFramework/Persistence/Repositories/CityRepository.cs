@@ -23,10 +23,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             this.instanceOfDbContext = instanceOfDbContext;
         }
         //to create a single record for city
-        public void CreateCityRepository(City city)
+        public string CreateCityRepository(City city)
         {
-            instanceOfDbContext.City.Add(city);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.City.Add(city);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_CITY;
+            }
+           
         }
 
         //Authors: SA, BM, SM
@@ -34,34 +42,49 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view City based on the search criteria 
         public List<City> ViewCityRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<City> cityList = new List<City>();
+                    cityList = instanceOfDbContext.City.Where(s => s.CityName.Contains(searchKey)).ToList();
+                    return cityList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var cityList = instanceOfDbContext.City.ToList();
+                    return cityList;
+                }
+            }
+            catch (Exception) {
                 List<City> cityList = new List<City>();
-                cityList = instanceOfDbContext.City.Where(s => s.CityName.Contains(searchKey)).ToList();
-                return cityList;
-            }
-            //if not entire list of data is displayed
-            else
+                return cityList = null;
 
-            {
-                var cityList = instanceOfDbContext.City.ToList();
-                return cityList;
             }
+            //if the seach key is present the list is displayed
+
         }
 
         //To update City
         public string UpdateCityRepository(City city)
         {
-            City cityToBeUpdated = instanceOfDbContext.City.FirstOrDefault(s => s.CityId == city.CityId);
-            cityToBeUpdated = city;
-            instanceOfDbContext.City.Append(cityToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try
+            {
+                City cityToBeUpdated = instanceOfDbContext.City.FirstOrDefault(s => s.CityId == city.CityId);
+                cityToBeUpdated = city;
+                instanceOfDbContext.City.Append(cityToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_CITY;
+
+            }
+
 
         }
-
 
 
     }

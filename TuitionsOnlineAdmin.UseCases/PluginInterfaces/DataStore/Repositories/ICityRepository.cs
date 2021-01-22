@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
    public  interface ICityRepository
     {
         //To hold the contract for creating the City and store it in a database
-        void CreateCityRepository(City city);
+        string CreateCityRepository(City city);
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To hold the contract for viewing City

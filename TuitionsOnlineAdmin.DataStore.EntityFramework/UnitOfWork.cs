@@ -146,9 +146,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         //to create a City by invoking CreateCityRepository of CityRepository
-        public void CreateCity(City city)
+        public string CreateCity(City city)
         {
-            instanceOfICityRepository.CreateCityRepository(city);
+           string result =  instanceOfICityRepository.CreateCityRepository(city);
+            return result;
         }
         //to view a City by invoking ViewCityRepository of CityRepository
         public List<City> ViewCities(string searchKey)

@@ -52,7 +52,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
 
         //To add the single record of the City to the database
-        void CreateCity(City city);
+        string CreateCity(City city);
         //To view Cities
         List<City> ViewCities(string searchKey);
         //To update City
