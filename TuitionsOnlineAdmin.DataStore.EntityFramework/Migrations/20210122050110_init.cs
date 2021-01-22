@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
 {
@@ -11,8 +10,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "CertificateCourse",
                 columns: table => new
                 {
-                    CertificateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CertificateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    CertificateCourseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CertificateCourseName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -24,7 +24,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "City",
                 columns: table => new
                 {
-                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CityName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     PinCode = table.Column<int>(type: "int", nullable: false)
@@ -38,7 +39,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "Currency",
                 columns: table => new
                 {
-                    CurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CurrencyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CurrencyName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Default = table.Column<bool>(type: "bit", nullable: false)
@@ -52,8 +54,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "DoctorateCourse",
                 columns: table => new
                 {
-                    DoctorateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DoctorateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    DoctorateCourseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorateCourseName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -65,7 +68,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "Grade",
                 columns: table => new
                 {
-                    GradeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GradeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GradeName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -78,8 +82,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "GraduateCourse",
                 columns: table => new
                 {
-                    GraduateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GraduateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    GraduateCourseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GraduateCourseName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -91,7 +96,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "HighSchoolBoard",
                 columns: table => new
                 {
-                    HighSchoolBoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HighSchoolBoardId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     HighSchoolBoardName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -104,8 +110,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "PostGraduateCourse",
                 columns: table => new
                 {
-                    PostGraduateCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PostGraduateCourseName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    PostGraduateCourseId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostGraduateCourseName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -117,7 +124,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "Subject",
                 columns: table => new
                 {
-                    SubjectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SubjectName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -130,11 +138,12 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "TeacherBasicInformation",
                 columns: table => new
                 {
-                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TeacherFullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactTeleNumber = table.Column<int>(type: "int", nullable: false),
+                    ContactTeleNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TeacherPhotographUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PreferredLanguage = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AlternateLanguage = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
@@ -149,7 +158,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Migrations
                 name: "TeacherVideo",
                 columns: table => new
                 {
-                    TeacherVideoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherVideoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     VideoURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },

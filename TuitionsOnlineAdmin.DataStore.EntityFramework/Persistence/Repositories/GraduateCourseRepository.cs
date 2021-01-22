@@ -25,8 +25,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         public string CreateGraduateCourseRepository(GraduateCourse graduateCourse)
         {
-            instanceOfDbContext.GraduateCourse.Add(graduateCourse);
-            instanceOfDbContext.SaveChanges();
 
             try
             {
@@ -34,10 +32,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 instanceOfDbContext.SaveChanges();
                 return "done";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_GRADUATECOURSE + " ,the error number is 101";
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_GRADUATECOURSE;
 
             }
         }
@@ -50,31 +48,46 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To Update a record for GraduateCourse
         public string UpdateGraduateCourseRepository(GraduateCourse graduateCourse)
         {
-            GraduateCourse graduateCourseToBeUpdated = instanceOfDbContext.GraduateCourse.FirstOrDefault(s => s.GraduateCourseId == graduateCourse.GraduateCourseId);
-            graduateCourseToBeUpdated = graduateCourse;
-            instanceOfDbContext.GraduateCourse.Append(graduateCourseToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try
+            {
+                GraduateCourse graduateCourseToBeUpdated = instanceOfDbContext.GraduateCourse.FirstOrDefault(s => s.GraduateCourseId == graduateCourse.GraduateCourseId);
+                graduateCourseToBeUpdated = graduateCourse;
+                instanceOfDbContext.GraduateCourse.Append(graduateCourseToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch(Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_GRADUATECOURSE;
+            }
+          
         }
 
         //To view graduate courses based on the search criteria 
         public List<GraduateCourse> ViewGraduateCourseRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<GraduateCourse> graduateCourseList = new List<GraduateCourse>();
+                    graduateCourseList = instanceOfDbContext.GraduateCourse.Where(s => s.GraduateCourseName.Contains(searchKey)).ToList();
+                    return graduateCourseList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
+                {
+                    var graduateCourseList = instanceOfDbContext.GraduateCourse.ToList();
+                    return graduateCourseList;
+                }
+            }
+            catch(Exception)
             {
                 List<GraduateCourse> graduateCourseList = new List<GraduateCourse>();
-                graduateCourseList = instanceOfDbContext.GraduateCourse.Where(s => s.GraduateCourseName.Contains(searchKey)).ToList();
-                return graduateCourseList;
+                return graduateCourseList = null;
             }
-            //if not entire list of data is displayed
-            else
-            
-            {
-                var graduateCourseList = instanceOfDbContext.GraduateCourse.ToList();
-                return graduateCourseList;
-            }
+            //if the seach key is present the list is displayed
+           
         }
 
        

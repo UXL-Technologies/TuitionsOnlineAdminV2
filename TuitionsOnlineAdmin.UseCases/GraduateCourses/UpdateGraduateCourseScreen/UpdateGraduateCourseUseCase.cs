@@ -26,8 +26,9 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScree
         //Calling the method update graduate Courses in IunitOfwork
         public string UpdateGraduateCourse(GraduateCourse graduateCourse)
         {
-            instanceOfIUnitOfWork.UpdateGraduateCourse(graduateCourse);
-            return "done";
+            string result = instanceOfIUnitOfWork.UpdateGraduateCourse(graduateCourse);
+            return result;
+                
         }
     }
 }

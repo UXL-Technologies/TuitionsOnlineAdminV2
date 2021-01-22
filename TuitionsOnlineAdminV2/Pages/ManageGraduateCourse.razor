@@ -6,13 +6,16 @@
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
+@inject NavigationManager UriHelper
 @inject ICreateGraduateCourseUseCase  instanceOfICreateGraduateCourseUseCase
 @inject IViewGraduateCourseUseCase  instanceOfIViewGraduateCourseUseCase
 @inject IUpdateGraduateCourseUseCase instanceOfIUpdateGraduateCourseUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 
 
 <div>
-  
+
     @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
@@ -22,23 +25,50 @@
 <br />
 
 <div>
-  
+
     @* To display the success message on click of save *@
-    @if (saveMessage && @result=="done")
+    @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your graduate course has been created 😊
+            Your graduate course has been created successfully !
         </p>
     }
     else
     {
         <p class="success_message_style">
-            @result
+            @resultForCreate
         </p>
     }
 </div>
-       
-   
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if (viewErrorForUpdate && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your graduate course has been updated successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if (viewError && @graduateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_GRADUATECOURSE
+        </p>
+    }
+</div>
+
 
 
 @*Table is used to display the data *@
@@ -49,8 +79,6 @@
     <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Width="300px" />
     <DxDataGridCheckBoxColumn Field="@nameof(GraduateCourse.Active)" Width="200px" />
     <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
-
-
 </DxDataGrid>
 
 
@@ -61,9 +89,13 @@
     @*To hold the search text*@
     String searchkey;
 
-    public string result;
+    public string resultForCreate;
+public string resultForUpdate;
 
-    bool saveMessage = false;
+    bool createMessage = false;
+    bool viewError = false;
+    bool viewErrorForUpdate = false;
+
 
     @*The init method is to inoke the get graduate  course list*@
     protected override void OnInitialized()
@@ -78,6 +110,7 @@
     {
         graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
         Console.WriteLine(graduateCourseList);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
@@ -91,7 +124,7 @@
         GetGraduateCourses(searchkey);
     }
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-   void CreateGraduateCourse(Dictionary<string, object> newCourse)
+    public async void CreateGraduateCourse(Dictionary<string, object> newCourse)
     {
         @* To hold the new course to be created *@
         GraduateCourse createGraduateCourse = new GraduateCourse();
@@ -111,40 +144,46 @@
         }
         Console.WriteLine(createGraduateCourse);
         @*To invoke the method to create new graduate course*@
-        result = instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
-        Console.WriteLine(saveMessage);
-        saveMessage = true;
-
-
+        resultForCreate= instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
+        Console.WriteLine(resultForCreate);
+        createMessage = true;
+        Console.WriteLine(createMessage);
+        //await Task.Delay(20000);
+        //UriHelper.NavigateTo("graduatecourse", forceLoad: true);
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
+
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-        GetGraduateCourses(searchkey);
+    GetGraduateCourses(searchkey);
+
+}
+
+void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
+{
+    Console.WriteLine(graduateCourseToBeUpdated);
+    Console.WriteLine(newValue);
+
+
+    foreach (var course in newValue.Keys)
+    {
+        switch (course)
+        {
+            case "GraduateCourseName":
+                graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
+                break;
+            case "Active":
+                graduateCourseToBeUpdated.Active = (bool)newValue[course];
+                break;
+        }
 
     }
 
-    void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
-    {
-        Console.WriteLine(graduateCourseToBeUpdated);
-        Console.WriteLine(newValue);
+    Console.WriteLine(graduateCourseToBeUpdated);
+    resultForUpdate = instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
+    Console.WriteLine(resultForUpdate);
+    viewErrorForUpdate = true;
+    Console.WriteLine(viewErrorForUpdate);
 
-
-        foreach (var course in newValue.Keys)
-        {
-            switch (course)
-            {
-                case "GraduateCourseName":
-                    graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
-                    break;
-                case "Active":
-                    graduateCourseToBeUpdated.Active = (bool)newValue[course];
-                    break;
-            }
-
-        }
-
-        Console.WriteLine(graduateCourseToBeUpdated);
-        instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@

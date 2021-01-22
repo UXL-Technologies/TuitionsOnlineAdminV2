@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TuitionsOnlineAdmin.CoreBusiness;
 using TuitionsOnlineAdmin.DataStore.EntityFramework;
 using TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories;
 using TuitionsOnlineAdmin.UseCases.CertificateCourses.UpdateCertificateCourseScreen;
@@ -123,6 +124,8 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<IUpdateGraduateCourseUseCase, UpdateGraduateCourseUseCase>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IGraduateCourseRepository, GraduateCourseRepository>();
+            services.AddTransient<BusinessMessage>();
+
 
 
             services.AddTransient<ICreatePostGraduateCourseUseCase, CreatePostGraduateCourseUseCase>();

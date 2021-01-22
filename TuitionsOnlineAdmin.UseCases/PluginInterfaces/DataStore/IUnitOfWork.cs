@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
     public interface IUnitOfWork
     {
         //To add the single record of the GraduateCourse to the database
-        void CreateGraduateCourse(GraduateCourse graduateCourse);
+        string CreateGraduateCourse(GraduateCourse graduateCourse);
         //To view graduate courses
         List<GraduateCourse> ViewGraduateCourses(string searchKey);
         //To update GraduateCourse

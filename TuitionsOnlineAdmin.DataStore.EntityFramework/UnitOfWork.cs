@@ -72,14 +72,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //to update a DoctorateCourse  by invoking UpdateDoctorateCourseRepository of DoctorateCourseRepository
         public string UpdateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
-            instanceOfIDoctorateCourseRepository.UpdateDoctorateCourseRepository(doctorateCourse);
-            return "done";
+            string result = instanceOfIDoctorateCourseRepository.UpdateDoctorateCourseRepository(doctorateCourse);
+            return result;
+
+           
         }
 
         //to create a GraduateCourse  by invoking CreateGraduateCourseRepository of GraduateCourseRepository
-        public void CreateGraduateCourse(GraduateCourse graduateCourse)
+        public string CreateGraduateCourse(GraduateCourse graduateCourse)
         {
-            instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
+            String result = instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
+            return result;
         }
         //to view a GraduateCourse  by invoking ViewGraduateCourseRepository of GraduateCourseRepository
         public List<GraduateCourse> ViewGraduateCourses(string searchKey)
