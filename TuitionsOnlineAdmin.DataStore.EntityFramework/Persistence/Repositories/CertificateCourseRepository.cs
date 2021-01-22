@@ -31,7 +31,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 instanceOfDbContext.SaveChanges();
                 return "done";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
                 return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_CERTIFICATECOURSE + " ,the error number is 101";

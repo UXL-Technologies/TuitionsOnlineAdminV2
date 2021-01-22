@@ -57,9 +57,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
-        public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
+        public string CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
-            instanceOfIDoctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
+           string result = instanceOfIDoctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:14-Jan-2021
@@ -99,9 +100,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         //to create a PostGraduateCourse by invoking CreatePostGraduateRepository of PostGraduateRepository
-        public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
+        public string CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
-            instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
+            string result = instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:14-Jan-2021

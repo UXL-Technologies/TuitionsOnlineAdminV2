@@ -27,16 +27,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To create a single record for DoctorateCourse
         public string CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse )
         {
-            instanceOfDbContext.DoctorateCourse.Add(doctorateCourse);
-            instanceOfDbContext.SaveChanges();
-
             try
             {
                 instanceOfDbContext.DoctorateCourse.Add(doctorateCourse);
                 instanceOfDbContext.SaveChanges();
                 return "done";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
                 return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_DOCTORATECOURSE + " ,the error number is 103";
@@ -61,21 +58,28 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view DoctorateCourse based on the search criteria 
         public List<DoctorateCourse> ViewDoctorateCourseRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<DoctorateCourse> doctorateCourseList = new List<DoctorateCourse>();
+                    doctorateCourseList = instanceOfDbContext.DoctorateCourse.Where(s => s.DoctorateCourseName.Contains(searchKey)).ToList();
+                    return doctorateCourseList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var doctorateCourseList = instanceOfDbContext.DoctorateCourse.ToList();
+                    return doctorateCourseList;
+                }
+            }
+            catch (Exception) {
                 List<DoctorateCourse> doctorateCourseList = new List<DoctorateCourse>();
-                doctorateCourseList = instanceOfDbContext.DoctorateCourse.Where(s => s.DoctorateCourseName.Contains(searchKey)).ToList();
-                return doctorateCourseList;
-            }
-            //if not entire list of data is displayed
-            else
+                return doctorateCourseList = null;
 
-            {
-                var doctorateCourseList = instanceOfDbContext.DoctorateCourse.ToList();
-                return doctorateCourseList;
             }
+            //if the seach key is present the list is displayed
+
         }
     }
 

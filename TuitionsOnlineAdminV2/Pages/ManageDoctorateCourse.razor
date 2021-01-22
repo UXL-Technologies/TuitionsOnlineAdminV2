@@ -6,9 +6,12 @@
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
 @inject ICreateDoctorateCourseUseCase instanceOfICreateDoctorateCourseUseCase
 @inject IViewDoctorateCourseUseCase instanceOfIViewDoctorateCourseUseCase
 @inject IUpdateDoctorateCourseUseCase instanceOfIUpdateDoctorateCourseUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
 
 <div>
     @* this TextBox is used to search the data  *@
@@ -18,20 +21,45 @@
                NullText="Search for doctorate courses ...."></DxTextBox>
 </div>
 <br />
-
 <div>
-
-    @* To display the success message on click of save *@
-    @if (saveMessage && @result == "done")
+    @if (viewErrorForCreate && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your doctorate course has been created 😊
+            Your graduate course has been created successfully !
         </p>
     }
     else
     {
         <p class="success_message_style">
-            @result
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if (viewErrorForUpdate && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your graduate course has been updated successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if (viewError && @doctorateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_GRADUATECOURSE
         </p>
     }
 </div>
@@ -54,6 +82,11 @@
 
 
     public string result;
+    bool viewError = false;
+    string resultForCreate;
+    string resultForUpdate;
+    bool viewErrorForCreate = false;
+    bool viewErrorForUpdate = false;
 
     bool saveMessage = false;
     @*The init method is to invoke the doctoratecourse list when the page is loaded*@
@@ -68,6 +101,7 @@
     public void GetDoctorateCourses(String searchkeyword)
     {
         doctorateCourseList = instanceOfIViewDoctorateCourseUseCase.ViewDoctorateCourse(searchkeyword);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
@@ -104,9 +138,8 @@
         }
 
         @*To invoke the method to create new Doctorate course*@
-        result = instanceOfICreateDoctorateCourseUseCase.CreateDoctorateCourse(createDoctorateCourse);
-        Console.WriteLine(saveMessage);
-        saveMessage = true;
+        resultForCreate = instanceOfICreateDoctorateCourseUseCase.CreateDoctorateCourse(createDoctorateCourse);
+        viewErrorForCreate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
@@ -134,7 +167,8 @@
         }
 
         @*doctorateCourseToBeUpdated this variable holds the updated value and is sent to the database*@
-        instanceOfIUpdateDoctorateCourseUseCase.UpdateDoctorateCourse(doctorateCourseToBeUpdated);
+        resultForUpdate = instanceOfIUpdateDoctorateCourseUseCase.UpdateDoctorateCourse(doctorateCourseToBeUpdated);
+        viewErrorForUpdate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@

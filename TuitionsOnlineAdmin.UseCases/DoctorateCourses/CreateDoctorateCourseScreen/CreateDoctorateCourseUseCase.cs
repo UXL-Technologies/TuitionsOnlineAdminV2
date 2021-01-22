@@ -26,8 +26,9 @@ namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScr
         public string CreateDoctorateCourse(DoctorateCourse doctorateCourse)
         {
             Console.WriteLine("I have reached create doctorate course");
-            instanceOfIUnitOfWork.CreateDoctorateCourse(doctorateCourse);
-            return "done";
+           string result =  instanceOfIUnitOfWork.CreateDoctorateCourse(doctorateCourse);
+            return result;
+           
         }
     }
 }

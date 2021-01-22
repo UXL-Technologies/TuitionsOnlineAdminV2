@@ -24,8 +24,8 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCou
         public string CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             Console.WriteLine("I have reached create postgraduate course");
-            instanceOfIUnitOfWork.CreatePostGraduateCourse (postGraduateCourse);
-            return "done";
+            string result = instanceOfIUnitOfWork.CreatePostGraduateCourse (postGraduateCourse);
+            return result;
         }
 
        

@@ -23,7 +23,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update post Graduate courses
 
         //To add the single record of the PostGraduateCourse to the database
-        void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
+        string CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
         //To view post Graduate courses
         List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey);
         //To update post Graduate courses
@@ -34,7 +34,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Aim: To create , view ,update DoctorateCourseUsecase ;
 
         //To add the single record of the DoctorateCourse to the database
-        void CreateDoctorateCourse(DoctorateCourse doctorateCourse);
+        string CreateDoctorateCourse(DoctorateCourse doctorateCourse);
         //To view Doctorate courses
         List<DoctorateCourse> ViewDoctorateCourses(string searchKey);
         //To update doctorate course
