@@ -50,3 +50,8 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.success_message_style {
+    text-align: center;
+    font-weight: bold;
+}

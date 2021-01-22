@@ -6,9 +6,12 @@
 @using TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.CertificateCourses.UpdateCertificateCourseScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
 @inject ICreateCertificateCourseUseCase instanceOfICreateCertificateCourseUseCase
 @inject IViewCertificateCourseUseCase instanceOfIViewCertificateCourseUseCase
 @inject IUpdateCertificateCourseUseCase instanceOfIUpdateCertificateCourseUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
 
 <div>
     @* this TextBox is used to search the data  *@
@@ -21,20 +24,47 @@
 
 <div>
 
-    @* To display the success message on click of save *@
-    @if (saveMessage && @result == "done")
+    @* To display error message for create *@
+    @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your certificate course has been created 😊
+            Your Certificate has been created successfully !
         </p>
     }
     else
     {
         <p class="success_message_style">
-            @result
+            @resultForCreate
         </p>
     }
 </div>
+
+@* To display error message for update *@
+<div>
+    @if (viewErrorForUpdate && resultForUpdate == "done")
+    {
+    <p class="success_message_style">
+        Your Certificate has been updated successfully !
+    </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+    @* To error message for view *@
+    @if (viewError && certificateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage. UNKNOWN_SERVER_ERROR_VIEW_CERTIFICATECOURSE
+        </p>
+    }
+</div>
+
 
 @*Table is used to display the data *@
 <DxDataGrid Data="@certificateCourseList"
@@ -54,8 +84,13 @@
     String searchkey;
 
     public string result;
+    public string resultForCreate;
+    bool createMessage = false;
+    public string resultForUpdate;
+    bool viewErrorForUpdate = false;
+    bool viewError = false;
 
-    bool saveMessage = false;
+
     @*The init method is to inoke the get Certificate Course list*@
     protected override void OnInitialized()
     {
@@ -68,6 +103,7 @@
     public void GetCertificateCourses(String searchkeyword)
     {
         certificateCourseList = instanceOfIViewCertificateCourseUseCase.ViewCertificateCourse(searchkeyword);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
@@ -101,8 +137,8 @@
         }
         Console.WriteLine(createCertificateCourse);
         @*To invoke the method to create new certificate Course*@
-        result = instanceOfICreateCertificateCourseUseCase.CreateCertificateCourse(createCertificateCourse);
-        saveMessage = true;
+        resultForCreate = instanceOfICreateCertificateCourseUseCase.CreateCertificateCourse(createCertificateCourse);
+        createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
@@ -131,7 +167,8 @@
         }
 
         @*certificateCourseToBeUpdated this variable holds the updated value and is sent to the database*@
-        instanceOfIUpdateCertificateCourseUseCase.UpdateCertificateCourse(certificateCourseToBeUpdated);
+        resultForUpdate = instanceOfIUpdateCertificateCourseUseCase.UpdateCertificateCourse(certificateCourseToBeUpdated);
+        viewErrorForUpdate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
