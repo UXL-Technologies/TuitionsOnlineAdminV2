@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.In
     public interface ICreateTeacherVideoUseCase
     {
         //Declaring a method to create the TeacherVideo
-        void CreateTeacherVideo(TeacherVideo teacherVideo);
+        string CreateTeacherVideo(TeacherVideo teacherVideo);
     }
 }

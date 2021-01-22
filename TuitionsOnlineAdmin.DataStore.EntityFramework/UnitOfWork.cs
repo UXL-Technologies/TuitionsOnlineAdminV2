@@ -231,9 +231,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
         //to create a teacher video  by invoking CreateTeacherVideorepository of TeacherVideoRepository
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        public string CreateTeacherVideo(TeacherVideo teacherVideo)
         {
-            instanceOfITeacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
+            string result = instanceOfITeacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021

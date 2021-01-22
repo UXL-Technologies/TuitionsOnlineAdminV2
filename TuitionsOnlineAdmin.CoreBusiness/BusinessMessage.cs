@@ -41,6 +41,11 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public string UNKNOWN_SERVER_ERROR_VIEW_CURRENCY = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
         public string UNKNOWN_SERVER_ERROR_UPDATE_CURRENCY = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERVIDEO = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERVIDEO = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERVIDEO = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
+
+
 
 
 

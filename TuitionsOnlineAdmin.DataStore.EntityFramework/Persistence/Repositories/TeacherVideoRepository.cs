@@ -23,40 +23,60 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
 
         //To create a single record for TeacherVideo
-        public void CreateTeacherVideoRepository(TeacherVideo teacherVideo)
+        public string CreateTeacherVideoRepository(TeacherVideo teacherVideo)
         {
-            instanceOfDbContext.TeacherVideo.Add(teacherVideo);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.TeacherVideo.Add(teacherVideo);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERVIDEO;
+            }
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021
         //To view TeacherVideo based on the search criteria 
         public List<TeacherVideo> ViewTeacherVideoRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<TeacherVideo> teacherVideoList = new List<TeacherVideo>();
+                    teacherVideoList = instanceOfDbContext.TeacherVideo.Where(s => s.VideoURL.Contains(searchKey)).ToList();
+                    return teacherVideoList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var teacherVideoList = instanceOfDbContext.TeacherVideo.ToList();
+                    return teacherVideoList;
+                }
+            }
+            catch (Exception) {
                 List<TeacherVideo> teacherVideoList = new List<TeacherVideo>();
-                teacherVideoList = instanceOfDbContext.TeacherVideo.Where(s => s.VideoURL.Contains(searchKey)).ToList();
-                return teacherVideoList;
-            }
-            //if not entire list of data is displayed
-            else
+                return teacherVideoList = null;
 
-            {
-                var teacherVideoList = instanceOfDbContext.TeacherVideo.ToList();
-                return teacherVideoList;
             }
+            //if the seach key is present the list is displayed
+
         }
         //To update TeacherVideo
         public string UpdateTeacherVideoRepository(TeacherVideo teacherVideo)
         {
-            TeacherVideo teacherVideoToBeUpdated = instanceOfDbContext.TeacherVideo.FirstOrDefault(s => s.TeacherVideoId == teacherVideo.TeacherVideoId);
-            teacherVideoToBeUpdated = teacherVideo;
-            instanceOfDbContext.TeacherVideo.Append(teacherVideoToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                TeacherVideo teacherVideoToBeUpdated = instanceOfDbContext.TeacherVideo.FirstOrDefault(s => s.TeacherVideoId == teacherVideo.TeacherVideoId);
+                teacherVideoToBeUpdated = teacherVideo;
+                instanceOfDbContext.TeacherVideo.Append(teacherVideoToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERVIDEO;
+            }
 
         }
 
