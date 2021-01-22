@@ -17,5 +17,8 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public string UNKNOWN_SERVER_ERROR_UPDATE_POSTGRADUATECOURSE = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
        public string  UNKNOWN_SERVER_ERROR_UPDATE_CERTIFICATECOURSE = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
         public string UNKNOWN_SERVER_ERROR_VIEW_CERTIFICATECOURSE = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_CREATE_GRADE = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_GRADE = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_GRADE = "There has been an error with the error code 109. Please inform systemadmin@tuitionsonline.center with the screen shot";
     }
 }

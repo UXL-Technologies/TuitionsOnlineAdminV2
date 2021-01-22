@@ -22,10 +22,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //To create a single record for Grade
-        public void CreateGradeRepository(Grade grade)
+        public string CreateGradeRepository(Grade grade)
         {
-            instanceOfDbContext.Grade.Add(grade);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.Grade.Add(grade);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_GRADE;
+            }
+         
         }
 
         //Authors: SA, BM, SM
@@ -33,31 +41,44 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view Grade based on the search criteria 
         public List<Grade> ViewGradeRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<Grade> gradeList = new List<Grade>();
+                    gradeList = instanceOfDbContext.Grade.Where(s => s.GradeName.Contains(searchKey)).ToList();
+                    return gradeList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var gradeList = instanceOfDbContext.Grade.ToList();
+                    return gradeList;
+                }
+            }
+            catch (Exception) {
                 List<Grade> gradeList = new List<Grade>();
-                gradeList = instanceOfDbContext.Grade.Where(s => s.GradeName.Contains(searchKey)).ToList();
-                return gradeList;
-            }
-            //if not entire list of data is displayed
-            else
+                return gradeList = null;
 
-            {
-                var gradeList = instanceOfDbContext.Grade.ToList();
-                return gradeList;
             }
+            //if the seach key is present the list is displayed
+
         }
 
         //To update Grade
         public string UpdateGradeRepository(Grade grade)
         {
-            Grade gradeToBeUpdated = instanceOfDbContext.Grade.FirstOrDefault(s => s.GradeId == grade.GradeId);
-            gradeToBeUpdated = grade;
-            instanceOfDbContext.Grade.Append(gradeToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                Grade gradeToBeUpdated = instanceOfDbContext.Grade.FirstOrDefault(s => s.GradeId == grade.GradeId);
+                gradeToBeUpdated = grade;
+                instanceOfDbContext.Grade.Append(gradeToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_GRADE;
+            }
 
         }
     }

@@ -23,11 +23,12 @@ namespace TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create Grades in IunitOfwork
-        public void CreateGrade(Grade grade)
+        public string CreateGrade(Grade grade)
         {
 
             Console.WriteLine("I have reached create grade");
-            instanceOfIUnitOfWork.CreateGrade(grade);
+           string result =  instanceOfIUnitOfWork.CreateGrade(grade);
+            return result;
         }
     }
 }

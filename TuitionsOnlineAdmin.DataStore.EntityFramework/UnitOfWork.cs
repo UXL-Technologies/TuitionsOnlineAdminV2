@@ -206,9 +206,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
         //to create a Grade  by invoking CreateGradeRepository of GradeRepository
-        public void CreateGrade(Grade grade)
+        public string CreateGrade(Grade grade)
         {
-            instanceOfIGradeRepository.CreateGradeRepository(grade);
+            string result = instanceOfIGradeRepository.CreateGradeRepository(grade);
+            return result;
         }
 
         //Authors: SA, BM, SM

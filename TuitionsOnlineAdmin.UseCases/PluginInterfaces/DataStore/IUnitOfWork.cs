@@ -111,7 +111,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM
         //Date:15-Jan-2021
         //To Create Grade
-        void CreateGrade(Grade grade);
+        string CreateGrade(Grade grade);
         //To view Grade
         List<Grade> ViewGrades(string searchKey);
         //To update Grade
