@@ -84,7 +84,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM
         //Date:15-Jan-2021
         //To Create TeacherVideo
-        void CreateTeacherVideo(TeacherVideo teacherVideo);
+        string CreateTeacherVideo(TeacherVideo teacherVideo);
         //To view TeacherVideo
         List<TeacherVideo> ViewTeacherVideos(string searchKey);
         //To update TeacherVideo

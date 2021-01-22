@@ -23,10 +23,11 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create TeacherVideo in IunitOfwork
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        public string CreateTeacherVideo(TeacherVideo teacherVideo)
         {
             Console.WriteLine("I have reached create teacherVideo");
-            instanceOfIUnitOfWork.CreateTeacherVideo(teacherVideo);
+            string result = instanceOfIUnitOfWork.CreateTeacherVideo(teacherVideo);
+            return result;
         }
     }
 }
