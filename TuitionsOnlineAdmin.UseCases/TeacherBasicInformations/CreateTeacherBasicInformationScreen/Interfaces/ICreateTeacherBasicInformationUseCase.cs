@@ -7,6 +7,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
 {
   public interface ICreateTeacherBasicInformationUseCase
     {
-        void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+        string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
     }
 }
