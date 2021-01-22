@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
    public interface ITeacherBasicInformationRepository
     {
         //To hold the contract for creating the TeacherBasicInformation and store it in a database
-        void CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);
+        string CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);
 
 
         //Authors: SA, BM, SM

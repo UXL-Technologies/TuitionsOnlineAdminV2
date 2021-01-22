@@ -24,10 +24,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         //To create a single record for TeacherBasicInformation
 
-        public void CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation)
+        public string CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation)
         {
-            instanceOfDbContext.TeacherBasicInformation.Add(teacherBasicInformation);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.TeacherBasicInformation.Add(teacherBasicInformation);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERBASICINFORMATION;
+            }
+          
         }
 
         //Authors: SA, BM, SM
@@ -35,31 +43,43 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view TeacherBasicInformation based on the search criteria 
         public List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
+                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.TeacherFullName.Contains(searchKey)).ToList();
+                    return teacherBasicInformationList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.ToList();
+                    return teacherBasicInformationList;
+                }
+            }
+            catch (Exception) {
                 List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
-                teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.TeacherFullName.Contains(searchKey)).ToList();
-                return teacherBasicInformationList;
+                return teacherBasicInformationList = null;
             }
-            //if not entire list of data is displayed
-            else
+            //if the seach key is present the list is displayed
 
-            {
-                var teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.ToList();
-                return teacherBasicInformationList;
-            }
         }
 
         //To update TeacherBasicInformation
         public string UpdateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation)
         {
-            TeacherBasicInformation teacherBasicInformationToBeUpdated = instanceOfDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherBasicInformation.TeacherId);
-            teacherBasicInformationToBeUpdated = teacherBasicInformation;
-            instanceOfDbContext.TeacherBasicInformation.Append(teacherBasicInformationToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                TeacherBasicInformation teacherBasicInformationToBeUpdated = instanceOfDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherBasicInformation.TeacherId);
+                teacherBasicInformationToBeUpdated = teacherBasicInformation;
+                instanceOfDbContext.TeacherBasicInformation.Append(teacherBasicInformationToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERBASICINFORMATION;
+            }
 
         }
     }

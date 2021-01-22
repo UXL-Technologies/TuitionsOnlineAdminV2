@@ -23,10 +23,11 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
 
      
 
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        public string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
             Console.WriteLine("I have reached create TeacherBasicInformation");
-            instanceOfIUnitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
+           string result =  instanceOfIUnitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
+            return result;
         }
     }
 }

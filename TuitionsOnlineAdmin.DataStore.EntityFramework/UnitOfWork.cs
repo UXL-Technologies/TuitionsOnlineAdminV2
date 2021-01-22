@@ -274,9 +274,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         //to create a TeacherBasicInformation by invoking CreateTeacherBasicInformationrepository of TeacherBasicInformationRepository
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        public string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
-            instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+          string result =  instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+            return result;
 
         }
 
