@@ -253,9 +253,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         //to create a HighSchoolBoard by invoking CreateHighSchoolBoardrepository of HighSchoolBoardRepository
-        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        public string CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
         {
-            instanceOfIHighSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+            string result = instanceOfIHighSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:18-Jan-2021

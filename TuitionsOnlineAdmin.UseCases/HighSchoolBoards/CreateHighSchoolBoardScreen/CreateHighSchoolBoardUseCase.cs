@@ -23,11 +23,12 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScr
         }
 
         //Calling the method create highSchoolBoards in IunitOfwork
-        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+        public string CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
         {
 
             Console.WriteLine("I have reached create HighSchoolBoard");
-            instanceOfIUnitOfWork.CreateHighSchoolBoard(highSchoolBoard);
+           string result =  instanceOfIUnitOfWork.CreateHighSchoolBoard(highSchoolBoard);
+            return result;
         }
     }
 }

@@ -93,7 +93,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To Create HighSchoolBoard
-        void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        string CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
         //To view HighSchoolBoard
         List<HighSchoolBoard> ViewHighSchoolBoards(string searchKey);
         //To update HighSchoolBoard
