@@ -167,9 +167,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         //to Create a Currency by invoking CreateCurrencyRepository of CurrencyRepository
-        public void CreateCurrency(Currency currency)
+        public string CreateCurrency(Currency currency)
         {
-            instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
+           string result =  instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:18-Jan-2021

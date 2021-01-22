@@ -22,9 +22,10 @@ namespace TuitionsOnlineAdmin.UseCases.Currencies.CreateCurrencyScreen
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create Currency in IunitOfwork
-        public void CreateCurrency(Currency currency)
+        public string CreateCurrency(Currency currency)
         {
-            instanceOfIUnitOfWork.CreateCurrency(currency);
+           string result =  instanceOfIUnitOfWork.CreateCurrency(currency);
+            return result;
         }
     }
 }

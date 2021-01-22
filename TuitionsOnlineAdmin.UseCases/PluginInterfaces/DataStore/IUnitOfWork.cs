@@ -62,7 +62,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
 
         //To add the single record of the Currency to the database
-        void CreateCurrency(Currency currency);
+        string CreateCurrency(Currency currency);
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To view Currencies
