@@ -7,9 +7,12 @@
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
 @inject ICreateTeacherBasicInformationUseCase instanceOfICreateTeacherBasicInformationUseCase
 @inject IViewTeacherBasicInformationUseCase instanceOfIViewTeacherBasicInformationUseCase
 @inject IUpdateTeacherBasicInformationUseCase instanceOfIUpdateTeacherBasicInformationUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
 
 <div>
     @* this TextBox is used to search the data  *@
@@ -20,6 +23,47 @@
 </div>
 <br />
 
+<div>
+    @* To display error message for create *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your Grade has been created successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+@* To display error message for update *@
+<div>
+    @if (viewErrorForUpdate && resultForUpdate == "Done")
+    {
+        <p class="success_message_style">
+            Your Grade has been updated successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+    @* To error message for view *@
+    @if (viewError && teacherBasicInformationList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage. UNKNOWN_SERVER_ERROR_VIEW_TEACHERBASICINFORMATION
+        </p>
+    }
+</div>
 
 @*Table is used to display the data *@
 <DxDataGrid Data="@teacherBasicInformationList"
@@ -43,6 +87,11 @@
     IEnumerable<TeacherBasicInformation> teacherBasicInformationList = Enumerable.Empty<TeacherBasicInformation>();
     @*To hold the search text*@
     String searchkey;
+    public string resultForCreate;
+    bool createMessage = false;
+    public string resultForUpdate;
+    bool viewErrorForUpdate = false;
+    bool viewError = false;
     @*The init method is to invoke the TeacherBasicInformation list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -55,6 +104,7 @@
     public void GetTeacherBasicInformations(String searchkeyword)
     {
         teacherBasicInformationList = instanceOfIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformation(searchkeyword);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
@@ -78,91 +128,93 @@
         foreach (var field in newTeacherBasicInformation.Keys)
         {
             @*For each incoming key we check and assign the values to newTeacherBasicInformation *@
-    switch (field)
-    {
-        case "TeacherFullName":
-            createTeacherBasicInformation.TeacherFullName = (string)newTeacherBasicInformation[field];
-            break;
-        case "Active":
-            createTeacherBasicInformation.Active = (bool)newTeacherBasicInformation[field];
-            break;
-        case "EmailAddress":
-            createTeacherBasicInformation.EmailAddress = (string)newTeacherBasicInformation[field];
-            break;
-        case "TeacherPhotographUrl":
-            createTeacherBasicInformation.TeacherPhotographUrl = (string)newTeacherBasicInformation[field];
-            break;
-        case "PreferredLanguage":
-            createTeacherBasicInformation.PreferredLanguage = (string)newTeacherBasicInformation[field];
-            break;
-        case "AlternateLanguage":
-            createTeacherBasicInformation.AlternateLanguage = (string)newTeacherBasicInformation[field];
-            break;
-        case "ExperienceInYears":
-            createTeacherBasicInformation.ExperienceInYears = (int)newTeacherBasicInformation[field];
-            break;
-        case "ContactTeleNumber":
-            createTeacherBasicInformation.ContactTeleNumber = (string)newTeacherBasicInformation[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "TeacherFullName":
+                    createTeacherBasicInformation.TeacherFullName = (string)newTeacherBasicInformation[field];
+                    break;
+                case "Active":
+                    createTeacherBasicInformation.Active = (bool)newTeacherBasicInformation[field];
+                    break;
+                case "EmailAddress":
+                    createTeacherBasicInformation.EmailAddress = (string)newTeacherBasicInformation[field];
+                    break;
+                case "TeacherPhotographUrl":
+                    createTeacherBasicInformation.TeacherPhotographUrl = (string)newTeacherBasicInformation[field];
+                    break;
+                case "PreferredLanguage":
+                    createTeacherBasicInformation.PreferredLanguage = (string)newTeacherBasicInformation[field];
+                    break;
+                case "AlternateLanguage":
+                    createTeacherBasicInformation.AlternateLanguage = (string)newTeacherBasicInformation[field];
+                    break;
+                case "ExperienceInYears":
+                    createTeacherBasicInformation.ExperienceInYears = (int)newTeacherBasicInformation[field];
+                    break;
+                case "ContactTeleNumber":
+                    createTeacherBasicInformation.ContactTeleNumber = (string)newTeacherBasicInformation[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new TeacherBasicInformation*@
-        instanceOfICreateTeacherBasicInformationUseCase.CreateTeacherBasicInformation(createTeacherBasicInformation);
+        resultForCreate = instanceOfICreateTeacherBasicInformationUseCase.CreateTeacherBasicInformation(createTeacherBasicInformation);
+        createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created TeacherBasicInformation along with the existing the course list *@
-    GetTeacherBasicInformations(searchkey);
-
-}
-
-
-//To take and update the value for  Grade
-void UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformationToBeUpdated, Dictionary<string, object> newValue)
-{
-    Console.WriteLine(teacherBasicInformationToBeUpdated);
-
-    foreach (var teacherBasicInformation in newValue.Keys)
-    {
-        switch (teacherBasicInformation)
-        {
-            case "TeacherFullName":
-                teacherBasicInformationToBeUpdated.TeacherFullName = (string)newValue[teacherBasicInformation];
-                break;
-            case "Active":
-                teacherBasicInformationToBeUpdated.Active = (bool)newValue[teacherBasicInformation];
-                break;
-            case "EmailAddress":
-                teacherBasicInformationToBeUpdated.EmailAddress = (string)newValue[teacherBasicInformation];
-                break;
-            case "TeacherPhotographUrl":
-                teacherBasicInformationToBeUpdated.TeacherPhotographUrl = (string)newValue[teacherBasicInformation];
-                break;
-            case "PreferredLanguage":
-                teacherBasicInformationToBeUpdated.PreferredLanguage = (string)newValue[teacherBasicInformation];
-                break;
-            case "AlternateLanguage":
-                teacherBasicInformationToBeUpdated.AlternateLanguage = (string)newValue[teacherBasicInformation];
-                break;
-            case "ExperienceInYears":
-                teacherBasicInformationToBeUpdated.ExperienceInYears = (int)newValue[teacherBasicInformation];
-                break;
-            case "ContactTeleNumber":
-                teacherBasicInformationToBeUpdated.ContactTeleNumber = (string)newValue[teacherBasicInformation];
-                break;
-        }
-        Console.WriteLine(teacherBasicInformationToBeUpdated);
+        GetTeacherBasicInformations(searchkey);
 
     }
 
+
+    //To take and update the value for  Grade
+    void UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformationToBeUpdated, Dictionary<string, object> newValue)
+    {
+        Console.WriteLine(teacherBasicInformationToBeUpdated);
+
+        foreach (var teacherBasicInformation in newValue.Keys)
+        {
+            switch (teacherBasicInformation)
+            {
+                case "TeacherFullName":
+                    teacherBasicInformationToBeUpdated.TeacherFullName = (string)newValue[teacherBasicInformation];
+                    break;
+                case "Active":
+                    teacherBasicInformationToBeUpdated.Active = (bool)newValue[teacherBasicInformation];
+                    break;
+                case "EmailAddress":
+                    teacherBasicInformationToBeUpdated.EmailAddress = (string)newValue[teacherBasicInformation];
+                    break;
+                case "TeacherPhotographUrl":
+                    teacherBasicInformationToBeUpdated.TeacherPhotographUrl = (string)newValue[teacherBasicInformation];
+                    break;
+                case "PreferredLanguage":
+                    teacherBasicInformationToBeUpdated.PreferredLanguage = (string)newValue[teacherBasicInformation];
+                    break;
+                case "AlternateLanguage":
+                    teacherBasicInformationToBeUpdated.AlternateLanguage = (string)newValue[teacherBasicInformation];
+                    break;
+                case "ExperienceInYears":
+                    teacherBasicInformationToBeUpdated.ExperienceInYears = (int)newValue[teacherBasicInformation];
+                    break;
+                case "ContactTeleNumber":
+                    teacherBasicInformationToBeUpdated.ContactTeleNumber = (string)newValue[teacherBasicInformation];
+                    break;
+            }
+            Console.WriteLine(teacherBasicInformationToBeUpdated);
+
+        }
+
         @*TeacherBasicInformationToBeUpdated this variable holds the updated value and is sent to the database*@
-        instanceOfIUpdateTeacherBasicInformationUseCase.UpdateTeacherBasicInformation(teacherBasicInformationToBeUpdated);
+        resultForUpdate = instanceOfIUpdateTeacherBasicInformationUseCase.UpdateTeacherBasicInformation(teacherBasicInformationToBeUpdated);
+        viewErrorForUpdate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetTeacherBasicInformations(searchkey);
+        GetTeacherBasicInformations(searchkey);
 
-}
+    }
 
 
 }

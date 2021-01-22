@@ -6,9 +6,11 @@
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.ViewHighSchoolBoardScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.UpdateHighSchoolBoardScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
 @inject ICreateHighSchoolBoardUseCase instanceOfICreateHighSchoolBoardUseCase
 @inject IViewHighSchoolBoardUseCase instanceOfIViewHighSchoolBoardUseCase
 @inject IUpdateHighSchoolBoardUseCase instanceOfIUpdateHighSchoolBoardUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 <div>
     @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
@@ -17,6 +19,50 @@
                NullText="Search for High School Boards ...."></DxTextBox>
 </div>
 <br />
+
+
+<div>
+    @* To display error message for create *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your High School Board has been created successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+@* To display error message for update *@
+<div>
+    @if (viewErrorForUpdate && resultForUpdate == "Done")
+    {
+        <p class="success_message_style">
+            Your High School Board has been updated successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+    @* To error message for view *@
+    @if (viewError && highSchoolBoardList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_HIGHSCHOOLBOARD
+        </p>
+    }
+</div>
+
 
 @*Table is used to display the data *@
 <DxDataGrid Data="@highSchoolBoardList"
@@ -35,6 +81,11 @@
     IEnumerable<HighSchoolBoard> highSchoolBoardList = Enumerable.Empty<HighSchoolBoard>();
     @*To hold the search text*@
     String searchkey;
+    public string resultForCreate;
+    bool createMessage = false;
+    public string resultForUpdate;
+    bool viewErrorForUpdate = false;
+    bool viewError = false;
     @*The init method is to invoke the HighSchoolBoard list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -48,6 +99,7 @@
     public void GetHighSchoolBoards(String searchkeyword)
     {
         highSchoolBoardList = instanceOfIViewHighSchoolBoardUseCase.ViewHighSchoolBoard(searchkeyword);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
@@ -83,7 +135,8 @@
         }
 
         @*To invoke the method to create new HighSchoolBoard*@
-        instanceOfICreateHighSchoolBoardUseCase.CreateHighSchoolBoard(createHighSchoolBoard);
+        resultForCreate = instanceOfICreateHighSchoolBoardUseCase.CreateHighSchoolBoard(createHighSchoolBoard);
+        createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created HighSchoolBoard along with the existing the course list *@
@@ -113,7 +166,8 @@
         }
 
         @*HighSchoolBoardToBeUpdated this variable holds the updated value and is sent to the database*@
-        instanceOfIUpdateHighSchoolBoardUseCase.UpdateHighSchoolBoard(highSchoolBoardToBeUpdated);
+        resultForUpdate = instanceOfIUpdateHighSchoolBoardUseCase.UpdateHighSchoolBoard(highSchoolBoardToBeUpdated);
+        viewErrorForUpdate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@

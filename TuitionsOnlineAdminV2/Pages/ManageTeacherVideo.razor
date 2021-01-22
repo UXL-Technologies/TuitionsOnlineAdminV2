@@ -5,9 +5,11 @@
 @using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherVideos.ViewTeacherVideoScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
 @inject ICreateTeacherVideoUseCase instanceOfICreateTeacherVideoUseCase
 @inject IViewTeacherVideoUseCase instanceOfIViewTeacherVideoUseCase
 @inject IUpdateTeacherVideoUseCase instanceOfIUpdateTeacherVideoUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 
 
 <div>
@@ -18,6 +20,47 @@
                NullText="Search for TeacherVideos ...."></DxTextBox>
 </div>
 <br />
+<div>
+    @* To display error message for create *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your Video has been created successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+@* To display error message for update *@
+<div>
+    @if (viewErrorForUpdate && resultForUpdate == "Done")
+    {
+    <p class="success_message_style">
+        Your Video has been updated successfully !
+    </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+    @* To error message for view *@
+    @if (viewError && teacherVideoList == null)
+    {
+    <p class="success_message_style">
+        @instanceOfBusinessMessage. UNKNOWN_SERVER_ERROR_VIEW_TEACHERVIDEO
+    </p>
+    }
+</div>
 
 
 @*Table is used to display the data *@
@@ -34,6 +77,11 @@
     IEnumerable<TeacherVideo> teacherVideoList = Enumerable.Empty<TeacherVideo>();
     @*To hold the search text*@
     String searchkey;
+    public string resultForCreate;
+    bool createMessage = false;
+    public string resultForUpdate;
+    bool viewErrorForUpdate = false;
+    bool viewError = false;
     @*The init method is to invoke the TeacherVideo list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -46,10 +94,11 @@
     public void GetTeacherVideos(String searchkeyword)
     {
         teacherVideoList = instanceOfIViewTeacherVideoUseCase.ViewTeacherVideo(searchkeyword);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
-        
+
         searchkey = searchText;
         @*To invoke the component to re-render the data*@
 
@@ -82,7 +131,8 @@
         }
 
         @*To invoke the method to create new TeacherVideo*@
-        instanceOfICreateTeacherVideoUseCase.CreateTeacherVideo(createTeacherVideo);
+        resultForCreate = instanceOfICreateTeacherVideoUseCase.CreateTeacherVideo(createTeacherVideo);
+        createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
@@ -109,12 +159,13 @@
         }
 
         @*teacherVideoToBeUpdated this variable holds the updated value and is sent to the database*@
-instanceOfIUpdateTeacherVideoUseCase.UpdateTeacherVideo(teacherVideoToBeUpdated);
+        resultForUpdate = instanceOfIUpdateTeacherVideoUseCase.UpdateTeacherVideo(teacherVideoToBeUpdated);
+        viewErrorForUpdate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetTeacherVideos(searchkey);
+        GetTeacherVideos(searchkey);
 
-}
+    }
 
 }
