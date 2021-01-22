@@ -102,7 +102,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM
         //Date:15-Jan-2021
         //To Create Subject
-        void CreateSubject(Subject subject);
+        string CreateSubject(Subject subject);
         //To view Subject
         List<Subject> ViewSubjects(string searchKey);
         //To update Subject

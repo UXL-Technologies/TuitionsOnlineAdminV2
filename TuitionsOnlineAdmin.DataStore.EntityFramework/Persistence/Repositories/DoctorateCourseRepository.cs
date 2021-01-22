@@ -36,7 +36,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_DOCTORATECOURSE + " ,the error number is 103";
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_DOCTORATECOURSE;
 
             }
         }
@@ -47,11 +47,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To update doctorate course
         public string UpdateDoctorateCourseRepository(DoctorateCourse doctorateCourse)
         {
-            DoctorateCourse doctorateCourseToBeUpdated = instanceOfDbContext.DoctorateCourse.FirstOrDefault(s => s.DoctorateCourseId == doctorateCourse.DoctorateCourseId);
-            doctorateCourseToBeUpdated = doctorateCourse;
-            instanceOfDbContext.DoctorateCourse.Append(doctorateCourseToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                DoctorateCourse doctorateCourseToBeUpdated = instanceOfDbContext.DoctorateCourse.FirstOrDefault(s => s.DoctorateCourseId == doctorateCourse.DoctorateCourseId);
+                doctorateCourseToBeUpdated = doctorateCourse;
+                instanceOfDbContext.DoctorateCourse.Append(doctorateCourseToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_DOCTORATECOURSE;
+            }
+         
 
         }
 

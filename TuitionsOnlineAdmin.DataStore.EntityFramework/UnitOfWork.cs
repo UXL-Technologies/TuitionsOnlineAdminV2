@@ -188,9 +188,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         //to Create a Subject by invoking CreateSubjectRepository of SubjectRepository
-        public void CreateSubject(Subject subject)
+        public string CreateSubject(Subject subject)
         {
-            instanceOfISubjectRepository.CreateSubjectRepository(subject);
+            string result = instanceOfISubjectRepository.CreateSubjectRepository(subject);
+            return result;
+
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021
