@@ -24,10 +24,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         }
         //To create a single record for Currency
-        public void CreateCurrencyRepository(Currency currency)
+        public string CreateCurrencyRepository(Currency currency)
         {
-            instanceOfDbContext.Currency.Add(currency);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.Currency.Add(currency);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_CURRENCY;
+            }
 
         }
 
@@ -36,30 +43,42 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view Currency based on the search criteria 
         public List<Currency> ViewCurrencyRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<Currency> currencyList = new List<Currency>();
+                    currencyList = instanceOfDbContext.Currency.Where(s => s.CurrencyName.Contains(searchKey)).ToList();
+                    return currencyList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var currencyList = instanceOfDbContext.Currency.ToList();
+                    return currencyList;
+                }
+            }
+            catch (Exception) {
                 List<Currency> currencyList = new List<Currency>();
-                currencyList = instanceOfDbContext.Currency.Where(s => s.CurrencyName.Contains(searchKey)).ToList();
-                return currencyList;
+                return currencyList = null;
             }
-            //if not entire list of data is displayed
-            else
+            //if the seach key is present the list is displayed
 
-            {
-                var currencyList = instanceOfDbContext.Currency.ToList();
-                return currencyList;
-            }
         }
         //To update Currency
         public string UpdateCurrencyRepository(Currency currency)
         {
-            Currency currencyToBeUpdated = instanceOfDbContext.Currency.FirstOrDefault(s => s.CurrencyId == currency.CurrencyId);
-            currencyToBeUpdated = currency;
-            instanceOfDbContext.Currency.Append(currencyToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
+            try {
+                Currency currencyToBeUpdated = instanceOfDbContext.Currency.FirstOrDefault(s => s.CurrencyId == currency.CurrencyId);
+                currencyToBeUpdated = currency;
+                instanceOfDbContext.Currency.Append(currencyToBeUpdated);
+                instanceOfDbContext.SaveChanges();
+                return "Done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_CURRENCY;
+            }
 
         }
     }

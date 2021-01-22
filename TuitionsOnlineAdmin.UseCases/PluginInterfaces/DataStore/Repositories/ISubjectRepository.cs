@@ -13,7 +13,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     {
 
         //To hold the contract for creating the Subject and store it in a database
-        void CreateSubjectRepository(Subject subject);
+        string CreateSubjectRepository(Subject subject);
 
         //Authors: SA, BM, SM
         //Date:15-Jan-2021

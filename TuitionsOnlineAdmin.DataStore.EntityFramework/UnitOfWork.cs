@@ -167,9 +167,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         //to Create a Currency by invoking CreateCurrencyRepository of CurrencyRepository
-        public void CreateCurrency(Currency currency)
+        public string CreateCurrency(Currency currency)
         {
-            instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
+           string result =  instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
+            return result;
         }
         //Authors: SA, BM, SM
         // Date:18-Jan-2021
@@ -188,9 +189,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         //to Create a Subject by invoking CreateSubjectRepository of SubjectRepository
-        public void CreateSubject(Subject subject)
+        public string CreateSubject(Subject subject)
         {
-            instanceOfISubjectRepository.CreateSubjectRepository(subject);
+            string result = instanceOfISubjectRepository.CreateSubjectRepository(subject);
+            return result;
+
         }
         //Authors: SA, BM, SM
         // Date:15-Jan-2021

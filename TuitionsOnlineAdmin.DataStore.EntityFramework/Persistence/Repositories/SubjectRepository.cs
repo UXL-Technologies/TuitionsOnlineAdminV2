@@ -22,10 +22,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         }
         //To create a single record for Subject
-        public void CreateSubjectRepository(Subject subject)
+        public string CreateSubjectRepository(Subject subject)
         {
-            instanceOfDbContext.Subject.Add(subject);
-            instanceOfDbContext.SaveChanges();
+            try {
+                instanceOfDbContext.Subject.Add(subject);
+                instanceOfDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception) {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+            }
 
         }
 

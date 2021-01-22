@@ -23,10 +23,11 @@ namespace TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen
             this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
         //Calling the method create Subject in IunitOfwork
-        public void CreateSubject(Subject subject)
+        public string CreateSubject(Subject subject)
         {
             Console.WriteLine("I have reached create subject");
-            instanceOfIUnitOfWork.CreateSubject(subject);
+          string result =   instanceOfIUnitOfWork.CreateSubject(subject);
+            return result;
         }
     }
 }

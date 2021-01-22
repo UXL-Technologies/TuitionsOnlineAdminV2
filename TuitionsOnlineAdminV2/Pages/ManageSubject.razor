@@ -6,9 +6,11 @@
 @using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Subjects.UpdateSubjectScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
 @inject ICreateSubjectUseCase instanceOfICreateSubjectUseCase
 @inject IViewSubjectUseCase instanceOfIViewSubjectUseCase
 @inject IUpdateSubjectUseCase instanceOfIUpdateSubjectUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 
 <div>
     @* this TextBox is used to search the data  *@
@@ -18,6 +20,50 @@
                NullText="Search for subjects ...."></DxTextBox>
 </div>
 <br />
+
+
+<div>
+    @* To display error message for create *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your Subject has been created successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+@* To display error message for update *@
+<div>
+    @if (viewErrorForUpdate && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your Subject has been updated successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+@* To error message for view *@
+<div>
+    @if (viewError && subjectList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage. UNKNOWN_SERVER_ERROR_VIEW_SUBJECT
+        </p>
+    }
+</div>
+
 
 @*Table is used to display the data *@
 <DxDataGrid Data="@subjectList"
@@ -35,6 +81,11 @@
     IEnumerable<Subject> subjectList = Enumerable.Empty<Subject>();
     @*To hold the search text*@
     String searchkey;
+    public string resultForCreate;
+    bool createMessage = false;
+    public string resultForUpdate;
+    bool viewErrorForUpdate = false;
+    bool viewError = false;
     @*The init method is to invoke the Subject list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -47,6 +98,7 @@
     public void GetSubjects(String searchkeyword)
     {
         subjectList = instanceOfIViewSubjectUseCase.ViewSubject(searchkeyword);
+        viewError = true;
     }
     void OnTextChanged(String searchText)
     {
@@ -83,7 +135,8 @@
         }
 
         @*To invoke the method to create new Subject*@
-        instanceOfICreateSubjectUseCase.CreateSubject(createSubject);
+        resultForCreate = instanceOfICreateSubjectUseCase.CreateSubject(createSubject);
+        createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
@@ -110,7 +163,8 @@
         }
 
         @*subjectToBeUpdated this variable holds the updated value and is sent to the database*@
-        instanceOfIUpdateSubjectUseCase.UpdateSubject(subjectToBeUpdated);
+        resultForUpdate = instanceOfIUpdateSubjectUseCase.UpdateSubject(subjectToBeUpdated);
+        viewErrorForUpdate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@

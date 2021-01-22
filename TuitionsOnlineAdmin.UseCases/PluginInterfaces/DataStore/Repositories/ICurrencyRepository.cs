@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
    public interface ICurrencyRepository
     {
         //To hold the contract for creating the Currency and store it in a database
-        void CreateCurrencyRepository(Currency currency);
+        string CreateCurrencyRepository(Currency currency);
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To hold the contract for viewing Currency
