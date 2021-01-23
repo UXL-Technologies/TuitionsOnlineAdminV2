@@ -26,7 +26,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Grade has been created successfully !
+            Your Grade "@grade" has been created successfully !
         </p>
     }
     else
@@ -42,7 +42,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
     <p class="success_message_style">
-        Your Grade has been updated successfully !
+        Your Grade "@grade" has been updated successfully !
     </p>
     }
     else
@@ -85,6 +85,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
+public string grade;
     @*The init method is to invoke the Grade list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -121,16 +122,16 @@
         foreach (var field in newGrade.Keys)
         {
             @*For each incoming key we check and assign the values to newGrade *@
-            switch (field)
-            {
-                case "GradeName":
-                    createGrade.GradeName = (string)newGrade[field];
-                    break;
-                case "Active":
-                    createGrade.Active = (bool)newGrade[field];
-                    break;
-            }
-        }
+    switch (field)
+    {
+        case "GradeName":
+            grade =  createGrade.GradeName = (string)newGrade[field];
+            break;
+        case "Active":
+            createGrade.Active = (bool)newGrade[field];
+            break;
+    }
+}
 
         @*To invoke the method to create new Grade*@
         resultForCreate = instanceOfICreateGradeUseCase.CreateGrade(createGrade);
@@ -138,29 +139,29 @@
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Grade along with the existing the course list *@
-        GetGrades(searchkey);
+    GetGrades(searchkey);
 
+
+}
+
+
+//To take and update the value for  Grade
+void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var grade in newValue.Keys)
+    {
+        switch (grade)
+        {
+            case "GradeName":
+                grade =  gradeToBeUpdated.GradeName = (string)newValue[grade];
+                break;
+            case "Active":
+                gradeToBeUpdated.Active = (bool)newValue[grade];
+                break;
+        }
 
     }
-
-
-    //To take and update the value for  Grade
-    void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
-    {
-
-        foreach (var grade in newValue.Keys)
-        {
-            switch (grade)
-            {
-                case "GradeName":
-                    gradeToBeUpdated.GradeName = (string)newValue[grade];
-                    break;
-                case "Active":
-                    gradeToBeUpdated.Active = (bool)newValue[grade];
-                    break;
-            }
-
-        }
 
         @*GradeToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateGradeUseCase.UpdateGrade(gradeToBeUpdated);
