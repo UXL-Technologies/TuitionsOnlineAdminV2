@@ -27,7 +27,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your city "@city" has been created successfully !
+            Your city "@cityToBeDisplayed" has been created successfully !
         </p>
     }
     else
@@ -43,7 +43,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your city "@city" has been updated successfully !
+            Your city "@cityToBeDisplayed" has been updated successfully !
         </p>
     }
     else
@@ -88,7 +88,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string city;
+public string cityToBeDisplayed;
     @*The init method is to invoke the City list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -128,7 +128,7 @@ public string city;
     switch (field)
     {
         case "CityName":
-            city = createCity.CityName = (string)newCity[field];
+            cityToBeDisplayed = createCity.CityName = (string)newCity[field];
             break;
         case "Active":
             createCity.Active = (bool)newCity[field];
@@ -156,7 +156,7 @@ void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
         switch (city)
         {
             case "CityName":
-                city = cityToBeUpdated.CityName = (string)newValue[city];
+                cityToBeDisplayed = cityToBeUpdated.CityName = (string)newValue[city];
                 break;
             case "Active":
                 cityToBeUpdated.Active = (bool)newValue[city];

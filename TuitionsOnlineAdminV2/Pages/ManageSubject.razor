@@ -27,7 +27,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Subject "@subject" has been created successfully !
+            Your Subject "@subjectToBeDisplayed" has been created successfully !
         </p>
     }
     else
@@ -43,7 +43,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your Subject "@subject" has been updated successfully !
+            Your Subject "@subjectToBeDisplayed" has been updated successfully !
         </p>
     }
     else
@@ -86,7 +86,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string subject;
+public string subjectToBeDisplayed;
     @*The init method is to invoke the Subject list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -127,7 +127,7 @@ public string subject;
     switch (field)
     {
         case "SubjectName":
-            subject = createSubject.SubjectName = (string)newSubject[field];
+            subjectToBeDisplayed = createSubject.SubjectName = (string)newSubject[field];
             break;
         case "Active":
             createSubject.Active = (bool)newSubject[field];
@@ -154,7 +154,7 @@ void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newVal
         switch (subject)
         {
             case "SubjectName":
-                subject = subjectToBeUpdated.SubjectName = (string)newValue[subject];
+                subjectToBeDisplayed = subjectToBeUpdated.SubjectName = (string)newValue[subject];
                 break;
             case "Active":
                 subjectToBeUpdated.Active = (bool)newValue[subject];

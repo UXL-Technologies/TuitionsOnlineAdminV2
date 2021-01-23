@@ -26,7 +26,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Grade "@grade" has been created successfully !
+            Your Grade "@gradeToBeDisplayed" has been created successfully !
         </p>
     }
     else
@@ -42,7 +42,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
     <p class="success_message_style">
-        Your Grade "@grade" has been updated successfully !
+        Your Grade "@gradeToBeDisplayed" has been updated successfully !
     </p>
     }
     else
@@ -85,7 +85,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string grade;
+public string gradeToBeDisplayed;
     @*The init method is to invoke the Grade list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -125,7 +125,7 @@ public string grade;
     switch (field)
     {
         case "GradeName":
-            grade =  createGrade.GradeName = (string)newGrade[field];
+            gradeToBeDisplayed =  createGrade.GradeName = (string)newGrade[field];
             break;
         case "Active":
             createGrade.Active = (bool)newGrade[field];
@@ -154,7 +154,7 @@ void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
         switch (grade)
         {
             case "GradeName":
-                grade =  gradeToBeUpdated.GradeName = (string)newValue[grade];
+                gradeToBeDisplayed =  gradeToBeUpdated.GradeName = (string)newValue[grade];
                 break;
             case "Active":
                 gradeToBeUpdated.Active = (bool)newValue[grade];
