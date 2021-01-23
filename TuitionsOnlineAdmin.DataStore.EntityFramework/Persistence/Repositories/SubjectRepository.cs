@@ -41,21 +41,29 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view Subject based on the search criteria 
         public List<Subject> ViewSubjectRepository(string searchKey)
         {
+            try {
+                if (searchKey != null)
+                {
+                    List<Subject> subjectList = new List<Subject>();
+                    subjectList = instanceOfDbContext.Subject.Where(s => s.SubjectName.Contains(searchKey)).ToList();
+                    return subjectList;
+                }
+                //if not entire list of data is displayed
+                else
 
-            //if the seach key is present the list is displayed
-            if (searchKey != null)
-            {
+                {
+                    var subjectList = instanceOfDbContext.Subject.ToList();
+                    return subjectList;
+                }
+            }
+            catch (Exception) {
                 List<Subject> subjectList = new List<Subject>();
-                subjectList = instanceOfDbContext.Subject.Where(s => s.SubjectName.Contains(searchKey)).ToList();
-                return subjectList;
-            }
-            //if not entire list of data is displayed
-            else
+                return subjectList = null;
 
-            {
-                var subjectList = instanceOfDbContext.Subject.ToList();
-                return subjectList;
+
             }
+            //if the seach key is present the list is displayed
+
         }
         //To update Subject
         public string UpdateSubjectRepository(Subject subject)

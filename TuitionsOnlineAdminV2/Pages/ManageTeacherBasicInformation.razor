@@ -41,7 +41,7 @@
 
 @* To display error message for update *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "Done")
+    @if (viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
             Your Grade has been updated successfully !
@@ -60,7 +60,7 @@
     @if (viewError && teacherBasicInformationList == null)
     {
         <p class="success_message_style">
-            @instanceOfBusinessMessage. UNKNOWN_SERVER_ERROR_VIEW_TEACHERBASICINFORMATION
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERBASICINFORMATION
         </p>
     }
 </div>
@@ -207,10 +207,11 @@
         }
 
         @*TeacherBasicInformationToBeUpdated this variable holds the updated value and is sent to the database*@
-        resultForUpdate = instanceOfIUpdateTeacherBasicInformationUseCase.UpdateTeacherBasicInformation(teacherBasicInformationToBeUpdated);
-        viewErrorForUpdate = true;
+resultForUpdate = instanceOfIUpdateTeacherBasicInformationUseCase.UpdateTeacherBasicInformation(teacherBasicInformationToBeUpdated);
+viewErrorForUpdate = true;
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
+InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
         GetTeacherBasicInformations(searchkey);
 

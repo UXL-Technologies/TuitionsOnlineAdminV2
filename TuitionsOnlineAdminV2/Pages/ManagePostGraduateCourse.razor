@@ -55,7 +55,7 @@
 <div>
 
     @* To display the success message on click of save *@
-    @if (viewErrorForUpdate && resultForUpdate == "Done")
+    @if(viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
             Your Post graduate course has been updated successfully !
@@ -179,7 +179,9 @@ void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, 
 
         Console.WriteLine(postGraduateCourseToBeUpdated);
         resultForUpdate =  instanceOfIUpdatePostGraduateCourseUseCase.UpdatePostGraduateCourse(postGraduateCourseToBeUpdated);
+        Console.WriteLine(resultForUpdate);
         viewErrorForUpdate = true;
+        Console.WriteLine(viewErrorForUpdate);
             @*The StateHasChanged makes sure that the component is notified to re-render the data*@
 InvokeAsync(StateHasChanged);
             @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
