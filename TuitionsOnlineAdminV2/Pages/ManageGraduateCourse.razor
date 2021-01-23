@@ -30,7 +30,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your graduate course has been created successfully !
+            Your graduate course "@graduateCourseName" has been created successfully !
         </p>
     }
     else
@@ -46,9 +46,9 @@
     @* To display the success message on click of save *@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
-        <p class="success_message_style">
-            Your graduate course has been updated successfully !
-        </p>
+    <p class="success_message_style">
+        Your graduate course "@graduateCourseName" has been updated successfully !
+    </p>
     }
     else
     {
@@ -87,14 +87,16 @@
     @* To hold the hold the Course details*@
     IEnumerable<GraduateCourse> graduateCourseList = Enumerable.Empty<GraduateCourse>();
     @*To hold the search text*@
-    String searchkey;
+String searchkey;
 
-    public string resultForCreate;
+public string resultForCreate;
 public string resultForUpdate;
+public string graduateCourseName;
+
 
     bool createMessage = false;
-    bool viewError = false;
-    bool viewErrorForUpdate = false;
+bool viewError = false;
+bool viewErrorForUpdate = false;
 
 
     @*The init method is to inoke the get graduate  course list*@
@@ -106,16 +108,16 @@ public string resultForUpdate;
 
     }
     @*To get graduate course list to be displayed in the data grid columns*@
-    public void GetGraduateCourses(String searchkeyword)
-    {
-        graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
-        Console.WriteLine(graduateCourseList);
-        viewError = true;
-    }
-    void OnTextChanged(String searchText)
-    {
-        Console.WriteLine(searchText);
-        searchkey = searchText;
+public void GetGraduateCourses(String searchkeyword)
+{
+    graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
+    System.Diagnostics.Debug.WriteLine("Hello World");
+    viewError = true;
+}
+void OnTextChanged(String searchText)
+{
+    Console.WriteLine(searchText);
+    searchkey = searchText;
         @*The StateHasChanged makes sure that the component is notified to re - render the data*@
 
         InvokeAsync(StateHasChanged);
@@ -135,7 +137,8 @@ public string resultForUpdate;
             switch (field)
             {
                 case "GraduateCourseName":
-                    createGraduateCourse.GraduateCourseName = (string)newCourse[field];
+                   graduateCourseName = createGraduateCourse.GraduateCourseName = (string)newCourse[field];
+            Console.WriteLine(graduateCourseName);
                     break;
                 case "Active":
                     createGraduateCourse.Active = (bool)newCourse[field];
@@ -169,7 +172,7 @@ void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<s
         switch (course)
         {
             case "GraduateCourseName":
-                graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
+                graduateCourseName = graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
                 break;
             case "Active":
                 graduateCourseToBeUpdated.Active = (bool)newValue[course];
