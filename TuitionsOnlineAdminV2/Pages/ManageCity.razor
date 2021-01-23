@@ -27,7 +27,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your city has been created successfully !
+            Your city "@city" has been created successfully !
         </p>
     }
     else
@@ -43,7 +43,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your city has been updated successfully !
+            Your city "@city" has been updated successfully !
         </p>
     }
     else
@@ -88,6 +88,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
+public string city;
     @*The init method is to invoke the City list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -124,19 +125,19 @@
         foreach (var field in newCity.Keys)
         {
             @*For each incoming key we check and assign the values to newCity *@
-            switch (field)
-            {
-                case "CityName":
-                    createCity.CityName = (string)newCity[field];
-                    break;
-                case "Active":
-                    createCity.Active = (bool)newCity[field];
-                    break;
-                case "PinCode":
-                    createCity.PinCode = (int)newCity[field];
-                    break;
-            }
-        }
+    switch (field)
+    {
+        case "CityName":
+            city = createCity.CityName = (string)newCity[field];
+            break;
+        case "Active":
+            createCity.Active = (bool)newCity[field];
+            break;
+        case "PinCode":
+            createCity.PinCode = (int)newCity[field];
+            break;
+    }
+}
 
         @*To invoke the method to create new City*@
         resultForCreate = instanceOfICreateCityUseCase.CreateCity(createCity);
@@ -144,28 +145,28 @@
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created City along with the existing the course list *@
-        GetCities(searchkey);
-    }
-    //To take and update the value for  City
-    void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
+    GetCities(searchkey);
+}
+//To take and update the value for  City
+void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var city in newValue.Keys)
     {
-
-        foreach (var city in newValue.Keys)
+        switch (city)
         {
-            switch (city)
-            {
-                case "CityName":
-                    cityToBeUpdated.CityName = (string)newValue[city];
-                    break;
-                case "Active":
-                    cityToBeUpdated.Active = (bool)newValue[city];
-                    break;
-                case "PinCode":
-                    cityToBeUpdated.PinCode = (int)newValue[city];
-                    break;
-            }
-
+            case "CityName":
+                city = cityToBeUpdated.CityName = (string)newValue[city];
+                break;
+            case "Active":
+                cityToBeUpdated.Active = (bool)newValue[city];
+                break;
+            case "PinCode":
+                cityToBeUpdated.PinCode = (int)newValue[city];
+                break;
         }
+
+    }
 
         @*CityToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCityUseCase.UpdateCity(cityToBeUpdated);
