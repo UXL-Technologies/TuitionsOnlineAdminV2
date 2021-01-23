@@ -126,8 +126,8 @@ void OnTextChanged(String searchText)
         GetGraduateCourses(searchkey);
     }
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-    public async void CreateGraduateCourse(Dictionary<string, object> newCourse)
-    {
+protected async Task CreateGraduateCourse(Dictionary<string, object> newCourse)
+{
         @* To hold the new course to be created *@
         GraduateCourse createGraduateCourse = new GraduateCourse();
         @*The new value comes in the form of key value pair*@
@@ -147,17 +147,33 @@ void OnTextChanged(String searchText)
         }
         Console.WriteLine(createGraduateCourse);
         @*To invoke the method to create new graduate course*@
-        resultForCreate= instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
-        Console.WriteLine(resultForCreate);
-        createMessage = true;
-        Console.WriteLine(createMessage);
-        //await Task.Delay(20000);
-        //UriHelper.NavigateTo("graduatecourse", forceLoad: true);
+resultForCreate= instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
+Console.WriteLine(resultForCreate);
+
+Console.WriteLine(createMessage);
+
+
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
+var t = Task.Factory.StartNew(async () =>
+{
+    Console.WriteLine();
+    createMessage = true;
+    Console.WriteLine(createMessage);
+    await Task.Delay(5000);
+    createMessage = false;
+    Console.WriteLine(createMessage);
+});
+
+
+//UriHelper.NavigateTo("graduatecourse", forceLoad: true);
+
+InvokeAsync(StateHasChanged);
 
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
     GetGraduateCourses(searchkey);
+
+
 
 }
 
