@@ -27,7 +27,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Subject has been created successfully !
+            Your Subject "@subject" has been created successfully !
         </p>
     }
     else
@@ -43,7 +43,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your Subject has been updated successfully !
+            Your Subject "@subject" has been updated successfully !
         </p>
     }
     else
@@ -86,6 +86,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
+public string subject;
     @*The init method is to invoke the Subject list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -123,16 +124,16 @@
         foreach (var field in newSubject.Keys)
         {
             @*For each incoming key we check and assign the values to newSubject *@
-            switch (field)
-            {
-                case "SubjectName":
-                    createSubject.SubjectName = (string)newSubject[field];
-                    break;
-                case "Active":
-                    createSubject.Active = (bool)newSubject[field];
-                    break;
-            }
-        }
+    switch (field)
+    {
+        case "SubjectName":
+            subject = createSubject.SubjectName = (string)newSubject[field];
+            break;
+        case "Active":
+            createSubject.Active = (bool)newSubject[field];
+            break;
+    }
+}
 
         @*To invoke the method to create new Subject*@
         resultForCreate = instanceOfICreateSubjectUseCase.CreateSubject(createSubject);
@@ -140,27 +141,27 @@
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
-        GetSubjects(searchkey);
+    GetSubjects(searchkey);
+
+}
+
+//To take and update the value for  Subject
+void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var subject in newValue.Keys)
+    {
+        switch (subject)
+        {
+            case "SubjectName":
+                subject = subjectToBeUpdated.SubjectName = (string)newValue[subject];
+                break;
+            case "Active":
+                subjectToBeUpdated.Active = (bool)newValue[subject];
+                break;
+        }
 
     }
-
-    //To take and update the value for  Subject
-    void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
-    {
-
-        foreach (var subject in newValue.Keys)
-        {
-            switch (subject)
-            {
-                case "SubjectName":
-                    subjectToBeUpdated.SubjectName = (string)newValue[subject];
-                    break;
-                case "Active":
-                    subjectToBeUpdated.Active = (bool)newValue[subject];
-                    break;
-            }
-
-        }
 
         @*subjectToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateSubjectUseCase.UpdateSubject(subjectToBeUpdated);
