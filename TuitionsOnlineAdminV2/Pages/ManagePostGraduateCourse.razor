@@ -41,7 +41,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Post graduate course has been created successfully !
+            Your Post graduate course "@postGraduateCourse" has been created successfully !
         </p>
     }
     else
@@ -58,7 +58,7 @@
     @if(viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your Post graduate course has been updated successfully !
+            Your Post graduate course "@postGraduateCourse" has been updated successfully !
         </p>
     }
     else
@@ -94,6 +94,7 @@ string resultForCreate;
 string resultForUpdate;
 bool createMessage = false;
 bool viewErrorForUpdate = false;
+public string postGraduateCourse;
 
     @*The init method is to inoke the get graduate  course list*@
 protected override void OnInitialized()
@@ -133,17 +134,17 @@ protected override void OnInitialized()
         foreach (var field in newCourse.Keys)
         {
             @*For each incoming key we check and assign the values to newGraduateCourse *@
-            switch (field)
-            {
-                case "PostGraduateCourseName":
-                    createPostGraduateCourse.PostGraduateCourseName = (string)newCourse[field];
-                    break;
-                case "Active":
-                    createPostGraduateCourse.Active = (bool)newCourse[field];
-                    break;
-            }
-        }
-        Console.WriteLine(createPostGraduateCourse);
+    switch (field)
+    {
+        case "PostGraduateCourseName":
+            postGraduateCourse =  createPostGraduateCourse.PostGraduateCourseName = (string)newCourse[field];
+            break;
+        case "Active":
+            createPostGraduateCourse.Active = (bool)newCourse[field];
+            break;
+    }
+}
+Console.WriteLine(createPostGraduateCourse);
 
 
         @*To invoke the method to create new post graduate course*@
@@ -170,7 +171,7 @@ void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, 
         switch (course)
         {
             case "PostGraduateCourseName":
-                postGraduateCourseToBeUpdated.PostGraduateCourseName = (string)newValue[course];
+                postGraduateCourse = postGraduateCourseToBeUpdated.PostGraduateCourseName = (string)newValue[course];
                 break;
             case "Active":
                 postGraduateCourseToBeUpdated.Active = (bool)newValue[course];
