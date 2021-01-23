@@ -25,7 +25,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Video has been created successfully !
+            Your Video "@teacherVideoToBeDisplayed" has been created successfully !
         </p>
     }
     else
@@ -41,7 +41,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
     <p class="success_message_style">
-        Your Video has been updated successfully !
+        Your Video "@teacherVideoToBeDisplayed" has been updated successfully !
     </p>
     }
     else
@@ -82,6 +82,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
+public string teacherVideoToBeDisplayed;
     @*The init method is to invoke the TeacherVideo list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -119,16 +120,16 @@
         foreach (var field in newTeacherVideo.Keys)
         {
             @*For each incoming key we check and assign the values to newTeacherVideo *@
-            switch (field)
-            {
-                case "VideoURL":
-                    createTeacherVideo.VideoURL = (string)newTeacherVideo[field];
-                    break;
-                case "Active":
-                    createTeacherVideo.Active = (bool)newTeacherVideo[field];
-                    break;
-            }
-        }
+    switch (field)
+    {
+        case "VideoURL":
+            teacherVideoToBeDisplayed = createTeacherVideo.VideoURL = (string)newTeacherVideo[field];
+            break;
+        case "Active":
+            createTeacherVideo.Active = (bool)newTeacherVideo[field];
+            break;
+    }
+}
 
         @*To invoke the method to create new TeacherVideo*@
         resultForCreate = instanceOfICreateTeacherVideoUseCase.CreateTeacherVideo(createTeacherVideo);
@@ -136,27 +137,27 @@
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
-        GetTeacherVideos(searchkey);
+    GetTeacherVideos(searchkey);
+
+}
+
+//To take and update the value for  TeacherVideo
+void UpdateTeacherVideo(TeacherVideo teacherVideoToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var teacherVideo in newValue.Keys)
+    {
+        switch (teacherVideo)
+        {
+            case "VideoURL":
+                teacherVideoToBeDisplayed = teacherVideoToBeUpdated.VideoURL = (string)newValue[teacherVideo];
+                break;
+            case "Active":
+                teacherVideoToBeUpdated.Active = (bool)newValue[teacherVideo];
+                break;
+        }
 
     }
-
-    //To take and update the value for  TeacherVideo
-    void UpdateTeacherVideo(TeacherVideo teacherVideoToBeUpdated, Dictionary<string, object> newValue)
-    {
-
-        foreach (var teacherVideo in newValue.Keys)
-        {
-            switch (teacherVideo)
-            {
-                case "VideoURL":
-                    teacherVideoToBeUpdated.VideoURL = (string)newValue[teacherVideo];
-                    break;
-                case "Active":
-                    teacherVideoToBeUpdated.Active = (bool)newValue[teacherVideo];
-                    break;
-            }
-
-        }
 
         @*teacherVideoToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateTeacherVideoUseCase.UpdateTeacherVideo(teacherVideoToBeUpdated);

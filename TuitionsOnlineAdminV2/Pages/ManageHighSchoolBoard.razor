@@ -26,7 +26,7 @@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your High School Board has been created successfully !
+            Your High School Board "@highSchoolBoardToBeDisplayed" has been created successfully !
         </p>
     }
     else
@@ -42,7 +42,7 @@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your High School Board has been updated successfully !
+            Your High School Board "@highSchoolBoardToBeDisplayed" has been updated successfully !
         </p>
     }
     else
@@ -86,6 +86,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
+public string highSchoolBoardToBeDisplayed;
     @*The init method is to invoke the HighSchoolBoard list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -123,16 +124,16 @@
         foreach (var field in newHighSchoolBoard.Keys)
         {
             @*For each incoming key we check and assign the values to newHighSchoolBoard *@
-            switch (field)
-            {
-                case "HighSchoolBoardName":
-                    createHighSchoolBoard.HighSchoolBoardName = (string)newHighSchoolBoard[field];
-                    break;
-                case "Active":
-                    createHighSchoolBoard.Active = (bool)newHighSchoolBoard[field];
-                    break;
-            }
-        }
+    switch (field)
+    {
+        case "HighSchoolBoardName":
+            highSchoolBoardToBeDisplayed = createHighSchoolBoard.HighSchoolBoardName = (string)newHighSchoolBoard[field];
+            break;
+        case "Active":
+            createHighSchoolBoard.Active = (bool)newHighSchoolBoard[field];
+            break;
+    }
+}
 
         @*To invoke the method to create new HighSchoolBoard*@
         resultForCreate = instanceOfICreateHighSchoolBoardUseCase.CreateHighSchoolBoard(createHighSchoolBoard);
@@ -140,30 +141,30 @@
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created HighSchoolBoard along with the existing the course list *@
-        GetHighSchoolBoards(searchkey);
+    GetHighSchoolBoards(searchkey);
 
+
+}
+
+
+
+//To take and update the value for  HighSchoolBoard
+void UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoardToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var highSchoolBoard in newValue.Keys)
+    {
+        switch (highSchoolBoard)
+        {
+            case "HighSchoolBoardName":
+                highSchoolBoardToBeDisplayed = highSchoolBoardToBeUpdated.HighSchoolBoardName = (string)newValue[highSchoolBoard];
+                break;
+            case "Active":
+                highSchoolBoardToBeUpdated.Active = (bool)newValue[highSchoolBoard];
+                break;
+        }
 
     }
-
-
-
-    //To take and update the value for  HighSchoolBoard
-    void UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoardToBeUpdated, Dictionary<string, object> newValue)
-    {
-
-        foreach (var highSchoolBoard in newValue.Keys)
-        {
-            switch (highSchoolBoard)
-            {
-                case "HighSchoolBoardName":
-                    highSchoolBoardToBeUpdated.HighSchoolBoardName = (string)newValue[highSchoolBoard];
-                    break;
-                case "Active":
-                    highSchoolBoardToBeUpdated.Active = (bool)newValue[highSchoolBoard];
-                    break;
-            }
-
-        }
 
         @*HighSchoolBoardToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateHighSchoolBoardUseCase.UpdateHighSchoolBoard(highSchoolBoardToBeUpdated);
