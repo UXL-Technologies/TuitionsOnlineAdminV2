@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store CurrencyId
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CurrencyId { get; set; }
+        public int CurrencyId { get; set; }
 
         //property to store CurrencyName 
         [Required(ErrorMessage = "Please enter the name of the currency.")]

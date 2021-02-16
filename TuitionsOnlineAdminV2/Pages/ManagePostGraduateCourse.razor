@@ -1,0 +1,194 @@
+﻿@*Author:SA,BM,SM , Date:14-01-2021
+    Aim:To create view edit the postgraduate course*@
+
+@page "/postgraduatecourse"
+
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.UpdatePostGraduateCourseScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
+
+@inject ICreatePostGraduateCourseUseCase  instanceOfICreatePostGraduateCourseUseCase
+@inject IViewPostGraduateCourseUseCase    instanceOfIViewPostGraduateCourseUseCase
+@inject IUpdatePostGraduateCourseUseCase instanceOfIUpdatePostGraduateCourseUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
+
+
+<div>
+    @* this TextBox is used to search the data  *@
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for graduate courses ...."></DxTextBox>
+</div>
+<br />
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if (viewError && @postGraduateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_POSTGRADUATECOURSE
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your Post graduate course "@postGraduateCourse" has been created successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save *@
+    @if(viewErrorForUpdate && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your Post graduate course "@postGraduateCourse" has been updated successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+@*Table is used to display the data *@
+<DxDataGrid Data="@postGraduateCourseList"
+            RowInserting="@((newCourse) => CreatePostGraduateCourse(newCourse))"
+            RowUpdating="@((postGraduateCourseToBeUpdated, newValue) => UpdatePostGraduateCourse(postGraduateCourseToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(PostGraduateCourse.PostGraduateCourseName)" Width="500px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(PostGraduateCourse.Active)" />
+    <DxDataGridCommandColumn Width="100px" />
+</DxDataGrid>
+
+
+@code {
+
+    @* To hold the hold the Course details*@
+    IEnumerable<PostGraduateCourse> postGraduateCourseList = Enumerable.Empty<PostGraduateCourse>();
+
+    @*To hold the search text*@
+    String searchkey;
+
+    public string result;
+    bool viewError = false;
+string resultForCreate;
+string resultForUpdate;
+bool createMessage = false;
+bool viewErrorForUpdate = false;
+public string postGraduateCourse;
+
+    @*The init method is to inoke the get graduate  course list*@
+protected override void OnInitialized()
+{
+
+        @*To invoke the GetPostGraduateCourses() to fetch the graduate course list to be displayed*@
+        GetPostGraduateCourses(searchkey);
+
+    }
+    @*To get post graduate course list to be displayed in the data grid columns*@
+    public void GetPostGraduateCourses(String searchkeyword)
+    {
+        postGraduateCourseList = instanceOfIViewPostGraduateCourseUseCase.ViewPostGraduateCourse(searchkeyword);
+        Console.WriteLine(postGraduateCourseList);
+        viewError = true;
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
+        @*The StateHasChanged makes sure that the component is notified to re - render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetPostGraduateCourses(searchkey);
+    }
+
+
+    @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
+    void CreatePostGraduateCourse(Dictionary<string, object> newCourse)
+    {
+
+        @* To hold the new course to be created *@
+        PostGraduateCourse createPostGraduateCourse = new PostGraduateCourse();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newCourse.Keys)
+        {
+            @*For each incoming key we check and assign the values to newGraduateCourse *@
+    switch (field)
+    {
+        case "PostGraduateCourseName":
+            postGraduateCourse =  createPostGraduateCourse.PostGraduateCourseName = (string)newCourse[field];
+            break;
+        case "Active":
+            createPostGraduateCourse.Active = (bool)newCourse[field];
+            break;
+    }
+}
+Console.WriteLine(createPostGraduateCourse);
+
+
+        @*To invoke the method to create new post graduate course*@
+resultForCreate = instanceOfICreatePostGraduateCourseUseCase.CreatePostGraduateCourse(createPostGraduateCourse);
+createMessage = true;
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetPostGraduateCourses(searchkey);
+
+    }
+
+    @*Author:SA,BM,SM , Date:14-01-2021
+        Aim:update post graduate course   *@
+
+void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, Dictionary<string, object> newValue)
+{
+    Console.WriteLine(postGraduateCourseToBeUpdated);
+    Console.WriteLine(newValue);
+
+
+    foreach (var course in newValue.Keys)
+    {
+        switch (course)
+        {
+            case "PostGraduateCourseName":
+                postGraduateCourse = postGraduateCourseToBeUpdated.PostGraduateCourseName = (string)newValue[course];
+                break;
+            case "Active":
+                postGraduateCourseToBeUpdated.Active = (bool)newValue[course];
+                break;
+        }
+
+        Console.WriteLine(postGraduateCourseToBeUpdated);
+        resultForUpdate =  instanceOfIUpdatePostGraduateCourseUseCase.UpdatePostGraduateCourse(postGraduateCourseToBeUpdated);
+        Console.WriteLine(resultForUpdate);
+        viewErrorForUpdate = true;
+        Console.WriteLine(viewErrorForUpdate);
+            @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+InvokeAsync(StateHasChanged);
+            @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+            GetPostGraduateCourses(searchkey);
+
+        }
+
+    }
+}

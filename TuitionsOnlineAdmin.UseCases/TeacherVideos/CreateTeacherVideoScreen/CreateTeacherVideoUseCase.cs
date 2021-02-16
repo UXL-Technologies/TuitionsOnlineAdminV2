@@ -1,6 +1,6 @@
 ﻿//Authors: SA, BM, SM
-//Date:12-Jan-2021
-//Aim: defining the Class for TeacherVideoUseCase ;
+//Date:15-Jan-2021
+//Aim: implementing the interface  ICreateTeacherVideoUseCase ;
 
 using System;
 using System.Collections.Generic;
@@ -11,19 +11,23 @@ using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interf
 
 namespace TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen
 {
+    
     public class CreateTeacherVideoUseCase : ICreateTeacherVideoUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
-
-        public CreateTeacherVideoUseCase(IUnitOfWork unitOfWork)
+        //property dependency injection
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
+        //constructor dependency injection
+        public CreateTeacherVideoUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
+        //Calling the method create TeacherVideo in IunitOfwork
+        public string CreateTeacherVideo(TeacherVideo teacherVideo)
         {
             Console.WriteLine("I have reached create teacherVideo");
-            unitOfWork.CreateTeacherVideo(teacherVideo);
+            string result = instanceOfIUnitOfWork.CreateTeacherVideo(teacherVideo);
+            return result;
         }
     }
 }

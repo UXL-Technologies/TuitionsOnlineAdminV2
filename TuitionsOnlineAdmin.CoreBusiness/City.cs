@@ -16,7 +16,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store CityId 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid CityId { get; set; }
+        public int CityId { get; set; }
         //property to store CityName 
         [Required(ErrorMessage = "Please enter the name of the city.")]
         [MinLength(3, ErrorMessage = "Please enter a minimum of 3 characters.")]

@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen.Interfaces
 {
    public interface ICreateGradeUseCase
     {
-        void CreateGrade(Grade grade);
+        //Declaring a method to create the Grade
+        string CreateGrade(Grade grade);
     }
 }

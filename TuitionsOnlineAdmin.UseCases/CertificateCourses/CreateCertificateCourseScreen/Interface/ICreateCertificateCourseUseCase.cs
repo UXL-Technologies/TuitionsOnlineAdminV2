@@ -12,7 +12,8 @@ namespace TuitionsOnlineAdmin.UseCases.CertificateCouses.CreateCertificateCourse
 {
   public  interface ICreateCertificateCourseUseCase
     {
-        void CreateCertificateCourse(CertificateCourse certificateCourse);
+        //Declaring a method to create the certificate course
+        string CreateCertificateCourse(CertificateCourse certificateCourse);
 
     }
 }

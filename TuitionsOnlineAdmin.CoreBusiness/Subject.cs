@@ -16,7 +16,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
             //property to store SubjectId
             [Key]
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public Guid SubjectId { get; set; }
+            public int SubjectId { get; set; }
 
             //property to store SubjectName 
             [Required(ErrorMessage = "Please enter the name of the subject.")]

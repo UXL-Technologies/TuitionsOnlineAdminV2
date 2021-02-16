@@ -17,19 +17,21 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
     /*
     public class CreateTeacherBasicInformationUseCase: ICreateTeacherBasicInformationUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
 
-        public CreateTeacherBasicInformationUseCase(IUnitOfWork unitOfWork)
+        public CreateTeacherBasicInformationUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
 
+     
 
-    public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-    {
-        Console.WriteLine("I have reached create TeacherBasicInformation");
-        unitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
+        public string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+        {
+            Console.WriteLine("I have reached create TeacherBasicInformation");
+           string result =  instanceOfIUnitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
+            return result;
+        }
     }
-}*/
 }

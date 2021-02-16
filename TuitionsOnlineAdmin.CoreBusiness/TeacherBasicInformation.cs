@@ -3,6 +3,14 @@
 //Aim: defining the Class for TeacherBasicInformation ;
 
 
+namespace TuitionsOnlineAdmin.CoreBusiness
+{
+    public class TeacherBasicInformation
+    {
+        //property to store TeacherId .
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid TeacherId { get; set; }
 
 
 

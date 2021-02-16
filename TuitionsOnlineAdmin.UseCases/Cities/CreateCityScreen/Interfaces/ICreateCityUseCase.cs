@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
 {
     public interface ICreateCityUseCase
     {
-        void CreateCity(City city);
+        //Declaring a method to create the City
+        string CreateCity(City city);
     }
 }

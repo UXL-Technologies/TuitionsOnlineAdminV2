@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces
 {
    public interface ICreateSubjectUseCase
     {
-        void CreateSubject(Subject subject);
+        //Declaring a method to create the Subject
+        string CreateSubject(Subject subject);
     }
 }

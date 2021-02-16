@@ -13,17 +13,19 @@ namespace TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCou
 {
    public  class CreatePostGraduateCourseUseCase : ICreatePostGraduateCourseUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
-
-        public CreatePostGraduateCourseUseCase(IUnitOfWork unitOfWork)
+        //property dependency injection
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
+        //constructor dependency injection
+        public CreatePostGraduateCourseUseCase(IUnitOfWork instanceOfIUnitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
-
-        public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
+        //Calling the method create PostGraduateCourses in IunitOfwork
+        public string CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
         {
             Console.WriteLine("I have reached create postgraduate course");
-               unitOfWork.CreatePostGraduateCourse (postGraduateCourse);
+            string result = instanceOfIUnitOfWork.CreatePostGraduateCourse (postGraduateCourse);
+            return result;
         }
 
        

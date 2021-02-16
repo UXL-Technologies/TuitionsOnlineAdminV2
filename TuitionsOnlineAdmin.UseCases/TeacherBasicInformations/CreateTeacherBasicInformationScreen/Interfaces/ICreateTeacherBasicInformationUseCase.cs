@@ -10,7 +10,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
     //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
     /*public interface ICreateTeacherBasicInformationUseCase
     {
-        void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+        string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
     }
     */
 }

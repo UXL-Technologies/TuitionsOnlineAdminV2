@@ -11,20 +11,24 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.Grades.CreateGradeScreen
 {
+
     public class CreateGradeUseCase : ICreateGradeUseCase
     {
-        private readonly IUnitOfWork unitOfWork;
-
-        public CreateGradeUseCase(IUnitOfWork unitOfWork)
+        //property dependency injection
+        private readonly IUnitOfWork instanceOfIUnitOfWork;
+        //constructor dependency injection
+        public CreateGradeUseCase(IUnitOfWork instanceOfIUnitOfWork)
 
         {
-            this.unitOfWork = unitOfWork;
+            this.instanceOfIUnitOfWork = instanceOfIUnitOfWork;
         }
-        public void CreateGrade(Grade grade)
+        //Calling the method create Grades in IunitOfwork
+        public string CreateGrade(Grade grade)
         {
 
             Console.WriteLine("I have reached create grade");
-            unitOfWork.CreateGrade(grade);
+           string result =  instanceOfIUnitOfWork.CreateGrade(grade);
+            return result;
         }
     }
 }

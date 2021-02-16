@@ -12,7 +12,15 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
   public  interface IDoctorateCourseRepository
     {
         //To hold the contract for creating the DoctorateCourse and store it in a database
-        void CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse);
+        string CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse);
+
+        //Authors: SA, BM, SM
+        //Date:14-Jan-2021
+        //To hold the contract for viewing Doctorate course 
+        List<DoctorateCourse> ViewDoctorateCourseRepository(string searchKey);
+
+        //To hold the contract for updating DoctorateCourse
+        string UpdateDoctorateCourseRepository(DoctorateCourse doctorateCourse);
 
 
 

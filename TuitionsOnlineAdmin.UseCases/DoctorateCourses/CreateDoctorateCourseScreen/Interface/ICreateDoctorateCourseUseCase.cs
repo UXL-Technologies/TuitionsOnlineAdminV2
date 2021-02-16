@@ -11,6 +11,7 @@ namespace TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScr
 {
    public interface ICreateDoctorateCourseUseCase
     {
-        void CreateDoctorateCourse(DoctorateCourse doctorateCourse);
+        //Declaring a method to create the DoctorateCourse
+       string CreateDoctorateCourse(DoctorateCourse doctorateCourse);
     }
 }

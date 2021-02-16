@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store HighSchoolBoardId 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid HighSchoolBoardId { get; set; }
+        public int HighSchoolBoardId { get; set; }
 
         //property to store HighSchoolBoardName 
         [Required(ErrorMessage = "Please enter the name of the high school board.")]

@@ -12,6 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScree
 {
    public interface ICreateGraduateCourseUseCase
     {
-        void CreateGraduateCourse(GraduateCourse graduateCourse);
+        //Declaring a method to create the graduate Course
+        string CreateGraduateCourse(GraduateCourse graduateCourse);
     }
 }

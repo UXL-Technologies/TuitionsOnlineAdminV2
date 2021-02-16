@@ -1,0 +1,172 @@
+﻿@* Authors: SA,BM,SM
+     Date: 15-01-2021
+    Aim : To create, view ,edit TeacherVideo *@
+@page "/teachervideo"
+@using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherVideos.ViewTeacherVideoScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen.Interface
+@using TuitionsOnlineAdmin.CoreBusiness
+@inject ICreateTeacherVideoUseCase instanceOfICreateTeacherVideoUseCase
+@inject IViewTeacherVideoUseCase instanceOfIViewTeacherVideoUseCase
+@inject IUpdateTeacherVideoUseCase instanceOfIUpdateTeacherVideoUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
+
+<div>
+    @* this TextBox is used to search the data  *@
+    <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
+               ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+               SizeMode="SizeMode.Small"
+               NullText="Search for TeacherVideos ...."></DxTextBox>
+</div>
+<br />
+<div>
+    @* To display error message for create *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your Video "@teacherVideoToBeDisplayed" has been created successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+@* To display error message for update *@
+<div>
+    @if (viewErrorForUpdate && resultForUpdate == "done")
+    {
+    <p class="success_message_style">
+        Your Video "@teacherVideoToBeDisplayed" has been updated successfully !
+    </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+    @* To error message for view *@
+    @if (viewError && teacherVideoList == null)
+    {
+    <p class="success_message_style">
+        @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERVIDEO
+    </p>
+    }
+</div>
+
+
+@*Table is used to display the data *@
+<DxDataGrid Data="@teacherVideoList"
+            RowInserting="@((newTeacherVideo) => CreateTeacherVideo(newTeacherVideo))"
+            RowUpdating="@((teacherVideoToBeUpdated, newValue) => UpdateTeacherVideo(teacherVideoToBeUpdated, newValue))"
+            PageSize="5">
+    <DxDataGridColumn Field="@nameof(TeacherVideo.VideoURL)" Width="300px" />
+    <DxDataGridCheckBoxColumn Field="@nameof(TeacherVideo.Active)" Width="200px" />
+    <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
+</DxDataGrid>
+@code {
+    @* To hold the  TeacherVideo details*@
+    IEnumerable<TeacherVideo> teacherVideoList = Enumerable.Empty<TeacherVideo>();
+    @*To hold the search text*@
+    String searchkey;
+    public string resultForCreate;
+    bool createMessage = false;
+    public string resultForUpdate;
+    bool viewErrorForUpdate = false;
+    bool viewError = false;
+public string teacherVideoToBeDisplayed;
+    @*The init method is to invoke the TeacherVideo list when the page is loaded*@
+    protected override void OnInitialized()
+    {
+
+        @*To invoke the GetTeacherVideos() to fetch the TeacherVideo list to be displayed*@
+        GetTeacherVideos(searchkey);
+
+    }
+    @*To get TeacherVideo list to be displayed in the data grid columns*@
+    public void GetTeacherVideos(String searchkeyword)
+    {
+        teacherVideoList = instanceOfIViewTeacherVideoUseCase.ViewTeacherVideo(searchkeyword);
+        viewError = true;
+    }
+    void OnTextChanged(String searchText)
+    {
+
+        searchkey = searchText;
+        @*To invoke the component to re-render the data*@
+
+        InvokeAsync(StateHasChanged);
+
+        @*The TeacherVideo list should be fetched again to diplay the newly created TeacherVideo along with the existing the course list *@
+        GetTeacherVideos(searchkey);
+    }
+
+
+    //create TeacherVideo
+    @*The CreateTeacherVideo() method is responsible for capturing the details enetred by the user and send it to the database.*@
+    void CreateTeacherVideo(Dictionary<string, object> newTeacherVideo)
+    {
+        @* To hold the new TeacherVideo to be created *@
+        TeacherVideo createTeacherVideo = new TeacherVideo();
+        @*The new value comes in the form of key value pair*@
+        foreach (var field in newTeacherVideo.Keys)
+        {
+            @*For each incoming key we check and assign the values to newTeacherVideo *@
+    switch (field)
+    {
+        case "VideoURL":
+            teacherVideoToBeDisplayed = createTeacherVideo.VideoURL = (string)newTeacherVideo[field];
+            break;
+        case "Active":
+            createTeacherVideo.Active = (bool)newTeacherVideo[field];
+            break;
+    }
+}
+
+        @*To invoke the method to create new TeacherVideo*@
+        resultForCreate = instanceOfICreateTeacherVideoUseCase.CreateTeacherVideo(createTeacherVideo);
+        createMessage = true;
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
+    GetTeacherVideos(searchkey);
+
+}
+
+//To take and update the value for  TeacherVideo
+void UpdateTeacherVideo(TeacherVideo teacherVideoToBeUpdated, Dictionary<string, object> newValue)
+{
+
+    foreach (var teacherVideo in newValue.Keys)
+    {
+        switch (teacherVideo)
+        {
+            case "VideoURL":
+                teacherVideoToBeDisplayed = teacherVideoToBeUpdated.VideoURL = (string)newValue[teacherVideo];
+                break;
+            case "Active":
+                teacherVideoToBeUpdated.Active = (bool)newValue[teacherVideo];
+                break;
+        }
+
+    }
+
+        @*teacherVideoToBeUpdated this variable holds the updated value and is sent to the database*@
+        resultForUpdate = instanceOfIUpdateTeacherVideoUseCase.UpdateTeacherVideo(teacherVideoToBeUpdated);
+        viewErrorForUpdate = true;
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        InvokeAsync(StateHasChanged);
+        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        GetTeacherVideos(searchkey);
+
+    }
+
+}
