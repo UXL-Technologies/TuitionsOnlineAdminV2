@@ -10,6 +10,10 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
+    //Author: GJ, TP, VM, SN
+    //Date: 16/02/2021
+    //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+    /*
     public class TeacherBasicInformationRepository : ITeacherBasicInformationRepository
     {
         private readonly TuitionsOnlineAdminDbContext _database;
@@ -27,5 +31,5 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             _database.TeacherBasicInformation.Add(teacherBasicInformation);
             _database.SaveChanges();
         }
-    }
+    } */
 }

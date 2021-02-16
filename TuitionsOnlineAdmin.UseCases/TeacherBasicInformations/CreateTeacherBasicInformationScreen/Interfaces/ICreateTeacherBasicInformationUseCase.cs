@@ -5,8 +5,12 @@ using TuitionsOnlineAdmin.CoreBusiness;
 
 namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces
 {
-  public interface ICreateTeacherBasicInformationUseCase
+    //Author: GJ, TP, VM, SN
+    //Date: 16/02/2021
+    //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+    /*public interface ICreateTeacherBasicInformationUseCase
     {
         void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
     }
+    */
 }

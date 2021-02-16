@@ -25,7 +25,10 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To view graduate courses
         List<GraduateCourse> ViewGraduateCourses(string searchKey);
         void CreateCurrency(Currency currency);
-       void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+        //void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
         void CreateTeacherVideo(TeacherVideo teacherVideo);
        void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
         void CreateSubject(Subject subject);

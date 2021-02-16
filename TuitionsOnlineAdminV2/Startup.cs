@@ -42,8 +42,11 @@ using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseS
 using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen;
 using TuitionsOnlineAdmin.UseCases.Subjects.CreateSubjectScreen.Interfaces;
-using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen;
-using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces;
+//Author: GJ, TP, VM, SN
+//Date: 16/02/2021
+//commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+//using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen;
+//using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces;
 using TuitionsOnlineAdminV2.Data;
@@ -112,9 +115,11 @@ namespace TuitionsOnlineAdminV2
 
             services.AddTransient<ICreateHighSchoolBoardUseCase, CreateHighSchoolBoardUseCase>();
             services.AddTransient<IHighSchoolBoardRepository, HighSchoolBoardRepository>();
-
-            services.AddTransient<ICreateTeacherBasicInformationUseCase, CreateTeacherBasicInformationUseCase>();
-            services.AddTransient<ITeacherBasicInformationRepository, TeacherBasicInformationRepository>();
+            //Author: GJ, TP, VM, SN
+            //Date: 16/02/2021
+            //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+            //services.AddTransient<ICreateTeacherBasicInformationUseCase, CreateTeacherBasicInformationUseCase>();
+            //services.AddTransient<ITeacherBasicInformationRepository, TeacherBasicInformationRepository>();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));

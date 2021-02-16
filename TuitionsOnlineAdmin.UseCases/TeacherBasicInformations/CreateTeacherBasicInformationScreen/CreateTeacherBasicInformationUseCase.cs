@@ -11,6 +11,10 @@ using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicIn
 
 namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen
 {
+    //Author: GJ, TP, VM, SN
+    //Date: 16/02/2021
+    //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+    /*
     public class CreateTeacherBasicInformationUseCase: ICreateTeacherBasicInformationUseCase
     {
         private readonly IUnitOfWork unitOfWork;
@@ -21,12 +25,11 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
             this.unitOfWork = unitOfWork;
         }
 
-     
 
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-        {
-            Console.WriteLine("I have reached create TeacherBasicInformation");
-            unitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
-        }
+    public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+    {
+        Console.WriteLine("I have reached create TeacherBasicInformation");
+        unitOfWork.CreateTeacherBasicInformation(teacherBasicInformation);
     }
+}*/
 }

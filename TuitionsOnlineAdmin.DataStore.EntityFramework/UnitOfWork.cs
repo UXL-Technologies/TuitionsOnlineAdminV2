@@ -33,92 +33,98 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         private readonly ITeacherVideoRepository teacherVideoRepository;
 
         private readonly IHighSchoolBoardRepository highSchoolBoardRepository;
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+        //private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
 
-        private readonly ITeacherBasicInformationRepository teacherBasicInformationRepository;
-
-        
 
 
-        public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository,
-            ITeacherBasicInformationRepository teacherBasicInformationRepository)
-        {
-            this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
-            this.postGraduateCourseRepository = postGraduateCourseRepository;
-            this.doctorateCourseRepository = doctorateCourseRepository;
-            this.certificateCourseRepository = certificateCourseRepository;
-            this.cityRepository = cityRepository;
-            this.currencyRepository = currencyRepository;
-            this.subjectRepository = subjectRepository;
-            this.gradeRepository = gradeRepository;
-            this.teacherVideoRepository = teacherVideoRepository;
-            this.highSchoolBoardRepository = highSchoolBoardRepository;
-            this.teacherBasicInformationRepository = teacherBasicInformationRepository;
+
+            public UnitOfWork(IGraduateCourseRepository graduateCourseRepository, IPostGraduateCourseRepository postGraduateCourseRepository, IDoctorateCourseRepository doctorateCourseRepository, ICertificateCourseRepository certificateCourseRepository , ICityRepository cityRepository, ICurrencyRepository currencyRepository, ISubjectRepository subjectRepository, IGradeRepository gradeRepository, ITeacherVideoRepository teacherVideoRepository, IHighSchoolBoardRepository highSchoolBoardRepository)
+            {
+                this.instanceOfIGraduateCourseRepository = graduateCourseRepository;
+                this.postGraduateCourseRepository = postGraduateCourseRepository;
+                this.doctorateCourseRepository = doctorateCourseRepository;
+                this.certificateCourseRepository = certificateCourseRepository;
+                this.cityRepository = cityRepository;
+                this.currencyRepository = currencyRepository;
+                this.subjectRepository = subjectRepository;
+                this.gradeRepository = gradeRepository;
+                this.teacherVideoRepository = teacherVideoRepository;
+                this.highSchoolBoardRepository = highSchoolBoardRepository;
+                //Author: GJ, TP, VM, SN
+                //Date: 16/02/2021
+                //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+                // this.teacherBasicInformationRepository = teacherBasicInformationRepository;
 
         }
 
         public void CreateDoctorateCourse(DoctorateCourse doctorateCourse)
-        {
-            doctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
-        }
+            {
+                doctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
+            }
 
-        public void CreateGraduateCourse(GraduateCourse graduateCourse)
-        {
-            instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
+            public void CreateGraduateCourse(GraduateCourse graduateCourse)
+            {
+                instanceOfIGraduateCourseRepository.CreateGraduateCourseRepository(graduateCourse);
 
 
-        }
+            }
 
-        public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
-        {
-            postGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
-        }
+            public void CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
+            {
+                postGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
+            }
 
-        public void CreateCertificateCourse(CertificateCourse certificateCourse)
-        {
-            certificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
-        }
+            public void CreateCertificateCourse(CertificateCourse certificateCourse)
+            {
+                certificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
+            }
 
-        public void CreateCity(City city)
-        {
-           cityRepository.CreateCityRepository(city);
-        }
+            public void CreateCity(City city)
+            {
+               cityRepository.CreateCityRepository(city);
+            }
 
-        public List<GraduateCourse> ViewGraduateCourses(string searchKey)
-        {
-            var graduateCourseList = instanceOfIGraduateCourseRepository.ViewGraduateCourseRepository(searchKey);
-            return graduateCourseList;
-        }
+            public List<GraduateCourse> ViewGraduateCourses(string searchKey)
+            {
+                var graduateCourseList = instanceOfIGraduateCourseRepository.ViewGraduateCourseRepository(searchKey);
+                return graduateCourseList;
+            }
 
-        public void CreateCurrency(Currency currency)
-        {
-            currencyRepository.CreateCurrencyRepository(currency);
-        }
+            public void CreateCurrency(Currency currency)
+            {
+                currencyRepository.CreateCurrencyRepository(currency);
+            }
 
-        public void CreateSubject(Subject subject)
-        {
-            subjectRepository.CreateSubjectRepository(subject);
-        }
-        public void CreateGrade(Grade grade)
-        {
-            gradeRepository.CreateGradeRepository(grade);
-        }
+            public void CreateSubject(Subject subject)
+            {
+                subjectRepository.CreateSubjectRepository(subject);
+            }
+            public void CreateGrade(Grade grade)
+            {
+                gradeRepository.CreateGradeRepository(grade);
+            }
 
-        public void CreateTeacherVideo(TeacherVideo teacherVideo)
-        {
-            teacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
-        }
+            public void CreateTeacherVideo(TeacherVideo teacherVideo)
+            {
+                teacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
+            }
 
-        public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
-        {
-            highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
+            public void CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard)
+            {
+                highSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
 
-        }
+            }
+            //Author: GJ, TP, VM, SN
+            //Date: 16/02/2021
+            //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+            /*public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
+            {
+                teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
 
-        public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-        {
-            teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
-
-        }
+            } */
 
         public string UpdateGraduateCourse(GraduateCourse graduate)
         {
@@ -126,5 +132,5 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "Done";
 
         }
-    }
+}
 }

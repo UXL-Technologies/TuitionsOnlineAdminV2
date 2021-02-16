@@ -28,7 +28,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<TeacherVideo> TeacherVideo { get; set; }
 
         public DbSet<HighSchoolBoard> HighSchoolBoard { get; set; }
-
-        public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+        //public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
     }
 }
