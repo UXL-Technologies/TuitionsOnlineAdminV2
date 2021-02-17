@@ -294,6 +294,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //to view a TeacherBasicInformation  by invoking ViewTeacherBasicInformationrepository of TeacherBasicInformationRepository
         public List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey)
         {
+            Console.WriteLine(searchKey);
             var teacherBasicInformationList = instanceOfITeacherBasicInformationRepository.ViewTeacherBasicInformationRepository(searchKey);
             return teacherBasicInformationList;
         }

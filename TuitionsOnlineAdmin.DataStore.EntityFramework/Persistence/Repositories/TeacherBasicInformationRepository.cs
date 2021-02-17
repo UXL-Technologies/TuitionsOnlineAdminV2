@@ -51,7 +51,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 if (searchKey != null)
                 {
                     List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
-                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.TeacherFullName.Contains(searchKey)).ToList();
+                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.Teacher_Name.Contains(searchKey)).ToList();
                     return teacherBasicInformationList;
                 }
                 //if not entire list of data is displayed

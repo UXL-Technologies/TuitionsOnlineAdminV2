@@ -1,0 +1,198 @@
+﻿@page "/TeacherGraduateCourseQualification"
+@using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewGraduateCourseUseCase diIViewGraduateCourseUseCase
+<center><h3>Associate Teachers with their GraduateCourse qualification here.......</h3></center>
+<br />
+<br />
+
+<DxGridLayout CssClass="mw-1100 border_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                <div class="searchbar_style">
+                    <center><h5>Select Teacher Name</h5></center>
+                    <div>
+
+                        @* this TextBox is used to search the data  *@
+                        <DxTextBox ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                   SizeMode="SizeMode.Small"
+                                   NullText="Search for Teachers ...."></DxTextBox>
+                    </div>
+                    <br />
+
+                    <DxDataGrid Data="@teacherList" @ref="@grid"
+                                KeyFieldName="@nameof(TeacherBasicInformation.TeacherId)"
+                                SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                                SelectAllMode="DataGridSelectAllMode.AllPages"
+                                OptimizedMultipleSelectionChanged="OnSelectionChanged"
+                                CssClass="datagrid-border-radius-top-0 mw-1100">
+                        <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Width="300px"></DxDataGridColumn>
+                        <DxDataGridCommandColumn Width="150px"
+                                                 EditButtonVisible="true" NewButtonVisible="false" DeleteButtonVisible="false">
+                        </DxDataGridCommandColumn>
+                    </DxDataGrid>
+                </div>
+                <br />
+                <br />
+                <div class="searchbar_style">
+                    <center><h5>Select Graduate Course</h5></center>
+                    <div>
+                        @* this TextBox is used to search the data  *@
+                        <DxTextBox ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                                   SizeMode="SizeMode.Small"
+                                   NullText="Search for Graduate course ...."></DxTextBox>
+                    </div>
+                    <br />
+
+                    <DxDataGrid Data="@Graduate_DataSource"
+                                @ref="@Graduategrid"
+                                KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
+                                SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                                SelectAllMode="DataGridSelectAllMode.AllPages"
+                                OptimizedMultipleSelectionChanged="OnSelectionGraduateCourse"
+                                   CssClass="datagrid-border-radius-top-0 mw-1100">
+                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                        <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
+                        <DxDataGridCommandColumn Width="150px"
+                                                 EditButtonVisible="true" NewButtonVisible="false" DeleteButtonVisible="false">
+                        </DxDataGridCommandColumn>
+
+                    </DxDataGrid>
+                </div>
+
+            </Template>
+        </DxGridLayoutItem>
+        <DxGridLayoutItem Row="1" Column="1">
+            <Template>
+                <DxListBox Data="@Staff.DataSource"
+                           @bind-Values="@Values"
+                           style=" height: 426px; margin-top: 10px;">
+                    @*<DxListEditorColumn FieldName="Id" Width="50px" />*@
+                    <DxListEditorColumn FieldName="TeacherName" Caption="Teacher Name" />
+                    <DxListEditorColumn FieldName="selectedGraduateCourse" Caption="Graduate Course" />
+                </DxListBox>
+            </Template>
+        </DxGridLayoutItem>
+    </Items>
+</DxGridLayout>
+
+
+@*<div class="border_style">*@
+<div style="text-align:center;">
+    <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Save" SizeMode="SizeMode.Medium" />
+</div>
+@*</div>*@
+
+@code {
+    DxDataGrid<TeacherBasicInformation> grid;
+   
+    DxDataGrid<GraduateCourse> Graduategrid;
+    bool gridInitialized;
+
+
+
+    IEnumerable<TeacherBasicInformation> teacherList = Enumerable.Empty<TeacherBasicInformation>();
+    //IEnumerable<TeacherBasicInformation> DataSource;
+    IEnumerable<GraduateCourse> Graduate_DataSource;
+    string teacherNames;
+    string searchKey = null;
+    int SelectedCount { get; set; }
+
+    int StoredSelectedCount { get; set; }
+
+    int StoredUnselectedCount { get; set; }
+
+
+
+
+
+
+    protected override void OnInitialized()
+    {
+
+
+        teacherList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformation(searchKey);
+        Graduate_DataSource = diIViewGraduateCourseUseCase.ViewGraduateCourse(searchKey);
+
+        Console.WriteLine(teacherList);
+        Console.WriteLine(Graduate_DataSource);
+    }
+
+
+
+
+
+    protected async Task OnSelectionChanged(DataGridSelection<TeacherBasicInformation> selection)
+    {
+        StoredSelectedCount = selection.SelectedKeysStored.Count();
+        StoredUnselectedCount = selection.UnselectedKeysStored.Count();
+        var selectedKeys = await selection.SelectedKeys;
+        SelectedCount = selectedKeys.Count();
+        await InvokeAsync(StateHasChanged);
+    }
+
+
+    protected async Task OnSelectionGraduateCourse(DataGridSelection<GraduateCourse> selection)
+    {
+        StoredSelectedCount = selection.SelectedKeysStored.Count();
+        StoredUnselectedCount = selection.UnselectedKeysStored.Count();
+        var selectedKeys = await selection.SelectedKeys;
+        SelectedCount = selectedKeys.Count();
+        await InvokeAsync(StateHasChanged);
+    }
+    //list view
+    public class Person
+    {
+        public int Id { get; set; }
+        public string TeacherName { get; set; }
+        public string selectedGraduateCourse { get; set; }
+
+        public string Text => $"{TeacherName} {selectedGraduateCourse}";
+    }
+
+
+
+    public static class Staff
+    {
+        private static readonly Lazy<List<Person>> dataSource = new Lazy<List<Person>>(() =>
+        {
+            var dataSource = new List<Person>() {
+            new Person() { Id= 0 , TeacherName="John", selectedGraduateCourse="BCA" },
+            //new Person() { Id= 1 , TeacherName="Samantha", selectedGraduateCourse="BSC" },
+            //new Person() { Id= 2 , TeacherName="Arthur", selectedGraduateCourse="BE"},
+            //new Person() { Id= 3 , TeacherName="Robert", selectedGraduateCourse="Bachelor's of Physics" },
+            //new Person() { Id= 4 , TeacherName="Greta", selectedGraduateCourse="Bachelor's of Mathematics"},
+            //new Person() { Id= 5 , TeacherName="Brett", selectedGraduateCourse="BBA" },
+            //new Person() { Id= 6 , TeacherName="Sandra", selectedGraduateCourse="B.com" },
+
+        };
+            return dataSource;
+
+
+        });
+        public static List<Person> DataSource { get { return dataSource.Value; } }
+    }
+    IEnumerable<Person> Values { get; set; } = Staff.DataSource.Take(1);
+
+
+
+    public class Teacher
+    {
+        public int Id { get; set; }
+        public string TeacherName { get; set; }
+    }
+
+
+
+}
