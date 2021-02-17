@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 
 namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 {
@@ -75,10 +76,22 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To Create TeacherBasicInformation
+
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
         //To view TeacherBasicInformation
+
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey);
         //To update TeacherBasicInformation
+
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
 
         //Authors: SA, BM, SM

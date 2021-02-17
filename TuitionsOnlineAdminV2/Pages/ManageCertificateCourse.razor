@@ -7,6 +7,7 @@
 @using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.CertificateCourses.UpdateCertificateCourseScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject ICreateCertificateCourseUseCase instanceOfICreateCertificateCourseUseCase
 @inject IViewCertificateCourseUseCase instanceOfIViewCertificateCourseUseCase
 @inject IUpdateCertificateCourseUseCase instanceOfIUpdateCertificateCourseUseCase
@@ -43,9 +44,9 @@
 <div>
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
-    <p class="success_message_style">
-        Your Certificate course "@certificatedCourse" has been updated successfully !
-    </p>
+        <p class="success_message_style">
+            Your Certificate course "@certificatedCourse" has been updated successfully !
+        </p>
     }
     else
     {
@@ -89,7 +90,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string certificatedCourse;
+    public string certificatedCourse;
 
 
     @*The init method is to inoke the get Certificate Course list*@
@@ -126,17 +127,17 @@ public string certificatedCourse;
         foreach (var field in newCourse.Keys)
         {
             @*For each incoming key we check and assign the values to newCertificateCourse *@
-    switch (field)
-    {
-        case "CertificateCourseName":
-            certificatedCourse = createCertificateCourse.CertificateCourseName = (string)newCourse[field];
-            break;
-        case "Active":
-            createCertificateCourse.Active = (bool)newCourse[field];
-            break;
-    }
-}
-Console.WriteLine(createCertificateCourse);
+            switch (field)
+            {
+                case "CertificateCourseName":
+                    certificatedCourse = createCertificateCourse.CertificateCourseName = (string)newCourse[field];
+                    break;
+                case "Active":
+                    createCertificateCourse.Active = (bool)newCourse[field];
+                    break;
+            }
+        }
+        Console.WriteLine(createCertificateCourse);
         @*To invoke the method to create new certificate Course*@
         resultForCreate = instanceOfICreateCertificateCourseUseCase.CreateCertificateCourse(createCertificateCourse);
         createMessage = true;
@@ -151,21 +152,21 @@ Console.WriteLine(createCertificateCourse);
     void UpdateCertificateCourse(CertificateCourse certificateCourseToBeUpdated, Dictionary<string, object> newValue)
     {
         @*The new value comes in the form of key value pair*@
-foreach (var course in newValue.Keys)
+        foreach (var course in newValue.Keys)
 
-{
+        {
 
-    switch (course)
-    {
-        case "CertificateCourseName":
-            certificatedCourse = certificateCourseToBeUpdated.CertificateCourseName = (string)newValue[course];
-            break;
-        case "Active":
-            certificateCourseToBeUpdated.Active = (bool)newValue[course];
-            break;
-    }
+            switch (course)
+            {
+                case "CertificateCourseName":
+                    certificatedCourse = certificateCourseToBeUpdated.CertificateCourseName = (string)newValue[course];
+                    break;
+                case "Active":
+                    certificateCourseToBeUpdated.Active = (bool)newValue[course];
+                    break;
+            }
 
-}
+        }
 
         @*certificateCourseToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCertificateCourseUseCase.UpdateCertificateCourse(certificateCourseToBeUpdated);

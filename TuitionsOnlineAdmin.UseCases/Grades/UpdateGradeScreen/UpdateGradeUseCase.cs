@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 using TuitionsOnlineAdmin.UseCases.Grades.UpdateGradeScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 

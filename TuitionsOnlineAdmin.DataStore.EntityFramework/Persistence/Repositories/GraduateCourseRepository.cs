@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
@@ -63,14 +64,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
           
         }
 
-        public string UpdateGraduateCourseRepository(GraduateCourse graduateCourse)
-        {
-            GraduateCourse graduateCourseToBeUpdated = instanceOfDbContext.GraduateCourse.FirstOrDefault(s => s.GraduateCourseId == graduateCourse.GraduateCourseId);
-            graduateCourseToBeUpdated = graduateCourse;
-            instanceOfDbContext.GraduateCourse.Append(graduateCourseToBeUpdated);
-            instanceOfDbContext.SaveChanges();
-            return "Done";
-        }
 
         //To view graduate courses based on the search criteria 
         public List<GraduateCourse> ViewGraduateCourseRepository(string searchKey)

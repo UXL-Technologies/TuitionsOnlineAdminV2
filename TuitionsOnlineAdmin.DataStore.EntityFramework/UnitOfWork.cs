@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
@@ -34,14 +35,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository;
 
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         private readonly ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository;
 
 
         public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
             ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
             ICurrencyRepository instanceOfICurrencyRepository, ISubjectRepository instanceOfISubjectRepository, IGradeRepository instanceOfIGradeRepository,
-            ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository,
-            ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository)
+            ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository, ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository
+            )
         {
             this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
             this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
@@ -53,7 +57,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.instanceOfIGradeRepository = instanceOfIGradeRepository;
             this.instanceOfITeacherVideoRepository = instanceOfITeacherVideoRepository;
             this.instanceOfIHighSchoolBoardRepository = instanceOfIHighSchoolBoardRepository;
-            this.instanceOfITeacherBasicInformationRepository = instanceOfITeacherBasicInformationRepository;
+            //Author: GJ, TP, VM, SN
+            //Date: 16/02/2021
+            //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+           this.instanceOfITeacherBasicInformationRepository = instanceOfITeacherBasicInformationRepository;
 
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
@@ -274,24 +281,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         //to create a TeacherBasicInformation by invoking CreateTeacherBasicInformationrepository of TeacherBasicInformationRepository
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         public string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
-          string result =  instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+            string result = instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
             return result;
 
-            }
-            //Author: GJ, TP, VM, SN
-            //Date: 16/02/2021
-            //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-            /*public void CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
-            {
-                teacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
-
-            } */
+        }
 
         //Authors: SA, BM, SM
         // Date:18-Jan-2021
         //to view a TeacherBasicInformation  by invoking ViewTeacherBasicInformationrepository of TeacherBasicInformationRepository
+
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         public List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey)
         {
             var teacherBasicInformationList = instanceOfITeacherBasicInformationRepository.ViewTeacherBasicInformationRepository(searchKey);
@@ -299,10 +305,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         //to update a TeacherBasicInformation by invoking updateTeacherBasicInformationrepository of TeacherBasicInformationRepository
+        //Author: GJ, TP, VM, SN
+        //Date: 16/02/2021
+        //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
         public string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
             instanceOfITeacherBasicInformationRepository.UpdateTeacherBasicInformationRepository(teacherBasicInformation);
             return "done";
         }
-}
+    }
 }

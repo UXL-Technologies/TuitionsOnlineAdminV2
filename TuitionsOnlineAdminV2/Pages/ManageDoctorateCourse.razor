@@ -7,6 +7,7 @@
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject ICreateDoctorateCourseUseCase instanceOfICreateDoctorateCourseUseCase
 @inject IViewDoctorateCourseUseCase instanceOfIViewDoctorateCourseUseCase
 @inject IUpdateDoctorateCourseUseCase instanceOfIUpdateDoctorateCourseUseCase
@@ -40,9 +41,9 @@
 
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
-    <p class="success_message_style">
-        Your Doctorate course "@doctorateCourse" has been updated successfully !
-    </p>
+        <p class="success_message_style">
+            Your Doctorate course "@doctorateCourse" has been updated successfully !
+        </p>
     }
     else
     {
@@ -57,9 +58,9 @@
     @* To display the success message on click of save *@
     @if (viewError && @doctorateCourseList == null)
     {
-    <p class="success_message_style">
-        @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_DOCTORATECOURSE
-    </p>
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_DOCTORATECOURSE
+        </p>
     }
 </div>
 @*Table is used to display the data *@
@@ -77,19 +78,19 @@
     @* To hold the hold the Course details*@
     IEnumerable<DoctorateCourse> doctorateCourseList = Enumerable.Empty<DoctorateCourse>();
     @*To hold the search text*@
-String searchkey;
+    String searchkey;
 
 
-public string result;
+    public string result;
 
-string resultForCreate;
-string resultForUpdate;
-bool viewError = false;
-bool viewErrorForCreate = false;
-bool viewErrorForUpdate = false;
-public string doctorateCourse;
+    string resultForCreate;
+    string resultForUpdate;
+    bool viewError = false;
+    bool viewErrorForCreate = false;
+    bool viewErrorForUpdate = false;
+    public string doctorateCourse;
 
-bool saveMessage = false;
+    bool saveMessage = false;
     @*The init method is to invoke the doctoratecourse list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -127,16 +128,16 @@ bool saveMessage = false;
         foreach (var field in newCourse.Keys)
         {
             @*For each incoming key we check and assign the values to newdoctorateCourse *@
-    switch (field)
-    {
-        case "DoctorateCourseName":
-            doctorateCourse =  createDoctorateCourse.DoctorateCourseName = (string)newCourse[field];
-            break;
-        case "Active":
-            createDoctorateCourse.Active = (bool)newCourse[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "DoctorateCourseName":
+                    doctorateCourse = createDoctorateCourse.DoctorateCourseName = (string)newCourse[field];
+                    break;
+                case "Active":
+                    createDoctorateCourse.Active = (bool)newCourse[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Doctorate course*@
         resultForCreate = instanceOfICreateDoctorateCourseUseCase.CreateDoctorateCourse(createDoctorateCourse);
@@ -144,28 +145,28 @@ bool saveMessage = false;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetDoctorateCourses(searchkey);
-
-}
-
-
-//To take and update the value for  doctorate course
-void UpdateDoctorateCourse(DoctorateCourse doctorateCourseToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var course in newValue.Keys)
-    {
-        switch (course)
-        {
-            case "DoctorateCourseName":
-                doctorateCourse =  doctorateCourseToBeUpdated.DoctorateCourseName = (string)newValue[course];
-                break;
-            case "Active":
-                doctorateCourseToBeUpdated.Active = (bool)newValue[course];
-                break;
-        }
+        GetDoctorateCourses(searchkey);
 
     }
+
+
+    //To take and update the value for  doctorate course
+    void UpdateDoctorateCourse(DoctorateCourse doctorateCourseToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var course in newValue.Keys)
+        {
+            switch (course)
+            {
+                case "DoctorateCourseName":
+                    doctorateCourse = doctorateCourseToBeUpdated.DoctorateCourseName = (string)newValue[course];
+                    break;
+                case "Active":
+                    doctorateCourseToBeUpdated.Active = (bool)newValue[course];
+                    break;
+            }
+
+        }
 
         @*doctorateCourseToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateDoctorateCourseUseCase.UpdateDoctorateCourse(doctorateCourseToBeUpdated);

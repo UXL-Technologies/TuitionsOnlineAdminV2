@@ -1,0 +1,112 @@
+﻿@page "/TeacherGraduateCourseQualification"
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+
+
+<center><h3>Teacher GraduateCourse Qualification</h3></center>
+<br/>
+<br/>
+@*<div class="border_style">*@
+    
+    <div class="searchbar_style">
+        <center><h5>Select Teacher Name</h5></center>
+        <div>
+
+            @* this TextBox is used to search the data  *@
+            <DxTextBox ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                       SizeMode="SizeMode.Small"
+                       NullText="Search for Teachers ...."></DxTextBox>
+        </div>
+        <br />
+
+        <DxDataGrid Data="@DataSource"
+                    @ref="@grid"
+                    KeyFieldName="Id"
+                    SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                    SelectAllMode="DataGridSelectAllMode.AllPages"
+                    OptimizedMultipleSelectionChanged="OnSelectionChanged"
+                    CssClass="mw-1100">
+            <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.TeacherName)" Caption="Teacher Name"></DxDataGridColumn>
+            <DxDataGridCommandColumn Width="150px"
+                                     EditButtonVisible="true" NewButtonVisible="false" DeleteButtonVisible="false">
+            </DxDataGridCommandColumn>
+        </DxDataGrid>
+    </div>
+    <br />
+    <br />
+
+    <hr />
+    <div class="searchbar_style">
+        <center><h5>Select Teacher Graduate Course</h5></center>
+        <div>
+            @* this TextBox is used to search the data  *@
+            <DxTextBox ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
+                       SizeMode="SizeMode.Small"
+                       NullText="Search for Graduate course ...."></DxTextBox>
+        </div>
+        <br />
+
+        <DxDataGrid Data="@DataSource"
+                    @ref="@grid"
+                    KeyFieldName="Id"
+                    SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                    SelectAllMode="DataGridSelectAllMode.AllPages"
+                    OptimizedMultipleSelectionChanged="OnSelectionChanged"
+                    CssClass="mw-1100">
+            <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.TeacherName)" Caption="Graduate Course"></DxDataGridColumn>
+            <DxDataGridCommandColumn Width="150px"
+                                     EditButtonVisible="true" NewButtonVisible="false" DeleteButtonVisible="false">
+            </DxDataGridCommandColumn>
+
+        </DxDataGrid>
+    </div>
+
+    <div style="text-align:center;margin-top:10px">
+        <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Save" SizeMode="SizeMode.Medium" />
+    </div>
+@*</div>*@
+
+    @code {
+        DxDataGrid<TeacherBasicInformation> grid;
+        bool gridInitialized;
+
+        IEnumerable<TeacherBasicInformation> DataSource;
+
+        string searchKey = null;
+        int SelectedCount { get; set; }
+
+        int StoredSelectedCount { get; set; }
+
+        int StoredUnselectedCount { get; set; }
+
+
+        public class Teacher {
+            public string TeacherName { get; set; }
+        }
+
+        Teacher teacher = new Teacher
+        {
+            TeacherName = "Sanjana",
+        };
+
+        protected override void OnInitialized()
+        {
+            DataSource = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformation(searchKey);
+            Console.WriteLine(DataSource);
+        }
+
+
+
+        protected async Task OnSelectionChanged(DataGridSelection<TeacherBasicInformation> selection)
+        {
+            StoredSelectedCount = selection.SelectedKeysStored.Count();
+            StoredUnselectedCount = selection.UnselectedKeysStored.Count();
+            var selectedKeys = await selection.SelectedKeys;
+            SelectedCount = selectedKeys.Count();
+            await InvokeAsync(StateHasChanged);
+        }
+    }

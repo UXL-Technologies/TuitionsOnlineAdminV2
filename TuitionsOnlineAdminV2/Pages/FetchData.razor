@@ -2,6 +2,7 @@
 
 @page "/fetchdata"
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.CreatePostGraduateCourseScreen.Interface
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.CreateDoctorateCourseScreen.Interface
@@ -14,9 +15,8 @@
 @inject ICreateCertificateCourseUseCase  createCertificateCourseUseCase
 @inject ICreateCityUseCase  createCityUseCase
 @inject IViewGraduateCourseUseCase instanceOfViewGraduateCourseUseCase
-
 @*<p>This component demonstrates fetching data from a service</p>
-=======*@
+    =======*@
 <h1>Graduate Course</h1>
 <button @onclick="SaveGraduateCourse">SubmitGraduateCourse</button>
 <button @onclick="SavePostGraduateCourse">SubmitPostGraduateCourse</button>

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
@@ -14,7 +15,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     //Author: GJ, TP, VM, SN
     //Date: 16/02/2021
     //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-    /*
+
     public class TeacherBasicInformationRepository : ITeacherBasicInformationRepository
     {
         //property dependency injection
@@ -30,16 +31,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         public string CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation)
         {
-            try {
+            try
+            {
                 instanceOfDbContext.TeacherBasicInformation.Add(teacherBasicInformation);
                 instanceOfDbContext.SaveChanges();
                 return "done";
             }
-            catch {
+            catch
+            {
                 BusinessMessage businessMessage = new BusinessMessage();
                 return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERBASICINFORMATION;
             }
-          
+
         }
 
         //Authors: SA, BM, SM
@@ -47,23 +50,28 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view TeacherBasicInformation based on the search criteria 
         public List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchKey)
         {
-            try {
+            List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
+            Console.WriteLine(searchKey);
+            try
+            {
                 if (searchKey != null)
                 {
-                    List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
-                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.TeacherFullName.Contains(searchKey)).ToList();
-                    return teacherBasicInformationList;
+                   
+                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.TeacherName.Contains(searchKey)).ToList();
                 }
                 //if not entire list of data is displayed
                 else
 
                 {
-                    var teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.ToList();
-                    return teacherBasicInformationList;
+                    Console.WriteLine(searchKey);
+                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.ToList();
+                    Console.WriteLine(teacherBasicInformationList);
                 }
+                return teacherBasicInformationList;
+
             }
-            catch (Exception) {
-                List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
+            catch (Exception)
+            {
                 return teacherBasicInformationList = null;
             }
             //if the seach key is present the list is displayed
@@ -73,18 +81,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To update TeacherBasicInformation
         public string UpdateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation)
         {
-            try {
+            try
+            {
                 TeacherBasicInformation teacherBasicInformationToBeUpdated = instanceOfDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherBasicInformation.TeacherId);
                 teacherBasicInformationToBeUpdated = teacherBasicInformation;
                 instanceOfDbContext.TeacherBasicInformation.Append(teacherBasicInformationToBeUpdated);
                 instanceOfDbContext.SaveChanges();
                 return "Done";
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 BusinessMessage businessMessage = new BusinessMessage();
                 return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERBASICINFORMATION;
             }
 
         }
-    } */
+    }
 }

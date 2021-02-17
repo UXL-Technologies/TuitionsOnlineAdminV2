@@ -5,14 +5,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 
 namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
 {
     //Author: GJ, TP, VM, SN
     //Date: 16/02/2021
     //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-/*public interface ITeacherBasicInformationRepository
+    public interface ITeacherBasicInformationRepository
     {
         //To hold the contract for creating the TeacherBasicInformation and store it in a database
         string CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);

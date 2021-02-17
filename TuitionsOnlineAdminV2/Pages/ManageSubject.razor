@@ -7,6 +7,7 @@
 @using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Subjects.UpdateSubjectScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject ICreateSubjectUseCase instanceOfICreateSubjectUseCase
 @inject IViewSubjectUseCase instanceOfIViewSubjectUseCase
 @inject IUpdateSubjectUseCase instanceOfIUpdateSubjectUseCase
@@ -86,7 +87,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string subjectToBeDisplayed;
+    public string subjectToBeDisplayed;
     @*The init method is to invoke the Subject list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -124,16 +125,16 @@ public string subjectToBeDisplayed;
         foreach (var field in newSubject.Keys)
         {
             @*For each incoming key we check and assign the values to newSubject *@
-    switch (field)
-    {
-        case "SubjectName":
-            subjectToBeDisplayed = createSubject.SubjectName = (string)newSubject[field];
-            break;
-        case "Active":
-            createSubject.Active = (bool)newSubject[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "SubjectName":
+                    subjectToBeDisplayed = createSubject.SubjectName = (string)newSubject[field];
+                    break;
+                case "Active":
+                    createSubject.Active = (bool)newSubject[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Subject*@
         resultForCreate = instanceOfICreateSubjectUseCase.CreateSubject(createSubject);
@@ -141,27 +142,27 @@ public string subjectToBeDisplayed;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
-    GetSubjects(searchkey);
-
-}
-
-//To take and update the value for  Subject
-void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var subject in newValue.Keys)
-    {
-        switch (subject)
-        {
-            case "SubjectName":
-                subjectToBeDisplayed = subjectToBeUpdated.SubjectName = (string)newValue[subject];
-                break;
-            case "Active":
-                subjectToBeUpdated.Active = (bool)newValue[subject];
-                break;
-        }
+        GetSubjects(searchkey);
 
     }
+
+    //To take and update the value for  Subject
+    void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var subject in newValue.Keys)
+        {
+            switch (subject)
+            {
+                case "SubjectName":
+                    subjectToBeDisplayed = subjectToBeUpdated.SubjectName = (string)newValue[subject];
+                    break;
+                case "Active":
+                    subjectToBeUpdated.Active = (bool)newValue[subject];
+                    break;
+            }
+
+        }
 
         @*subjectToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateSubjectUseCase.UpdateSubject(subjectToBeUpdated);

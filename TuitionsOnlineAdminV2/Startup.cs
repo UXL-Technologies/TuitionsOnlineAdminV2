@@ -77,8 +77,14 @@ using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen;
 using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces;
-using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen;
-using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen.Interface;
+//using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBasicInformationScreen.Interfaces;
+
+//Author: GJ, TP, VM, SN
+//Date: 16/02/2021
+//commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+
+//using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen;
+//using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen;
@@ -177,10 +183,17 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<IViewHighSchoolBoardUseCase, ViewHighSchoolBoardUseCase>();
             services.AddTransient<IUpdateHighSchoolBoardUseCase, UpdateHighSchoolBoardUseCase>();
 
-            services.AddTransient<ICreateTeacherBasicInformationUseCase, CreateTeacherBasicInformationUseCase>();
+            //Author: GJ, TP, VM, SN
+            //Date: 16/02/2021
+            //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+           services.AddTransient<ICreateTeacherBasicInformationUseCase, CreateTeacherBasicInformationUseCase>();
             services.AddTransient<ITeacherBasicInformationRepository, TeacherBasicInformationRepository>();
-            services.AddTransient<IViewTeacherBasicInformationUseCase, ViewTeacherBasicInformationUseCase>();
-            services.AddTransient<IUpdateTeacherBasicInformationUseCase, UpdateTeacherBasicInformationUseCase>();
+
+            //Author: GJ, TP, VM, SN
+            //Date: 16/02/2021
+            //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
+           services.AddTransient<IViewTeacherBasicInformationUseCase, ViewTeacherBasicInformationUseCase>();
+         // services.AddTransient<IUpdateTeacherBasicInformationUseCase, UpdateTeacherBasicInformationUseCase>();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));

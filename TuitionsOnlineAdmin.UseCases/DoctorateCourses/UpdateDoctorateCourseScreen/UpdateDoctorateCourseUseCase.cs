@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 using TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 

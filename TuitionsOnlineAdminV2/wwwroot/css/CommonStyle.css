@@ -1,0 +1,10 @@
+﻿.searchbar_style {
+    width: 40rem;
+    margin-left: 33rem;
+    border-style:groove;
+}
+.border_style {
+    border-style: groove;
+    margin-top:10px;
+    margin-bottom:10px;
+}

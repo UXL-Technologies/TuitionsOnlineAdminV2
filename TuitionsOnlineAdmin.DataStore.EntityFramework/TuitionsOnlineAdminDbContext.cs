@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 {
@@ -31,6 +32,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //Author: GJ, TP, VM, SN
         //Date: 16/02/2021
         //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-        //public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
+        public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
     }
 }

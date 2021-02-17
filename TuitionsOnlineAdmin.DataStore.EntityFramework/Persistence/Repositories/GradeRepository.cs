@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories

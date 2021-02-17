@@ -7,6 +7,7 @@
 @using TuitionsOnlineAdmin.UseCases.Currencies.ViewCurrencyScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Currencies.UpdateCurrencyScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject ICreateCurrencyUseCase instanceOfICreateCurrencyUseCase
 @inject IViewCurrencyUseCase instanceOfIViewCurrencyUseCase
 @inject IUpdateCurrencyUseCase instanceOfIUpdateCurrencyUseCase
@@ -87,7 +88,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string currencyToBeDisplayed;
+    public string currencyToBeDisplayed;
     @*The init method is to invoke the Currency list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -125,19 +126,19 @@ public string currencyToBeDisplayed;
         foreach (var field in newCurrency.Keys)
         {
             @*For each incoming key we check and assign the values to newCurrency *@
-    switch (field)
-    {
-        case "CurrencyName":
-            currencyToBeDisplayed = createCurrency.CurrencyName = (string)newCurrency[field];
-            break;
-        case "Active":
-            createCurrency.Active = (bool)newCurrency[field];
-            break;
-        case "Default":
-            createCurrency.Default = (bool)newCurrency[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "CurrencyName":
+                    currencyToBeDisplayed = createCurrency.CurrencyName = (string)newCurrency[field];
+                    break;
+                case "Active":
+                    createCurrency.Active = (bool)newCurrency[field];
+                    break;
+                case "Default":
+                    createCurrency.Default = (bool)newCurrency[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Currency*@
         resultForCreate = instanceOfICreateCurrencyUseCase.CreateCurrency(createCurrency);
@@ -145,30 +146,30 @@ public string currencyToBeDisplayed;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Currency along with the existing the course list *@
-    GetCurrencies(searchkey);
+        GetCurrencies(searchkey);
 
-
-}
-//To take and update the value for  Currency
-void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var currency in newValue.Keys)
-    {
-        switch (currency)
-        {
-            case "CurrencyName":
-                currencyToBeDisplayed = currencyToBeUpdated.CurrencyName = (string)newValue[currency];
-                break;
-            case "Active":
-                currencyToBeUpdated.Active = (bool)newValue[currency];
-                break;
-            case "Default":
-                currencyToBeUpdated.Default = (bool)newValue[currency];
-                break;
-        }
 
     }
+    //To take and update the value for  Currency
+    void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var currency in newValue.Keys)
+        {
+            switch (currency)
+            {
+                case "CurrencyName":
+                    currencyToBeDisplayed = currencyToBeUpdated.CurrencyName = (string)newValue[currency];
+                    break;
+                case "Active":
+                    currencyToBeUpdated.Active = (bool)newValue[currency];
+                    break;
+                case "Default":
+                    currencyToBeUpdated.Default = (bool)newValue[currency];
+                    break;
+            }
+
+        }
 
         @*CurrencyToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCurrencyUseCase.UpdateCurrency(currencyToBeUpdated);

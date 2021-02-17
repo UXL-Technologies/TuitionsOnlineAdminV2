@@ -7,6 +7,7 @@
 @using TuitionsOnlineAdmin.UseCases.Cities.ViewCityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Cities.UpdateCityScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject ICreateCityUseCase instanceOfICreateCityUseCase
 @inject IViewCityUseCase instanceOfIViewCityUseCase
 @inject IUpdateCityUseCase instanceOfIUpdateCityUseCase
@@ -88,7 +89,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string cityToBeDisplayed;
+    public string cityToBeDisplayed;
     @*The init method is to invoke the City list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -125,19 +126,19 @@ public string cityToBeDisplayed;
         foreach (var field in newCity.Keys)
         {
             @*For each incoming key we check and assign the values to newCity *@
-    switch (field)
-    {
-        case "CityName":
-            cityToBeDisplayed = createCity.CityName = (string)newCity[field];
-            break;
-        case "Active":
-            createCity.Active = (bool)newCity[field];
-            break;
-        case "PinCode":
-            createCity.PinCode = (int)newCity[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "CityName":
+                    cityToBeDisplayed = createCity.CityName = (string)newCity[field];
+                    break;
+                case "Active":
+                    createCity.Active = (bool)newCity[field];
+                    break;
+                case "PinCode":
+                    createCity.PinCode = (int)newCity[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new City*@
         resultForCreate = instanceOfICreateCityUseCase.CreateCity(createCity);
@@ -145,28 +146,28 @@ public string cityToBeDisplayed;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created City along with the existing the course list *@
-    GetCities(searchkey);
-}
-//To take and update the value for  City
-void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var city in newValue.Keys)
-    {
-        switch (city)
-        {
-            case "CityName":
-                cityToBeDisplayed = cityToBeUpdated.CityName = (string)newValue[city];
-                break;
-            case "Active":
-                cityToBeUpdated.Active = (bool)newValue[city];
-                break;
-            case "PinCode":
-                cityToBeUpdated.PinCode = (int)newValue[city];
-                break;
-        }
-
+        GetCities(searchkey);
     }
+    //To take and update the value for  City
+    void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var city in newValue.Keys)
+        {
+            switch (city)
+            {
+                case "CityName":
+                    cityToBeDisplayed = cityToBeUpdated.CityName = (string)newValue[city];
+                    break;
+                case "Active":
+                    cityToBeUpdated.Active = (bool)newValue[city];
+                    break;
+                case "PinCode":
+                    cityToBeUpdated.PinCode = (int)newValue[city];
+                    break;
+            }
+
+        }
 
         @*CityToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCityUseCase.UpdateCity(cityToBeUpdated);

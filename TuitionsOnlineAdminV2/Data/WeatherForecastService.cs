@@ -11,6 +11,7 @@ public class WeatherForecastService {
     }
 
     public IEnumerable<WeatherForecast> GetForecast() {
+
         return Forecasts;
     }
     //Authors: Thanvi &Vandith date : 11-01-2021
@@ -66,4 +67,6 @@ public class WeatherForecastService {
         Tuple.Create(-9, "Cold"),
         Tuple.Create(-80, "Freezing")
     };
+
+   
 }

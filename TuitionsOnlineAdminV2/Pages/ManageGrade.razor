@@ -7,6 +7,7 @@
 @using TuitionsOnlineAdmin.UseCases.Grades.ViewGradeScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Grades.UpdateGradeScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject ICreateGradeUseCase instanceOfICreateGradeUseCase
 @inject IViewGradeUseCase instanceOfIViewGradeUseCase
 @inject IUpdateGradeUseCase instanceOfIUpdateGradeUseCase
@@ -41,9 +42,9 @@
 <div>
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
-    <p class="success_message_style">
-        Your Grade "@gradeToBeDisplayed" has been updated successfully !
-    </p>
+        <p class="success_message_style">
+            Your Grade "@gradeToBeDisplayed" has been updated successfully !
+        </p>
     }
     else
     {
@@ -57,9 +58,9 @@
     @* To error message for view *@
     @if (viewError && gradeList == null)
     {
-    <p class="success_message_style">
-        @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_GRADE
-    </p>
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_GRADE
+        </p>
     }
 </div>
 
@@ -85,7 +86,7 @@
     public string resultForUpdate;
     bool viewErrorForUpdate = false;
     bool viewError = false;
-public string gradeToBeDisplayed;
+    public string gradeToBeDisplayed;
     @*The init method is to invoke the Grade list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -122,16 +123,16 @@ public string gradeToBeDisplayed;
         foreach (var field in newGrade.Keys)
         {
             @*For each incoming key we check and assign the values to newGrade *@
-    switch (field)
-    {
-        case "GradeName":
-            gradeToBeDisplayed =  createGrade.GradeName = (string)newGrade[field];
-            break;
-        case "Active":
-            createGrade.Active = (bool)newGrade[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "GradeName":
+                    gradeToBeDisplayed = createGrade.GradeName = (string)newGrade[field];
+                    break;
+                case "Active":
+                    createGrade.Active = (bool)newGrade[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Grade*@
         resultForCreate = instanceOfICreateGradeUseCase.CreateGrade(createGrade);
@@ -139,29 +140,29 @@ public string gradeToBeDisplayed;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created Grade along with the existing the course list *@
-    GetGrades(searchkey);
+        GetGrades(searchkey);
 
-
-}
-
-
-//To take and update the value for  Grade
-void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var grade in newValue.Keys)
-    {
-        switch (grade)
-        {
-            case "GradeName":
-                gradeToBeDisplayed =  gradeToBeUpdated.GradeName = (string)newValue[grade];
-                break;
-            case "Active":
-                gradeToBeUpdated.Active = (bool)newValue[grade];
-                break;
-        }
 
     }
+
+
+    //To take and update the value for  Grade
+    void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var grade in newValue.Keys)
+        {
+            switch (grade)
+            {
+                case "GradeName":
+                    gradeToBeDisplayed = gradeToBeUpdated.GradeName = (string)newValue[grade];
+                    break;
+                case "Active":
+                    gradeToBeUpdated.Active = (bool)newValue[grade];
+                    break;
+            }
+
+        }
 
         @*GradeToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateGradeUseCase.UpdateGrade(gradeToBeUpdated);

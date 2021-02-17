@@ -2,13 +2,12 @@
     Date: 11-01-2021
     Aim : To create an graduate course,edit,deactivate and display the graduate courses*@
 
-
-
 @page "/graduatecourse"
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.CreateGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@using TuitionsOnlineAdmin.CoreBusiness.Entities
 @inject NavigationManager UriHelper
 @inject ICreateGraduateCourseUseCase  instanceOfICreateGraduateCourseUseCase
 @inject IViewGraduateCourseUseCase  instanceOfIViewGraduateCourseUseCase
@@ -48,9 +47,9 @@
     @* To display the success message on click of save *@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
-    <p class="success_message_style">
-        Your graduate course "@graduateCourseName" has been updated successfully !
-    </p>
+        <p class="success_message_style">
+            Your graduate course "@graduateCourseName" has been updated successfully !
+        </p>
     }
     else
     {
@@ -89,16 +88,16 @@
     @* To hold the hold the Course details*@
     IEnumerable<GraduateCourse> graduateCourseList = Enumerable.Empty<GraduateCourse>();
     @*To hold the search text*@
-String searchkey;
+    String searchkey;
 
-public string resultForCreate;
-public string resultForUpdate;
-public string graduateCourseName;
+    public string resultForCreate;
+    public string resultForUpdate;
+    public string graduateCourseName;
 
 
     bool createMessage = false;
-bool viewError = false;
-bool viewErrorForUpdate = false;
+    bool viewError = false;
+    bool viewErrorForUpdate = false;
 
 
     @*The init method is to inoke the get graduate  course list*@
@@ -110,16 +109,16 @@ bool viewErrorForUpdate = false;
 
     }
     @*To get graduate course list to be displayed in the data grid columns*@
-public void GetGraduateCourses(String searchkeyword)
-{
-    graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
-    System.Diagnostics.Debug.WriteLine("Hello World");
-    viewError = true;
-}
-void OnTextChanged(String searchText)
-{
-    Console.WriteLine(searchText);
-    searchkey = searchText;
+    public void GetGraduateCourses(String searchkeyword)
+    {
+        graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
+        System.Diagnostics.Debug.WriteLine("Hello World");
+        viewError = true;
+    }
+    void OnTextChanged(String searchText)
+    {
+        Console.WriteLine(searchText);
+        searchkey = searchText;
         @*The StateHasChanged makes sure that the component is notified to re - render the data*@
 
         InvokeAsync(StateHasChanged);
@@ -128,8 +127,8 @@ void OnTextChanged(String searchText)
         GetGraduateCourses(searchkey);
     }
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-protected async Task CreateGraduateCourse(Dictionary<string, object> newCourse)
-{
+    protected async Task CreateGraduateCourse(Dictionary<string, object> newCourse)
+    {
         @* To hold the new course to be created *@
         GraduateCourse createGraduateCourse = new GraduateCourse();
         @*The new value comes in the form of key value pair*@
@@ -139,8 +138,8 @@ protected async Task CreateGraduateCourse(Dictionary<string, object> newCourse)
             switch (field)
             {
                 case "GraduateCourseName":
-                   graduateCourseName = createGraduateCourse.GraduateCourseName = (string)newCourse[field];
-            Console.WriteLine(graduateCourseName);
+                    graduateCourseName = createGraduateCourse.GraduateCourseName = (string)newCourse[field];
+                    Console.WriteLine(graduateCourseName);
                     break;
                 case "Active":
                     createGraduateCourse.Active = (bool)newCourse[field];
@@ -149,61 +148,61 @@ protected async Task CreateGraduateCourse(Dictionary<string, object> newCourse)
         }
         Console.WriteLine(createGraduateCourse);
         @*To invoke the method to create new graduate course*@
-resultForCreate= instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
-Console.WriteLine(resultForCreate);
+        resultForCreate = instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
+        Console.WriteLine(resultForCreate);
 
-Console.WriteLine(createMessage);
+        Console.WriteLine(createMessage);
 
 
 
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-var t = Task.Factory.StartNew(async () =>
-{
-    Console.WriteLine();
-    createMessage = true;
-    Console.WriteLine(createMessage);
-    await Task.Delay(5000);
-    createMessage = false;
-    Console.WriteLine(createMessage);
-});
+        var t = Task.Factory.StartNew(async () =>
+        {
+            Console.WriteLine();
+            createMessage = true;
+            Console.WriteLine(createMessage);
+            await Task.Delay(5000);
+            createMessage = false;
+            Console.WriteLine(createMessage);
+        });
 
 
-//UriHelper.NavigateTo("graduatecourse", forceLoad: true);
+        //UriHelper.NavigateTo("graduatecourse", forceLoad: true);
 
-InvokeAsync(StateHasChanged);
+        InvokeAsync(StateHasChanged);
 
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetGraduateCourses(searchkey);
+        GetGraduateCourses(searchkey);
 
 
-
-}
-
-void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
-{
-    Console.WriteLine(graduateCourseToBeUpdated);
-    Console.WriteLine(newValue);
-
-
-    foreach (var course in newValue.Keys)
-    {
-        switch (course)
-        {
-            case "GraduateCourseName":
-                graduateCourseName = graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
-                break;
-            case "Active":
-                graduateCourseToBeUpdated.Active = (bool)newValue[course];
-                break;
-        }
 
     }
 
-    Console.WriteLine(graduateCourseToBeUpdated);
-    resultForUpdate = instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
-    Console.WriteLine(resultForUpdate);
-    viewErrorForUpdate = true;
-    Console.WriteLine(viewErrorForUpdate);
+    void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
+    {
+        Console.WriteLine(graduateCourseToBeUpdated);
+        Console.WriteLine(newValue);
+
+
+        foreach (var course in newValue.Keys)
+        {
+            switch (course)
+            {
+                case "GraduateCourseName":
+                    graduateCourseName = graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
+                    break;
+                case "Active":
+                    graduateCourseToBeUpdated.Active = (bool)newValue[course];
+                    break;
+            }
+
+        }
+
+        Console.WriteLine(graduateCourseToBeUpdated);
+        resultForUpdate = instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
+        Console.WriteLine(resultForUpdate);
+        viewErrorForUpdate = true;
+        Console.WriteLine(viewErrorForUpdate);
 
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
