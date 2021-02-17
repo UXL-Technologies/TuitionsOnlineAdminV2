@@ -153,7 +153,7 @@ protected override void OnInitialized()
             createTeacherBasicInformation.ExperienceInYears = (int)newTeacherBasicInformation[field];
             break;
         case "ContactTeleNumber":
-            createTeacherBasicInformation.ContactTeleNumber = (string)newTeacherBasicInformation[field];
+            createTeacherBasicInformation.ContactTeleNumber = (int)newTeacherBasicInformation[field];
             break;
     }
 }
@@ -200,7 +200,7 @@ void UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformati
                 teacherBasicInformationToBeUpdated.ExperienceInYears = (int)newValue[teacherBasicInformation];
                 break;
             case "ContactTeleNumber":
-                teacherBasicInformationToBeUpdated.ContactTeleNumber = (string)newValue[teacherBasicInformation];
+                teacherBasicInformationToBeUpdated.ContactTeleNumber = (int)newValue[teacherBasicInformation];
                 break;
         }
         Console.WriteLine(teacherBasicInformationToBeUpdated);
