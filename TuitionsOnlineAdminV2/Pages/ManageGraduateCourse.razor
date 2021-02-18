@@ -23,6 +23,7 @@
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
                NullText="Search for graduate courses ...."></DxTextBox>
+
 </div>
 <br />
 
@@ -106,13 +107,13 @@ bool viewErrorForUpdate = false;
     {
 
         @*To invoke the GetGraduateCourses() to fetch the graduate course list to be displayed*@
-        GetGraduateCourses(searchkey);
+        GetGraduateCourses();
 
     }
     @*To get graduate course list to be displayed in the data grid columns*@
-public void GetGraduateCourses(String searchkeyword)
+public void GetGraduateCourses()
 {
-    graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkeyword);
+    graduateCourseList = instanceOfIViewGraduateCourseUseCase.ViewGraduateCourse(searchkey);
     System.Diagnostics.Debug.WriteLine("Hello World");
     viewError = true;
 }
@@ -125,7 +126,7 @@ void OnTextChanged(String searchText)
         InvokeAsync(StateHasChanged);
 
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-        GetGraduateCourses(searchkey);
+        GetGraduateCourses();
     }
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
 protected async Task CreateGraduateCourse(Dictionary<string, object> newCourse)
@@ -173,7 +174,7 @@ var t = Task.Factory.StartNew(async () =>
 InvokeAsync(StateHasChanged);
 
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetGraduateCourses(searchkey);
+    GetGraduateCourses();
 
 
 
@@ -208,7 +209,7 @@ void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<s
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-        GetGraduateCourses(searchkey);
+        GetGraduateCourses();
 
     }
 
