@@ -3,14 +3,7 @@
 //Aim: defining the Class for TeacherBasicInformation ;
 
 
-namespace TuitionsOnlineAdmin.CoreBusiness
-{
-    public class TeacherBasicInformation
-    {
-        //property to store TeacherId .
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid TeacherId { get; set; }
+
 
 
 
@@ -18,58 +11,59 @@ namespace TuitionsOnlineAdmin.CoreBusiness
 //Date: 16/02/2021
 //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
 
-//using System;
-//using System.Collections.Generic;
-//using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
-//using System.Text;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-//namespace TuitionsOnlineAdmin.CoreBusiness
-//{
-//    public class TeacherBasicInformation
-//    {
-//        //property to store TeacherId .
-//        [Key]
-//        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-//        public int TeacherId { get; set; }
+namespace TuitionsOnlineAdmin.CoreBusiness
+{
+    public class TeacherBasicInformation
+    {
+        [Key]
 
-//        //property to store TeacherFullName 
-//        [Required(ErrorMessage = "Please enter teacher’s full name")]
-//        [MinLength(3, ErrorMessage = "Please enter a minimum of 3 characters.")]
-//        [MaxLength(255, ErrorMessage = "The teacher’s full name you have entered is too long. Please restrict the name to less than 255 alphabets.")]
-//        [RegularExpression(@"^[A-Za-z\s]{1,}[\.]{0,}[A-Za-z.\s]{0,}", ErrorMessage = "Please use only alphabets in the teacher’s full name.")]
-//        public string TeacherFullName { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
 
-//        //property to store Active status 
-//        public bool Active { get; set; } = true;
+        [ForeignKey("TeacherAuthenticationDetails")]
+        public int TeacherId { get; set; }
+        [Required]
+        [Column(TypeName = "varchar(150)")]
+        public string Teacher_Name { get; set; }
 
-//        //property to store EmailAddress 
-//        [Required(ErrorMessage = "Please enter the email address.")]
-//        [DataType(DataType.EmailAddress)]
-//        [EmailAddress(ErrorMessage = "This does not seem like an email address.Please check and enter again.")]
-//        public string EmailAddress { get; set; }
+        [Required(ErrorMessage = "Please enter a correct phone number")]
+        [Range(1000000000, 999999999999999, ErrorMessage = "Please enter a valid phone number")]
+        public long Contact_Telephone_Number { get; set; }
 
-//        //property to store ContactTeleNumber 
-//        [Required(ErrorMessage = "Please enter the contact number")]
-//        [Range(10, 10, ErrorMessage = "Please enter a contact number of minimum 10 characters.")]
-//        public int ContactTeleNumber { get; set; }
+        [Required(ErrorMessage = "Please enter your email address")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [Column(TypeName = "varchar(150)")]
+        public string Email_Address { get; set; }
 
-//        //property to store TeacherPhotographUrl 
-//        [Url(ErrorMessage = "This does not seem like an url . Please check and enter again.")]
-//        public string TeacherPhotographUrl { get; set; }
+        [Required(ErrorMessage = "Please enter the city you are now located at")]
+        [Column(TypeName = "varchar(150)")]
+        public string City { get; set; }
 
-//        //property to store PreferredLanguage 
-//        [Required(ErrorMessage = "Please enter the language the teacher prefers to teach in.")]
-//        [MaxLength(100, ErrorMessage = "The preferred language you have entered is too long. Please restrict the name to less than 100 alphabets.")]
-//        public string PreferredLanguage { get; set; }
+        [Required(ErrorMessage = "Please enter the pincode of your location")]
+        [Range(100000, 999999, ErrorMessage = "Please enter a valid pincode")]
+        public int Pincode { get; set; }
+        [Required]
+        public bool Active { get; set; }
+        [Required(ErrorMessage = "Please describe your qualifications in as much detail as possible")]
+        public string Qualifications { get; set; }
+        [Required(ErrorMessage = "Please let us know details about the subjects and students you want to teach")]
+        public string Teaching_Interests { get; set; }
+        [Required(ErrorMessage = "Please highlight the value you bring to your students")]
+        public string Selling_Point { get; set; }
+        [Required(ErrorMessage = "Please explain your pricing model")]
+        public string Pricing_Structure { get; set; }
+        [Required(ErrorMessage = "Please describe your teaching experience")]
+        public string Teaching_Experience { get; set; }
+        [Required(ErrorMessage = "Please mention details about your schedule for tuitions")]
+        public string Schedule { get; set; }
 
-//        //property to store AlternateLanguage 
-//        [MaxLength(100, ErrorMessage = "The alternate language you have entered is too long. Please restrict the name to less than 100 alphabets.")]
-//        public string AlternateLanguage { get; set; }
-
-//        //property to store ExperienceInYears
-//        [Required(ErrorMessage = "Please enter the number of years of experience the teacher has in teaching")]
-//        [Range(2, 2, ErrorMessage = "Please enter the number of years of experience that is not more than 2 digits.")]
-//        public int ExperienceInYears { get; set; }
-//    }
-//}
+        //add foreign key reference
+        public virtual TeacherAuthenticationDetails TeacherAuthenticationDetails { get; set; }
+    }
+}

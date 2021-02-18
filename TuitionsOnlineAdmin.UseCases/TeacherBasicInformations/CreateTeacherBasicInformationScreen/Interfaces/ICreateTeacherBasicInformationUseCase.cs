@@ -8,9 +8,9 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.CreateTeacherBas
     //Author: GJ, TP, VM, SN
     //Date: 16/02/2021
     //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-    /*public interface ICreateTeacherBasicInformationUseCase
+    public interface ICreateTeacherBasicInformationUseCase
     {
         string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
     }
-    */
+
 }

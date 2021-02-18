@@ -14,7 +14,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
     //Author: GJ, TP, VM, SN
     //Date: 16/02/2021
     //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-    /*
+    
     public class TeacherBasicInformationRepository : ITeacherBasicInformationRepository
     {
         //property dependency injection
@@ -51,7 +51,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 if (searchKey != null)
                 {
                     List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
-                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.TeacherFullName.Contains(searchKey)).ToList();
+                    teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.Teacher_Name.Contains(searchKey)).ToList();
                     return teacherBasicInformationList;
                 }
                 //if not entire list of data is displayed
@@ -86,5 +86,5 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             }
 
         }
-    } */
+    } 
 }

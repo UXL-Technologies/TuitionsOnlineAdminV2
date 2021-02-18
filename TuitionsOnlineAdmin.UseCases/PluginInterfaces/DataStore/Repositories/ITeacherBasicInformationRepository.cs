@@ -12,9 +12,9 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     //Author: GJ, TP, VM, SN
     //Date: 16/02/2021
     //commenting the below code since the entity teacher basic information is migrated from Teacher self Administration solution
-/*public interface ITeacherBasicInformationRepository
+public interface ITeacherBasicInformationRepository
     {
-        //To hold the contract for creating the TeacherBasicInformation and store it in a database
+       // To hold the contract for creating the TeacherBasicInformation and store it in a database
         string CreateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);
 
 
@@ -23,7 +23,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for viewing TeacherBasicInformation
         List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchKey);
 
-        //To hold the contract for updating TeacherBasicInformation
+       // To hold the contract for updating TeacherBasicInformation
         string UpdateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);
     }
 }
