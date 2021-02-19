@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 
 namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 {
@@ -117,10 +118,15 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update Grade
         string UpdateGrade(Grade grade);
 
+        //Authors: SA, BM, SM
+        //Date:19-Feb-2021
+        //To view Grade
+       public List<TeacherGraduateCourseQualification> ViewTeacherGraduateCourseQualification(int teacherId);
 
-      
 
-        
+
+
+
 
 
     }

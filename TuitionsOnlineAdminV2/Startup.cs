@@ -81,6 +81,8 @@ using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicIn
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualification.ViewTeacherGraduateCourseQualificationScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualification.ViewTeacherGraduateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.CreateTeacherVideoScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen;
@@ -181,6 +183,9 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ITeacherBasicInformationRepository, TeacherBasicInformationRepository>();
             services.AddTransient<IViewTeacherBasicInformationUseCase, ViewTeacherBasicInformationUseCase>();
             services.AddTransient<IUpdateTeacherBasicInformationUseCase, UpdateTeacherBasicInformationUseCase>();
+
+            services.AddTransient<IViewTeacherGraduateCourseQualificationUseCase, ViewTeacherGraduateCourseQualificationUseCase>();
+            services.AddTransient<ITeacherGraduateCourse_QualificationRepository, TeacherGraduateCourse_QualificationRepository>();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));

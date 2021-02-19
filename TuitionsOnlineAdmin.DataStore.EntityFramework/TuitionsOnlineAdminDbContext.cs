@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 {
@@ -34,5 +35,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
 
         public DbSet<TeacherAuthenticationDetails> TeacherAuthenticationDetails { get; set; }
+        public DbSet<TeacherGraduateCourseQualification> TeacherGraduateCourseQualification { get; set; }
     }
 }
