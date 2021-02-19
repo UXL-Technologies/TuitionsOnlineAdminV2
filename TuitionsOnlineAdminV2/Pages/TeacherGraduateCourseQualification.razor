@@ -1,2 +1,146 @@
-﻿@page "/TeacherGraduateCourseQualification"
+﻿
+@page "/TeacherGraduateCourseQualification"
+@*Authors : SA,BM,KK,SM,BA
+    Date:19/02/2021
+    Aim: To create a serach box and to display the list of teachers  *@
+
+@*Aim:Referring usecase of TeacherBasicInformation *@
+
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
+
+
+<DxGridLayout CssClass="mw-1100 border_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+
+
+
+
+                <center><h5>Select Teacher Name</h5></center>
+
+                <div>
+
+                    <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" ColSpanMd="6" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
+
+
+                    @*<div style="margin-top: 33px; margin-left: 10px;">*@
+
+                    <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" ColSpanMd="6" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                </div>
+                <br />
+
+
+
+                <DxDataGrid Data="@teacherDetailsList" @ref="@teacherGrid"
+                            KeyFieldName="@nameof(TeacherBasicInformation.TeacherId)"
+                            SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                            SelectAllMode="DataGridSelectAllMode.AllPages"
+                            OptimizedMultipleSelectionChanged="onSelectOfTeacher"
+                            CssClass="datagrid-border-radius-top-0 mw-1100">
+                    <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                    <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Caption="Teacher Name" Width="300px"></DxDataGridColumn>
+                    <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address" Width="300px"></DxDataGridColumn>
+
+                </DxDataGrid>
+
+                <div style="margin-top: 33px; margin-left: 10px;">
+
+                    <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" />
+                </div>
+                <br />
+
+                @*Aim:Search box for graduate course*@
+                <center><h5>Select Graduate Course</h5></center>
+
+                <div>
+                    <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small"  > </DxTextBox>
+
+
+                    @*<div style="margin-top: 33px; margin-left: 10px;">*@
+
+                    <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small"  Enabled="false" />
+                </div>
+                <br />
+
+
+
+
+            </Template>
+        </DxGridLayoutItem>
+
+        <DxGridLayoutItem Row="0" Column="1">
+            <Template>
+               
+           
+            </Template>
+        </DxGridLayoutItem>
+
+    </Items>
+</DxGridLayout>
+
+@code{
+    DxDataGrid<TeacherBasicInformation> teacherGrid;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchTeacherKeyword;
+
+    //Aim : To hold the details of the teacher selected by the user
+    public TeacherBasicInformation selectedTeacherDetails;
+
+    //Aim : To enable or disable teacher search button
+    public bool enableOrDisableSearchTeacherButton = false;
+
+    //Aim : To enable or disable graduate course search button
+    public bool enableOrDisableSearchGraduateCourseButton = false;
+
+    //testing
+    int SelectedCount { get; set; }
+    int StoredSelectedCount { get; set; }
+    int StoredUnselectedCount { get; set; }
+
+    //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
+    IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
+
+    //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+    public void onChangeTeacherSearchText(string searchTeacherText)
+    {
+        searchTeacherKeyword = searchTeacherText;
+
+        enableOrDisableSearchTeacherButton = true;
+        Console.WriteLine(enableOrDisableSearchTeacherButton);
+    }
+
+    //Aim: To fetch teacher/teachers details on click of teacher search button :
+    //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+    public void getTeacherListOnSearch()
+    {
+        teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+
+    }
+
+    //Aim : To call getTeacherGraduateCourseQualifications method and to enable the "Load Graduate Course" button.
+    protected async Task onSelectOfTeacher(DataGridSelection<TeacherBasicInformation> selection)
+    {
+        Console.WriteLine(selection);
+        //StoredSelectedCount = selection.SelectedKeysStored.Count();
+        //Console.WriteLine(StoredSelectedCount);
+        //StoredUnselectedCount = selection.UnselectedKeysStored.Count();
+        //var selectedKeys = await selection.SelectedKeys;
+        //SelectedCount = selectedKeys.Count();
+        enableOrDisableSearchGraduateCourseButton = true;
+        Console.WriteLine(enableOrDisableSearchGraduateCourseButton);
+        await InvokeAsync(StateHasChanged);
+    }
+}
+
+
 

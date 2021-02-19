@@ -21,7 +21,7 @@ public interface ITeacherBasicInformationRepository
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To hold the contract for viewing TeacherBasicInformation
-        List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchKey);
+        List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchTeacherKeyword);
 
        // To hold the contract for updating TeacherBasicInformation
         string UpdateTeacherBasicInformationRepository(TeacherBasicInformation teacherBasicInformation);

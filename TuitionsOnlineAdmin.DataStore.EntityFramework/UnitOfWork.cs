@@ -34,14 +34,14 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository;
 
-        private readonly ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository;
+        private readonly ITeacherBasicInformationRepository diITeacherBasicInformationRepository;
 
 
         public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
             ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
             ICurrencyRepository instanceOfICurrencyRepository, ISubjectRepository instanceOfISubjectRepository, IGradeRepository instanceOfIGradeRepository,
             ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository,
-            ITeacherBasicInformationRepository instanceOfITeacherBasicInformationRepository)
+            ITeacherBasicInformationRepository diITeacherBasicInformationRepository)
         {
             this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
             this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
@@ -53,7 +53,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.instanceOfIGradeRepository = instanceOfIGradeRepository;
             this.instanceOfITeacherVideoRepository = instanceOfITeacherVideoRepository;
             this.instanceOfIHighSchoolBoardRepository = instanceOfIHighSchoolBoardRepository;
-            this.instanceOfITeacherBasicInformationRepository = instanceOfITeacherBasicInformationRepository;
+            this.diITeacherBasicInformationRepository = diITeacherBasicInformationRepository;
 
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
@@ -276,7 +276,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //to create a TeacherBasicInformation by invoking CreateTeacherBasicInformationrepository of TeacherBasicInformationRepository
         public string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
-          string result =  instanceOfITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
+          string result =  diITeacherBasicInformationRepository.CreateTeacherBasicInformationRepository(teacherBasicInformation);
             return result;
 
             }
@@ -292,17 +292,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //Authors: SA, BM, SM
         // Date:18-Jan-2021
         //to view a TeacherBasicInformation  by invoking ViewTeacherBasicInformationrepository of TeacherBasicInformationRepository
-        public List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey)
+        public List<TeacherBasicInformation> ViewTeacherBasicInformation(string searchTeacherKeyword)
         {
-            Console.WriteLine(searchKey);
-            var teacherBasicInformationList = instanceOfITeacherBasicInformationRepository.ViewTeacherBasicInformationRepository(searchKey);
+            Console.WriteLine(searchTeacherKeyword);
+            var teacherBasicInformationList = diITeacherBasicInformationRepository.ViewTeacherBasicInformationRepository(searchTeacherKeyword);
             return teacherBasicInformationList;
         }
 
         //to update a TeacherBasicInformation by invoking updateTeacherBasicInformationrepository of TeacherBasicInformationRepository
         public string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation)
         {
-            instanceOfITeacherBasicInformationRepository.UpdateTeacherBasicInformationRepository(teacherBasicInformation);
+            diITeacherBasicInformationRepository.UpdateTeacherBasicInformationRepository(teacherBasicInformation);
             return "done";
         }
 }

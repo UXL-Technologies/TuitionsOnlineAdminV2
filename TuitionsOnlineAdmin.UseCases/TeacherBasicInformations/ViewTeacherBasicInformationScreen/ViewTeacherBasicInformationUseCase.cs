@@ -25,9 +25,9 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasic
 
         //Calling the unit of work for fetching the database
 
-        public List<TeacherBasicInformation> ViewTeacherBasicInformation(string searchKey)
+        public List<TeacherBasicInformation> ViewTeacherBasicInformationList(string searchKey)
         {
-            var teacherBasicInformationList = instanceOfIUnitOfWork.ViewTeacherBasicInformations(searchKey);
+            var teacherBasicInformationList = instanceOfIUnitOfWork.ViewTeacherBasicInformation(searchKey);
             return teacherBasicInformationList;
         }
     }

@@ -77,7 +77,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To Create TeacherBasicInformation
         string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
         //To view TeacherBasicInformation
-        List<TeacherBasicInformation> ViewTeacherBasicInformations(string searchKey);
+        List<TeacherBasicInformation> ViewTeacherBasicInformation(string searchTeacherKeyword);
         //To update TeacherBasicInformation
         string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
 

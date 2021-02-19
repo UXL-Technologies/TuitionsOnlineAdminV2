@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasic
     public interface IViewTeacherBasicInformationUseCase
     {
         //Declaring a method to view the TeacherBasicInformation
-        List<TeacherBasicInformation> ViewTeacherBasicInformation(string searchKey);
+        List<TeacherBasicInformation> ViewTeacherBasicInformationList(string searchTeacherKeyword);
     }
 }
