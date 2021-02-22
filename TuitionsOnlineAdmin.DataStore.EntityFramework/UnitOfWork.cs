@@ -309,11 +309,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
 
+        //Aim : The ViewTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification details for the teacherId. 
         public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId)
         {
             var teacherGraduateCourseQualificationList = diITeacherGraduateCourse_QualificationRepository.ViewGraduateCourseQualificationRepository(teacherId);
             Console.WriteLine(teacherGraduateCourseQualificationList);
             return teacherGraduateCourseQualificationList;
+        }
+
+        
+        //Aim : The CreateTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification.
+        public string CreateTeacherGraduateCourseQualification(int teacherId, List<int> selectedGraduateCourses)
+        {
+            return "done";
+
         }
     }
 }

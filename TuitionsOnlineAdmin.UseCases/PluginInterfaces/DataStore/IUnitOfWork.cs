@@ -124,6 +124,9 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To view Grade
        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
 
+        //Aim : The method is responsible to hold the contract for creating the graduate course qualification.
+        public void CreateTeacherGraduateCourseQualification(int teacherId, List<int> selectedGraduateCourses);
+
 
 
 

@@ -15,6 +15,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             this.diTuitionsOnlineAdminDbContext = diTuitionsOnlineAdminDbContext;
         }
 
+        //Aim : To view Graduate Course Qualifications from the database
         public List<TeacherGraduateCourse_Qualification> ViewGraduateCourseQualificationRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
@@ -41,5 +42,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
             }
         }
+
+        //Aim : To create Teacher Graduate Course Qualification in the database
+        public string CreateTeacherGraduateCourseQualificationRepository(int teacherId, List<int> selectedGraduateCourses)
+        {
+            try
+            {
+                //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Add(teacherId, selectedGraduateCourses);
+                diTuitionsOnlineAdminDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception)
+            {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+            }
+
+        }
+
     }
 }
