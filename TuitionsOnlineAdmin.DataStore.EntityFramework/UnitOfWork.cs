@@ -309,9 +309,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
 
-        public List<TeacherGraduateCourseQualification> ViewTeacherGraduateCourseQualification(int teacherId)
+        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId)
         {
             var teacherGraduateCourseQualificationList = diITeacherGraduateCourse_QualificationRepository.ViewGraduateCourseQualificationRepository(teacherId);
+            Console.WriteLine(teacherGraduateCourseQualificationList);
             return teacherGraduateCourseQualificationList;
         }
     }

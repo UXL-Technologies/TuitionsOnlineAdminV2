@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TuitionsOnlineAdmin.CoreBusiness.Entities;
+using TuitionsOnlineAdmin.CoreBusiness;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories;
 
 namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
@@ -15,20 +15,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             this.diTuitionsOnlineAdminDbContext = diTuitionsOnlineAdminDbContext;
         }
 
-        public List<TeacherGraduateCourseQualification> ViewGraduateCourseQualificationRepository(int teacherId)
+        public List<TeacherGraduateCourse_Qualification> ViewGraduateCourseQualificationRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
-            List<TeacherGraduateCourseQualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourseQualification>();
+            List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
 
             try
             {
                 if (teacherId != 0)
                 {
                     Console.WriteLine(teacherId);
-                    teacherGraduateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherGraduateCourseQualification.Where(s => s.TeacherId == teacherId).ToList();
+                    teacherGraduateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherGraduateCourseQualificationList);
                     if (teacherGraduateCourseQualificationList == null) {
-                        teacherGraduateCourseQualificationList = new List<TeacherGraduateCourseQualification>();
+                        teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
                     }
                 }
                 Console.WriteLine(teacherGraduateCourseQualificationList);

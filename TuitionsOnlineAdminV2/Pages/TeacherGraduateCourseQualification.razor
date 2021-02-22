@@ -1,5 +1,4 @@
-﻿
-@page "/TeacherGraduateCourseQualification"
+﻿@page "/TeacherGraduateCourseQualification"
 @*Authors : SA,BM,KK,SM,BA
     Date:19/02/2021
     Aim: To create a serach box and to display the list of teachers  *@
@@ -7,7 +6,7 @@
 @*Aim:Referring usecase of TeacherBasicInformation *@
 
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
-@using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualification.ViewTeacherGraduateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
 @inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
 @inject IViewTeacherGraduateCourseQualificationUseCase diIViewTeacherGraduateCourseQualificationUseCase;
@@ -63,64 +62,63 @@
                 @*Aim:Search box for graduate course*@
                 @if (enableGraduateCourseGridLayout)
                 {
-            <div class=" dxgridlayoutitem_style">
-                <center><h5>Select Graduate Course</h5></center>
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select Graduate Course</h5></center>
 
-                <div>
-                    <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small" TextChanged="@((searchGraduateCourseKeyword) => onChangeGradauteCourseSearchText(searchGraduateCourseKeyword))"> </DxTextBox>
+                        <div>
+                            <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small" TextChanged="@((searchGraduateCourseKeyword) => onChangeGradauteCourseSearchText(searchGraduateCourseKeyword))"> </DxTextBox>
 
 
-                    <div style="margin-top: 33px; margin-left: 10px;">
+                            <div style="margin-top: 33px; margin-left: 10px;">
 
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" Click="@getGraduateCourseOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" Click="@getGraduateCourseOnSearch" />
+                            </div>
+                        </div>
+                        <br />
+                        <DxDataGrid Data="@graduateCourseList"
+                                    @ref="@graduateCourseGrid"
+                                    KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
+                                    SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                                    SelectAllMode="DataGridSelectAllMode.AllPages"
+                                    OptimizedMultipleSelectionChanged="onSelectOfGraduateCourse"
+                                    CssClass="datagrid-border-radius-top-0 mw-1100">
+                            <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                            <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
+
+                        </DxDataGrid>
                     </div>
-                </div>
-                <br />
-                <DxDataGrid Data="@graduateCourseList"
-                            @ref="@graduateCourseGrid"
-                            KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
-                            SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
-                            SelectAllMode="DataGridSelectAllMode.AllPages"
-                            OptimizedMultipleSelectionChanged="onSelectOfGraduateCourse"
-                            CssClass="datagrid-border-radius-top-0 mw-1100">
-                    <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
-                    <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
-
-
-
-
-                </DxDataGrid>
-            </div>
                 }
-                    <br />
-
-
-
-
-
+                <br />
 
             </Template>
         </DxGridLayoutItem>
+        @if (enableGraduateCourseGridLayout)
+        {
+            <DxGridLayoutItem Row="1" Column="1">
+                <Template>
+                  
 
-        @*<DxGridLayoutItem Row="1" Column="1">
-            <Template>
-                <DxListBox Data="@Staff.DataSource"
-                           @bind-Values="@Values"
-                           style=" height: 426px; margin-top: 10px;">
-                    <DxListEditorColumn FieldName="Id" Width="50px" />
-                    <DxListEditorColumn FieldName="TeacherName" Caption="Teacher Name" />
-                    <DxListEditorColumn FieldName="selectedGraduateCourse" Caption="Graduate Course" />
-                </DxListBox>
-           
-            </Template>
-        </DxGridLayoutItem>*@
+                    <DxDataGrid Data="@teacherGraduateCourseQualificationList"
+                                @ref="@teacherGraduateCourseQualificationGrid"
+                                KeyFieldName="@nameof(TeacherGraduateCourse_Qualification.TeacherGraduateCourse_QualificationId)"
+                                SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
+                                CssClass="mw-1100">
+                        <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherGraduateCourse_Qualification.TeacherId)" Caption="Teacher Name"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherGraduateCourse_Qualification.GraduateCourseId)" Caption="Graduate Course"></DxDataGridColumn>
+                    </DxDataGrid>
 
-    </Items>
+                </Template>
+            </DxGridLayoutItem>
+        }
+        </Items>
 </DxGridLayout>
 
 @code{
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<GraduateCourse> graduateCourseGrid;
+
+    DxDataGrid<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationGrid;
 
     //Aim : Used to capture the keyword entered by the user
     public string searchTeacherKeyword;
@@ -143,8 +141,6 @@
     public string searchGraduateCourseKeyword;
 
 
-
-
     public int selectedTeacherId;
 
     //testing
@@ -157,7 +153,7 @@
 
     IEnumerable<GraduateCourse> graduateCourseList = Enumerable.Empty<GraduateCourse>();
 
-    IEnumerable<TeacherGraduateCourseQualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourseQualification>();
+    IEnumerable<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
 
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
@@ -224,9 +220,10 @@
     public void getTeacherGraduateCourseQualifications()
     {
         Console.WriteLine(selectedTeacherId);
-        var teacherGraduateCourseQualificationList = diIViewTeacherGraduateCourseQualificationUseCase.ViewTeacherGraduateCourseQualification(selectedTeacherId);
-       // teacherGraduateCourseQualificationList = teacherGraduateCourseQualificationList.ToList();
+        teacherGraduateCourseQualificationList = diIViewTeacherGraduateCourseQualificationUseCase.ViewTeacherGraduateCourseQualification(selectedTeacherId);
         Console.WriteLine(teacherGraduateCourseQualificationList);
+       
+       
 
     }
 }
