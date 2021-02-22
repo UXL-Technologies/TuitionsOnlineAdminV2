@@ -44,11 +44,15 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To create Teacher Graduate Course Qualification in the database
-        public string CreateTeacherGraduateCourseQualificationRepository(int teacherId, List<int> selectedGraduateCourses)
+      
+        public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses)
         {
             try
             {
-                //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Add(teacherId, selectedGraduateCourses);
+                    var teacherGraduateCourseQualification = new TeacherGraduateCourse_Qualification { TeacherId = teacherId, GraduateCourseId = selectedGraduateCourses };
+                Console.WriteLine(teacherGraduateCourseQualification);
+                    diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Add(teacherGraduateCourseQualification);
+                
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";
             }
@@ -57,8 +61,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 BusinessMessage businessMessage = new BusinessMessage();
                 return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
             }
-
         }
-
     }
 }

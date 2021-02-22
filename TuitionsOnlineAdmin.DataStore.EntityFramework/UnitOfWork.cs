@@ -319,10 +319,14 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         
         //Aim : The CreateTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification.
-        public string CreateTeacherGraduateCourseQualification(int teacherId, List<int> selectedGraduateCourses)
-        {
-            return "done";
 
+       public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses)
+        {
+            var result = diITeacherGraduateCourse_QualificationRepository.CreateTeacherGraduateCourseQualification(teacherId, selectedGraduateCourses);
+            //Console.WriteLine(teacherId);
+            return result;
         }
+
+        
     }
 }

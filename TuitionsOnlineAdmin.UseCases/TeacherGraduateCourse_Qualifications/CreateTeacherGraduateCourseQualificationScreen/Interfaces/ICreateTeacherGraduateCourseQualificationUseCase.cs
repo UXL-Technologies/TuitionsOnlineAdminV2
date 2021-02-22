@@ -7,7 +7,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.Crea
    public interface ICreateTeacherGraduateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for Creating teacher Graduate Course Qualification. 
-        public void CreateTeacherGraduateCourseQualification(int teacherId, List<int> selectedGraduateCourses);
+        public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses);
     }
 }
 

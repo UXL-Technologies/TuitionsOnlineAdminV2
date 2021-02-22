@@ -19,9 +19,10 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.Crea
         }
 
         //Aim : The CreateGraduateCourseUseCase method is responsible to create the teacher graduate course qualification.
-        public void CreateTeacherGraduateCourseQualification(int teacherId, List<int> selectedGraduateCourses)
+        public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses)
         {
-            
+            var result = diIUnitOfWork.CreateTeacherGraduateCourseQualification(teacherId, selectedGraduateCourses);
+            return result;
         }
     }
 }

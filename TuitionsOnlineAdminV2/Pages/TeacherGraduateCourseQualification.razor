@@ -7,10 +7,12 @@
 
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.CreateTeacherGraduateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
 @inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
 @inject IViewTeacherGraduateCourseQualificationUseCase diIViewTeacherGraduateCourseQualificationUseCase;
 @inject IViewGraduateCourseUseCase diIViewGraduateCourseUseCase;
+@inject ICreateTeacherGraduateCourseQualificationUseCase diICreateTeacherGraduateCourseQualificationUseCase;
 
 
 
@@ -62,31 +64,33 @@
                 @*Aim:Search box for graduate course*@
                 @if (enableGraduateCourseGridLayout)
                 {
-                    <div class=" dxgridlayoutitem_style">
-                        <center><h5>Select Graduate Course</h5></center>
+            <div class=" dxgridlayoutitem_style">
+                <center><h5>Select Graduate Course</h5></center>
 
-                        <div>
-                            <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small" TextChanged="@((searchGraduateCourseKeyword) => onChangeGradauteCourseSearchText(searchGraduateCourseKeyword))"> </DxTextBox>
+                <div>
+                    <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small" TextChanged="@((searchGraduateCourseKeyword) => onChangeGradauteCourseSearchText(searchGraduateCourseKeyword))"> </DxTextBox>
 
 
-                            <div style="margin-top: 33px; margin-left: 10px;">
+                    <div style="margin-top: 33px; margin-left: 10px;">
 
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" Click="@getGraduateCourseOnSearch" />
-                            </div>
-                        </div>
-                        <br />
-                        <DxDataGrid Data="@graduateCourseList"
-                                    @ref="@graduateCourseGrid"
-                                    KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
-                                    SelectionMode="DataGridSelectionMode.OptimizedMultipleSelection"
-                                    SelectAllMode="DataGridSelectAllMode.AllPages"
-                                    OptimizedMultipleSelectionChanged="onSelectOfGraduateCourse"
-                                    CssClass="datagrid-border-radius-top-0 mw-1100">
-                            <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
-                            <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
-
-                        </DxDataGrid>
+                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" Click="@getGraduateCourseOnSearch" />
                     </div>
+                </div>
+                <br />
+                <DxDataGrid Data="@graduateCourseList"
+                            @ref="@graduateCourseGrid"
+                            KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
+                            @bind-SingleSelectedDataRow="@onselectofgraduatecourse"
+                            CssClass="datagrid-border-radius-top-0 mw-1100">
+                    <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                    <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
+
+
+                </DxDataGrid>
+
+                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Graduate Course" SizeMode="SizeMode.Small"  Click="@AddGraduateCourses" />
+
+            </div>
                 }
                 <br />
 
@@ -143,9 +147,14 @@
 
     public int selectedTeacherId;
 
-    //testing
+    public GraduateCourse selectedGraduateCourseList;
+
+    public int selectedGraduateId;
+
     int SelectedCount { get; set; }
+
     int StoredSelectedCount { get; set; }
+
     int StoredUnselectedCount { get; set; }
 
     //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
@@ -211,20 +220,47 @@
         Console.WriteLine(graduateCourseList);
     }
 
-    protected async Task onSelectOfGraduateCourse(DataGridSelection<GraduateCourse> selection)
+    public GraduateCourse onselectofgraduatecourse
     {
-        Console.WriteLine(selection);
+        get { return selectedGraduateCourseList; }
+        set
+        {
+           // Console.WriteLine(selectedGraduateCourseList);
+            selectedGraduateCourseList = value;
+            Console.WriteLine(selectedGraduateCourseList.GraduateCourseId);
+            selectedGraduateId = selectedGraduateCourseList.GraduateCourseId;
+            Console.WriteLine(selectedGraduateId);
+            //enableordisableloadgraduatecoursebutton = true;
+            //  console.writeline(selectedgraduateid);
+            InvokeAsync(StateHasChanged);
+        }
 
     }
+
+
+    //protected async Task onSelectOfGraduateCourse(DataGridSelection<GraduateCourse> selection)
+    //{
+    //    Console.WriteLine(selection);
+    //    StoredSelectedCount = selection.SelectedKeysStored;
+    //    Console.WriteLine(StoredSelectedCount);
+    //    StoredUnselectedCount = selection.UnselectedKeysStored;
+    //    var selectedKeys = await selection.SelectedKeys;
+    //    SelectedCount = selectedKeys.Count();
+    //    await InvokeAsync(StateHasChanged);
+    //}
 
     public void getTeacherGraduateCourseQualifications()
     {
         Console.WriteLine(selectedTeacherId);
         teacherGraduateCourseQualificationList = diIViewTeacherGraduateCourseQualificationUseCase.ViewTeacherGraduateCourseQualification(selectedTeacherId);
         Console.WriteLine(teacherGraduateCourseQualificationList);
-       
-       
 
+    }
+
+    public void AddGraduateCourses()
+    {
+        var addGraduateCourse = diICreateTeacherGraduateCourseQualificationUseCase.CreateTeacherGraduateCourseQualification(selectedTeacherId, selectedGraduateId);
+        Console.WriteLine(addGraduateCourse);
     }
 }
 
