@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Authors: SA, BM, SM,BA ,KK
+//Date:22-Feb-2021
+//Aim: implementing the inteface ITeacherGraduateCourse_QualificationRepository 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +13,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 {
     public class TeacherGraduateCourse_QualificationRepository : ITeacherGraduateCourse_QualificationRepository
     {
+        //property dependency injection
         private readonly TuitionsOnlineAdminDbContext diTuitionsOnlineAdminDbContext;
+        //constructor dependency injection
         public TeacherGraduateCourse_QualificationRepository(TuitionsOnlineAdminDbContext diTuitionsOnlineAdminDbContext)
         {
             this.diTuitionsOnlineAdminDbContext = diTuitionsOnlineAdminDbContext;
@@ -53,6 +59,25 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 Console.WriteLine(teacherGraduateCourseQualification);
                     diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Add(teacherGraduateCourseQualification);
                 
+                diTuitionsOnlineAdminDbContext.SaveChanges();
+                return "done";
+            }
+            catch (Exception)
+            {
+                BusinessMessage businessMessage = new BusinessMessage();
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+            }
+        }
+
+        //Aim : To remove Teacher Graduate Course Qualifications from the database
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications)
+        {
+            try
+            {
+                foreach (var teacherGraduateCourses in teacherGraduateCourseQualifications) 
+                { 
+                diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Remove(teacherGraduateCourses);
+                }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";
             }

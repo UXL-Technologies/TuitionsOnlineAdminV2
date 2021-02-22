@@ -309,6 +309,10 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return "done";
         }
 
+
+        //Authors: SA, BM, SM, BA, KK
+        // Date:22-Feb-2021
+
         //Aim : The ViewTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification details for the teacherId. 
         public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId)
         {
@@ -327,6 +331,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
         }
 
-        
+
+        // Aim : The EditTeacherGraduateCourseQualification method is responsible to remove the teacher graduate course qualification.
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications)
+        {
+            var result = diITeacherGraduateCourse_QualificationRepository.EditGraduateCourseQualification(teacherGraduateCourseQualifications);
+            return result;
+        }
+
     }
 }

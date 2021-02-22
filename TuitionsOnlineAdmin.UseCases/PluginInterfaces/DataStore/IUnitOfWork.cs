@@ -119,17 +119,21 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update Grade
         string UpdateGrade(Grade grade);
 
-        //Authors: SA, BM, SM
+        //Authors: SA, BM, SM, BA, KK
         //Date:19-Feb-2021
-        //To view Grade
-       public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
+        //To view TeacherGraduateCourse_Qualification
+        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
+
+
+        //Authors: SA, BM, SM, BA, KK
+        //Date:22-Feb-2021
+        //To create and edit TeacherGraduateCourse_Qualification
 
         //Aim : The method is responsible to hold the contract for creating the graduate course qualification.
         public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses);
 
-
-
-
+        //Aim : The method is responsible to hold the contract for editing the graduate course qualification.
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications);
 
 
 

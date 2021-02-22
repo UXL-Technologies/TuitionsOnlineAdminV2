@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Authors: SA, BM, SM,BA ,KK
+//Date:22-Feb-2021
+//Aim: defining the class for TeacherGraduateCourse_Qualification 
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;

@@ -35,6 +35,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<TeacherBasicInformation> TeacherBasicInformation { get; set; }
 
         public DbSet<TeacherAuthenticationDetails> TeacherAuthenticationDetails { get; set; }
+
         public DbSet<TeacherGraduateCourse_Qualification> TeacherGraduateCourse_Qualification { get; set; }
     }
 }
