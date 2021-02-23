@@ -85,7 +85,6 @@ using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.CreateTe
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.CreateTeacherGraduateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGraduateCourseQualification;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGraduateCourseQualification.Interfaces;
-using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGraduateCourseQualification.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourseQualification.ViewTeacherGraduateCourseQualificationScreen;
@@ -192,7 +191,6 @@ namespace TuitionsOnlineAdminV2
 
             services.AddTransient<IViewTeacherGraduateCourseQualificationUseCase, ViewTeacherGraduateCourseQualificationUseCase>();
             services.AddTransient<ITeacherGraduateCourse_QualificationRepository, TeacherGraduateCourse_QualificationRepository>();
-
             services.AddTransient<ICreateTeacherGraduateCourseQualificationUseCase, CreateTeacherGraduateCourseQualificationUseCase>();
             services.AddTransient<IEditGraduateCourseQualificationUseCase, EditGraduateCourseQualificationUseCase>();
 
