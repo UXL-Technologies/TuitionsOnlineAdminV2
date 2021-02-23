@@ -126,6 +126,12 @@
 </DxGridLayout>
 
 @code{
+
+    public class TeacherDetails {
+        public string TeacherName;
+    }
+
+
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<GraduateCourse> graduateCourseGrid;
 
@@ -172,6 +178,9 @@
     int StoredSelectedCount { get; set; }
 
     int StoredUnselectedCount { get; set; }
+
+    IEnumerable<TeacherDetails> teacherName = Enumerable.Empty<TeacherDetails>();
+
 
     //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
     IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
@@ -276,6 +285,11 @@
         Console.WriteLine(selectedTeacherId);
         teacherGraduateCourseQualificationList = diIViewTeacherGraduateCourseQualificationUseCase.ViewTeacherGraduateCourseQualification(selectedTeacherId);
         Console.WriteLine(teacherGraduateCourseQualificationList);
+        foreach(var teacherName in teacherGraduateCourseQualificationList) {
+            var name = teacherName.TeacherBasicInformation.Teacher_Name;
+            Console.WriteLine(name);
+
+        }
 
     }
 

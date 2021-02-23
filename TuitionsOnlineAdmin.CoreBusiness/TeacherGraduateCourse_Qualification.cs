@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace TuitionsOnlineAdmin.CoreBusiness
@@ -16,5 +17,8 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public int TeacherId { get; set; }
         //property to store GraduateCourseId
         public int GraduateCourseId { get; set; }
+
+        [ForeignKey("TeacherId")]
+        public virtual TeacherBasicInformation TeacherBasicInformation { get; set; }
     }
 }
