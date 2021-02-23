@@ -18,7 +18,6 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         //property to store GraduateCourseId
         public int GraduateCourseId { get; set; }
 
-        [ForeignKey("TeacherId")]
-        public virtual TeacherBasicInformation TeacherBasicInformation { get; set; }
+      
     }
 }
