@@ -10,7 +10,7 @@ using System.Text;
 
 namespace TuitionsOnlineAdmin.CoreBusiness
 {
-   public class GraduateCourse
+    public class GraduateCourse
     {
         //property to store gradutae course Id
         [Key]

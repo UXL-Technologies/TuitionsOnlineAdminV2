@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
-
-
+using TuitionsOnlineAdmin.CoreBusiness.Entities;
 
 namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 {
@@ -124,7 +123,6 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To view TeacherGraduateCourse_Qualification
         public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
 
-
         //Authors: SA, BM, SM, BA, KK
         //Date:22-Feb-2021
         //To create and edit TeacherGraduateCourse_Qualification
@@ -136,6 +134,19 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications);
 
 
+
+        //Authors: SA, BM, SM, BA, KK
+        //Date:23-Feb-2021
+        //To View ,create and edit TeacherPostGraduateCourse_Qualification
+
+        //To view TeacherPostGraduateCourse_Qualification
+        public List<TeacherPostGraduateCourse_Qualification> ViewTeacherPostGraduateCourseQualification(int teacherId);
+
+        //Aim : The method is responsible to hold the contract for creating the Postgraduate course qualification.
+        public string CreateTeacherPostGraduateCourseQualification(int teacherId, int selectedPostGraduateCourses);
+
+        //Aim : The method is responsible to hold the contract for editing the Postgraduate course qualification.
+        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualifications);
 
     }
 }

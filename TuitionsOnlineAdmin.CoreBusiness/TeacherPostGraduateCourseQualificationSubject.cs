@@ -49,7 +49,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness.Entities
         public virtual Subject Subject { get; set; }
 
 
-        public virtual TeacherPostGraduateCourseQualification TeacherPostGraduateCourseQualification { get; set; }
+        public virtual TeacherPostGraduateCourse_Qualification TeacherPostGraduateCourseQualification { get; set; }
 
 
     }

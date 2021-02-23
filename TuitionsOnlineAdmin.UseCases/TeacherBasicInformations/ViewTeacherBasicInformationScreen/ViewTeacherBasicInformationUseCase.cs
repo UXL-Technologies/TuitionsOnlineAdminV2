@@ -27,6 +27,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasic
 
         public List<TeacherBasicInformation> ViewTeacherBasicInformationList(string searchKey)
         {
+            Console.WriteLine(searchKey);
             var teacherBasicInformationList = instanceOfIUnitOfWork.ViewTeacherBasicInformation(searchKey);
             return teacherBasicInformationList;
         }

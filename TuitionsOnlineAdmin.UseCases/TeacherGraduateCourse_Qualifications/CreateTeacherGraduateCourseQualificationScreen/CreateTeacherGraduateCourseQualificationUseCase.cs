@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.Crea
 {
     public class CreateTeacherGraduateCourseQualificationUseCase : ICreateTeacherGraduateCourseQualificationUseCase
     {
-        //// Aim: Property dependency injection of IUnitOfWork for creating the teacher graduate course qualifications.
+        // Aim: Property dependency injection of IUnitOfWork for creating the teacher graduate course qualifications.
         private readonly IUnitOfWork diIUnitOfWork;
 
         // Aim: Constructor dependency injection of IUnitOfWork for creating the teacher graduate course qualifications.

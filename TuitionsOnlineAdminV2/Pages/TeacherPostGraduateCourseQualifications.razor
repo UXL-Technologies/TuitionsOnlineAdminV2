@@ -1,0 +1,309 @@
+﻿@page "/TeacherPostGraduateCourseQualification"
+@*Authors : SA,BM,KK,SM,BA
+    Date:19/02/2021
+    Aim: To create a serach box and to display the list of teachers  *@
+
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.PostGraduateCourses.ViewPostGraduateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.CreateTeacherPostGraduateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.EditTeacherPostGraduateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.ViewTeacherPostGraduateCourseQualificationScreen.Interfaces
+
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
+@inject IViewPostGraduateCourseUseCase diIViewPostGraduateCourseUseCase;
+@inject ICreateTeacherPostGraduateCourseQualificationUseCase diICreateTeacherPostGraduateCourseQualificationUseCase;
+@inject IEditTeacherPostGraduateCourseQualificationUseCase diIEditTeacherPostGraduateCourseQualificationUseCase;
+@inject IViewTeacherPostGraduateCourseQualificationUseCase diIViewTeacherPostGraduateCourseQualificationUseCase;
+
+<DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                <div class=" dxgridlayoutitem_style">
+                    <center><h5>Select Teacher Name</h5></center>
+
+                    <div>
+
+                        <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
+
+
+                        <div style="margin-top: -32px; margin-left: 580px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                        </div>
+                    </div>
+                    <br />
+                    @if (enableSearchTeacherButton)
+                    {
+                        <DxDataGrid Data="@teacherDetailsList"
+                                    @bind-SingleSelectedDataRow="@onSelectOfTeacher"
+                                    CssClass="mw-1100">
+                            <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Caption="Teacher Name"></DxDataGridColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
+                        </DxDataGrid>
+
+                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load PostGraduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadPostGraduateCourseButton" Click="@loadPostGraduateCourseQualifications" />
+                        </div>
+                    }
+                </div>
+
+                <br />
+
+                @*Aim:Search box for post graduate course*@
+                @if (enablePostGraduateCourseGridLayout)
+                {
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select PostGraduate Course</h5></center>
+
+                        <div>
+                            <DxTextBox NullText="Search PostGraduate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchPostGraduateCourseKeyword) => onChangePostGradauteCourseSearchText(searchPostGraduateCourseKeyword))"> </DxTextBox>
+
+
+                            <div style="margin-top: -32px; margin-left: 572px;">
+
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search PostGraduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchPostGraduateCourseButton" Click="@getPostGraduateCourseOnSearch" />
+                            </div>
+                        </div>
+                        <br />
+                        @if (enableSearchPostGraduateCourseButton)
+                        {
+                            <DxDataGrid Data="@postGraduateCourseList"
+                                        @ref="@postGraduateCourseGrid"
+                                        KeyFieldName="@nameof(PostGraduateCourse.PostGraduateCourseId)"
+                                        @bind-SingleSelectedDataRow="@onselectofpostgraduatecourse"
+                                        CssClass="datagrid-border-radius-top-0 mw-1100">
+                                <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                                <DxDataGridColumn Field="@nameof(PostGraduateCourse.PostGraduateCourseName)" Caption="PostGraduate Course"></DxDataGridColumn>
+
+
+                            </DxDataGrid>
+                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add PostGraduate Course" SizeMode="SizeMode.Small" Click="@AddPostGraduateCourses" />
+                            </div>
+                        }
+                    </div>
+                }
+                <br />
+
+            </Template>
+        </DxGridLayoutItem>
+        @if (enablePostGraduateCourseGridLayout)
+        {
+            <DxGridLayoutItem Row="1" Column="1">
+                <Template>
+
+
+                    <DxDataGrid Data="@teacherPostGraduateCourseQualificationList"
+                                SelectionMode="DataGridSelectionMode.MultipleSelectedDataRows"
+                                @bind-MultipleSelectedDataRows="@onSelectOfTeacherPostGraduateCourseQualification">
+                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+
+                        <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_Qualification.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_Qualification.PostGraduateId)" Caption="PostGraduate Course ID"></DxDataGridColumn>
+
+                    </DxDataGrid>
+                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove PostGraduate Course" SizeMode="SizeMode.Small" Click="@RemovePostGraduateCourse" />
+                    </div>
+                </Template>
+            </DxGridLayoutItem>
+        }
+    </Items>
+</DxGridLayout>
+@code {
+    DxDataGrid<TeacherBasicInformation> teacherGrid;
+    DxDataGrid<PostGraduateCourse> postGraduateCourseGrid;
+    DxDataGrid<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualificationGrid;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchTeacherKeyword = null;
+
+    //Aim : To hold the details of the teacher selected by the user
+    TeacherBasicInformation selectedTeacherDetails;
+
+    //Aim : To enable or disable teacher search button
+    public bool enableOrDisableSearchTeacherButton = false;
+
+    //Aim : To enable or disable Postgraduate course search button
+    public bool enableOrDisableLoadPostGraduateCourseButton = false;
+
+
+    public bool enablePostGraduateCourseGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public bool enableOrDisableSearchPostGraduateCourseButton = false;
+
+    //Aim:To enable Search Teacher table
+    public bool enableSearchTeacherButton = false;
+
+    //Aim:To enable search Postgraduate course table
+    public bool enableSearchPostGraduateCourseButton = false;
+
+    public bool enableTeacherPostGraduateCourseQualificationGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchPostGraduateCourseKeyword;
+
+    public int selectedTeacherId;
+
+    public PostGraduateCourse selectedPostGraduateCourseList;
+
+    public int selectedPostGraduateId;
+
+    int SelectedCount { get; set; }
+
+    int StoredSelectedCount { get; set; }
+
+    int StoredUnselectedCount { get; set; }
+
+
+    //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
+    IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
+
+    //Aim : To hold the list of teachers /single record of PostGraduateCourse details of type PostGraduateCourse to display in the data grid.
+    IEnumerable<PostGraduateCourse> postGraduateCourseList = Enumerable.Empty<PostGraduateCourse>();
+
+    //Aim : To hold the list of teachers /single record of TeacherPostGraduateCourse_Qualification details of type TeacherPostGraduateCourse_Qualification to display in the data grid.
+    IEnumerable<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualificationList = new List<TeacherPostGraduateCourse_Qualification>();
+
+    IEnumerable<TeacherPostGraduateCourse_Qualification> selectedTeacherPostGraduateCourseQualifications;
+
+    //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+    public void onChangeTeacherSearchText(string searchTeacherText)
+    {
+        searchTeacherKeyword = searchTeacherText;
+
+        enableOrDisableSearchTeacherButton = true;
+        Console.WriteLine(enableOrDisableSearchTeacherButton);
+    }
+
+    //Aim: To fetch teacher/teachers details on click of teacher search button :
+    //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+    public void getTeacherListOnSearch()
+    {
+        Console.Write(searchTeacherKeyword);
+       teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        Console.Write(teacherDetailsList);
+        enableSearchTeacherButton = true;
+    }
+
+    //Aim : To call getTeacherPostGraduateCourseQualifications method and to enable the "Load PostGraduate Course" button.
+    public TeacherBasicInformation onSelectOfTeacher
+    {
+        get { return selectedTeacherDetails; }
+        set
+        {
+            selectedTeacherDetails = value;
+            Console.WriteLine(selectedTeacherDetails);
+            selectedTeacherId = selectedTeacherDetails.TeacherId;
+
+            enableOrDisableLoadPostGraduateCourseButton = true;
+            Console.WriteLine(enableOrDisableLoadPostGraduateCourseButton);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim:
+    //1.to enable the Postgraduate course grid.
+    //2.to enable the teacher Postgraduate course qualification grid.
+    //3.to invoke the method "getTeacherPostGraduateCourseQualifications"
+
+    public void loadPostGraduateCourseQualifications()
+    {
+        enablePostGraduateCourseGridLayout = true;
+        Console.WriteLine(enablePostGraduateCourseGridLayout);
+        enableTeacherPostGraduateCourseQualificationGridLayout = true;
+        getTeacherPostGraduateCourseQualifications();
+    }
+
+    //Aim : To determine if the user has entered any data in the Postgraduate course search text box and to enable or disable the Postgraduate course search button
+
+    public void onChangePostGradauteCourseSearchText(string searchPostGraduateCourseText)
+    {
+        searchPostGraduateCourseKeyword = searchPostGraduateCourseText;
+        enableOrDisableSearchPostGraduateCourseButton = true;
+        Console.WriteLine(enableOrDisableSearchPostGraduateCourseButton);
+    }
+
+    //Aim:
+    //1.To fetch  Postgraduate courses(which is matched with the searched criteria) on click of Postgraduate course search button :
+    // IViewPostGraduateCourseUseCase is used for fetching the Postgraduate course list for the searched key.
+    //2.To invoke a method "getAvailablePostGraduateCourses" for obtaining only the courses that are not already associated with the teacher and display the list.
+
+    public void getPostGraduateCourseOnSearch()
+    {
+        postGraduateCourseList = diIViewPostGraduateCourseUseCase.ViewPostGraduateCourse(searchPostGraduateCourseKeyword);
+        enableSearchPostGraduateCourseButton = true;
+
+        Console.WriteLine(postGraduateCourseList);
+    }
+
+    //Aim : To capture the selected Postgraduate course value and to enable the "Add PostGraduate Course" button.
+    public PostGraduateCourse onselectofpostgraduatecourse
+    {
+        get { return selectedPostGraduateCourseList; }
+        set
+        {
+            // Console.WriteLine(selectedPostGraduateCourseList);
+            selectedPostGraduateCourseList = value;
+            Console.WriteLine(selectedPostGraduateCourseList.PostGraduateCourseId);
+            selectedPostGraduateId = selectedPostGraduateCourseList.PostGraduateCourseId;
+            Console.WriteLine(selectedPostGraduateId);
+
+            InvokeAsync(StateHasChanged);
+        }
+
+    }
+
+    //Aim : To fetch teacher Postgraduate course qualifications from TeacherPostGraduateCourseQualification table for the selected teacher.
+
+    public void getTeacherPostGraduateCourseQualifications()
+    {
+        Console.WriteLine(selectedTeacherId);
+        //teacherPostGraduateCourseQualificationList = diIViewTeacherPostGraduateCourseQualificationUseCase.ViewTeacherPostGraduateCourseQualification(selectedTeacherId);
+        Console.WriteLine(teacherPostGraduateCourseQualificationList);
+
+        teacherPostGraduateCourseQualificationList = diIViewTeacherPostGraduateCourseQualificationUseCase.ViewTeacherPostGraduateCourseQualification(selectedTeacherId);
+    }
+
+    //Aim: To save the teacher Postgraduate course qualification record on click of save button.
+
+    public void AddPostGraduateCourses()
+    {
+        Console.WriteLine(selectedTeacherId);
+        Console.WriteLine(selectedPostGraduateId);
+        var addPostGraduateCourse = diICreateTeacherPostGraduateCourseQualificationUseCase.CreateTeacherPostGraduateCourseQualification(selectedTeacherId,selectedPostGraduateId);
+        Console.WriteLine(addPostGraduateCourse);
+    }
+
+    //Aim : To capture the selected teacher Postgraduate course qualification value and to enable the "Remove PostGraduate Course" button.
+    IEnumerable<TeacherPostGraduateCourse_Qualification> onSelectOfTeacherPostGraduateCourseQualification
+    {
+        get { return selectedTeacherPostGraduateCourseQualifications; }
+        set
+        {
+            selectedTeacherPostGraduateCourseQualifications = value;
+            Console.WriteLine(selectedTeacherPostGraduateCourseQualifications);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim: To remove the teacher Postgraduate course qualification record on click of "Remove PostGraduate Course" button.
+    public void RemovePostGraduateCourse()
+    {
+        List<TeacherPostGraduateCourse_Qualification> List = selectedTeacherPostGraduateCourseQualifications.ToList();
+        var removePostGraduateCourse = diIEditTeacherPostGraduateCourseQualificationUseCase.EditTeacherPostGraduateCourseQualification(List);
+        Console.WriteLine(removePostGraduateCourse);
+    }
+}

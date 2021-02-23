@@ -47,11 +47,17 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view TeacherBasicInformation based on the search criteria 
         public List<TeacherBasicInformation> ViewTeacherBasicInformationRepository(string searchTeacherKeyword)
         {
+            Console.WriteLine(searchTeacherKeyword);
             try {
+
                 if (searchTeacherKeyword != null)
                 {
+                    Console.WriteLine(searchTeacherKeyword);
+
                     List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
                     teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.Where(s => s.Teacher_Name.Contains(searchTeacherKeyword)).ToList();
+                    Console.WriteLine(teacherBasicInformationList);
+
                     return teacherBasicInformationList;
                 }
                 //if not entire list of data is displayed
@@ -59,9 +65,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
                 {
                     var teacherBasicInformationList = instanceOfDbContext.TeacherBasicInformation.ToList();
+                    Console.WriteLine(teacherBasicInformationList);
+
                     return teacherBasicInformationList;
+
                 }
             }
+            
             catch (Exception) {
                 List<TeacherBasicInformation> teacherBasicInformationList = new List<TeacherBasicInformation>();
                 return teacherBasicInformationList = null;
