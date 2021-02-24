@@ -1,0 +1,36 @@
+﻿//Authors: SA, BM, SM,BA ,KK
+//Date:24-Feb-2021
+//Aim: defining the class for TeacherDoctorateCourse_Qualification
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
+using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.CreateTeacherDoctorateCourseQualificationScreen.Interfaces;
+
+namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.CreateTeacherDoctorateCourseQualificationScreen
+{
+   public class CreateTeacherDoctorateCourseQualificationUseCase : ICreateTeacherDoctorateCourseQualificationUseCase
+    {
+        // Aim: Property dependency injection of IUnitOfWork for creating the teacher //Authors: SA, BM, SM,BA ,KK
+        //Date:23-Feb-2021
+        //Aim: defining the class for TeacherDoctorateCourse_Qualification course qualifications.
+        private readonly IUnitOfWork diIUnitOfWork;
+
+        // Aim: Constructor dependency injection of IUnitOfWork for creating the teacher Doctorate course qualifications.
+        public CreateTeacherDoctorateCourseQualificationUseCase(IUnitOfWork diIUnitOfWork)
+
+        {
+            this.diIUnitOfWork = diIUnitOfWork;
+        }
+
+        //Aim : The CreateDoctorateCourseUseCase method is responsible to create the teacher Doctorate course qualification.
+        public string CreateTeacherDoctorateCourseQualification(int teacherId, int selectedDoctorateCourses)
+        {
+            Console.WriteLine(teacherId);
+            Console.WriteLine(selectedDoctorateCourses);
+            var result = diIUnitOfWork.CreateTeacherDoctorateCourseQualification(teacherId, selectedDoctorateCourses);
+            return result;
+        }
+    }
+}

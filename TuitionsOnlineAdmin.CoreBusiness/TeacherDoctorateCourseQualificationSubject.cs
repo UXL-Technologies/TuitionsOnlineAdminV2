@@ -31,7 +31,7 @@ namespace TuitionsOnlineAdmin.CoreBusiness.Entities
 
         public virtual Subject Subject { get; set; }
 
-        public virtual TeacherDoctorateCourseQualification TeacherDoctorateCourseQualification { get; set; }
+        public virtual TeacherDoctorateCourse_Qualification TeacherDoctorateCourseQualification { get; set; }
 
     }
 

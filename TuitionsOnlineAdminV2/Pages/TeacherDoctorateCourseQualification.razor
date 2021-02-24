@@ -1,0 +1,310 @@
+﻿@page "/TeacherDoctorateCourseQualification"
+@*Authors : SA,BM,KK,SM,BA
+    Date:19/02/2021
+    Aim: To create a serach box and to display the list of teachers  *@
+
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.ViewTeacherDoctorateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.CreateTeacherDoctorateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.EditTeacherDoctorateCourseQualificationScreen.Interfaces
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
+@inject IViewDoctorateCourseUseCase diIViewDoctorateCourseUseCase;
+@inject IViewTeacheDoctorateCourseQualificationUseCase diIViewTeacherDoctorateCourseQualificationUseCase;
+@inject ICreateTeacherDoctorateCourseQualificationUseCase diICreateTeacherDoctorateCourseQualificationUseCase;
+@inject IEditTeacherDoctorateCourseQualificationUseCase diIEditTeacherDoctorateCourseQualificationUseCase;
+
+<DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                <div class=" dxgridlayoutitem_style">
+                    <center><h5>Select Teacher Name</h5></center>
+
+                    <div>
+
+                        <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
+
+
+                        <div style="margin-top: -32px; margin-left: 580px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                        </div>
+                    </div>
+                    <br />
+                    @if (enableSearchTeacherButton)
+                    {
+                        <DxDataGrid Data="@teacherDetailsList"
+                                    @bind-SingleSelectedDataRow="@onSelectOfTeacher"
+                                    CssClass="mw-1100">
+                            <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Caption="Teacher Name"></DxDataGridColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
+                        </DxDataGrid>
+
+                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Doctorate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadDoctorateCourseButton" Click="@loadDoctorateCourseQualifications" />
+                        </div>
+                    }
+                </div>
+
+                <br />
+
+                @*Aim:Search box for Doctorate course*@
+                @if (enableDoctorateCourseGridLayout)
+                {
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select Doctorate Course</h5></center>
+
+                        <div>
+                            <DxTextBox NullText="Search Doctorate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchDoctorateCourseKeyword) => onChangeDoctorateCourseSearchText(searchDoctorateCourseKeyword))"> </DxTextBox>
+
+
+                            <div style="margin-top: -32px; margin-left: 572px;">
+
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Doctorate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchDoctorateCourseButton" Click="@getDoctorateCourseOnSearch" />
+                            </div>
+                        </div>
+                        <br />
+                        @if (enableSearchDoctorateCourseButton)
+                        {
+                            <DxDataGrid Data="@doctorateCourseList"
+                                        @ref="@doctorateCourseGrid"
+                                        KeyFieldName="@nameof(DoctorateCourse.DoctorateCourseId)"
+                                        @bind-SingleSelectedDataRow="@onselectofdoctoratecourse"
+                                        CssClass="datagrid-border-radius-top-0 mw-1100">
+                                <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                                <DxDataGridColumn Field="@nameof(DoctorateCourse.DoctorateCourseName)" Caption="Doctorate Course"></DxDataGridColumn>
+
+
+                            </DxDataGrid>
+                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Doctorate Course" SizeMode="SizeMode.Small" Click="@AddDoctorateCourses" />
+                            </div>
+                        }
+                    </div>
+                }
+                <br />
+
+            </Template>
+        </DxGridLayoutItem>
+        @if (enableDoctorateCourseGridLayout)
+        {
+            <DxGridLayoutItem Row="1" Column="1">
+                <Template>
+
+
+                    <DxDataGrid Data="@teacherDoctorateCourseQualificationList"
+                                SelectionMode="DataGridSelectionMode.MultipleSelectedDataRows"
+                                @bind-MultipleSelectedDataRows="@onSelectOfTeacherDoctorateCourseQualification">
+                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+
+                        <DxDataGridColumn Field="@nameof(TeacherDoctorateCourse_Qualification.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherDoctorateCourse_Qualification.DoctorateCourseId)" Caption="Doctorate Course ID"></DxDataGridColumn>
+
+                    </DxDataGrid>
+                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Doctorate Course" SizeMode="SizeMode.Small" Click="@RemoveDoctorateCourse" />
+                    </div>
+                </Template>
+            </DxGridLayoutItem>
+        }
+    </Items>
+</DxGridLayout>
+
+@code {
+    DxDataGrid<TeacherBasicInformation> teacherGrid;
+    DxDataGrid<DoctorateCourse> doctorateCourseGrid;
+    DxDataGrid<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualificationGrid;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchTeacherKeyword = null;
+
+    //Aim : To hold the details of the teacher selected by the user
+    TeacherBasicInformation selectedTeacherDetails;
+
+    //Aim : To enable or disable teacher search button
+    public bool enableOrDisableSearchTeacherButton = false;
+
+    //Aim : To enable or disable Doctorate course search button
+    public bool enableOrDisableLoadDoctorateCourseButton = false;
+
+
+    public bool enableDoctorateCourseGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public bool enableOrDisableSearchDoctorateCourseButton = false;
+
+    //Aim:To enable Search Teacher table
+    public bool enableSearchTeacherButton = false;
+
+    //Aim:To enable search Doctorate course table
+    public bool enableSearchDoctorateCourseButton = false;
+
+    public bool enableTeacherDoctorateCourseQualificationGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchDoctorateCourseKeyword;
+
+    public int selectedTeacherId;
+
+    public DoctorateCourse selectedDoctorateCourseList;
+
+    public int selectedDoctorateId;
+
+    int SelectedCount { get; set; }
+
+    int StoredSelectedCount { get; set; }
+
+    int StoredUnselectedCount { get; set; }
+
+
+    //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
+    IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
+
+    //Aim : To hold the list of teachers /single record of DoctorateCourse details of type DoctorateCourse to display in the data grid.
+    IEnumerable<DoctorateCourse> doctorateCourseList = Enumerable.Empty<DoctorateCourse>();
+
+    //Aim : To hold the list of teachers /single record of TeacherDoctorateCourse_Qualification details of type TeacherDoctorateCourse_Qualification to display in the data grid.
+    IEnumerable<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualificationList = new List<TeacherDoctorateCourse_Qualification>();
+
+    IEnumerable<TeacherDoctorateCourse_Qualification> selectedTeacherDoctorateCourseQualifications;
+
+    //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+    public void onChangeTeacherSearchText(string searchTeacherText)
+    {
+        searchTeacherKeyword = searchTeacherText;
+
+        enableOrDisableSearchTeacherButton = true;
+        Console.WriteLine(enableOrDisableSearchTeacherButton);
+    }
+
+    //Aim: To fetch teacher/teachers details on click of teacher search button :
+    //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+    public void getTeacherListOnSearch()
+    {
+        Console.Write(searchTeacherKeyword);
+        teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        Console.Write(teacherDetailsList);
+        enableSearchTeacherButton = true;
+    }
+
+    //Aim : To call getTeacherDoctorateCourseQualifications method and to enable the "Load Doctorate Course" button.
+    public TeacherBasicInformation onSelectOfTeacher
+    {
+        get { return selectedTeacherDetails; }
+        set
+        {
+            selectedTeacherDetails = value;
+            Console.WriteLine(selectedTeacherDetails);
+            selectedTeacherId = selectedTeacherDetails.TeacherId;
+
+            enableOrDisableLoadDoctorateCourseButton = true;
+            Console.WriteLine(enableOrDisableLoadDoctorateCourseButton);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim:
+    //1.to enable the Doctorate course grid.
+    //2.to enable the teacher Doctorate course qualification grid.
+    //3.to invoke the method "getTeacherDoctorateCourseQualifications"
+
+    public void loadDoctorateCourseQualifications()
+    {
+        enableDoctorateCourseGridLayout = true;
+        Console.WriteLine(enableDoctorateCourseGridLayout);
+        enableTeacherDoctorateCourseQualificationGridLayout = true;
+        getTeacherDoctorateCourseQualifications();
+    }
+
+    //Aim : To determine if the user has entered any data in the Doctorate course search text box and to enable or disable the Doctorate course search button
+
+    public void onChangeDoctorateCourseSearchText(string searchDoctorateCourseText)
+    {
+        searchDoctorateCourseKeyword = searchDoctorateCourseText;
+        enableOrDisableSearchDoctorateCourseButton = true;
+        Console.WriteLine(enableOrDisableSearchDoctorateCourseButton);
+    }
+
+    //Aim:
+    //1.To fetch  Doctorate courses(which is matched with the searched criteria) on click of Doctorate course search button :
+    // IViewDoctorateCourseUseCase is used for fetching the Doctorate course list for the searched key.
+    //2.To invoke a method "getAvailableDoctorateCourses" for obtaining only the courses that are not already associated with the teacher and display the list.
+
+    public void getDoctorateCourseOnSearch()
+    {
+        doctorateCourseList = diIViewDoctorateCourseUseCase.ViewDoctorateCourse(searchDoctorateCourseKeyword);
+        enableSearchDoctorateCourseButton = true;
+
+        Console.WriteLine(doctorateCourseList);
+    }
+
+    //Aim : To capture the selected Doctorate course value and to enable the "Add Doctorate Course" button.
+    public DoctorateCourse onselectofdoctoratecourse
+    {
+        get { return selectedDoctorateCourseList; }
+        set
+        {
+            // Console.WriteLine(selectedDoctorateCourseList);
+            selectedDoctorateCourseList = value;
+            Console.WriteLine(selectedDoctorateCourseList.DoctorateCourseId);
+            selectedDoctorateId = selectedDoctorateCourseList.DoctorateCourseId;
+            Console.WriteLine(selectedDoctorateId);
+
+            InvokeAsync(StateHasChanged);
+        }
+
+    }
+
+    //Aim : To fetch teacher Doctorate course qualifications from TeacherDoctorateCourseQualification table for the selected teacher.
+
+    public void getTeacherDoctorateCourseQualifications()
+    {
+        Console.WriteLine(selectedTeacherId);
+        teacherDoctorateCourseQualificationList = diIViewTeacherDoctorateCourseQualificationUseCase.ViewTeacherDoctorateCourseQualification(selectedTeacherId);
+        Console.WriteLine(teacherDoctorateCourseQualificationList);
+
+        teacherDoctorateCourseQualificationList = diIViewTeacherDoctorateCourseQualificationUseCase.ViewTeacherDoctorateCourseQualification(selectedTeacherId);
+    }
+
+    //Aim: To save the teacher Doctorate course qualification record on click of save button.
+
+    public void AddDoctorateCourses()
+    {
+        Console.WriteLine(selectedTeacherId);
+        Console.WriteLine(selectedDoctorateId);
+        var addDoctorateCourse = diICreateTeacherDoctorateCourseQualificationUseCase.CreateTeacherDoctorateCourseQualification(selectedTeacherId, selectedDoctorateId);
+        Console.WriteLine(addDoctorateCourse);
+    }
+
+    //Aim : To capture the selected teacher Doctorate course qualification value and to enable the "Remove Doctorate Course" button.
+    IEnumerable<TeacherDoctorateCourse_Qualification> onSelectOfTeacherDoctorateCourseQualification
+    {
+        get { return selectedTeacherDoctorateCourseQualifications; }
+        set
+        {
+            selectedTeacherDoctorateCourseQualifications = value;
+            Console.WriteLine(selectedTeacherDoctorateCourseQualifications);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim: To remove the teacher Doctorate course qualification record on click of "Remove Doctorate Course" button.
+    public void RemoveDoctorateCourse()
+    {
+        List<TeacherDoctorateCourse_Qualification> List = selectedTeacherDoctorateCourseQualifications.ToList();
+        var removeDoctorateCourse = diIEditTeacherDoctorateCourseQualificationUseCase.EditTeacherDoctorateCourseQualification(List);
+        Console.WriteLine(removeDoctorateCourse);
+    }
+
+}
