@@ -81,6 +81,12 @@ using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicIn
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.UpdateTeacherbasicInformationScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.CreateTeacherCertificateCourseQualificationScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.CreateTeacherCertificateCourseQualificationScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.EditTeacherCertificateCourseQualificationScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.EditTeacherCertificateCourseQualificationScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.ViewTeacherCertificateCourseQualificationScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.ViewTeacherCertificateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.CreateTeacherDoctorateCourseQualificationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.CreateTeacherDoctorateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.EditTeacherDoctorateCourseQualificationScreen;
@@ -211,11 +217,17 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ICreateTeacherPostGraduateCourseQualificationUseCase, CreateTeacherPostGraduateCourseQualificationUseCase>();
             services.AddTransient<IEditTeacherPostGraduateCourseQualificationUseCase, EditTeacherPostGraduateCourseQualificationUseCase>();
 
-            services.AddTransient<IViewTeacheDoctorateCourseQualificationUseCase, ViewTeacherDoctorateCourseQualificationUseCase>();
+            services.AddTransient<IViewTeacherDoctorateCourseQualificationUseCase, ViewTeacherDoctorateCourseQualificationUseCase>();
             services.AddTransient<ITeacherDoctorateCourse_QualificationRepository, TeacherDoctorateCourse_QualificationRepository>();
             services.AddTransient<ICreateTeacherDoctorateCourseQualificationUseCase, CreateTeacherDoctorateCourseQualificationUseCase>();
             services.AddTransient<IEditTeacherDoctorateCourseQualificationUseCase, EditTeacherDoctorateCourseQualificationUseCase>();
 
+
+            services.AddTransient<IViewTeacherCertificateCourseQualificationUseCase, ViewTeacherCertificateCourseQualificationUseCase>();
+            services.AddTransient<ITeacherCertificateCourse_QualificationRepository, TeacherCertificateCourse_QualificationRepository>();
+            services.AddTransient<ICreateTeacherCertificateCourseQualificationUseCase, CreateTeacherCertificateCourseQualificationUseCase>();
+            services.AddTransient<IEditTeacherCertificateCourseQualificationUseCase, EditTeacherCertificateCourseQualificationUseCase>();
+            
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));
         }

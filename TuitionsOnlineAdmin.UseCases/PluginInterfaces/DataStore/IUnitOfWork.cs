@@ -161,5 +161,19 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //Aim : The method is responsible to hold the contract for editing the Doctorate course qualification.
         public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualifications);
+
+        //Authors: SA, BM, SM, BA, KK
+        //Date:24-Feb-2021
+        //To View ,create and edit TeacherCertificateCourse_Qualification
+
+        //To view TeacherCertificateCourse_Qualification
+        public List<TeacherCertificateCourse_Qualification> ViewTeacherCertificateCourseQualification(int teacherId);
+
+        //Aim : The method is responsible to hold the contract for creating the Certificate course qualification.
+        public string CreateTeacherCertificateCourseQualification(int teacherId, int selectedCertificateCourses);
+
+        //Aim : The method is responsible to hold the contract for editing the Certificate course qualification.
+        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications);
+
     }
 }

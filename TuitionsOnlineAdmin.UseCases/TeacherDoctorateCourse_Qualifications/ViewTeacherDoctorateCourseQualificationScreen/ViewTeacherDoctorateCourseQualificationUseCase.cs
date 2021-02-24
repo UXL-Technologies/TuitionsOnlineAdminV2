@@ -11,7 +11,7 @@ using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.ViewTea
 
 namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.ViewTeacherDoctorateCourseQualificationScreen
 {
-   public  class ViewTeacherDoctorateCourseQualificationUseCase : IViewTeacheDoctorateCourseQualificationUseCase
+   public  class ViewTeacherDoctorateCourseQualificationUseCase : IViewTeacherDoctorateCourseQualificationUseCase
     {
         //property dependency injection
         private readonly IUnitOfWork diIUnitOfWork;

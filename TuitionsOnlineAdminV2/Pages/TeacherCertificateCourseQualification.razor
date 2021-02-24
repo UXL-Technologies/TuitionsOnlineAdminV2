@@ -1,0 +1,312 @@
+﻿@page "/TeacherCertificateCourseQualification"
+@*Authors : SA,BM,KK,SM,BA
+    Date:19/02/2021
+    Aim: To create a serach box and to display the list of teachers  *@
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.ViewTeacherCertificateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.CreateTeacherCertificateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.EditTeacherCertificateCourseQualificationScreen.Interfaces
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
+@inject IViewCertificateCourseUseCase diIViewCertificateCourseUseCase;
+@inject IViewTeacherCertificateCourseQualificationUseCase diIViewTeacherCertificateCourseQualificationUseCase;
+@inject ICreateTeacherCertificateCourseQualificationUseCase diCreateTeacherCertificateCourseQualificationUseCase;
+@inject IEditTeacherCertificateCourseQualificationUseCase diEditTeacherCertificateCourseQualificationUseCase;
+
+
+
+
+<DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                <div class=" dxgridlayoutitem_style">
+                    <center><h5>Select Teacher Name</h5></center>
+
+                    <div>
+
+                        <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
+
+
+                        <div style="margin-top: -32px; margin-left: 580px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                        </div>
+                    </div>
+                    <br />
+                    @if (enableSearchTeacherButton)
+                    {
+                        <DxDataGrid Data="@teacherDetailsList"
+                                    @bind-SingleSelectedDataRow="@onSelectOfTeacher"
+                                    CssClass="mw-1100">
+                            <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Caption="Teacher Name"></DxDataGridColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
+                        </DxDataGrid>
+
+                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Certificate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadCertificateCourseButton" Click="@loadCertificateCourseQualifications" />
+                        </div>
+                    }
+                </div>
+
+                <br />
+
+                @*Aim:Search box for Certificate course*@
+                @if (enableCertificateCourseGridLayout)
+                {
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select Certificate Course</h5></center>
+
+                        <div>
+                            <DxTextBox NullText="Search Certificate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchCertificateCourseKeyword) => onChangeCertificateCourseSearchText(searchCertificateCourseKeyword))"> </DxTextBox>
+
+
+                            <div style="margin-top: -32px; margin-left: 572px;">
+
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Certificate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchCertificateCourseButton" Click="@getCertificateCourseOnSearch" />
+                            </div>
+                        </div>
+                        <br />
+                        @if (enableSearchCertificateCourseButton)
+                        {
+                            <DxDataGrid Data="@certificateCourseList"
+                                        @ref="@certificateCourseGrid"
+                                        KeyFieldName="@nameof(CertificateCourse.CertificateCourseId)"
+                                        @bind-SingleSelectedDataRow="@onselectofcertificatecourse"
+                                        CssClass="datagrid-border-radius-top-0 mw-1100">
+                                <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                                <DxDataGridColumn Field="@nameof(CertificateCourse.CertificateCourseName)" Caption="Certificate Course"></DxDataGridColumn>
+
+
+                            </DxDataGrid>
+                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Certificate Course" SizeMode="SizeMode.Small" Click="@AddCertificateCourses" />
+                            </div>
+                        }
+                    </div>
+                }
+                <br />
+
+            </Template>
+        </DxGridLayoutItem>
+        @if (enableCertificateCourseGridLayout)
+        {
+            <DxGridLayoutItem Row="1" Column="1">
+                <Template>
+
+
+                    <DxDataGrid Data="@teacherCertificateCourseQualificationList"
+                                SelectionMode="DataGridSelectionMode.MultipleSelectedDataRows"
+                                @bind-MultipleSelectedDataRows="@onSelectOfTeacherCertificateCourseQualification">
+                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+
+                        <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_Qualification.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_Qualification.CertificateCourseId)" Caption="Certificate Course ID"></DxDataGridColumn>
+
+                    </DxDataGrid>
+                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Certificate Course" SizeMode="SizeMode.Small" Click="@RemoveCertificateCourse" />
+                    </div>
+                </Template>
+            </DxGridLayoutItem>
+        }
+    </Items>
+</DxGridLayout>
+
+@code {
+
+    DxDataGrid<TeacherBasicInformation> teacherGrid;
+    DxDataGrid<CertificateCourse> certificateCourseGrid;
+    DxDataGrid<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualificationGrid;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchTeacherKeyword = null;
+
+    //Aim : To hold the details of the teacher selected by the user
+    TeacherBasicInformation selectedTeacherDetails;
+
+    //Aim : To enable or disable teacher search button
+    public bool enableOrDisableSearchTeacherButton = false;
+
+    //Aim : To enable or disable Certificate course search button
+    public bool enableOrDisableLoadCertificateCourseButton = false;
+
+
+    public bool enableCertificateCourseGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public bool enableOrDisableSearchCertificateCourseButton = false;
+
+    //Aim:To enable Search Teacher table
+    public bool enableSearchTeacherButton = false;
+
+    //Aim:To enable search Certificate course table
+    public bool enableSearchCertificateCourseButton = false;
+
+    public bool enableTeacherCertificateCourseQualificationGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchCertificateCourseKeyword;
+
+    public int selectedTeacherId;
+
+    public CertificateCourse selectedCertificateCourseList;
+
+    public int selectedCertificateId;
+
+    int SelectedCount { get; set; }
+
+    int StoredSelectedCount { get; set; }
+
+    int StoredUnselectedCount { get; set; }
+
+
+    //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
+    IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
+
+    //Aim : To hold the list of teachers /single record of CertificateCourse details of type CertificateCourse to display in the data grid.
+    IEnumerable<CertificateCourse> certificateCourseList = Enumerable.Empty<CertificateCourse>();
+
+    //Aim : To hold the list of teachers /single record of TeacherCertificateCourse_Qualification details of type TeacherCertificateCourse_Qualification to display in the data grid.
+    IEnumerable<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_Qualification>();
+
+    IEnumerable<TeacherCertificateCourse_Qualification> selectedTeacherCertificateCourseQualifications;
+
+    //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+    public void onChangeTeacherSearchText(string searchTeacherText)
+    {
+        searchTeacherKeyword = searchTeacherText;
+
+        enableOrDisableSearchTeacherButton = true;
+        Console.WriteLine(enableOrDisableSearchTeacherButton);
+    }
+
+    //Aim: To fetch teacher/teachers details on click of teacher search button :
+    //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+    public void getTeacherListOnSearch()
+    {
+        Console.Write(searchTeacherKeyword);
+        teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        Console.Write(teacherDetailsList);
+        enableSearchTeacherButton = true;
+    }
+
+    //Aim : To call getTeacherCertificateCourseQualifications method and to enable the "Load Certificate Course" button.
+    public TeacherBasicInformation onSelectOfTeacher
+    {
+        get { return selectedTeacherDetails; }
+        set
+        {
+            selectedTeacherDetails = value;
+            Console.WriteLine(selectedTeacherDetails);
+            selectedTeacherId = selectedTeacherDetails.TeacherId;
+
+            enableOrDisableLoadCertificateCourseButton = true;
+            Console.WriteLine(enableOrDisableLoadCertificateCourseButton);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim:
+    //1.to enable the Certificate course grid.
+    //2.to enable the teacher Certificate course qualification grid.
+    //3.to invoke the method "getTeacherCertificateCourseQualifications"
+
+    public void loadCertificateCourseQualifications()
+    {
+        enableCertificateCourseGridLayout = true;
+        Console.WriteLine(enableCertificateCourseGridLayout);
+        enableTeacherCertificateCourseQualificationGridLayout = true;
+        getTeacherCertificateCourseQualifications();
+    }
+
+    //Aim : To determine if the user has entered any data in the Certificate course search text box and to enable or disable the Certificate course search button
+
+    public void onChangeCertificateCourseSearchText(string searchCertificateCourseText)
+    {
+        searchCertificateCourseKeyword = searchCertificateCourseText;
+        enableOrDisableSearchCertificateCourseButton = true;
+        Console.WriteLine(enableOrDisableSearchCertificateCourseButton);
+    }
+
+    //Aim:
+    //1.To fetch  Certificate courses(which is matched with the searched criteria) on click of Certificate course search button :
+    // IViewCertificateCourseUseCase is used for fetching the Certificate course list for the searched key.
+    //2.To invoke a method "getAvailableCertificateCourses" for obtaining only the courses that are not already associated with the teacher and display the list.
+
+    public void getCertificateCourseOnSearch()
+    {
+        certificateCourseList = diIViewCertificateCourseUseCase.ViewCertificateCourse(searchCertificateCourseKeyword);
+        enableSearchCertificateCourseButton = true;
+
+        Console.WriteLine(certificateCourseList);
+    }
+
+    //Aim : To capture the selected Certificate course value and to enable the "Add Certificate Course" button.
+    public CertificateCourse onselectofcertificatecourse
+    {
+        get { return selectedCertificateCourseList; }
+        set
+        {
+            // Console.WriteLine(selectedPostGraduateCourseList);
+            selectedCertificateCourseList = value;
+            Console.WriteLine(selectedCertificateCourseList.CertificateCourseId);
+            selectedCertificateId = selectedCertificateCourseList.CertificateCourseId;
+            Console.WriteLine(selectedCertificateId);
+
+            InvokeAsync(StateHasChanged);
+        }
+
+    }
+
+    //Aim : To fetch teacher Certificate course qualifications from TeacherCertificateCourseQualification table for the selected teacher.
+
+    public void getTeacherCertificateCourseQualifications()
+    {
+        Console.WriteLine(selectedTeacherId);
+        //teacherCertificateCourseQualificationList = diIViewTeacherCertificateCourseQualificationUseCase.ViewTeacherCertificateCourseQualification(selectedTeacherId);
+        Console.WriteLine(teacherCertificateCourseQualificationList);
+
+        teacherCertificateCourseQualificationList = diIViewTeacherCertificateCourseQualificationUseCase.ViewTeacherCertificateCourseQualification(selectedTeacherId);
+    }
+
+    //Aim: To save the teacher Certificate course qualification record on click of save button.
+
+    public void AddCertificateCourses()
+    {
+        Console.WriteLine(selectedTeacherId);
+        Console.WriteLine(selectedCertificateId);
+        var addCertificateCourse = diCreateTeacherCertificateCourseQualificationUseCase.CreateTeacherCertificateCourseQualification(selectedTeacherId, selectedCertificateId);
+        //Console.WriteLine(addCertificateCourse);
+    }
+
+    //Aim : To capture the selected teacher Certificate course qualification value and to enable the "Remove Certificate Course" button.
+    IEnumerable<TeacherCertificateCourse_Qualification> onSelectOfTeacherCertificateCourseQualification
+    {
+        get { return selectedTeacherCertificateCourseQualifications; }
+        set
+        {
+            selectedTeacherCertificateCourseQualifications = value;
+            Console.WriteLine(selectedTeacherCertificateCourseQualifications);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim: To remove the teacher Certificate course qualification record on click of "Remove Certificate Course" button.
+    public void RemoveCertificateCourse()
+    {
+        List<TeacherCertificateCourse_Qualification> List = selectedTeacherCertificateCourseQualifications.ToList();
+        var removeCertificateCourse = diEditTeacherCertificateCourseQualificationUseCase.EditTeacherCertificateCourseQualification(List);
+        //Console.WriteLine(removeCertificateCourse);
+    }
+}

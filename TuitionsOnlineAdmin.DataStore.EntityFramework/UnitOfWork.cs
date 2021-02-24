@@ -43,12 +43,15 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ITeacherDoctorateCourse_QualificationRepository diITeacherDoctorateCourse_QualificationRepository;
 
+        private readonly ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository;
+
         public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
             ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
             ICurrencyRepository instanceOfICurrencyRepository, ISubjectRepository instanceOfISubjectRepository, IGradeRepository instanceOfIGradeRepository,
             ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository,
             ITeacherBasicInformationRepository diITeacherBasicInformationRepository, ITeacherGraduateCourse_QualificationRepository diITeacherGraduateCourse_QualificationRepository,
-            ITeacherPostGraduateCourse_QualificationRepository diITeacherPostGraduateCourse_QualificationRepository, ITeacherDoctorateCourse_QualificationRepository diITeacherDoctorateCourse_QualificationRepository)
+            ITeacherPostGraduateCourse_QualificationRepository diITeacherPostGraduateCourse_QualificationRepository, ITeacherDoctorateCourse_QualificationRepository diITeacherDoctorateCourse_QualificationRepository,
+            ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository)
         {
             this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
             this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
@@ -64,6 +67,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.diITeacherGraduateCourse_QualificationRepository = diITeacherGraduateCourse_QualificationRepository;
             this.diITeacherPostGraduateCourse_QualificationRepository = diITeacherPostGraduateCourse_QualificationRepository;
             this.diITeacherDoctorateCourse_QualificationRepository = diITeacherDoctorateCourse_QualificationRepository;
+            this.diITeacherCertificateCourse_QualificationRepository = diITeacherCertificateCourse_QualificationRepository;
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
         public string CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -402,6 +406,40 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
             var result = diITeacherDoctorateCourse_QualificationRepository.EditTeacherDoctorateCourseQualification(teacherDoctorateCourseQualifications);
             return result;
+
         }
+
+        //Authors: SA, BM, SM, BA, KK
+        // Date:24-Feb-2021
+
+        //Aim : The ViewTeacherCertificateCourseQualification method is responsible to view the teacher Certificate course qualification details for the teacherId. 
+        public List<TeacherCertificateCourse_Qualification> ViewTeacherCertificateCourseQualification(int teacherId)
+        {
+            var teacherCertificateCourseQualificationList = diITeacherCertificateCourse_QualificationRepository.ViewCertificateCourseQualificationRepository(teacherId);
+            Console.WriteLine(teacherCertificateCourseQualificationList);
+            return teacherCertificateCourseQualificationList;
+        }
+
+        //Aim : The CreateTeacherCertificateCourseQualification method is responsible to view the teacher Certificate course qualification.
+        public string CreateTeacherCertificateCourseQualification(int teacherId, int selectedCertificateCourses)
+        {
+            Console.WriteLine(teacherId);
+            Console.WriteLine(selectedCertificateCourses);
+            var result = diITeacherCertificateCourse_QualificationRepository.CreateTeacherCertificateCourseQualification(teacherId, selectedCertificateCourses);
+            //Console.WriteLine(teacherId);
+            return result;
+        }
+
+
+        // Aim : The EditTeacherCertificateCourseQualification method is responsible to remove the teacher Certificate course qualification.
+        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications)
+        {
+            Console.WriteLine(teacherCertificateCourseQualifications);
+
+            var result = diITeacherCertificateCourse_QualificationRepository.EditTeacherCertificateCourseQualification(teacherCertificateCourseQualifications);
+            return result;
+
+        }
+
     }
 }

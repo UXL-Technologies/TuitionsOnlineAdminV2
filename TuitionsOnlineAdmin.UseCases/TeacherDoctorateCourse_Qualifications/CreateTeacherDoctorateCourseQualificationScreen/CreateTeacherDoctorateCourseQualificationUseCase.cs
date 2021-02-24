@@ -12,9 +12,8 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.Cre
 {
    public class CreateTeacherDoctorateCourseQualificationUseCase : ICreateTeacherDoctorateCourseQualificationUseCase
     {
-        // Aim: Property dependency injection of IUnitOfWork for creating the teacher //Authors: SA, BM, SM,BA ,KK
-        //Date:23-Feb-2021
-        //Aim: defining the class for TeacherDoctorateCourse_Qualification course qualifications.
+        // Aim: Property dependency injection of IUnitOfWork for creating the teacher 
+        
         private readonly IUnitOfWork diIUnitOfWork;
 
         // Aim: Constructor dependency injection of IUnitOfWork for creating the teacher Doctorate course qualifications.

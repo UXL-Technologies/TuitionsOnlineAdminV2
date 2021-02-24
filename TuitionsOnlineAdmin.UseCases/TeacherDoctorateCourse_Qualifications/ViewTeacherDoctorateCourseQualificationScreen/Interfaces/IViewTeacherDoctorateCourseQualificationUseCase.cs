@@ -9,7 +9,7 @@ using TuitionsOnlineAdmin.CoreBusiness;
 
 namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.ViewTeacherDoctorateCourseQualificationScreen.Interfaces
 {
-  public  interface IViewTeacheDoctorateCourseQualificationUseCase
+    public interface IViewTeacherDoctorateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for viewing the teacher Doctorate course qualification. 
         public List<TeacherDoctorateCourse_Qualification> ViewTeacherDoctorateCourseQualification(int teacherId);
