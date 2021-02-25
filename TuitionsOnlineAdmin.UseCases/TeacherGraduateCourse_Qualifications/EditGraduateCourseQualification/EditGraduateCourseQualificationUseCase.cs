@@ -25,6 +25,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.Edit
         }
         public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications)
         {
+            Console.WriteLine(teacherGraduateCourseQualifications);
             var result = diIUnitOfWork.EditGraduateCourseQualification(teacherGraduateCourseQualifications);
             return result;
         }

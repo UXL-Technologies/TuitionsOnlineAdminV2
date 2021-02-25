@@ -41,7 +41,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                          Console.WriteLine(teacherGraduateCourseQualificationWithForeignKeyList);
                         var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherGraduateCourseQualification.TeacherId);
                         var GraduateCourseDetails = diTuitionsOnlineAdminDbContext.GraduateCourse.FirstOrDefault(s=>s.GraduateCourseId == teacherGraduateCourseQualification.GraduateCourseId);
-                        teacherGraduateCourseQualificationWithForeignKeyList.Add(new TeacherGraduateCourse_QualificationWithForeignKey() { TeacherName = TeacherDetails.Teacher_Name, GraduateCourseName = GraduateCourseDetails.GraduateCourseName });
+                        teacherGraduateCourseQualificationWithForeignKeyList.Add(new TeacherGraduateCourse_QualificationWithForeignKey() { TeacherName = TeacherDetails.Teacher_Name, GraduateCourseName = GraduateCourseDetails.GraduateCourseName, GraduateCourseId
+                        = GraduateCourseDetails.GraduateCourseId, TeacherId = TeacherDetails.TeacherId, TeacherGraduateCourse_QualificationId = teacherGraduateCourseQualification.TeacherGraduateCourse_QualificationId
+                        });
                     }
                 }
                 if (teacherGraduateCourseQualificationWithForeignKeyList == null)
@@ -80,9 +82,15 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         {
             try
             {
+                Console.WriteLine(teacherGraduateCourseQualifications);
                 foreach (var teacherGraduateCourses in teacherGraduateCourseQualifications) 
-                { 
-                diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Remove(teacherGraduateCourses);
+                {
+                    Console.WriteLine(teacherGraduateCourses);
+                    //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
+                    // };
+                    // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
+                    //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
+                    diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Remove(new TeacherGraduateCourse_Qualification() { TeacherGraduateCourse_QualificationId = teacherGraduateCourses.TeacherGraduateCourse_QualificationId });
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";
