@@ -122,7 +122,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM, BA, KK
         //Date:19-Feb-2021
         //To view TeacherGraduateCourse_Qualification
-        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
+        public List<TeacherGraduateCourse_QualificationWithForeignKey> ViewTeacherGraduateCourseQualification(int teacherId);
 
 
         //Authors: SA, BM, SM, BA, KK

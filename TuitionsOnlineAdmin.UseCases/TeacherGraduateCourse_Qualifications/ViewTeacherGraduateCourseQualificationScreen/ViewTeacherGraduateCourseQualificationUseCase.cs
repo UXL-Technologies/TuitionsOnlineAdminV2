@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourseQualification.ViewTe
         }
 
         // Aim : The ViewGraduateCourseUseCase method is responsible to get the teacher graduate course qualification record if exists else provide an empty container of teacher graduate course qualification.
-        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId)
+        public List<TeacherGraduateCourse_QualificationWithForeignKey> ViewTeacherGraduateCourseQualification(int teacherId)
         {
             var teacherGraduateCourseQualificationList = diIUnitOfWork.ViewTeacherGraduateCourseQualification(teacherId);
             Console.WriteLine(teacherGraduateCourseQualificationList);

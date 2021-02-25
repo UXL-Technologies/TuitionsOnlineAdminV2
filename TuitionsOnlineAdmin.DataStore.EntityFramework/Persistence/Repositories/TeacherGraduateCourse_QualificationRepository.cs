@@ -22,30 +22,36 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To view Graduate Course Qualifications from the database
-        public List<TeacherGraduateCourse_Qualification> ViewGraduateCourseQualificationRepository(int teacherId)
+        public List<TeacherGraduateCourse_QualificationWithForeignKey> ViewGraduateCourseQualificationRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
             List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
-
+            List<TeacherGraduateCourse_QualificationWithForeignKey> teacherGraduateCourseQualificationWithForeignKeyList = new List<TeacherGraduateCourse_QualificationWithForeignKey>() { };
+            TeacherGraduateCourse_QualificationWithForeignKey teacherGraduateCourseQualificationWithForeignKey = new TeacherGraduateCourse_QualificationWithForeignKey();
+          //  List<TeacherGraduateCourse_QualificationWithForeignKey> list = new List<TeacherGraduateCourse_QualificationWithForeignKey>();
             try
             {
                 if (teacherId != 0)
                 {
-                    Console.WriteLine(teacherId);
+                    //Console.WriteLine(teacherId);
                     teacherGraduateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherGraduateCourseQualificationList);
-                    if (teacherGraduateCourseQualificationList == null) {
-                        teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
+                    foreach (var teacherGraduateCourseQualification in teacherGraduateCourseQualificationList) {
+                        var list1 = new List<TeacherGraduateCourse_QualificationWithForeignKey>();
+                         Console.WriteLine(teacherGraduateCourseQualificationWithForeignKeyList);
+                        var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherGraduateCourseQualification.TeacherId);
+                        var GraduateCourseDetails = diTuitionsOnlineAdminDbContext.GraduateCourse.FirstOrDefault(s=>s.GraduateCourseId == teacherGraduateCourseQualification.GraduateCourseId);
+                        teacherGraduateCourseQualificationWithForeignKeyList.Add(new TeacherGraduateCourse_QualificationWithForeignKey() { TeacherName = TeacherDetails.Teacher_Name, GraduateCourseName = GraduateCourseDetails.GraduateCourseName });
                     }
                 }
-                Console.WriteLine(teacherGraduateCourseQualificationList);
-                return teacherGraduateCourseQualificationList;
-
-
+                if (teacherGraduateCourseQualificationWithForeignKeyList == null)
+                {
+                    teacherGraduateCourseQualificationWithForeignKeyList = new List<TeacherGraduateCourse_QualificationWithForeignKey>();
+                }
+                return teacherGraduateCourseQualificationWithForeignKeyList;
             }
             catch (Exception) {
-                return teacherGraduateCourseQualificationList = null;
-
+                return teacherGraduateCourseQualificationWithForeignKeyList = null;
             }
         }
 

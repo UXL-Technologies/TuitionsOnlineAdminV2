@@ -7,7 +7,10 @@ namespace TuitionsOnlineAdmin.CoreBusiness
 {
     public class TeacherGraduateCourse_QualificationWithForeignKey:TeacherGraduateCourse_Qualification
     {
-        [ForeignKey("TeacherId")]
-        public virtual TeacherBasicInformation TeacherBasicInformation { get; set; }
+        public string TeacherName { get; set; }
+
+        public string GraduateCourseName { get; set; }
+        //[ForeignKey("TeacherId")]
+        //public virtual TeacherBasicInformation TeacherBasicInformation { get; set; }
     }
 }

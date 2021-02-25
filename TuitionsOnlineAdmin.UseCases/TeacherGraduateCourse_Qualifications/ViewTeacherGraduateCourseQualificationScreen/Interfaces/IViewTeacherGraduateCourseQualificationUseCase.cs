@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.View
   public  interface IViewTeacherGraduateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for viewing the teacher graduate course qualification. 
-        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
+        public List<TeacherGraduateCourse_QualificationWithForeignKey> ViewTeacherGraduateCourseQualification(int teacherId);
       
     }
 }

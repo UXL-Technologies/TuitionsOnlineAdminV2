@@ -314,7 +314,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         // Date:22-Feb-2021
 
         //Aim : The ViewTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification details for the teacherId. 
-        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId)
+        public List<TeacherGraduateCourse_QualificationWithForeignKey> ViewTeacherGraduateCourseQualification(int teacherId)
         {
             var teacherGraduateCourseQualificationList = diITeacherGraduateCourse_QualificationRepository.ViewGraduateCourseQualificationRepository(teacherId);
             Console.WriteLine(teacherGraduateCourseQualificationList);
