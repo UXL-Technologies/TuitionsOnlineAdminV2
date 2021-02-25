@@ -47,6 +47,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ITeacherHighSchoolBoardRepository diITeacherHighSchoolBoardRepository;
 
+        private readonly IUniversityRepository instanceOfIUniversityRepository;
+
 
         public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
             ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
@@ -54,7 +56,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository,
             ITeacherBasicInformationRepository diITeacherBasicInformationRepository, ITeacherGraduateCourse_QualificationRepository diITeacherGraduateCourse_QualificationRepository,
             ITeacherPostGraduateCourse_QualificationRepository diITeacherPostGraduateCourse_QualificationRepository, ITeacherDoctorateCourse_QualificationRepository diITeacherDoctorateCourse_QualificationRepository,
-            ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository, ITeacherHighSchoolBoardRepository diITeacherHighSchoolBoardRepository)
+            ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository, ITeacherHighSchoolBoardRepository diITeacherHighSchoolBoardRepository,
+            IUniversityRepository instanceOfIUniversityRepository)
         {
             this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
             this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
@@ -72,6 +75,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.diITeacherDoctorateCourse_QualificationRepository = diITeacherDoctorateCourse_QualificationRepository;
             this.diITeacherCertificateCourse_QualificationRepository = diITeacherCertificateCourse_QualificationRepository;
             this.diITeacherHighSchoolBoardRepository = diITeacherHighSchoolBoardRepository;
+            this.instanceOfIUniversityRepository = instanceOfIUniversityRepository;
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
         public string CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -473,6 +477,30 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             var result = diITeacherHighSchoolBoardRepository.EditTeacherHighSchoolBoard(teacherHighSchoolBoards);
             return result;
 
+        }
+
+
+
+
+        //Authors: SA, BM, SM, BA, KK
+        // Date:25-Feb-2021
+        //to Create a University by invoking CreateUniversityRepository of UniversityRepository
+        public string CreateUniversity(University university)
+        {
+            string result = instanceOfIUniversityRepository.CreateUniversityRepository(university);
+            return result;
+        }
+        //to update a University  by invoking UpdateUniversityRepository of UniversityRepository
+        public string UpdateUniversity(University university)
+        {
+            instanceOfIUniversityRepository.UpdateUniversityRepository(university);
+            return "done";
+        }
+        //to view a University by invoking ViewUniversityRepository of UniversityRepository
+        public List<University> ViewUniversities(string searchKey)
+        {
+            var universityList = instanceOfIUniversityRepository.ViewUniversityRepository(searchKey);
+            return universityList;
         }
     }
 }

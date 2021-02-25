@@ -118,6 +118,12 @@ using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.UpdateTeacherVideoScreen.Interface;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.ViewTeacherVideoScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherVideos.ViewTeacherVideoScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.Universities.CreateUniversityScreen;
+using TuitionsOnlineAdmin.UseCases.Universities.CreateUniversityScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.Universities.UpdateUniversityScreen;
+using TuitionsOnlineAdmin.UseCases.Universities.UpdateUniversityScreen.Interface;
+using TuitionsOnlineAdmin.UseCases.Universities.ViewUniversityScreen;
+using TuitionsOnlineAdmin.UseCases.Universities.ViewUniversityScreen.Intefaces;
 using TuitionsOnlineAdminV2.Data;
 
 namespace TuitionsOnlineAdminV2
@@ -238,6 +244,11 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ITeacherHighSchoolBoardRepository, TeacherHighSchoolBoardRepository>();
             services.AddTransient<ICreateTeacherHighSchoolBoardUseCase, CreateTeacherHighSchoolBoardUseCase>();
             services.AddTransient<IEditTeacherHighSchoolBoardUseCase, EditTeacherHighSchoolBoardUseCase>();
+
+            services.AddTransient<ICreateUniversityUseCase, CreateUniversityUseCase>();
+            services.AddTransient<IUniversityRepository, UniversityRepository>();
+            services.AddTransient<IViewUniversityUseCase, ViewUniversityUseCase>();
+            services.AddTransient<IUpdateUniversityUseCase, UpdateUniversityUseCase>();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));

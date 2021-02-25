@@ -192,11 +192,17 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Aim : The method is responsible to hold the contract for editing the HighSchoolBoard.
         public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards);
 
+        //Authors: SA, BM, SM, BA, KK
+        //Date:25-Feb-2021
+        //To View ,create and edit University
 
+        //Aim : The method is responsible to hold the contract for creating the University.
+        string CreateUniversity(University university);
 
-
-
-
+        //To update University
+        string UpdateUniversity(University university);
+        //To view University
+        List<University> ViewUniversities(string searchKey);
 
     }
 }

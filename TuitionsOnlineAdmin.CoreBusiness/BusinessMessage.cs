@@ -52,8 +52,9 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERBASICINFORMATION = "There has been an error with the error code 211. Please inform systemadmin@tuitionsonline.center with the screen shot";
         public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERBASICINFORMATION = "There has been an error with the error code 311. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
-
-
+        public string UNKNOWN_SERVER_ERROR_CREATE_UNIVERSITY = "There has been an error with the error code 105. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_UNIVERSITY = "There has been an error with the error code 305. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_UNIVERSITY = "There has been an error with the error code 205. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
 
 
