@@ -11,7 +11,7 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScreen
 {
-    public class CreateHighSchoolBoardUseCase : ICreateHighSchoolBoardUseCase
+   public class CreateHighSchoolBoardUseCase : ICreateHighSchoolBoardUseCase
     {
         //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
@@ -27,7 +27,7 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScr
         {
 
             Console.WriteLine("I have reached create HighSchoolBoard");
-           string result =  instanceOfIUnitOfWork.CreateHighSchoolBoard(highSchoolBoard);
+            string result = instanceOfIUnitOfWork.CreateHighSchoolBoard(highSchoolBoard);
             return result;
         }
     }

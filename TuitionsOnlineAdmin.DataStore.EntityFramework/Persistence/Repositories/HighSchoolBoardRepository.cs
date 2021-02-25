@@ -24,12 +24,15 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To create a single record for HighSchoolBoard
         public string CreateHighSchoolBoardRepository(HighSchoolBoard highSchoolBoard)
         {
+            Console.WriteLine(highSchoolBoard);
             try {
+                Console.WriteLine(highSchoolBoard);
                 instanceOfDbContext.HighSchoolBoard.Add(highSchoolBoard);
                 instanceOfDbContext.SaveChanges();
                 return "done";
             }
             catch (Exception) {
+                Console.WriteLine(highSchoolBoard);
                 BusinessMessage businessMessage = new BusinessMessage();
                 return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_HIGHSCHOOLBOARD;
             }
@@ -41,9 +44,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //To view HighSchoolBoard based on the search criteria 
         public List<HighSchoolBoard> ViewHighSchoolBoardRepository(string searchKey)
         {
+            Console.WriteLine(searchKey);
             try {
                 if (searchKey != null)
                 {
+                    Console.WriteLine(searchKey);
                     List<HighSchoolBoard> highSchoolBoardList = new List<HighSchoolBoard>();
                     highSchoolBoardList = instanceOfDbContext.HighSchoolBoard.Where(s => s.HighSchoolBoardName.Contains(searchKey)).ToList();
                     return highSchoolBoardList;

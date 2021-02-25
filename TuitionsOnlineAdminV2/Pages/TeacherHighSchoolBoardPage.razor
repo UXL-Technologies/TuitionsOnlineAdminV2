@@ -1,0 +1,299 @@
+﻿@page "/TeacherHighSchoolBoard"
+@*Authors : SA,BM,KK,SM,BA
+    Date:19/02/2021
+    Aim: To create a serach box and to display the list of teachers  *@
+
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.HighSchoolBoards.ViewHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.CreateTeacherHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.EditTeacherHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.ViewTeacherHighSchoolBoardScreen.Interfaces
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
+@inject IViewHighSchoolBoardUseCase diIViewHighSchoolBoardUseCase;
+@inject ICreateTeacherHighSchoolBoardUseCase diICreateTeacherHighSchoolBoardUseCase;
+@inject IEditTeacherHighSchoolBoardUseCase diIEditTeacherHighSchoolBoardUseCase;
+@inject IViewTeacherHighSchoolBoardUseCase diIViewTeacherHighSchoolBoardUseCase;
+
+
+<DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                <div class=" dxgridlayoutitem_style">
+                    <center><h5>Select Teacher Name</h5></center>
+
+                    <div>
+
+                        <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
+
+
+                        <div style="margin-top: -32px; margin-left: 580px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                        </div>
+                    </div>
+                    <br />
+                    @if (enableSearchTeacherButton)
+                    {
+                        <DxDataGrid Data="@teacherDetailsList"
+                                    @bind-SingleSelectedDataRow="@onSelectOfTeacher"
+                                    CssClass="mw-1100">
+                            <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Caption="Teacher Name"></DxDataGridColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
+                        </DxDataGrid>
+
+                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load HighSchool Board" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadHighSchoolBoardButton" Click="@loadTeacherHighSchoolBoard" />
+                        </div>
+
+                    }
+                </div>
+
+                <br />
+                @if (enableHighSchoolBoardGridLayout)
+                {
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select HighSchoolBoard</h5></center>
+
+                        <div>
+                            <DxTextBox NullText="Search HighSchoolBoard" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchHighSchoolBoardKeyword) => onChangeHighSchoolBoardSearchText(searchHighSchoolBoardKeyword))"> </DxTextBox>
+
+
+                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search HighSchool Board Name" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchHighSchoolBoardButton" Click="@getHighSchoolBoardOnSearch" />
+                            </div>
+                        </div>
+
+                        @if (enableSearchHighSchoolBoardButton)
+                        {
+
+                            <DxDataGrid Data="@highSchoolBoardList"
+                                        @ref="@highSchoolBoardGrid"
+                                        KeyFieldName="@nameof(HighSchoolBoard.HighSchoolBoardId)"
+                                        @bind-SingleSelectedDataRow="@onselectofHighSchoolBoard"
+                                        CssClass="datagrid-border-radius-top-0 mw-1100">
+                                <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                                <DxDataGridColumn Field="@nameof(HighSchoolBoard.HighSchoolBoardName)" Caption="HighSchool Board Name"></DxDataGridColumn>
+
+
+                            </DxDataGrid>
+
+                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add HighSchoolBoard" SizeMode="SizeMode.Small" Click="@AddHighSchoolBoards" />
+                            </div>
+
+                        }
+                    </div>
+
+                    <br />
+                }
+            </Template>
+        </DxGridLayoutItem>
+        @if (enableHighSchoolBoardGridLayout)
+        {
+            <DxGridLayoutItem Row="1" Column="1">
+                <Template>
+
+
+                    <DxDataGrid Data="@teacherHighSchoolBoardList"
+                                SelectionMode="DataGridSelectionMode.MultipleSelectedDataRows"
+                                @bind-MultipleSelectedDataRows="@onSelectOfTeacherHighSchoolBoard">
+                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+
+                        <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoard.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoard.HighSchoolBoardId)" Caption="HighSchoolBoard ID"></DxDataGridColumn>
+
+                    </DxDataGrid>
+                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove HighSchoolBoard" SizeMode="SizeMode.Small" Click="@RemoveHighSchoolBoard" />
+                    </div>
+                </Template>
+            </DxGridLayoutItem>
+        }
+    </Items>
+</DxGridLayout>
+
+
+
+@code {
+
+    DxDataGrid<TeacherBasicInformation> teacherGrid;
+    DxDataGrid<HighSchoolBoard> highSchoolBoardGrid;
+    DxDataGrid<TeacherHighSchoolBoard> teacherHighSchoolBoardGrid;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchTeacherKeyword = null;
+
+    //Aim : To hold the details of the teacher selected by the user
+    TeacherBasicInformation selectedTeacherDetails;
+
+    //Aim : To enable or disable teacher search button
+    public bool enableOrDisableSearchTeacherButton = false;
+
+    //Aim:To enable Search Teacher table
+    public bool enableSearchTeacherButton = false;
+
+    public int selectedTeacherId;
+
+    public bool enableOrDisableSearchHighSchoolBoardButton = false;
+
+    public bool enableHighSchoolBoardGridLayout = false;
+
+    public string searchHighSchoolBoardText;
+
+    public bool enableSearchHighSchoolBoardButton = false;
+
+    public bool enableOrDisableLoadHighSchoolBoardButton = false;
+
+    public int selectedHighSchoolBoardId;
+
+    public HighSchoolBoard selectedHighSchoolBoardList;
+
+    public string searchHighSchoolBoardKeyword;
+
+    public bool enableTeacherHighSchoolBoardQualificationGridLayout = false;
+
+
+    //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
+    IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
+
+    //Aim : To hold the list of teachers /single record of HighSchoolBoard details of type HighSchoolBoard to display in the data grid.
+    IEnumerable<HighSchoolBoard> highSchoolBoardList = Enumerable.Empty<HighSchoolBoard>();
+
+    //Aim : To hold the list of teachers /single record of TeacherHighSchoolBoard details of type TeacherHighSchoolBoard to display in the data grid.
+    IEnumerable<TeacherHighSchoolBoard> teacherHighSchoolBoardList = new List<TeacherHighSchoolBoard>();
+
+    IEnumerable<TeacherHighSchoolBoard> selectedTeacherHighSchoolBoards;
+
+    //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+    public void onChangeTeacherSearchText(string searchTeacherText)
+    {
+        searchTeacherKeyword = searchTeacherText;
+
+
+        enableOrDisableSearchTeacherButton = true;
+        Console.WriteLine(enableOrDisableSearchTeacherButton);
+    }
+
+    //Aim: To fetch teacher/teachers details on click of teacher search button :
+    //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+    public void getTeacherListOnSearch()
+    {
+        Console.Write(searchTeacherKeyword);
+        teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        Console.Write(teacherDetailsList);
+        enableSearchTeacherButton = true;
+    }
+
+    //Aim : To call getTeacherHighSchoolBoards method and to enable the "Load HighSchoolBoard" button.
+    public TeacherBasicInformation onSelectOfTeacher
+    {
+        get { return selectedTeacherDetails; }
+        set
+        {
+            selectedTeacherDetails = value;
+            Console.WriteLine(selectedTeacherDetails);
+            selectedTeacherId = selectedTeacherDetails.TeacherId;
+            enableOrDisableLoadHighSchoolBoardButton = true;
+
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim : To determine if the user has entered any data in the HighSchoolBoard search text box and to enable or disable the HighSchoolBoard search button
+
+    public void onChangeHighSchoolBoardSearchText(string searchHighSchoolBoardText)
+    {
+        searchHighSchoolBoardKeyword = searchHighSchoolBoardText;
+        enableOrDisableSearchHighSchoolBoardButton = true;
+        Console.WriteLine(enableOrDisableSearchHighSchoolBoardButton);
+    }
+    //Aim:
+    //1.to enable the HighSchoolBoard grid.
+    //2.to enable the teacher HighSchoolBoard grid.
+    //3.to invoke the method "getTeacherHighSchoolBoards"
+
+    public void loadTeacherHighSchoolBoard()
+    {
+        enableHighSchoolBoardGridLayout = true;
+        Console.WriteLine(enableHighSchoolBoardGridLayout);
+        enableTeacherHighSchoolBoardQualificationGridLayout = true;
+        getTeacherHighSchoolBoard();
+
+    }
+
+    public void getTeacherHighSchoolBoard() {
+        teacherHighSchoolBoardList = diIViewTeacherHighSchoolBoardUseCase.ViewTeacherHighSchoolBoard(selectedTeacherId);
+        Console.WriteLine(teacherHighSchoolBoardList);
+    }
+    //Aim : To capture the selected HighSchoolBoard value and to enable the "Add HighSchoolBoard" button.
+    public HighSchoolBoard onselectofHighSchoolBoard
+    {
+        get { return selectedHighSchoolBoardList; }
+        set
+        {
+            // Console.WriteLine(selectedHighSchoolBoardList);
+            selectedHighSchoolBoardList = value;
+            Console.WriteLine(selectedHighSchoolBoardList.HighSchoolBoardId);
+            selectedHighSchoolBoardId = selectedHighSchoolBoardList.HighSchoolBoardId;
+            Console.WriteLine(selectedHighSchoolBoardId);
+
+            InvokeAsync(StateHasChanged);
+        }
+
+    }
+    //Aim:
+    //1.To fetch  HighSchoolBoard (which is matched with the searched criteria) on click of HighSchoolBoard  search button :
+    // IViewHighSchoolBoardUseCase is used for fetching the HighSchoolBoard  list for the searched key.
+    //2.To invoke a methIViewPostGraduateCourseUseCaseod "getAvailableHighSchoolBoards" for obtaining only the courses that are not already associated with the teacher and display the list.
+
+    public void getHighSchoolBoardOnSearch()
+    {
+        highSchoolBoardList = diIViewHighSchoolBoardUseCase.ViewHighSchoolBoard(searchHighSchoolBoardKeyword);
+        enableSearchHighSchoolBoardButton = true;
+        Console.WriteLine(highSchoolBoardList);
+    }
+
+    //Aim: To save the teacher HighSchoolBoard record on click of save button.
+
+    public void AddHighSchoolBoards()
+    {
+        Console.WriteLine(selectedTeacherId);
+        Console.WriteLine(selectedHighSchoolBoardId);
+        var addHighSchoolBoard = diICreateTeacherHighSchoolBoardUseCase.CreateTeacherHighSchoolBoard(selectedTeacherId, selectedHighSchoolBoardId);
+        Console.WriteLine(addHighSchoolBoard);
+    }
+
+    //Aim : To capture the selected teacher HighSchoolBoard value and to enable the "Remove HighSchoolBoard" button.
+    IEnumerable<TeacherHighSchoolBoard> onSelectOfTeacherHighSchoolBoard
+    {
+        get { return selectedTeacherHighSchoolBoards; }
+        set
+        {
+            selectedTeacherHighSchoolBoards = value;
+            Console.WriteLine(selectedTeacherHighSchoolBoards);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim: To remove the teacher HighSchoolBoard record on click of "Remove HighSchoolBoard" button.
+    public void RemoveHighSchoolBoard()
+    {
+        List<TeacherHighSchoolBoard> List = selectedTeacherHighSchoolBoards.ToList();
+        var removeHighSchoolBoard = diIEditTeacherHighSchoolBoardUseCase.EditTeacherHighSchoolBoard(List);
+        Console.WriteLine(removeHighSchoolBoard);
+    }
+
+
+}

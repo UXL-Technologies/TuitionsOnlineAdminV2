@@ -45,13 +45,16 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository;
 
+        private readonly ITeacherHighSchoolBoardRepository diITeacherHighSchoolBoardRepository;
+
+
         public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
             ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
             ICurrencyRepository instanceOfICurrencyRepository, ISubjectRepository instanceOfISubjectRepository, IGradeRepository instanceOfIGradeRepository,
             ITeacherVideoRepository instanceOfITeacherVideoRepository, IHighSchoolBoardRepository instanceOfIHighSchoolBoardRepository,
             ITeacherBasicInformationRepository diITeacherBasicInformationRepository, ITeacherGraduateCourse_QualificationRepository diITeacherGraduateCourse_QualificationRepository,
             ITeacherPostGraduateCourse_QualificationRepository diITeacherPostGraduateCourse_QualificationRepository, ITeacherDoctorateCourse_QualificationRepository diITeacherDoctorateCourse_QualificationRepository,
-            ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository)
+            ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository, ITeacherHighSchoolBoardRepository diITeacherHighSchoolBoardRepository)
         {
             this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
             this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
@@ -68,6 +71,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.diITeacherPostGraduateCourse_QualificationRepository = diITeacherPostGraduateCourse_QualificationRepository;
             this.diITeacherDoctorateCourse_QualificationRepository = diITeacherDoctorateCourse_QualificationRepository;
             this.diITeacherCertificateCourse_QualificationRepository = diITeacherCertificateCourse_QualificationRepository;
+            this.diITeacherHighSchoolBoardRepository = diITeacherHighSchoolBoardRepository;
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
         public string CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -440,6 +444,35 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
 
         }
+        //Authors: SA, BM, SM, BA, KK
+        // Date:25-Feb-2021
+        //Aim : The view TeacherHighSchoolBoard method is responsible to view the teacher TeacherHighSchoolBoard details for the teacherId.
+        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoard(int teacherId)
+        {
+            var teacherHighSchoolBoardList = diITeacherHighSchoolBoardRepository.ViewTeacherHighSchoolBoardRepository(teacherId);
+            Console.WriteLine(teacherHighSchoolBoardList);
+            return teacherHighSchoolBoardList;
+        }
 
+        //Aim : The CreateTeacherHighSchoolBoard method is responsible to view the teacher HighSchoolBoard.
+        public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards)
+        {
+            Console.WriteLine(teacherId);
+            Console.WriteLine(selectedHighSchoolBoards);
+            var result = diITeacherHighSchoolBoardRepository.CreateTeacherHighSchoolBoard(teacherId, selectedHighSchoolBoards);
+            //Console.WriteLine(teacherId);
+            return result;
+        }
+
+
+        // Aim : The EditTeacherHighSchoolBoard method is responsible to remove the teacher HighSchoolBoard.
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards)
+        {
+            Console.WriteLine(teacherHighSchoolBoards);
+
+            var result = diITeacherHighSchoolBoardRepository.EditTeacherHighSchoolBoard(teacherHighSchoolBoards);
+            return result;
+
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //To add the single record of the PostGraduateCourse to the database
         string CreatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
+       
+
         //To view post Graduate courses
         List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey);
         //To update post Graduate courses
@@ -94,11 +96,11 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM
         //Date:18-Jan-2021
         //To Create HighSchoolBoard
-        string CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        string CreateHighSchoolBoard(HighSchoolBoard HighSchoolBoard);
         //To view HighSchoolBoard
         List<HighSchoolBoard> ViewHighSchoolBoards(string searchKey);
         //To update HighSchoolBoard
-        string UpdateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        string UpdateHighSchoolBoard(HighSchoolBoard HighSchoolBoard);
 
         //Authors: SA, BM, SM
         //Date:15-Jan-2021
@@ -174,6 +176,27 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //Aim : The method is responsible to hold the contract for editing the Certificate course qualification.
         public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications);
+
+
+
+        //Authors: SA, BM, SM, BA, KK
+        //Date:25-Feb-2021
+        //To View ,create and edit TeacherHighSchoolBoard
+
+        //To view TeacherHighSchoolBoard
+        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoard(int teacherId);
+
+        //Aim : The method is responsible to hold the contract for creating the HighSchoolBoard.
+        public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards);
+
+        //Aim : The method is responsible to hold the contract for editing the HighSchoolBoard.
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards);
+
+
+
+
+
+
 
     }
 }

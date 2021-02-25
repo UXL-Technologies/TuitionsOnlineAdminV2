@@ -12,6 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.CreateHighSchoolBoardScr
    public interface ICreateHighSchoolBoardUseCase
     {
         //Declaring a method to create the HighSchoolBoard
-        string CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+       string CreateHighSchoolBoard(HighSchoolBoard highSchoolBoard);
+        
     }
 }

@@ -100,6 +100,12 @@ using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGrad
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourseQualification.ViewTeacherGraduateCourseQualificationScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.CreateTeacherHighSchoolBoardScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.CreateTeacherHighSchoolBoardScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.EditTeacherHighSchoolBoardScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.EditTeacherHighSchoolBoardScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.ViewTeacherHighSchoolBoardScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.ViewTeacherHighSchoolBoardScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.CreateTeacherPostGraduateCourseQualificationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.CreateTeacherPostGraduateCourseQualificationScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.EditTeacherPostGraduateCourseQualificationScreen;
@@ -227,7 +233,12 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ITeacherCertificateCourse_QualificationRepository, TeacherCertificateCourse_QualificationRepository>();
             services.AddTransient<ICreateTeacherCertificateCourseQualificationUseCase, CreateTeacherCertificateCourseQualificationUseCase>();
             services.AddTransient<IEditTeacherCertificateCourseQualificationUseCase, EditTeacherCertificateCourseQualificationUseCase>();
-            
+
+            services.AddTransient<IViewTeacherHighSchoolBoardUseCase, ViewTeacherHighSchoolBoardUseCase>();
+            services.AddTransient<ITeacherHighSchoolBoardRepository, TeacherHighSchoolBoardRepository>();
+            services.AddTransient<ICreateTeacherHighSchoolBoardUseCase, CreateTeacherHighSchoolBoardUseCase>();
+            services.AddTransient<IEditTeacherHighSchoolBoardUseCase, EditTeacherHighSchoolBoardUseCase>();
+
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));
         }

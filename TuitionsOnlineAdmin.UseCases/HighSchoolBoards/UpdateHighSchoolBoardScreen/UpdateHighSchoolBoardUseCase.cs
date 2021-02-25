@@ -1,7 +1,4 @@
-﻿//Authors: SA, BM, SM
-//Date:18-Jan-2021
-//Aim: defining the Class for HighSchoolBoardUsecase
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using TuitionsOnlineAdmin.CoreBusiness;
@@ -12,7 +9,6 @@ namespace TuitionsOnlineAdmin.UseCases.HighSchoolBoards.UpdateHighSchoolBoardScr
 {
    public class UpdateHighSchoolBoardUseCase : IUpdateHighSchoolBoardUseCase
     {
-
         //property dependency injection
         private readonly IUnitOfWork instanceOfIUnitOfWork;
 
