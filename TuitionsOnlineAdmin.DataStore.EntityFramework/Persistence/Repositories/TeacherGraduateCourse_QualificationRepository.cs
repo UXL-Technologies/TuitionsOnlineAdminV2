@@ -78,7 +78,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To remove Teacher Graduate Course Qualifications from the database
-        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications)
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKey> teacherGraduateCourseQualifications)
         {
             try
             {
@@ -90,7 +90,11 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                     // };
                     // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
                     //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
-                    diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Remove(new TeacherGraduateCourse_Qualification() { TeacherGraduateCourse_QualificationId = teacherGraduateCourses.TeacherGraduateCourse_QualificationId });
+                    var id = teacherGraduateCourses.TeacherGraduateCourse_QualificationId;
+                    Console.WriteLine(id);
+                    var recordId = diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.FirstOrDefault(s => s.TeacherGraduateCourse_QualificationId == id);
+                    Console.WriteLine(recordId);
+                    diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";

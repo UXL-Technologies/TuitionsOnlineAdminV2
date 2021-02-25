@@ -193,7 +193,7 @@
     //Aim : To hold the list of teachers /single record of TeacherGraduateCourse_Qualification details of type TeacherGraduateCourse_Qualification to display in the data grid.
     IEnumerable<TeacherGraduateCourse_QualificationWithForeignKey> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_QualificationWithForeignKey>();
 
-    IEnumerable<TeacherGraduateCourse_Qualification> selectedTeacherGraduateCourseQualifications;
+    IEnumerable<TeacherGraduateCourse_QualificationWithForeignKey> selectedTeacherGraduateCourseQualifications;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
     public void onChangeTeacherSearchText(string searchTeacherText)
@@ -299,7 +299,7 @@
     }
 
     //Aim : To capture the selected teacher graduate course qualification value and to enable the "Remove Graduate Course" button.
-    IEnumerable<TeacherGraduateCourse_Qualification> onSelectOfTeacherGraduateCourseQualification
+    IEnumerable<TeacherGraduateCourse_QualificationWithForeignKey> onSelectOfTeacherGraduateCourseQualification
     {
         get { return selectedTeacherGraduateCourseQualifications; }
         set
@@ -314,12 +314,12 @@
     //Aim: To remove the teacher graduate course qualification record on click of "Remove Graduate Course" button.
     public void RemoveGraduateCourse()
     {
-        
-        List<TeacherGraduateCourse_Qualification> List = selectedTeacherGraduateCourseQualifications.ToList();
+
+        List<TeacherGraduateCourse_QualificationWithForeignKey> List = selectedTeacherGraduateCourseQualifications.ToList();
         Console.WriteLine(List);
         var removeGraduateCourse = diIEditGraduateCourseQualificationUseCase.EditGraduateCourseQualification(List);
         Console.WriteLine(removeGraduateCourse);
-
+        getTeacherGraduateCourseQualifications();
     }
 }
 

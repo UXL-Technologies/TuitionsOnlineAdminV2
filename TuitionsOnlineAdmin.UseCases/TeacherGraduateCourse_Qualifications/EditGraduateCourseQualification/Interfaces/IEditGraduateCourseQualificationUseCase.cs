@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.Edit
     public interface IEditGraduateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for editing the teacher graduate course qualification.
-        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications);
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKey> teacherGraduateCourseQualifications);
     }
 }

@@ -333,7 +333,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         // Aim : The EditTeacherGraduateCourseQualification method is responsible to remove the teacher graduate course qualification.
-        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications)
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKey> teacherGraduateCourseQualifications)
         {
             Console.WriteLine(teacherGraduateCourseQualifications);
             var result = diITeacherGraduateCourse_QualificationRepository.EditGraduateCourseQualification(teacherGraduateCourseQualifications);
