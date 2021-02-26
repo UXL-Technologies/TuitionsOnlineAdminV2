@@ -285,6 +285,8 @@
         Console.WriteLine(selectedDoctorateId);
         var addDoctorateCourse = diICreateTeacherDoctorateCourseQualificationUseCase.CreateTeacherDoctorateCourseQualification(selectedTeacherId, selectedDoctorateId);
         Console.WriteLine(addDoctorateCourse);
+
+        getTeacherDoctorateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher Doctorate course qualification value and to enable the "Remove Doctorate Course" button.

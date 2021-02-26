@@ -135,8 +135,9 @@
     //Aim : To hold the details of the teacher selected by the user
     TeacherBasicInformation selectedTeacherDetails;
 
+
     //Aim : To enable or disable teacher search button
-    public bool enableOrDisableSearchTeacherButton = false;
+        public bool enableOrDisableSearchTeacherButton = false;
 
     //Aim : To enable or disable Certificate course search button
     public bool enableOrDisableLoadCertificateCourseButton = false;
@@ -274,10 +275,12 @@
     public void getTeacherCertificateCourseQualifications()
     {
         Console.WriteLine(selectedTeacherId);
-        //teacherCertificateCourseQualificationList = diIViewTeacherCertificateCourseQualificationUseCase.ViewTeacherCertificateCourseQualification(selectedTeacherId);
+
         Console.WriteLine(teacherCertificateCourseQualificationList);
 
         teacherCertificateCourseQualificationList = diIViewTeacherCertificateCourseQualificationUseCase.ViewTeacherCertificateCourseQualification(selectedTeacherId);
+
+        Console.WriteLine(teacherCertificateCourseQualificationList);
     }
 
     //Aim: To save the teacher Certificate course qualification record on click of save button.
@@ -288,6 +291,8 @@
         Console.WriteLine(selectedCertificateId);
         var addCertificateCourse = diCreateTeacherCertificateCourseQualificationUseCase.CreateTeacherCertificateCourseQualification(selectedTeacherId, selectedCertificateId);
         //Console.WriteLine(addCertificateCourse);
+
+        getTeacherCertificateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher Certificate course qualification value and to enable the "Remove Certificate Course" button.
@@ -306,7 +311,11 @@
     public void RemoveCertificateCourse()
     {
         List<TeacherCertificateCourse_Qualification> List = selectedTeacherCertificateCourseQualifications.ToList();
+
         var removeCertificateCourse = diEditTeacherCertificateCourseQualificationUseCase.EditTeacherCertificateCourseQualification(List);
         //Console.WriteLine(removeCertificateCourse);
+
     }
+
+
 }

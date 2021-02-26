@@ -273,6 +273,8 @@
         Console.WriteLine(selectedHighSchoolBoardId);
         var addHighSchoolBoard = diICreateTeacherHighSchoolBoardUseCase.CreateTeacherHighSchoolBoard(selectedTeacherId, selectedHighSchoolBoardId);
         Console.WriteLine(addHighSchoolBoard);
+
+        getTeacherHighSchoolBoard();
     }
 
     //Aim : To capture the selected teacher HighSchoolBoard value and to enable the "Remove HighSchoolBoard" button.

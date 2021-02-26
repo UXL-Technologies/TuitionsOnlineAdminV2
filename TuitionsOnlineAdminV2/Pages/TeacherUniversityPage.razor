@@ -274,7 +274,7 @@
         teacherUniversityList = diIViewTeacherUniversityUseCase.ViewTeacherUniversity(selectedTeacherId);
         Console.WriteLine(teacherUniversityList);
 
-        teacherUniversityList = diIViewTeacherUniversityUseCase.ViewTeacherUniversity(selectedTeacherId);
+
     }
 
     //Aim: To save the teacher University record on click of save button.
@@ -284,6 +284,9 @@
         Console.WriteLine(selectedTeacherId);
         Console.WriteLine(selectedUniversityId);
         var addUniversity = diICreateTeacherUniversityUseCase.CreateTeacherUniversity(selectedTeacherId, selectedUniversityId);
+
+        getTeacherUniversities();
+
         Console.WriteLine(addUniversity);
     }
 
@@ -302,9 +305,19 @@
     //Aim: To remove the teacher University record on click of "Remove University" button.
     public void RemoveUniversity()
     {
+
         List<TeacherUniversity> List = selectedTeacherUniversities.ToList();
+
         var removeUniversity = diIEditTeacherUniversityUseCase.EditTeacherUniversity(List);
+
         Console.WriteLine(removeUniversity);
+
+     
+
     }
 
+
+
 }
+
+

@@ -193,7 +193,7 @@
     public void getTeacherListOnSearch()
     {
         Console.Write(searchTeacherKeyword);
-       teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
         Console.Write(teacherDetailsList);
         enableSearchTeacherButton = true;
     }
@@ -285,6 +285,8 @@
         Console.WriteLine(selectedPostGraduateId);
         var addPostGraduateCourse = diICreateTeacherPostGraduateCourseQualificationUseCase.CreateTeacherPostGraduateCourseQualification(selectedTeacherId,selectedPostGraduateId);
         Console.WriteLine(addPostGraduateCourse);
+
+        getTeacherPostGraduateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher Postgraduate course qualification value and to enable the "Remove PostGraduate Course" button.
