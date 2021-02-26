@@ -1,0 +1,310 @@
+﻿@page "/TeacherUniversity" 
+@*Authors : SA,BM,KK,SM,BA
+    Date:26/02/2021
+    Aim: To create a search box and to display the list of teacher  *@
+
+@using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.Universities.ViewUniversityScreen.Intefaces
+@using TuitionsOnlineAdmin.UseCases.TeacherUniversities.ViewTeacherUniversityScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherUniversities.CreateTeacherUniversityScreen.Interfaces
+@using TuitionsOnlineAdmin.UseCases.TeacherUniversities.EditTeacherUniversityScreen.Interfaces
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
+@inject IViewUniversityUseCase diIViewUniversityUseCase;
+@inject IViewTeacherUniversityUseCase diIViewTeacherUniversityUseCase;
+@inject ICreateTeacherUniversityUseCase diICreateTeacherUniversityUseCase;
+@inject IEditTeacherUniversityUseCase diIEditTeacherUniversityUseCase;
+
+<DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
+    <Rows>
+        <DxGridLayoutRow Height="auto" />
+    </Rows>
+    <Columns>
+        <DxGridLayoutColumn Width="50%" />
+        <DxGridLayoutColumn Width="50%" />
+    </Columns>
+    <Items>
+        <DxGridLayoutItem Row="0" Column="0">
+            <Template>
+                <div class=" dxgridlayoutitem_style">
+                    <center><h5>Select Teacher Name</h5></center>
+
+                    <div>
+
+                        <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
+
+
+                        <div style="margin-top: -32px; margin-left: 580px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                        </div>
+                    </div>
+                    <br />
+                    @if (enableSearchTeacherButton)
+                    {
+                        <DxDataGrid Data="@teacherDetailsList"
+                                    @bind-SingleSelectedDataRow="@onSelectOfTeacher"
+                                    CssClass="mw-1100">
+                            <DxDataGridSelectionColumn Width="50px"></DxDataGridSelectionColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Teacher_Name)" Caption="Teacher Name"></DxDataGridColumn>
+                            <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
+                        </DxDataGrid>
+
+                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+
+                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load University" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadUniversityButton" Click="@loadUniversities" />
+                        </div>
+                    }
+                </div>
+
+                <br />
+
+                @*Aim:Search box for University*@
+                @if (enableUniversityGridLayout)
+                {
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select University</h5></center>
+
+                        <div>
+                            <DxTextBox NullText="Search Universities" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchUniversityKeyword) => onChangeUniversitySearchText(searchUniversityKeyword))"> </DxTextBox>
+
+
+                            <div style="margin-top: -32px; margin-left: 572px;">
+
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search University" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchUniversityButton" Click="@getUniversityOnSearch" />
+                            </div>
+                        </div>
+                        <br />
+                        @if (enableSearchUniversityButton)
+                        {
+                            <DxDataGrid Data="@universityList"
+                                        @ref="@universityGrid"
+                                        KeyFieldName="@nameof(University.UniversityId)"
+                                        @bind-SingleSelectedDataRow="@onselectofuniversity"
+                                        CssClass="datagrid-border-radius-top-0 mw-1100">
+                                <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                                <DxDataGridColumn Field="@nameof(University.UniversityName)" Caption="University"></DxDataGridColumn>
+
+
+                            </DxDataGrid>
+                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add University" SizeMode="SizeMode.Small" Click="@AddUniversities" />
+                            </div>
+                        }
+                    </div>
+                }
+                <br />
+
+            </Template>
+        </DxGridLayoutItem>
+        @if (enableUniversityGridLayout)
+        {
+            <DxGridLayoutItem Row="1" Column="1">
+                <Template>
+
+
+                    <DxDataGrid Data="@teacherUniversityList"
+                                SelectionMode="DataGridSelectionMode.MultipleSelectedDataRows"
+                                @bind-MultipleSelectedDataRows="@onSelectOfTeacherUniversity">
+                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+
+                        <DxDataGridColumn Field="@nameof(TeacherUniversity.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherUniversity.UniversityId)" Caption="University ID"></DxDataGridColumn>
+
+                    </DxDataGrid>
+                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove University" SizeMode="SizeMode.Small" Click="@RemoveUniversity" />
+                    </div>
+                </Template>
+            </DxGridLayoutItem>
+        }
+    </Items>
+</DxGridLayout>
+
+@code {
+    DxDataGrid<TeacherBasicInformation> teacherGrid;
+    DxDataGrid<University> universityGrid;
+    DxDataGrid<TeacherUniversity> teacherUniversityGrid;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchTeacherKeyword = null;
+
+    //Aim : To hold the details of the teacher selected by the user
+    TeacherBasicInformation selectedTeacherDetails;
+
+    //Aim : To enable or disable teacher search button
+    public bool enableOrDisableSearchTeacherButton = false;
+
+    //Aim : To enable or disable University search button
+    public bool enableOrDisableLoadUniversityButton = false;
+
+
+    public bool enableUniversityGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public bool enableOrDisableSearchUniversityButton = false;
+
+    //Aim:To enable Search Teacher table
+    public bool enableSearchTeacherButton = false;
+
+    //Aim:To enable search University table
+    public bool enableSearchUniversityButton = false;
+
+    public bool enableTeacherUniversityGridLayout = false;
+
+    //Aim : Used to capture the keyword entered by the user
+    public string searchUniversityKeyword;
+
+    public int selectedTeacherId;
+
+    public University selectedUniversityList;
+
+    public int selectedUniversityId;
+
+    int SelectedCount { get; set; }
+
+    int StoredSelectedCount { get; set; }
+
+    int StoredUnselectedCount { get; set; }
+
+
+    //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
+    IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
+
+    //Aim : To hold the list of teachers /single record of University details of type University to display in the data grid.
+    IEnumerable<University> universityList = Enumerable.Empty<University>();
+
+    //Aim : To hold the list of teachers /single record of TeacherUniversity details of type TeacherUniversity to display in the data grid.
+    IEnumerable<TeacherUniversity> teacherUniversityList = new List<TeacherUniversity>();
+
+    IEnumerable<TeacherUniversity> selectedTeacherUniversities;
+
+    //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+    public void onChangeTeacherSearchText(string searchTeacherText)
+    {
+        searchTeacherKeyword = searchTeacherText;
+
+        enableOrDisableSearchTeacherButton = true;
+        Console.WriteLine(enableOrDisableSearchTeacherButton);
+    }
+
+    //Aim: To fetch teacher/teachers details on click of teacher search button :
+    //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+    public void getTeacherListOnSearch()
+    {
+        Console.Write(searchTeacherKeyword);
+        teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        Console.Write(teacherDetailsList);
+        enableSearchTeacherButton = true;
+    }
+
+    //Aim : To call getTeacherUniversity method and to enable the "Load University" button.
+    public TeacherBasicInformation onSelectOfTeacher
+    {
+        get { return selectedTeacherDetails; }
+        set
+        {
+            selectedTeacherDetails = value;
+            Console.WriteLine(selectedTeacherDetails);
+            selectedTeacherId = selectedTeacherDetails.TeacherId;
+
+            enableOrDisableLoadUniversityButton = true;
+            Console.WriteLine(enableOrDisableLoadUniversityButton);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim:
+    //1.to enable the University grid.
+    //2.to enable the teacher University grid.
+    //3.to invoke the method "getTeacherUniversities"
+
+    public void loadUniversities()
+    {
+        enableUniversityGridLayout = true;
+        Console.WriteLine(enableUniversityGridLayout);
+        enableTeacherUniversityGridLayout = true;
+        getTeacherUniversities();
+    }
+
+    //Aim : To determine if the user has entered any data in the University search text box and to enable or disable the University search button
+
+    public void onChangeUniversitySearchText(string searchUniversityText)
+    {
+        searchUniversityKeyword = searchUniversityText;
+        enableOrDisableSearchUniversityButton = true;
+        Console.WriteLine(enableOrDisableSearchUniversityButton);
+    }
+
+    //Aim:
+    //1.To fetch  Universities(which is matched with the searched criteria) on click of University search button :
+    // IViewUniversityUseCase is used for fetching the University list for the searched key.
+    //2.To invoke a method "getAvailableUniversities" for obtaining only the courses that are not already associated with the teacher and display the list.
+
+    public void getUniversityOnSearch()
+    {
+        universityList = diIViewUniversityUseCase.ViewUniversity(searchUniversityKeyword);
+        enableSearchUniversityButton = true;
+
+        Console.WriteLine(universityList);
+    }
+
+    //Aim : To capture the selected University value and to enable the "Add University" button.
+    public University onselectofuniversity
+    {
+        get { return selectedUniversityList; }
+        set
+        {
+            // Console.WriteLine(selectedUniversityList);
+            selectedUniversityList = value;
+            Console.WriteLine(selectedUniversityList.UniversityId);
+            selectedUniversityId = selectedUniversityList.UniversityId;
+            Console.WriteLine(selectedUniversityId);
+
+            InvokeAsync(StateHasChanged);
+        }
+
+    }
+
+    //Aim : To fetch teacherUniversities from TeacherUniversity table for the selected teacher.
+
+    public void getTeacherUniversities()
+    {
+        Console.WriteLine(selectedTeacherId);
+        teacherUniversityList = diIViewTeacherUniversityUseCase.ViewTeacherUniversity(selectedTeacherId);
+        Console.WriteLine(teacherUniversityList);
+
+        teacherUniversityList = diIViewTeacherUniversityUseCase.ViewTeacherUniversity(selectedTeacherId);
+    }
+
+    //Aim: To save the teacher University record on click of save button.
+
+    public void AddUniversities()
+    {
+        Console.WriteLine(selectedTeacherId);
+        Console.WriteLine(selectedUniversityId);
+        var addUniversity = diICreateTeacherUniversityUseCase.CreateTeacherUniversity(selectedTeacherId, selectedUniversityId);
+        Console.WriteLine(addUniversity);
+    }
+
+    //Aim : To capture the selected teacher University value and to enable the "Remove University" button.
+    IEnumerable<TeacherUniversity> onSelectOfTeacherUniversity
+    {
+        get { return selectedTeacherUniversities; }
+        set
+        {
+            selectedTeacherUniversities = value;
+            Console.WriteLine(selectedTeacherUniversities);
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    //Aim: To remove the teacher University record on click of "Remove University" button.
+    public void RemoveUniversity()
+    {
+        List<TeacherUniversity> List = selectedTeacherUniversities.ToList();
+        var removeUniversity = diIEditTeacherUniversityUseCase.EditTeacherUniversity(List);
+        Console.WriteLine(removeUniversity);
+    }
+
+}

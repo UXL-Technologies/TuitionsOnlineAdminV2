@@ -27,6 +27,7 @@
     </div> *@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
+
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="" aria-hidden="true"></span> Admin
@@ -122,63 +123,75 @@
         </li>
 
 
-    </ul>
-    <ul class="nav flex-column">
+  
+    
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="TeacherGraduateCourseQualification">
-                <span class="" aria-hidden="true"></span> Teacher GraduateCourse Qualification
+                <span class="" aria-hidden="true"></span> Teacher GraduateCourse 
             </NavLink>
         </li>
 
-    </ul>
+   
 
-    <ul class="nav flex-column">
+    
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="TeacherPostGraduateCourseQualification">
-                <span class="" aria-hidden="true"></span> Teacher PostGraduateCourse Qualification
+                <span class="" aria-hidden="true"></span> Teacher PostGraduateCourse 
             </NavLink>
         </li>
 
-    </ul>
+    
 
-    <ul class="nav flex-column">
+    
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="TeacherDoctorateCourseQualification">
-                <span class="" aria-hidden="true"></span> Teacher DoctorateCourse Qualification
+                <span class="" aria-hidden="true"></span> Teacher DoctorateCourse 
             </NavLink>
         </li>
 
-    </ul>
+    
 
-    <ul class="nav flex-column">
+   
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="TeacherCertificateCourseQualification">
-                <span class="" aria-hidden="true"></span> Teacher CertificateCourse Qualification
+                <span class="" aria-hidden="true"></span> Teacher CertificateCourse 
             </NavLink>
         </li>
 
-    </ul>
-    <ul class="nav flex-column">
+   
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="TeacherHighSchoolBoard">
-                <span class="" aria-hidden="true"></span> Teacher High School Board
+                <span class="" aria-hidden="true"></span> Teacher HighSchoolBoard
             </NavLink>
         </li>
 
-    </ul>
+    
 
-    @* Authors: SA,BM,SM,BA,KK 
+
+
+      @* Authors: SA,BM,SM,BA,KK
         Date: 15-01-2021.
         Aim : to navigate to the university page*@
-    <ul class="nav flex-column">
+    
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="university">
                 <span class="" aria-hidden="true"></span> University
             </NavLink>
         </li>
 
+    
+
+    
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="TeacherUniversity">
+                <span class="" aria-hidden="true"></span> Teacher University
+            </NavLink>
+        </li>
+
     </ul>
 </div>
+
+
 
 @code {
     private bool collapseNavMenu = true;

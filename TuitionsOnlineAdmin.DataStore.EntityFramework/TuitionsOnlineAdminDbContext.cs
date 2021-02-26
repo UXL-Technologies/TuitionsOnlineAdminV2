@@ -47,5 +47,9 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         public DbSet<TeacherHighSchoolBoard> TeacherHighSchoolBoard { get; set; }
 
         public DbSet<University> University { get; set; }
+
+        public DbSet<TeacherUniversity> TeacherUniversity { get; set; }
+
     }
+
 }

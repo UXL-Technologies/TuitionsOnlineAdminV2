@@ -49,6 +49,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         private readonly IUniversityRepository instanceOfIUniversityRepository;
 
+        private readonly ITeacherUniversityRepository diITeacherUniversityRepository;
+
 
         public UnitOfWork(IGraduateCourseRepository instanceOfIGraduateCourseRepository, IPostGraduateCourseRepository instanceOfIPostGraduateCourseRepository, IDoctorateCourseRepository instanceOfIDoctorateCourseRepository,
             ICertificateCourseRepository instanceOfICertificateCourseRepository, ICityRepository instanceOfICityRepository, 
@@ -57,7 +59,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             ITeacherBasicInformationRepository diITeacherBasicInformationRepository, ITeacherGraduateCourse_QualificationRepository diITeacherGraduateCourse_QualificationRepository,
             ITeacherPostGraduateCourse_QualificationRepository diITeacherPostGraduateCourse_QualificationRepository, ITeacherDoctorateCourse_QualificationRepository diITeacherDoctorateCourse_QualificationRepository,
             ITeacherCertificateCourse_QualificationRepository diITeacherCertificateCourse_QualificationRepository, ITeacherHighSchoolBoardRepository diITeacherHighSchoolBoardRepository,
-            IUniversityRepository instanceOfIUniversityRepository)
+            IUniversityRepository instanceOfIUniversityRepository, ITeacherUniversityRepository diITeacherUniversityRepository)
         {
             this.instanceOfIGraduateCourseRepository = instanceOfIGraduateCourseRepository;
             this.instanceOfIPostGraduateCourseRepository = instanceOfIPostGraduateCourseRepository;
@@ -76,6 +78,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             this.diITeacherCertificateCourse_QualificationRepository = diITeacherCertificateCourse_QualificationRepository;
             this.diITeacherHighSchoolBoardRepository = diITeacherHighSchoolBoardRepository;
             this.instanceOfIUniversityRepository = instanceOfIUniversityRepository;
+            this.diITeacherUniversityRepository = diITeacherUniversityRepository;
         }
         //to create a DoctorateCourse  by invoking CreateDoctorateCourseRepository of DoctorateCourseRepository
         public string CreateDoctorateCourse(DoctorateCourse doctorateCourse)
@@ -501,6 +504,36 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         {
             var universityList = instanceOfIUniversityRepository.ViewUniversityRepository(searchKey);
             return universityList;
+        }
+
+
+        //Authors: SA, BM, SM, BA, KK
+        // Date:26-Feb-2021
+        //Aim : The view TeacherUniversity method is responsible to view the teacher TeacherUniversity details for the teacherId.
+        public List<TeacherUniversity> ViewTeacherUniversity(int teacherId)
+        {
+            var teacherUniversityList = diITeacherUniversityRepository.ViewTeacherUniversityRepository(teacherId);
+            Console.WriteLine(teacherUniversityList);
+            return teacherUniversityList;
+        }
+        //Aim : The CreateTeacherUniversity method is responsible to view the teacher University.
+        public string CreateTeacherUniversity(int teacherId, int selectedUniversities)
+        {
+            Console.WriteLine(teacherId);
+            Console.WriteLine(selectedUniversities);
+            var result = diITeacherUniversityRepository.CreateTeacherUniversity(teacherId, selectedUniversities);
+            //Console.WriteLine(teacherId);
+            return result;
+        }
+
+        // Aim : The EditTeacherUniversity method is responsible to remove the teacher University.
+        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities)
+        {
+            Console.WriteLine(teacherUniversities);
+
+            var result = diITeacherUniversityRepository.EditTeacherUniversity(teacherUniversities);
+            return result;
+
         }
     }
 }

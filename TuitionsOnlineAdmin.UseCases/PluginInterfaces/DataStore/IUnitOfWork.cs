@@ -204,5 +204,17 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To view University
         List<University> ViewUniversities(string searchKey);
 
+        //Authors: SA, BM, SM, BA, KK
+        //Date:25-Feb-2021
+        //To View ,create and edit University
+
+        //To view TeacherUniversity
+        public List<TeacherUniversity> ViewTeacherUniversity(int teacherId);
+
+        //Aim : The method is responsible to hold the contract for creating the University.
+        public string CreateTeacherUniversity(int teacherId, int selectedUniversities);
+
+        //Aim : The method is responsible to hold the contract for editing the University.
+        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities);
     }
 }
