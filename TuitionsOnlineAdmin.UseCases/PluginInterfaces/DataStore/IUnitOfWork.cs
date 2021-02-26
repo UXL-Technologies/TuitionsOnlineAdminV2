@@ -123,7 +123,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Authors: SA, BM, SM, BA, KK
         //Date:19-Feb-2021
         //To view TeacherGraduateCourse_Qualification
-        public List<TeacherGraduateCourse_Qualification> ViewTeacherGraduateCourseQualification(int teacherId);
+        public List<TeacherGraduateCourse_QualificationWithForeignKeys> ViewTeacherGraduateCourseQualification(int teacherId);
 
         //Authors: SA, BM, SM, BA, KK
         //Date:22-Feb-2021
@@ -142,7 +142,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To View ,create and edit TeacherPostGraduateCourse_Qualification
 
         //To view TeacherPostGraduateCourse_Qualification
-        public List<TeacherPostGraduateCourse_Qualification> ViewTeacherPostGraduateCourseQualification(int teacherId);
+        public List<TeacherPostGraduateCourse_QualificationWithForeignKeys> ViewTeacherPostGraduateCourseQualification(int teacherId);
 
         //Aim : The method is responsible to hold the contract for creating the Postgraduate course qualification.
         public string CreateTeacherPostGraduateCourseQualification(int teacherId, int selectedPostGraduateCourses);

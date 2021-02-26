@@ -109,8 +109,8 @@
                                 @bind-MultipleSelectedDataRows="@onSelectOfTeacherPostGraduateCourseQualification">
                         <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
 
-                        <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_Qualification.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
-                        <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_Qualification.PostGraduateId)" Caption="PostGraduate Course ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_QualificationWithForeignKeys.TeacherName)" Caption="Teacher Name"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_QualificationWithForeignKeys.PostGraduateCourseName)" Caption="PostGraduate Course Name"></DxDataGridColumn>
 
                     </DxDataGrid>
                     <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
@@ -175,7 +175,7 @@
     IEnumerable<PostGraduateCourse> postGraduateCourseList = Enumerable.Empty<PostGraduateCourse>();
 
     //Aim : To hold the list of teachers /single record of TeacherPostGraduateCourse_Qualification details of type TeacherPostGraduateCourse_Qualification to display in the data grid.
-    IEnumerable<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualificationList = new List<TeacherPostGraduateCourse_Qualification>();
+    IEnumerable<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualificationList = new List<TeacherPostGraduateCourse_QualificationWithForeignKeys>();
 
     IEnumerable<TeacherPostGraduateCourse_Qualification> selectedTeacherPostGraduateCourseQualifications;
 

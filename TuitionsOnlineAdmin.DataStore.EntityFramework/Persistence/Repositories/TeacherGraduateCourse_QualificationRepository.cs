@@ -22,35 +22,50 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To view Graduate Course Qualifications from the database
-        public List<TeacherGraduateCourse_Qualification> ViewGraduateCourseQualificationRepository(int teacherId)
+        public List<TeacherGraduateCourse_QualificationWithForeignKeys> ViewGraduateCourseQualificationRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
             List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
-
+            List<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualificationWithForeignKeyList = new List<TeacherGraduateCourse_QualificationWithForeignKeys>() { };
+            TeacherGraduateCourse_QualificationWithForeignKeys teacherGraduateCourseQualificationWithForeignKey = new TeacherGraduateCourse_QualificationWithForeignKeys();
+            //  List<TeacherGraduateCourse_QualificationWithForeignKeys> list = new List<TeacherGraduateCourse_QualificationWithForeignKeys>();
             try
             {
                 if (teacherId != 0)
                 {
-                    Console.WriteLine(teacherId);
+                    //Console.WriteLine(teacherId);
                     teacherGraduateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherGraduateCourseQualificationList);
-                    if (teacherGraduateCourseQualificationList == null) {
-                        teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
+                    foreach (var teacherGraduateCourseQualification in teacherGraduateCourseQualificationList)
+                    {
+                        var list1 = new List<TeacherGraduateCourse_QualificationWithForeignKeys>();
+                        Console.WriteLine(teacherGraduateCourseQualificationWithForeignKeyList);
+                        var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherGraduateCourseQualification.TeacherId);
+                        var GraduateCourseDetails = diTuitionsOnlineAdminDbContext.GraduateCourse.FirstOrDefault(s => s.GraduateCourseId == teacherGraduateCourseQualification.GraduateCourseId);
+                        teacherGraduateCourseQualificationWithForeignKeyList.Add(new TeacherGraduateCourse_QualificationWithForeignKeys()
+                        {
+                            TeacherName = TeacherDetails.Teacher_Name,
+                            GraduateCourseName = GraduateCourseDetails.GraduateCourseName,
+                            GraduateCourseId = GraduateCourseDetails.GraduateCourseId,
+                            TeacherId = TeacherDetails.TeacherId,
+                            TeacherGraduateCourse_QualificationId = teacherGraduateCourseQualification.TeacherGraduateCourse_QualificationId
+                        });
                     }
                 }
-                Console.WriteLine(teacherGraduateCourseQualificationList);
-                return teacherGraduateCourseQualificationList;
-
-
+                if (teacherGraduateCourseQualificationWithForeignKeyList == null)
+                {
+                    teacherGraduateCourseQualificationWithForeignKeyList = new List<TeacherGraduateCourse_QualificationWithForeignKeys>();
+                }
+                return teacherGraduateCourseQualificationWithForeignKeyList;
             }
-            catch (Exception) {
-                return teacherGraduateCourseQualificationList = null;
-
+            catch (Exception)
+            {
+                return teacherGraduateCourseQualificationWithForeignKeyList = null;
             }
         }
 
         //Aim : To create Teacher Graduate Course Qualification in the database
-      
+
         public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses)
         {
             try

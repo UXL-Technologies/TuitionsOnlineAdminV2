@@ -24,7 +24,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.
 
         // Aim : The ViewPostGraduateCourseUseCase method is responsible to get the teacher Postgraduate course qualification record if exists else provide an empty container of teacher Postgraduate course qualification.
  
-      public  List<TeacherPostGraduateCourse_Qualification> ViewTeacherPostGraduateCourseQualification(int teacherId)
+      public  List<TeacherPostGraduateCourse_QualificationWithForeignKeys> ViewTeacherPostGraduateCourseQualification(int teacherId)
         {
             var teacherPostGraduateCourseQualificationList = diIUnitOfWork.ViewTeacherPostGraduateCourseQualification(teacherId);
             Console.WriteLine(teacherPostGraduateCourseQualificationList);
