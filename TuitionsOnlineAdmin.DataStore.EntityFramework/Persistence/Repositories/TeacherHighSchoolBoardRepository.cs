@@ -25,34 +25,46 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         //Aim : To view HighSchoolBoard from the database
 
-        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoardRepository(int teacherId)
+        public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoardRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
             List<TeacherHighSchoolBoard> teacherHighSchoolBoardList = new List<TeacherHighSchoolBoard>();
-
+            List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoardWithForeignKeyList = new List<TeacherHighSchoolBoardWithForeignKeys>() { };
+            TeacherHighSchoolBoardWithForeignKeys teacherHighSchoolBoardWithForeignKey = new TeacherHighSchoolBoardWithForeignKeys();
+            //  List<TeacherHighSchoolBoardWithForeignKeys> list = new List<TeacherHighSchoolBoardWithForeignKeys>();
             try
             {
                 if (teacherId != 0)
                 {
-                    Console.WriteLine(teacherId);
+                    //Console.WriteLine(teacherId);
                     teacherHighSchoolBoardList = diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherHighSchoolBoardList);
-                    if (teacherHighSchoolBoardList == null)
+                    foreach (var teacherHighSchoolBoard in teacherHighSchoolBoardList)
                     {
-                        teacherHighSchoolBoardList = new List<TeacherHighSchoolBoard>();
+                        var list1 = new List<TeacherHighSchoolBoardWithForeignKeys>();
+                        Console.WriteLine(teacherHighSchoolBoardWithForeignKeyList);
+                        var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherHighSchoolBoard.TeacherId);
+                        var HighSchoolBoardDetails = diTuitionsOnlineAdminDbContext.HighSchoolBoard.FirstOrDefault(s => s.HighSchoolBoardId == teacherHighSchoolBoard.HighSchoolBoardId);
+                        teacherHighSchoolBoardWithForeignKeyList.Add(new TeacherHighSchoolBoardWithForeignKeys()
+                        {
+                            TeacherName = TeacherDetails.Teacher_Name,
+                            HighSchoolBoardName = HighSchoolBoardDetails.HighSchoolBoardName,
+                            HighSchoolBoardId = HighSchoolBoardDetails.HighSchoolBoardId,
+                            TeacherId = TeacherDetails.TeacherId,
+                            TeacherHighSchoolBoardId = teacherHighSchoolBoard.TeacherHighSchoolBoardId
+                        });
                     }
                 }
-                Console.WriteLine(teacherHighSchoolBoardList);
-                return teacherHighSchoolBoardList;
-
-
+                if (teacherHighSchoolBoardWithForeignKeyList == null)
+                {
+                    teacherHighSchoolBoardWithForeignKeyList = new List<TeacherHighSchoolBoardWithForeignKeys>();
+                }
+                return teacherHighSchoolBoardWithForeignKeyList;
             }
             catch (Exception)
             {
-                return teacherHighSchoolBoardList = null;
-
+                return teacherHighSchoolBoardWithForeignKeyList = null;
             }
-
         }
         //Aim : To create Teacher HighSchoolBoard in the database
         public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards)

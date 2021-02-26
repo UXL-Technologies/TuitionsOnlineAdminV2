@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.V
    public  interface IViewTeacherCertificateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for viewing the teacher Certificate course qualification. 
-        public List<TeacherCertificateCourse_Qualification> ViewTeacherCertificateCourseQualification(int teacherId);
+        public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewTeacherCertificateCourseQualification(int teacherId);
     }
 }

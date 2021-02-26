@@ -23,34 +23,46 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         //Aim : To view University from the database
 
-        public List<TeacherUniversity> ViewTeacherUniversityRepository(int teacherId)
+        public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversityRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
             List<TeacherUniversity> teacherUniversityList = new List<TeacherUniversity>();
-
+            List<TeacherUniversityWithForeignKeys> teacherUniversityWithForeignKeyList = new List<TeacherUniversityWithForeignKeys>() { };
+            TeacherUniversityWithForeignKeys teacherUniversityWithForeignKey = new TeacherUniversityWithForeignKeys();
+            //  List<TeacherUniversityWithForeignKeys> list = new List<TeacherUniversityWithForeignKeys>();
             try
             {
                 if (teacherId != 0)
                 {
-                    Console.WriteLine(teacherId);
+                    //Console.WriteLine(teacherId);
                     teacherUniversityList = diTuitionsOnlineAdminDbContext.TeacherUniversity.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherUniversityList);
-                    if (teacherUniversityList == null)
+                    foreach (var teacherUniversity in teacherUniversityList)
                     {
-                        teacherUniversityList = new List<TeacherUniversity>();
+                        var list1 = new List<TeacherUniversityWithForeignKeys>();
+                        Console.WriteLine(teacherUniversityWithForeignKeyList);
+                        var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherUniversity.TeacherId);
+                        var UniversityDetails = diTuitionsOnlineAdminDbContext.University.FirstOrDefault(s => s.UniversityId == teacherUniversity.UniversityId);
+                        teacherUniversityWithForeignKeyList.Add(new TeacherUniversityWithForeignKeys()
+                        {
+                            TeacherName = TeacherDetails.Teacher_Name,
+                            UniversityName = UniversityDetails.UniversityName,
+                            UniversityId = UniversityDetails.UniversityId,
+                            TeacherId = TeacherDetails.TeacherId,
+                            TeacherUniversityId = teacherUniversity.TeacherUniversityId
+                        });
                     }
                 }
-                Console.WriteLine(teacherUniversityList);
-                return teacherUniversityList;
-
-
+                if (teacherUniversityWithForeignKeyList == null)
+                {
+                    teacherUniversityWithForeignKeyList = new List<TeacherUniversityWithForeignKeys>();
+                }
+                return teacherUniversityWithForeignKeyList;
             }
             catch (Exception)
             {
-                return teacherUniversityList = null;
-
+                return teacherUniversityWithForeignKeyList = null;
             }
-
         }
         //Aim : To create Teacher University in the database
         public string CreateTeacherUniversity(int teacherId, int selectedUniversities)

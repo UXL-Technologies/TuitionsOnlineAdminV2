@@ -22,32 +22,46 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To view Doctorate Course Qualifications from the database
-        public List<TeacherDoctorateCourse_Qualification> ViewDoctorateCourseQualificationRepository(int teacherId)
+        public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewDoctorateCourseQualificationRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
             List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualificationList = new List<TeacherDoctorateCourse_Qualification>();
-
+            List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualificationWithForeignKeyList = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>() { };
+            TeacherDoctorateCourse_QualificationWithForeignKeys teacherDoctorateCourseQualificationWithForeignKey = new TeacherDoctorateCourse_QualificationWithForeignKeys();
+            //  List<TeacherDoctorateCourse_QualificationWithForeignKeys> list = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>();
             try
             {
                 if (teacherId != 0)
                 {
-                    Console.WriteLine(teacherId);
+                    //Console.WriteLine(teacherId);
                     teacherDoctorateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherDoctorateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherDoctorateCourseQualificationList);
-                    if (teacherDoctorateCourseQualificationList == null)
+                    foreach (var teacherDoctorateCourseQualification in teacherDoctorateCourseQualificationList)
                     {
-                        teacherDoctorateCourseQualificationList = new List<TeacherDoctorateCourse_Qualification>();
+                        var list1 = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>();
+                        Console.WriteLine(teacherDoctorateCourseQualificationWithForeignKeyList);
+                        var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherDoctorateCourseQualification.TeacherId);
+                        var DoctorateCourseDetails = diTuitionsOnlineAdminDbContext.DoctorateCourse.FirstOrDefault(s => s.DoctorateCourseId == teacherDoctorateCourseQualification.DoctorateCourseId);
+                        teacherDoctorateCourseQualificationWithForeignKeyList.Add(new TeacherDoctorateCourse_QualificationWithForeignKeys()
+                        {
+                            TeacherName = TeacherDetails.Teacher_Name,
+                            DoctorateCourseName = DoctorateCourseDetails.DoctorateCourseName,
+                            DoctorateCourseId
+                        = DoctorateCourseDetails.DoctorateCourseId,
+                            TeacherId = TeacherDetails.TeacherId,
+                            TeacherDoctorateCourse_QualificationId = teacherDoctorateCourseQualification.TeacherDoctorateCourse_QualificationId
+                        });
                     }
                 }
-                Console.WriteLine(teacherDoctorateCourseQualificationList);
-                return teacherDoctorateCourseQualificationList;
-
-
+                if (teacherDoctorateCourseQualificationWithForeignKeyList == null)
+                {
+                    teacherDoctorateCourseQualificationWithForeignKeyList = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>();
+                }
+                return teacherDoctorateCourseQualificationWithForeignKeyList;
             }
             catch (Exception)
             {
-                return teacherDoctorateCourseQualificationList = null;
-
+                return teacherDoctorateCourseQualificationWithForeignKeyList = null;
             }
         }
 

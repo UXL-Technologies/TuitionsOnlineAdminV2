@@ -156,7 +156,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To View ,create and edit TeacherDoctorateCourse_Qualification
 
         //To view TeacherDoctorateCourse_Qualification
-        public List<TeacherDoctorateCourse_Qualification> ViewTeacherDoctorateCourseQualification(int teacherId);
+        public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewTeacherDoctorateCourseQualification(int teacherId);
 
         //Aim : The method is responsible to hold the contract for creating the Doctorate course qualification.
         public string CreateTeacherDoctorateCourseQualification(int teacherId, int selectedDoctorateCourses);
@@ -169,7 +169,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To View ,create and edit TeacherCertificateCourse_Qualification
 
         //To view TeacherCertificateCourse_Qualification
-        public List<TeacherCertificateCourse_Qualification> ViewTeacherCertificateCourseQualification(int teacherId);
+        public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewTeacherCertificateCourseQualification(int teacherId);
 
         //Aim : The method is responsible to hold the contract for creating the Certificate course qualification.
         public string CreateTeacherCertificateCourseQualification(int teacherId, int selectedCertificateCourses);
@@ -184,7 +184,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To View ,create and edit TeacherHighSchoolBoard
 
         //To view TeacherHighSchoolBoard
-        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoard(int teacherId);
+        public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoard(int teacherId);
 
         //Aim : The method is responsible to hold the contract for creating the HighSchoolBoard.
         public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards);
@@ -209,7 +209,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To View ,create and edit University
 
         //To view TeacherUniversity
-        public List<TeacherUniversity> ViewTeacherUniversity(int teacherId);
+        public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversity(int teacherId);
 
         //Aim : The method is responsible to hold the contract for creating the University.
         public string CreateTeacherUniversity(int teacherId, int selectedUniversities);

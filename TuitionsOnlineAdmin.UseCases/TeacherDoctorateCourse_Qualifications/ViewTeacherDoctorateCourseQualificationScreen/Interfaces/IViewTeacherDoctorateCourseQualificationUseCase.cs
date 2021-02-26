@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.Vie
     public interface IViewTeacherDoctorateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for viewing the teacher Doctorate course qualification. 
-        public List<TeacherDoctorateCourse_Qualification> ViewTeacherDoctorateCourseQualification(int teacherId);
+        public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewTeacherDoctorateCourseQualification(int teacherId);
     }
 }

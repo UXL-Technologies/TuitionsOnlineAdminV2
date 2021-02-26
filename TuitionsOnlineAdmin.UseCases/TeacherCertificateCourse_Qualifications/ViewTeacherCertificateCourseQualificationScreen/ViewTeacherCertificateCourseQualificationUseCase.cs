@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.V
             this.diIUnitOfWork = diIUnitOfWork;
         }
         // Aim : The ViewCertificateCourseUseCase method is responsible to get the teacher Certificate course qualification record if exists else provide an empty container of teacher Certificate course qualification.
-        public List<TeacherCertificateCourse_Qualification> ViewTeacherCertificateCourseQualification(int teacherId)
+        public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewTeacherCertificateCourseQualification(int teacherId)
         {
             var teacherCertificateCourseQualificationList = diIUnitOfWork.ViewTeacherCertificateCourseQualification(teacherId);
             Console.WriteLine(teacherCertificateCourseQualificationList);

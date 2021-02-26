@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
    public interface ITeacherUniversityRepository
     {
         //Aim : The method is responsible to hold the contract for viewing the TeacherUniversity for the incoming teacher id.
-        public List<TeacherUniversity> ViewTeacherUniversityRepository(int teacherId);
+        public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversityRepository(int teacherId);
 
         //  Aim : The method is responsible to hold the contract for creating the teacher University
         public string CreateTeacherUniversity(int teacherId, int selectedUniversities);

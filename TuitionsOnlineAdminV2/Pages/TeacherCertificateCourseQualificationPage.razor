@@ -110,8 +110,8 @@
                                 @bind-MultipleSelectedDataRows="@onSelectOfTeacherCertificateCourseQualification">
                         <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
 
-                        <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_Qualification.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
-                        <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_Qualification.CertificateCourseId)" Caption="Certificate Course ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_QualificationWithForeignKeys.TeacherName)" Caption="Teacher Name"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_QualificationWithForeignKeys.CertificateCourseName)" Caption="Certificate Course Name"></DxDataGridColumn>
 
                     </DxDataGrid>
                     <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
@@ -178,7 +178,7 @@
     IEnumerable<CertificateCourse> certificateCourseList = Enumerable.Empty<CertificateCourse>();
 
     //Aim : To hold the list of teachers /single record of TeacherCertificateCourse_Qualification details of type TeacherCertificateCourse_Qualification to display in the data grid.
-    IEnumerable<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_Qualification>();
+    IEnumerable<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_QualificationWithForeignKeys>();
 
     IEnumerable<TeacherCertificateCourse_Qualification> selectedTeacherCertificateCourseQualifications;
 

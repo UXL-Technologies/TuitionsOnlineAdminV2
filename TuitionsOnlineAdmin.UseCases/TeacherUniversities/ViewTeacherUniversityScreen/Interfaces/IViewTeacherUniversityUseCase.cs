@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherUniversities.ViewTeacherUniversity
   public  interface IViewTeacherUniversityUseCase
     {
         //Aim : The method is responsible to hold the contact for viewing the TeacherUniversity
-        public List<TeacherUniversity> ViewTeacherUniversity(int teacherId);
+        public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversity(int teacherId);
     
     }
 }

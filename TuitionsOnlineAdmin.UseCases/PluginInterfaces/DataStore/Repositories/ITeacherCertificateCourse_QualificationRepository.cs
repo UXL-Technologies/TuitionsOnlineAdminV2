@@ -13,7 +13,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     public interface ITeacherCertificateCourse_QualificationRepository
     {
         //Aim : The method is responsible to hold the contract for viewing the teacher Certificate course qualification for the incoming teacher id. 
-        public List<TeacherCertificateCourse_Qualification> ViewCertificateCourseQualificationRepository(int teacherId);
+        public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewCertificateCourseQualificationRepository(int teacherId);
 
         //  Aim : The method is responsible to hold the contract for creating the teacher Certificate course qualification.
         public string CreateTeacherCertificateCourseQualification(int teacherId, int selectedCertificateCourses);

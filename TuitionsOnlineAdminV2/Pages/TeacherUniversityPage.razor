@@ -108,8 +108,8 @@
                                 @bind-MultipleSelectedDataRows="@onSelectOfTeacherUniversity">
                         <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
 
-                        <DxDataGridColumn Field="@nameof(TeacherUniversity.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
-                        <DxDataGridColumn Field="@nameof(TeacherUniversity.UniversityId)" Caption="University ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherUniversityWithForeignKeys.TeacherName)" Caption="Teacher Name"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherUniversityWithForeignKeys.UniversityName)" Caption="University Name"></DxDataGridColumn>
 
                     </DxDataGrid>
                     <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
@@ -175,7 +175,7 @@
     IEnumerable<University> universityList = Enumerable.Empty<University>();
 
     //Aim : To hold the list of teachers /single record of TeacherUniversity details of type TeacherUniversity to display in the data grid.
-    IEnumerable<TeacherUniversity> teacherUniversityList = new List<TeacherUniversity>();
+    IEnumerable<TeacherUniversityWithForeignKeys> teacherUniversityList = new List<TeacherUniversityWithForeignKeys>();
 
     IEnumerable<TeacherUniversity> selectedTeacherUniversities;
 

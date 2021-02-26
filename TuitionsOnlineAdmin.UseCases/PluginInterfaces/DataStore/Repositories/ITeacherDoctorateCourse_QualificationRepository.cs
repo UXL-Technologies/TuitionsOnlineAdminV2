@@ -12,7 +12,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
    public interface ITeacherDoctorateCourse_QualificationRepository
     {
         //Aim : The method is responsible to hold the contract for viewing the teacher Doctorate course qualification for the incoming teacher id. 
-        public List<TeacherDoctorateCourse_Qualification> ViewDoctorateCourseQualificationRepository(int teacherId);
+        public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewDoctorateCourseQualificationRepository(int teacherId);
 
         //  Aim : The method is responsible to hold the contract for creating the teacher Doctorate course qualification.
         public string CreateTeacherDoctorateCourseQualification(int teacherId, int selectedDoctorateCourses);

@@ -23,32 +23,46 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To view Certificate Course Qualifications from the database
-        public List<TeacherCertificateCourse_Qualification> ViewCertificateCourseQualificationRepository(int teacherId)
+        public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewCertificateCourseQualificationRepository(int teacherId)
         {
             Console.WriteLine(teacherId);
             List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_Qualification>();
-
+            List<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualificationWithForeignKeyList = new List<TeacherCertificateCourse_QualificationWithForeignKeys>() { };
+            TeacherCertificateCourse_QualificationWithForeignKeys teacherCertificateCourseQualificationWithForeignKey = new TeacherCertificateCourse_QualificationWithForeignKeys();
+            //  List<TeacherCertificateCourse_QualificationWithForeignKeys> list = new List<TeacherCertificateCourse_QualificationWithForeignKeys>();
             try
             {
                 if (teacherId != 0)
                 {
-                    Console.WriteLine(teacherId);
+                    //Console.WriteLine(teacherId);
                     teacherCertificateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
                     Console.WriteLine(teacherCertificateCourseQualificationList);
-                    if (teacherCertificateCourseQualificationList == null)
+                    foreach (var teacherCertificateCourseQualification in teacherCertificateCourseQualificationList)
                     {
-                        teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_Qualification>();
+                        var list1 = new List<TeacherCertificateCourse_QualificationWithForeignKeys>();
+                        Console.WriteLine(teacherCertificateCourseQualificationWithForeignKeyList);
+                        var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherCertificateCourseQualification.TeacherId);
+                        var CertificateCourseDetails = diTuitionsOnlineAdminDbContext.CertificateCourse.FirstOrDefault(s => s.CertificateCourseId == teacherCertificateCourseQualification.CertificateCourseId);
+                        teacherCertificateCourseQualificationWithForeignKeyList.Add(new TeacherCertificateCourse_QualificationWithForeignKeys()
+                        {
+                            TeacherName = TeacherDetails.Teacher_Name,
+                            CertificateCourseName = CertificateCourseDetails.CertificateCourseName,
+                            CertificateCourseId
+                        = CertificateCourseDetails.CertificateCourseId,
+                            TeacherId = TeacherDetails.TeacherId,
+                            TeacherCertificateCourse_QualificationId = teacherCertificateCourseQualification.TeacherCertificateCourse_QualificationId
+                        });
                     }
                 }
-                Console.WriteLine(teacherCertificateCourseQualificationList);
-                return teacherCertificateCourseQualificationList;
-
-
+                if (teacherCertificateCourseQualificationWithForeignKeyList == null)
+                {
+                    teacherCertificateCourseQualificationWithForeignKeyList = new List<TeacherCertificateCourse_QualificationWithForeignKeys>();
+                }
+                return teacherCertificateCourseQualificationWithForeignKeyList;
             }
             catch (Exception)
             {
-                return teacherCertificateCourseQualificationList = null;
-
+                return teacherCertificateCourseQualificationWithForeignKeyList = null;
             }
         }
 

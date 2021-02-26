@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherUniversities.ViewTeacherUniversity
     {
         //property dependency injection
         private readonly IUnitOfWork diIUnitOfWork;
-        //Aim: Constructor dependency injection of IUnitOfWork for viewing the teacher HighSchoolBoard .
+        //Aim: Constructor dependency injection of IUnitOfWork for viewing the teacher University .
         public ViewTeacherUniversityUseCase(IUnitOfWork diIUnitOfWork)
         {
             this.diIUnitOfWork = diIUnitOfWork;
@@ -23,7 +23,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherUniversities.ViewTeacherUniversity
 
         // Aim : The ViewTeacherUniversityUseCase method is responsible to get the teacher University record if exists else provide an empty container of teacher University 
 
-        public List<TeacherUniversity> ViewTeacherUniversity(int teacherId)
+        public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversity(int teacherId)
         {
             var teacherUniversityList = diIUnitOfWork.ViewTeacherUniversity(teacherId);
             Console.WriteLine(teacherUniversityList);

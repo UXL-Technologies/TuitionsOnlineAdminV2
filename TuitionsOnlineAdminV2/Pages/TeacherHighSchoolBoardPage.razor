@@ -111,8 +111,8 @@
                                 @bind-MultipleSelectedDataRows="@onSelectOfTeacherHighSchoolBoard">
                         <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
 
-                        <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoard.TeacherId)" Caption="Teacher ID"></DxDataGridColumn>
-                        <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoard.HighSchoolBoardId)" Caption="HighSchoolBoard ID"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoardWithForeignKeys.TeacherName)" Caption="Teacher Name"></DxDataGridColumn>
+                        <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoardWithForeignKeys.HighSchoolBoardName)" Caption="HighSchoolBoard Name"></DxDataGridColumn>
 
                     </DxDataGrid>
                     <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
@@ -172,7 +172,7 @@
     IEnumerable<HighSchoolBoard> highSchoolBoardList = Enumerable.Empty<HighSchoolBoard>();
 
     //Aim : To hold the list of teachers /single record of TeacherHighSchoolBoard details of type TeacherHighSchoolBoard to display in the data grid.
-    IEnumerable<TeacherHighSchoolBoard> teacherHighSchoolBoardList = new List<TeacherHighSchoolBoard>();
+    IEnumerable<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoardList = new List<TeacherHighSchoolBoardWithForeignKeys>();
 
     IEnumerable<TeacherHighSchoolBoard> selectedTeacherHighSchoolBoards;
 

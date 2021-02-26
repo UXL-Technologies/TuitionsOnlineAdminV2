@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.ViewTeacherHighSc
    public interface IViewTeacherHighSchoolBoardUseCase
     {
         //Aim : The method is responsible to hold the contact for viewing the TeacherHighSchoolBoard 
-        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoard(int teacherId);
+        public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoard(int teacherId);
     }
 }

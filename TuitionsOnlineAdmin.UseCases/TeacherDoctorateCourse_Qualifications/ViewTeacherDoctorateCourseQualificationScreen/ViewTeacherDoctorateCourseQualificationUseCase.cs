@@ -23,7 +23,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.Vie
 
         // Aim : The ViewDoctorateCourseUseCase method is responsible to get the teacher Doctorate course qualification record if exists else provide an empty container of teacher Doctorate course qualification.
 
-        public List<TeacherDoctorateCourse_Qualification> ViewTeacherDoctorateCourseQualification(int teacherId)
+        public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewTeacherDoctorateCourseQualification(int teacherId)
         {
             var teacherDoctorateCourseQualificationList = diIUnitOfWork.ViewTeacherDoctorateCourseQualification(teacherId);
             Console.WriteLine(teacherDoctorateCourseQualificationList);

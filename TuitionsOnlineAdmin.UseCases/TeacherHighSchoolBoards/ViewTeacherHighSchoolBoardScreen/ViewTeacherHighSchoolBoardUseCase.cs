@@ -23,7 +23,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.ViewTeacherHighSc
 
         // Aim : The ViewTeacherHighSchoolBoardUseCase method is responsible to get the teacher HighSchoolBoard record if exists else provide an empty container of teacher HighSchoolBoard 
 
-        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoard(int teacherId)
+        public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoard(int teacherId)
         {
             var teacherHighSchoolBoardList = diIUnitOfWork.ViewTeacherHighSchoolBoard(teacherId);
             Console.WriteLine(teacherHighSchoolBoardList);

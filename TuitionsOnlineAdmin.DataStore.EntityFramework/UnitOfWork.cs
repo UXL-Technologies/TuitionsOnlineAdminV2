@@ -392,7 +392,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         // Date:24-Feb-2021
 
         //Aim : The ViewTeacherDoctorateCourseQualification method is responsible to view the teacher Doctorate course qualification details for the teacherId. 
-        public List<TeacherDoctorateCourse_Qualification> ViewTeacherDoctorateCourseQualification(int teacherId)
+        public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewTeacherDoctorateCourseQualification(int teacherId)
         {
             var teacherDoctorateCourseQualificationList = diITeacherDoctorateCourse_QualificationRepository.ViewDoctorateCourseQualificationRepository(teacherId);
             Console.WriteLine(teacherDoctorateCourseQualificationList);
@@ -424,7 +424,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         // Date:24-Feb-2021
 
         //Aim : The ViewTeacherCertificateCourseQualification method is responsible to view the teacher Certificate course qualification details for the teacherId. 
-        public List<TeacherCertificateCourse_Qualification> ViewTeacherCertificateCourseQualification(int teacherId)
+        public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewTeacherCertificateCourseQualification(int teacherId)
         {
             var teacherCertificateCourseQualificationList = diITeacherCertificateCourse_QualificationRepository.ViewCertificateCourseQualificationRepository(teacherId);
             Console.WriteLine(teacherCertificateCourseQualificationList);
@@ -454,7 +454,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //Authors: SA, BM, SM, BA, KK
         // Date:25-Feb-2021
         //Aim : The view TeacherHighSchoolBoard method is responsible to view the teacher TeacherHighSchoolBoard details for the teacherId.
-        public List<TeacherHighSchoolBoard> ViewTeacherHighSchoolBoard(int teacherId)
+        public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoard(int teacherId)
         {
             var teacherHighSchoolBoardList = diITeacherHighSchoolBoardRepository.ViewTeacherHighSchoolBoardRepository(teacherId);
             Console.WriteLine(teacherHighSchoolBoardList);
@@ -510,7 +510,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //Authors: SA, BM, SM, BA, KK
         // Date:26-Feb-2021
         //Aim : The view TeacherUniversity method is responsible to view the teacher TeacherUniversity details for the teacherId.
-        public List<TeacherUniversity> ViewTeacherUniversity(int teacherId)
+        public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversity(int teacherId)
         {
             var teacherUniversityList = diITeacherUniversityRepository.ViewTeacherUniversityRepository(teacherId);
             Console.WriteLine(teacherUniversityList);
