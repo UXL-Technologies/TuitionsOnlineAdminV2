@@ -138,7 +138,6 @@
     //Aim : To enable or disable Doctorate course search button
     public bool enableOrDisableLoadDoctorateCourseButton = false;
 
-
     public bool enableDoctorateCourseGridLayout = false;
 
     //Aim : Used to capture the keyword entered by the user
@@ -167,7 +166,6 @@
 
     int StoredUnselectedCount { get; set; }
 
-
     //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
     IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
 
@@ -177,19 +175,20 @@
     //Aim : To hold the list of teachers /single record of TeacherDoctorateCourse_Qualification details of type TeacherDoctorateCourse_Qualification to display in the data grid.
     IEnumerable<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualificationList = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>();
 
-    IEnumerable<TeacherDoctorateCourse_Qualification> selectedTeacherDoctorateCourseQualifications;
+    IEnumerable<TeacherDoctorateCourse_QualificationWithForeignKeys> selectedTeacherDoctorateCourseQualifications;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
+
     public void onChangeTeacherSearchText(string searchTeacherText)
     {
         searchTeacherKeyword = searchTeacherText;
-
         enableOrDisableSearchTeacherButton = true;
         Console.WriteLine(enableOrDisableSearchTeacherButton);
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
     //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+
     public void getTeacherListOnSearch()
     {
         Console.Write(searchTeacherKeyword);
@@ -199,6 +198,7 @@
     }
 
     //Aim : To call getTeacherDoctorateCourseQualifications method and to enable the "Load Doctorate Course" button.
+
     public TeacherBasicInformation onSelectOfTeacher
     {
         get { return selectedTeacherDetails; }
@@ -207,7 +207,6 @@
             selectedTeacherDetails = value;
             Console.WriteLine(selectedTeacherDetails);
             selectedTeacherId = selectedTeacherDetails.TeacherId;
-
             enableOrDisableLoadDoctorateCourseButton = true;
             Console.WriteLine(enableOrDisableLoadDoctorateCourseButton);
             InvokeAsync(StateHasChanged);
@@ -245,7 +244,6 @@
     {
         doctorateCourseList = diIViewDoctorateCourseUseCase.ViewDoctorateCourse(searchDoctorateCourseKeyword);
         enableSearchDoctorateCourseButton = true;
-
         Console.WriteLine(doctorateCourseList);
     }
 
@@ -260,10 +258,8 @@
             Console.WriteLine(selectedDoctorateCourseList.DoctorateCourseId);
             selectedDoctorateId = selectedDoctorateCourseList.DoctorateCourseId;
             Console.WriteLine(selectedDoctorateId);
-
             InvokeAsync(StateHasChanged);
         }
-
     }
 
     //Aim : To fetch teacher Doctorate course qualifications from TeacherDoctorateCourseQualification table for the selected teacher.
@@ -273,7 +269,6 @@
         Console.WriteLine(selectedTeacherId);
         teacherDoctorateCourseQualificationList = diIViewTeacherDoctorateCourseQualificationUseCase.ViewTeacherDoctorateCourseQualification(selectedTeacherId);
         Console.WriteLine(teacherDoctorateCourseQualificationList);
-
         teacherDoctorateCourseQualificationList = diIViewTeacherDoctorateCourseQualificationUseCase.ViewTeacherDoctorateCourseQualification(selectedTeacherId);
     }
 
@@ -285,12 +280,12 @@
         Console.WriteLine(selectedDoctorateId);
         var addDoctorateCourse = diICreateTeacherDoctorateCourseQualificationUseCase.CreateTeacherDoctorateCourseQualification(selectedTeacherId, selectedDoctorateId);
         Console.WriteLine(addDoctorateCourse);
-
         getTeacherDoctorateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher Doctorate course qualification value and to enable the "Remove Doctorate Course" button.
-    IEnumerable<TeacherDoctorateCourse_Qualification> onSelectOfTeacherDoctorateCourseQualification
+
+    IEnumerable<TeacherDoctorateCourse_QualificationWithForeignKeys> onSelectOfTeacherDoctorateCourseQualification
     {
         get { return selectedTeacherDoctorateCourseQualifications; }
         set
@@ -302,11 +297,13 @@
     }
 
     //Aim: To remove the teacher Doctorate course qualification record on click of "Remove Doctorate Course" button.
+
     public void RemoveDoctorateCourse()
     {
-        List<TeacherDoctorateCourse_Qualification> List = selectedTeacherDoctorateCourseQualifications.ToList();
+        List<TeacherDoctorateCourse_QualificationWithForeignKeys> List = selectedTeacherDoctorateCourseQualifications.ToList();
         var removeDoctorateCourse = diIEditTeacherDoctorateCourseQualificationUseCase.EditTeacherDoctorateCourseQualification(List);
         Console.WriteLine(removeDoctorateCourse);
+        getTeacherDoctorateCourseQualifications();
     }
 
 }

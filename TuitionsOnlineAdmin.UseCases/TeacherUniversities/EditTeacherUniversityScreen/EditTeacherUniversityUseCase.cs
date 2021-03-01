@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherUniversities.EditTeacherUniversity
             {
                     this.diIUnitOfWork = diIUnitOfWork;
             }
-            public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities)
+            public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities)
             {
                 var result = diIUnitOfWork.EditTeacherUniversity(teacherUniversities);
                 return result;

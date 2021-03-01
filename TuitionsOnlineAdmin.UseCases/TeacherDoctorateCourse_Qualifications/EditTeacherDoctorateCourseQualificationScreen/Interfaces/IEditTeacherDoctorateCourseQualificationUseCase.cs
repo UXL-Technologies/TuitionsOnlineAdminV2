@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.Edi
    public interface IEditTeacherDoctorateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for editing the teacher Doctorate course qualification.
-        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualifications);
+        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualifications);
     }
 }

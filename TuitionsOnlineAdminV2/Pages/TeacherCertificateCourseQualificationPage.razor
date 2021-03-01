@@ -137,7 +137,7 @@
 
 
     //Aim : To enable or disable teacher search button
-        public bool enableOrDisableSearchTeacherButton = false;
+    public bool enableOrDisableSearchTeacherButton = false;
 
     //Aim : To enable or disable Certificate course search button
     public bool enableOrDisableLoadCertificateCourseButton = false;
@@ -171,7 +171,6 @@
 
     int StoredUnselectedCount { get; set; }
 
-
     //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
     IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
 
@@ -181,13 +180,12 @@
     //Aim : To hold the list of teachers /single record of TeacherCertificateCourse_Qualification details of type TeacherCertificateCourse_Qualification to display in the data grid.
     IEnumerable<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_QualificationWithForeignKeys>();
 
-    IEnumerable<TeacherCertificateCourse_Qualification> selectedTeacherCertificateCourseQualifications;
+    IEnumerable<TeacherCertificateCourse_QualificationWithForeignKeys> selectedTeacherCertificateCourseQualifications;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
     public void onChangeTeacherSearchText(string searchTeacherText)
     {
         searchTeacherKeyword = searchTeacherText;
-
         enableOrDisableSearchTeacherButton = true;
         Console.WriteLine(enableOrDisableSearchTeacherButton);
     }
@@ -211,7 +209,6 @@
             selectedTeacherDetails = value;
             Console.WriteLine(selectedTeacherDetails);
             selectedTeacherId = selectedTeacherDetails.TeacherId;
-
             enableOrDisableLoadCertificateCourseButton = true;
             Console.WriteLine(enableOrDisableLoadCertificateCourseButton);
             InvokeAsync(StateHasChanged);
@@ -249,7 +246,6 @@
     {
         certificateCourseList = diIViewCertificateCourseUseCase.ViewCertificateCourse(searchCertificateCourseKeyword);
         enableSearchCertificateCourseButton = true;
-
         Console.WriteLine(certificateCourseList);
     }
 
@@ -264,7 +260,6 @@
             Console.WriteLine(selectedCertificateCourseList.CertificateCourseId);
             selectedCertificateId = selectedCertificateCourseList.CertificateCourseId;
             Console.WriteLine(selectedCertificateId);
-
             InvokeAsync(StateHasChanged);
         }
 
@@ -275,11 +270,8 @@
     public void getTeacherCertificateCourseQualifications()
     {
         Console.WriteLine(selectedTeacherId);
-
         Console.WriteLine(teacherCertificateCourseQualificationList);
-
         teacherCertificateCourseQualificationList = diIViewTeacherCertificateCourseQualificationUseCase.ViewTeacherCertificateCourseQualification(selectedTeacherId);
-
         Console.WriteLine(teacherCertificateCourseQualificationList);
     }
 
@@ -291,12 +283,11 @@
         Console.WriteLine(selectedCertificateId);
         var addCertificateCourse = diCreateTeacherCertificateCourseQualificationUseCase.CreateTeacherCertificateCourseQualification(selectedTeacherId, selectedCertificateId);
         //Console.WriteLine(addCertificateCourse);
-
         getTeacherCertificateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher Certificate course qualification value and to enable the "Remove Certificate Course" button.
-    IEnumerable<TeacherCertificateCourse_Qualification> onSelectOfTeacherCertificateCourseQualification
+    IEnumerable<TeacherCertificateCourse_QualificationWithForeignKeys> onSelectOfTeacherCertificateCourseQualification
     {
         get { return selectedTeacherCertificateCourseQualifications; }
         set
@@ -310,10 +301,10 @@
     //Aim: To remove the teacher Certificate course qualification record on click of "Remove Certificate Course" button.
     public void RemoveCertificateCourse()
     {
-        List<TeacherCertificateCourse_Qualification> List = selectedTeacherCertificateCourseQualifications.ToList();
-
+        List<TeacherCertificateCourse_QualificationWithForeignKeys> List = selectedTeacherCertificateCourseQualifications.ToList();
         var removeCertificateCourse = diEditTeacherCertificateCourseQualificationUseCase.EditTeacherCertificateCourseQualification(List);
         //Console.WriteLine(removeCertificateCourse);
+        getTeacherCertificateCourseQualifications();
 
     }
 

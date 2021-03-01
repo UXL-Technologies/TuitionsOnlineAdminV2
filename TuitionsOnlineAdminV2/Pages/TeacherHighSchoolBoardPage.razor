@@ -174,14 +174,12 @@
     //Aim : To hold the list of teachers /single record of TeacherHighSchoolBoard details of type TeacherHighSchoolBoard to display in the data grid.
     IEnumerable<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoardList = new List<TeacherHighSchoolBoardWithForeignKeys>();
 
-    IEnumerable<TeacherHighSchoolBoard> selectedTeacherHighSchoolBoards;
+    IEnumerable<TeacherHighSchoolBoardWithForeignKeys> selectedTeacherHighSchoolBoards;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
     public void onChangeTeacherSearchText(string searchTeacherText)
     {
         searchTeacherKeyword = searchTeacherText;
-
-
         enableOrDisableSearchTeacherButton = true;
         Console.WriteLine(enableOrDisableSearchTeacherButton);
     }
@@ -206,7 +204,6 @@
             Console.WriteLine(selectedTeacherDetails);
             selectedTeacherId = selectedTeacherDetails.TeacherId;
             enableOrDisableLoadHighSchoolBoardButton = true;
-
             InvokeAsync(StateHasChanged);
         }
     }
@@ -219,6 +216,7 @@
         enableOrDisableSearchHighSchoolBoardButton = true;
         Console.WriteLine(enableOrDisableSearchHighSchoolBoardButton);
     }
+
     //Aim:
     //1.to enable the HighSchoolBoard grid.
     //2.to enable the teacher HighSchoolBoard grid.
@@ -233,10 +231,13 @@
 
     }
 
-    public void getTeacherHighSchoolBoard() {
+    //Aim: To view teacher high school board
+    public void getTeacherHighSchoolBoard() 
+    {
         teacherHighSchoolBoardList = diIViewTeacherHighSchoolBoardUseCase.ViewTeacherHighSchoolBoard(selectedTeacherId);
         Console.WriteLine(teacherHighSchoolBoardList);
     }
+
     //Aim : To capture the selected HighSchoolBoard value and to enable the "Add HighSchoolBoard" button.
     public HighSchoolBoard onselectofHighSchoolBoard
     {
@@ -248,11 +249,11 @@
             Console.WriteLine(selectedHighSchoolBoardList.HighSchoolBoardId);
             selectedHighSchoolBoardId = selectedHighSchoolBoardList.HighSchoolBoardId;
             Console.WriteLine(selectedHighSchoolBoardId);
-
             InvokeAsync(StateHasChanged);
         }
 
     }
+
     //Aim:
     //1.To fetch  HighSchoolBoard (which is matched with the searched criteria) on click of HighSchoolBoard  search button :
     // IViewHighSchoolBoardUseCase is used for fetching the HighSchoolBoard  list for the searched key.
@@ -273,12 +274,11 @@
         Console.WriteLine(selectedHighSchoolBoardId);
         var addHighSchoolBoard = diICreateTeacherHighSchoolBoardUseCase.CreateTeacherHighSchoolBoard(selectedTeacherId, selectedHighSchoolBoardId);
         Console.WriteLine(addHighSchoolBoard);
-
         getTeacherHighSchoolBoard();
     }
 
     //Aim : To capture the selected teacher HighSchoolBoard value and to enable the "Remove HighSchoolBoard" button.
-    IEnumerable<TeacherHighSchoolBoard> onSelectOfTeacherHighSchoolBoard
+    IEnumerable<TeacherHighSchoolBoardWithForeignKeys> onSelectOfTeacherHighSchoolBoard
     {
         get { return selectedTeacherHighSchoolBoards; }
         set
@@ -292,10 +292,9 @@
     //Aim: To remove the teacher HighSchoolBoard record on click of "Remove HighSchoolBoard" button.
     public void RemoveHighSchoolBoard()
     {
-        List<TeacherHighSchoolBoard> List = selectedTeacherHighSchoolBoards.ToList();
+        List<TeacherHighSchoolBoardWithForeignKeys> List = selectedTeacherHighSchoolBoards.ToList();
         var removeHighSchoolBoard = diIEditTeacherHighSchoolBoardUseCase.EditTeacherHighSchoolBoard(List);
         Console.WriteLine(removeHighSchoolBoard);
+        getTeacherHighSchoolBoard();
     }
-
-
 }

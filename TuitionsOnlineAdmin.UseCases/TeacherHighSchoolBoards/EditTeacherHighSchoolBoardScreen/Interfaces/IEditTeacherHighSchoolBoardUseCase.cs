@@ -13,7 +13,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.EditTeacherHighSc
    public interface IEditTeacherHighSchoolBoardUseCase
     {
         //Aim : The method is responsible to hold the contact for editing the teacher HighSchoolBoard.
-        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards);
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards);
 
     }
 }

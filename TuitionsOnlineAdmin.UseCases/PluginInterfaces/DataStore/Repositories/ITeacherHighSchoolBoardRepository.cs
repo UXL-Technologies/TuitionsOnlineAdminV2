@@ -18,6 +18,6 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards);
 
         //Aim : The method is responsible to hold the contract for editing the teacher HighSchoolBoard.
-        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards);
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards);
     }
 }

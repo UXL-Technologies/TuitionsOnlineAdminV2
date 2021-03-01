@@ -133,7 +133,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the graduate course qualification.
-        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications);
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualifications);
 
 
 
@@ -148,7 +148,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string CreateTeacherPostGraduateCourseQualification(int teacherId, int selectedPostGraduateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the Postgraduate course qualification.
-        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualifications);
+        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualifications);
 
 
         //Authors: SA, BM, SM, BA, KK
@@ -162,7 +162,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string CreateTeacherDoctorateCourseQualification(int teacherId, int selectedDoctorateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the Doctorate course qualification.
-        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualifications);
+        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualifications);
 
         //Authors: SA, BM, SM, BA, KK
         //Date:24-Feb-2021
@@ -175,7 +175,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string CreateTeacherCertificateCourseQualification(int teacherId, int selectedCertificateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the Certificate course qualification.
-        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications);
+        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualifications);
 
 
 
@@ -190,7 +190,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards);
 
         //Aim : The method is responsible to hold the contract for editing the HighSchoolBoard.
-        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards);
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards);
 
         //Authors: SA, BM, SM, BA, KK
         //Date:25-Feb-2021
@@ -215,6 +215,6 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string CreateTeacherUniversity(int teacherId, int selectedUniversities);
 
         //Aim : The method is responsible to hold the contract for editing the University.
-        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities);
+        public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities);
     }
 }

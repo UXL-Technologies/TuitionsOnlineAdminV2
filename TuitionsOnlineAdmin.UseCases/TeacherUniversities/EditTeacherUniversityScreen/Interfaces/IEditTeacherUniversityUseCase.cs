@@ -12,6 +12,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherUniversities.EditTeacherUniversity
    public interface IEditTeacherUniversityUseCase
     {
         //Aim : The method is responsible to hold the contact for editing the Teacher University.
-        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities);
+        public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities);
     }
 }

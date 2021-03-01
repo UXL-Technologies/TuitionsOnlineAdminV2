@@ -93,13 +93,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To remove Teacher Certificate Course Qualifications from the database
-        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications)
+        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualifications)
         {
             try
             {
-                foreach (var teacherCertificateCourses in teacherCertificateCourseQualifications)
+                Console.WriteLine(teacherCertificateCourseQualifications);
+                foreach (var teacherCertificateCourseQualification in teacherCertificateCourseQualifications)
                 {
-                    diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.Remove(teacherCertificateCourses);
+                    Console.WriteLine(teacherCertificateCourseQualification);
+                    //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
+                    // };
+                    // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
+                    //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
+                    var id = teacherCertificateCourseQualification.TeacherCertificateCourse_QualificationId;
+                    Console.WriteLine(id);
+                    var recordId = diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.FirstOrDefault(s => s.TeacherCertificateCourse_QualificationId == id);
+                    Console.WriteLine(recordId);
+                    diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";

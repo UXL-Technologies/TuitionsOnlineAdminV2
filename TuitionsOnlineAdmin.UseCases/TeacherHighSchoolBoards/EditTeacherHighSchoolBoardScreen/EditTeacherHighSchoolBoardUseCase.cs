@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.EditTeacherHighSc
         {
             this.diIUnitOfWork = diIUnitOfWork;
         }
-        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards)
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards)
         {
             var result = diIUnitOfWork.EditTeacherHighSchoolBoard(teacherHighSchoolBoards);
             return result;

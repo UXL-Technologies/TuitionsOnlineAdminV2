@@ -22,7 +22,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.Edi
         {
             this.diIUnitOfWork = diIUnitOfWork;
         }
-        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualifications)
+        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualifications)
         {
             var result = diIUnitOfWork.EditTeacherDoctorateCourseQualification(teacherDoctorateCourseQualifications);
             return result;

@@ -128,8 +128,6 @@
 @code{
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<GraduateCourse> graduateCourseGrid;
-
-
     DxDataGrid<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationGrid;
 
     //Aim : Used to capture the keyword entered by the user
@@ -143,7 +141,6 @@
 
     //Aim : To enable or disable graduate course search button
     public bool enableOrDisableLoadGraduateCourseButton = false;
-
 
     public bool enableGraduateCourseGridLayout = false;
 
@@ -182,19 +179,19 @@
     //Aim : To hold the list of teachers /single record of TeacherGraduateCourse_Qualification details of type TeacherGraduateCourse_Qualification to display in the data grid.
     IEnumerable<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_QualificationWithForeignKeys>();
 
-    IEnumerable<TeacherGraduateCourse_Qualification> selectedTeacherGraduateCourseQualifications;
+    IEnumerable<TeacherGraduateCourse_QualificationWithForeignKeys> selectedTeacherGraduateCourseQualifications;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
     public void onChangeTeacherSearchText(string searchTeacherText)
     {
         searchTeacherKeyword = searchTeacherText;
-
         enableOrDisableSearchTeacherButton = true;
         Console.WriteLine(enableOrDisableSearchTeacherButton);
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
     //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
+
     public void getTeacherListOnSearch()
     {
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
@@ -202,6 +199,7 @@
     }
 
     //Aim : To call getTeacherGraduateCourseQualifications method and to enable the "Load Graduate Course" button.
+
     public TeacherBasicInformation onSelectOfTeacher
     {
         get { return selectedTeacherDetails; }
@@ -210,7 +208,6 @@
             selectedTeacherDetails = value;
             Console.WriteLine(selectedTeacherDetails);
             selectedTeacherId = selectedTeacherDetails.TeacherId;
-
             enableOrDisableLoadGraduateCourseButton = true;
             Console.WriteLine(enableOrDisableLoadGraduateCourseButton);
             InvokeAsync(StateHasChanged);
@@ -248,11 +245,11 @@
     {
         graduateCourseList = diIViewGraduateCourseUseCase.ViewGraduateCourse(searchGraduateCourseKeyword);
         enableSearchGraduateCourseButton = true;
-
         Console.WriteLine(graduateCourseList);
     }
 
     //Aim : To capture the selected graduate course value and to enable the "Add Graduate Course" button.
+
     public GraduateCourse onselectofgraduatecourse
     {
         get { return selectedGraduateCourseList; }
@@ -263,7 +260,6 @@
             Console.WriteLine(selectedGraduateCourseList.GraduateCourseId);
             selectedGraduateId = selectedGraduateCourseList.GraduateCourseId;
             Console.WriteLine(selectedGraduateId);
-
             InvokeAsync(StateHasChanged);
         }
 
@@ -276,7 +272,6 @@
         Console.WriteLine(selectedTeacherId);
         teacherGraduateCourseQualificationList = diIViewTeacherGraduateCourseQualificationUseCase.ViewTeacherGraduateCourseQualification(selectedTeacherId);
         Console.WriteLine(teacherGraduateCourseQualificationList);
-
     }
 
     //Aim: To save the teacher graduate course qualification record on click of save button.
@@ -285,12 +280,12 @@
     {
         var addGraduateCourse = diICreateTeacherGraduateCourseQualificationUseCase.CreateTeacherGraduateCourseQualification(selectedTeacherId, selectedGraduateId);
         Console.WriteLine(addGraduateCourse);
-
         getTeacherGraduateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher graduate course qualification value and to enable the "Remove Graduate Course" button. 
-    IEnumerable<TeacherGraduateCourse_Qualification> onSelectOfTeacherGraduateCourseQualification
+
+    IEnumerable<TeacherGraduateCourse_QualificationWithForeignKeys> onSelectOfTeacherGraduateCourseQualification
     {
         get { return selectedTeacherGraduateCourseQualifications; }
         set
@@ -302,11 +297,13 @@
     }
 
     //Aim: To remove the teacher graduate course qualification record on click of "Remove Graduate Course" button.
+
     public void RemoveGraduateCourse()
     {
-        List<TeacherGraduateCourse_Qualification> List = selectedTeacherGraduateCourseQualifications.ToList();
+        List<TeacherGraduateCourse_QualificationWithForeignKeys> List = selectedTeacherGraduateCourseQualifications.ToList();
         var removeGraduateCourse = diIEditGraduateCourseQualificationUseCase.EditGraduateCourseQualification(List);
         Console.WriteLine(removeGraduateCourse);
+        getTeacherGraduateCourseQualifications();
     }
 }
 

@@ -351,7 +351,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         // Aim : The EditTeacherGraduateCourseQualification method is responsible to remove the teacher graduate course qualification.
-        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications)
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualifications)
         {
             var result = diITeacherGraduateCourse_QualificationRepository.EditGraduateCourseQualification(teacherGraduateCourseQualifications);
             return result;
@@ -380,7 +380,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         // Aim : The EditTeacherPostGraduateCourseQualification method is responsible to remove the teacher Postgraduate course qualification.
-        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualifications)
+        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualifications)
         {
             Console.WriteLine(teacherPostGraduateCourseQualifications);
          
@@ -411,7 +411,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         // Aim : The EditTeacherDoctorateCourseQualification method is responsible to remove the teacher Doctorate course qualification.
-        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualifications)
+        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualifications)
         {
             Console.WriteLine(teacherDoctorateCourseQualifications);
 
@@ -443,7 +443,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         // Aim : The EditTeacherCertificateCourseQualification method is responsible to remove the teacher Certificate course qualification.
-        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications)
+        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualifications)
         {
             Console.WriteLine(teacherCertificateCourseQualifications);
 
@@ -473,7 +473,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
 
         // Aim : The EditTeacherHighSchoolBoard method is responsible to remove the teacher HighSchoolBoard.
-        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards)
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards)
         {
             Console.WriteLine(teacherHighSchoolBoards);
 
@@ -481,8 +481,6 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
 
         }
-
-
 
 
         //Authors: SA, BM, SM, BA, KK
@@ -527,7 +525,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
         // Aim : The EditTeacherUniversity method is responsible to remove the teacher University.
-        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities)
+        public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities)
         {
             Console.WriteLine(teacherUniversities);
 

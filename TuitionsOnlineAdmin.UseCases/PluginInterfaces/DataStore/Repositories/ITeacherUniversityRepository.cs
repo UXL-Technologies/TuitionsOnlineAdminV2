@@ -18,7 +18,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         public string CreateTeacherUniversity(int teacherId, int selectedUniversities);
 
         //Aim : The method is responsible to hold the contract for editing the teacher University.
-        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities);
+        public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities);
 
     }
 }

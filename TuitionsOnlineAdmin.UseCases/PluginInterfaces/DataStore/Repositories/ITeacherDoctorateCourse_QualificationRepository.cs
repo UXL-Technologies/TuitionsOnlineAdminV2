@@ -18,6 +18,6 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         public string CreateTeacherDoctorateCourseQualification(int teacherId, int selectedDoctorateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the teacher Doctorate course qualification.
-        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualifications);
+        public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualifications);
     }
 }

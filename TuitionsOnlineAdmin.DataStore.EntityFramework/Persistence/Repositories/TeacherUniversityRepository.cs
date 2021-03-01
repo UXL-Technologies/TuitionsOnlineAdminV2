@@ -55,6 +55,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 }
                 if (teacherUniversityWithForeignKeyList == null)
                 {
+                    Console.WriteLine(teacherUniversityWithForeignKeyList);
                     teacherUniversityWithForeignKeyList = new List<TeacherUniversityWithForeignKeys>();
                 }
                 return teacherUniversityWithForeignKeyList;
@@ -91,13 +92,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             }
         }
         //Aim : To remove Teacher Universities from the database
-        public string EditTeacherUniversity(List<TeacherUniversity> teacherUniversities)
+        public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities)
         {
             try
             {
+                Console.WriteLine(teacherUniversities);
                 foreach (var teacherUniversity in teacherUniversities)
                 {
-                    diTuitionsOnlineAdminDbContext.TeacherUniversity.Remove(teacherUniversity);
+                    Console.WriteLine(teacherUniversity);
+                    //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
+                    // };
+                    // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
+                    //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
+                    var id = teacherUniversity.TeacherUniversityId;
+                    Console.WriteLine(id);
+                    var recordId = diTuitionsOnlineAdminDbContext.TeacherUniversity.FirstOrDefault(s => s.TeacherUniversityId == id);
+                    Console.WriteLine(recordId);
+                    diTuitionsOnlineAdminDbContext.TeacherUniversity.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";

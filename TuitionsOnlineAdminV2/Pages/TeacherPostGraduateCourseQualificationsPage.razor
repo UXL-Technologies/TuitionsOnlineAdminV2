@@ -138,7 +138,6 @@
     //Aim : To enable or disable Postgraduate course search button
     public bool enableOrDisableLoadPostGraduateCourseButton = false;
 
-
     public bool enablePostGraduateCourseGridLayout = false;
 
     //Aim : Used to capture the keyword entered by the user
@@ -167,7 +166,6 @@
 
     int StoredUnselectedCount { get; set; }
 
-
     //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
     IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
 
@@ -177,13 +175,12 @@
     //Aim : To hold the list of teachers /single record of TeacherPostGraduateCourse_Qualification details of type TeacherPostGraduateCourse_Qualification to display in the data grid.
     IEnumerable<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualificationList = new List<TeacherPostGraduateCourse_QualificationWithForeignKeys>();
 
-    IEnumerable<TeacherPostGraduateCourse_Qualification> selectedTeacherPostGraduateCourseQualifications;
+    IEnumerable<TeacherPostGraduateCourse_QualificationWithForeignKeys> selectedTeacherPostGraduateCourseQualifications;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
     public void onChangeTeacherSearchText(string searchTeacherText)
     {
         searchTeacherKeyword = searchTeacherText;
-
         enableOrDisableSearchTeacherButton = true;
         Console.WriteLine(enableOrDisableSearchTeacherButton);
     }
@@ -245,7 +242,6 @@
     {
         postGraduateCourseList = diIViewPostGraduateCourseUseCase.ViewPostGraduateCourse(searchPostGraduateCourseKeyword);
         enableSearchPostGraduateCourseButton = true;
-
         Console.WriteLine(postGraduateCourseList);
     }
 
@@ -260,7 +256,6 @@
             Console.WriteLine(selectedPostGraduateCourseList.PostGraduateCourseId);
             selectedPostGraduateId = selectedPostGraduateCourseList.PostGraduateCourseId;
             Console.WriteLine(selectedPostGraduateId);
-
             InvokeAsync(StateHasChanged);
         }
 
@@ -273,7 +268,6 @@
         Console.WriteLine(selectedTeacherId);
         //teacherPostGraduateCourseQualificationList = diIViewTeacherPostGraduateCourseQualificationUseCase.ViewTeacherPostGraduateCourseQualification(selectedTeacherId);
         Console.WriteLine(teacherPostGraduateCourseQualificationList);
-
         teacherPostGraduateCourseQualificationList = diIViewTeacherPostGraduateCourseQualificationUseCase.ViewTeacherPostGraduateCourseQualification(selectedTeacherId);
     }
 
@@ -285,12 +279,11 @@
         Console.WriteLine(selectedPostGraduateId);
         var addPostGraduateCourse = diICreateTeacherPostGraduateCourseQualificationUseCase.CreateTeacherPostGraduateCourseQualification(selectedTeacherId,selectedPostGraduateId);
         Console.WriteLine(addPostGraduateCourse);
-
         getTeacherPostGraduateCourseQualifications();
     }
 
     //Aim : To capture the selected teacher Postgraduate course qualification value and to enable the "Remove PostGraduate Course" button.
-    IEnumerable<TeacherPostGraduateCourse_Qualification> onSelectOfTeacherPostGraduateCourseQualification
+    IEnumerable<TeacherPostGraduateCourse_QualificationWithForeignKeys> onSelectOfTeacherPostGraduateCourseQualification
     {
         get { return selectedTeacherPostGraduateCourseQualifications; }
         set
@@ -304,8 +297,9 @@
     //Aim: To remove the teacher Postgraduate course qualification record on click of "Remove PostGraduate Course" button.
     public void RemovePostGraduateCourse()
     {
-        List<TeacherPostGraduateCourse_Qualification> List = selectedTeacherPostGraduateCourseQualifications.ToList();
+        List<TeacherPostGraduateCourse_QualificationWithForeignKeys> List = selectedTeacherPostGraduateCourseQualifications.ToList();
         var removePostGraduateCourse = diIEditTeacherPostGraduateCourseQualificationUseCase.EditTeacherPostGraduateCourseQualification(List);
         Console.WriteLine(removePostGraduateCourse);
+        getTeacherPostGraduateCourseQualifications();
     }
 }

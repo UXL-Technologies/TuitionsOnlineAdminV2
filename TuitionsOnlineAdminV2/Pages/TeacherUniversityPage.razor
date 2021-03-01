@@ -1,4 +1,4 @@
-﻿@page "/TeacherUniversity" 
+﻿@page "/TeacherUniversity"
 @*Authors : SA,BM,KK,SM,BA
     Date:26/02/2021
     Aim: To create a search box and to display the list of teacher  *@
@@ -138,7 +138,6 @@
     //Aim : To enable or disable University search button
     public bool enableOrDisableLoadUniversityButton = false;
 
-
     public bool enableUniversityGridLayout = false;
 
     //Aim : Used to capture the keyword entered by the user
@@ -167,7 +166,6 @@
 
     int StoredUnselectedCount { get; set; }
 
-
     //Aim : To hold the list of teachers /single record of teachers details of type TeacherBasicInformation to display in the data grid.
     IEnumerable<TeacherBasicInformation> teacherDetailsList = Enumerable.Empty<TeacherBasicInformation>();
 
@@ -177,13 +175,12 @@
     //Aim : To hold the list of teachers /single record of TeacherUniversity details of type TeacherUniversity to display in the data grid.
     IEnumerable<TeacherUniversityWithForeignKeys> teacherUniversityList = new List<TeacherUniversityWithForeignKeys>();
 
-    IEnumerable<TeacherUniversity> selectedTeacherUniversities;
+    IEnumerable<TeacherUniversityWithForeignKeys> selectedTeacherUniversities;
 
     //Aim : To determine if the user has entered any data in the search text box and to enable or disable the teacher search button
     public void onChangeTeacherSearchText(string searchTeacherText)
     {
         searchTeacherKeyword = searchTeacherText;
-
         enableOrDisableSearchTeacherButton = true;
         Console.WriteLine(enableOrDisableSearchTeacherButton);
     }
@@ -207,7 +204,6 @@
             selectedTeacherDetails = value;
             Console.WriteLine(selectedTeacherDetails);
             selectedTeacherId = selectedTeacherDetails.TeacherId;
-
             enableOrDisableLoadUniversityButton = true;
             Console.WriteLine(enableOrDisableLoadUniversityButton);
             InvokeAsync(StateHasChanged);
@@ -245,7 +241,6 @@
     {
         universityList = diIViewUniversityUseCase.ViewUniversity(searchUniversityKeyword);
         enableSearchUniversityButton = true;
-
         Console.WriteLine(universityList);
     }
 
@@ -274,7 +269,6 @@
         teacherUniversityList = diIViewTeacherUniversityUseCase.ViewTeacherUniversity(selectedTeacherId);
         Console.WriteLine(teacherUniversityList);
 
-
     }
 
     //Aim: To save the teacher University record on click of save button.
@@ -284,14 +278,12 @@
         Console.WriteLine(selectedTeacherId);
         Console.WriteLine(selectedUniversityId);
         var addUniversity = diICreateTeacherUniversityUseCase.CreateTeacherUniversity(selectedTeacherId, selectedUniversityId);
-
         getTeacherUniversities();
-
         Console.WriteLine(addUniversity);
     }
 
     //Aim : To capture the selected teacher University value and to enable the "Remove University" button.
-    IEnumerable<TeacherUniversity> onSelectOfTeacherUniversity
+    IEnumerable<TeacherUniversityWithForeignKeys> onSelectOfTeacherUniversity
     {
         get { return selectedTeacherUniversities; }
         set
@@ -305,18 +297,12 @@
     //Aim: To remove the teacher University record on click of "Remove University" button.
     public void RemoveUniversity()
     {
-
-        List<TeacherUniversity> List = selectedTeacherUniversities.ToList();
-
+        List<TeacherUniversityWithForeignKeys> List = selectedTeacherUniversities.ToList();
         var removeUniversity = diIEditTeacherUniversityUseCase.EditTeacherUniversity(List);
-
         Console.WriteLine(removeUniversity);
-
-     
+        getTeacherUniversities();
 
     }
-
-
 
 }
 

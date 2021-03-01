@@ -24,7 +24,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.
             {
                 this.diIUnitOfWork = diIUnitOfWork;
             }
-        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualifications)
+        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualifications)
         {
             var result = diIUnitOfWork.EditTeacherPostGraduateCourseQualification(teacherPostGraduateCourseQualifications);
             return result;

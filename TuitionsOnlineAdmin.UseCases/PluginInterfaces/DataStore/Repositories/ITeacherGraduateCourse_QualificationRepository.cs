@@ -18,7 +18,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the teacher graduate course qualification.
-        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualifications);
+        public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualifications);
 
     }
 }

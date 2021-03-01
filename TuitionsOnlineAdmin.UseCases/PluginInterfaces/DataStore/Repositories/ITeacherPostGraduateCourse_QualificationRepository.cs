@@ -19,7 +19,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         public string CreateTeacherPostGraduateCourseQualification(int teacherId, int selectedPostGraduateCourses);
 
         //Aim : The method is responsible to hold the contract for editing the teacher Postgraduate course qualification.
-        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualifications);
+        public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualifications);
 
     }
 }

@@ -13,6 +13,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.E
    public interface IEditTeacherCertificateCourseQualificationUseCase
     {
         //Aim : The method is responsible to hold the contact for editing the teacher Certificate course qualification.
-        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualifications);
+        public string EditTeacherCertificateCourseQualification(List<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualifications);
     }
 }

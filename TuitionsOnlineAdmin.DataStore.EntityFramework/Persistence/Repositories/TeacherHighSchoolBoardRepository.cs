@@ -94,13 +94,23 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
         //Aim : To remove Teacher HighSchoolBoards from the database
-        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoard> teacherHighSchoolBoards)
+        public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards)
         {
             try
             {
+                Console.WriteLine(teacherHighSchoolBoards);
                 foreach (var teacherHighSchoolBoard in teacherHighSchoolBoards)
                 {
-                    diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.Remove(teacherHighSchoolBoard);
+                    Console.WriteLine(teacherHighSchoolBoard);
+                    //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
+                    // };
+                    // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
+                    //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
+                    var id = teacherHighSchoolBoard.TeacherHighSchoolBoardId;
+                    Console.WriteLine(id);
+                    var recordId = diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.FirstOrDefault(s => s.TeacherHighSchoolBoardId == id);
+                    Console.WriteLine(recordId);
+                    diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
                 return "done";
