@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:08-Jan-2021
 //Aim: defining the pluginInterface  Repository  for PostGraduateCourse;
 
@@ -17,7 +17,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for viewing post graduate course 
         List<PostGraduateCourse> ViewPostGraduateCourseRepository(string searchKey);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:14-Jan-2021
         //To hold the contract for updating post graduate course 
         string UpdatePostGraduateCourseRepository(PostGraduateCourse postGraduateCourse);

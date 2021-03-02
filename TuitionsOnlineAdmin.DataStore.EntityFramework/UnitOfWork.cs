@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 // Date:08-Jan-2021
 //Aim: defining the unitOfWork
 
@@ -86,7 +86,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
            string result = instanceOfIDoctorateCourseRepository.CreateDoctorateCourseRepository(doctorateCourse);
             return result;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:14-Jan-2021
         //to view a DoctorateCourse  by invoking ViewDoctorateCourseRepository of DoctorateCourseRepository
         public List<DoctorateCourse> ViewDoctorateCourses(string searchKey)
@@ -129,7 +129,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             string result = instanceOfIPostGraduateCourseRepository.CreatePostGraduateRepository(postGraduateCourse);
             return result;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:14-Jan-2021
         //to view a PostGraduateCourse by invoking ViewPostGraduateCourseRepository of PostGraduateCourseRepository
         public List<PostGraduateCourse> ViewPostGraduateCourses(string searchKey)
@@ -137,7 +137,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             var postGraduateCourseList = instanceOfIPostGraduateCourseRepository.ViewPostGraduateCourseRepository(searchKey);
             return postGraduateCourseList;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:14-Jan-2021
         //to update a PostGraduateCourse by invoking UpdatePostGraduateCourseRepository of PostGraduateCourseRepository
         public string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse)
@@ -152,7 +152,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
            string result =  instanceOfICertificateCourseRepository.CreateCertificateCourseRepository(certificateCourse);
             return result;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:15-Jan-2021
         //to view a CertificateCourse  by invoking ViewCertificateCourseRepository of CertificateCourseRepository
         public List<CertificateCourse> ViewCertificateCourses(string searchKey)
@@ -160,7 +160,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             var certificateCourseList = instanceOfICertificateCourseRepository.ViewCertificateCourseRepository(searchKey);
             return certificateCourseList;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:15-Jan-2021
         //to update a CertificateCourse by invoking UpdateCertificateCourseRepository of CertificateCourseRepository
         public string UpdateCertificateCourse(CertificateCourse certificateCourse)
@@ -196,7 +196,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
            string result =  instanceOfICurrencyRepository.CreateCurrencyRepository(currency);
             return result;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:18-Jan-2021
         //to view a Currency by invoking ViewCurrencyRepository of CurrencyRepository
         public List<Currency> ViewCurrencies(string searchKey)
@@ -219,7 +219,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
 
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:15-Jan-2021
         //to view a Subject by invoking ViewSubjectRepository of SubjectRepository
         public List<Subject> ViewSubjects(string searchKey)
@@ -240,7 +240,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
         }
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:15-Jan-2021
         //to view a Grade by invoking ViewGradeRepository of GradeRepository
         public List<Grade> ViewGrades(string searchKey)
@@ -260,7 +260,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             string result = instanceOfITeacherVideoRepository.CreateTeacherVideoRepository(teacherVideo);
             return result;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:15-Jan-2021
         //to view a teacher video  by invoking ViewTeacherVideorepository of TeacherVideoRepository
         public List<TeacherVideo> ViewTeacherVideos(string searchKey)
@@ -282,7 +282,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             string result = instanceOfIHighSchoolBoardRepository.CreateHighSchoolBoardRepository(highSchoolBoard);
             return result;
         }
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:18-Jan-2021
         //to view a HighSchoolBoard  by invoking ViewHighSchoolBoardrepository of HighSchoolBoardRepository
         public List<HighSchoolBoard> ViewHighSchoolBoards(string searchKey)
@@ -313,7 +313,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
             } */
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:18-Jan-2021
         //to view a TeacherBasicInformation  by invoking ViewTeacherBasicInformationrepository of TeacherBasicInformationRepository
         public List<TeacherBasicInformation> ViewTeacherBasicInformation(string searchTeacherKeyword)
@@ -331,7 +331,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:22-Feb-2021
 
         //Aim : The ViewTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification details for the teacherId. 
@@ -358,7 +358,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:23-Feb-2021
 
         //Aim : The ViewTeacherPostGraduateCourseQualification method is responsible to view the teacher Postgraduate course qualification details for the teacherId. 
@@ -388,7 +388,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
         }
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:24-Feb-2021
 
         //Aim : The ViewTeacherDoctorateCourseQualification method is responsible to view the teacher Doctorate course qualification details for the teacherId. 
@@ -420,7 +420,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         }
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:24-Feb-2021
 
         //Aim : The ViewTeacherCertificateCourseQualification method is responsible to view the teacher Certificate course qualification details for the teacherId. 
@@ -451,7 +451,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
             return result;
 
         }
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:25-Feb-2021
         //Aim : The view TeacherHighSchoolBoard method is responsible to view the teacher TeacherHighSchoolBoard details for the teacherId.
         public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoard(int teacherId)
@@ -483,7 +483,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:25-Feb-2021
         //to Create a University by invoking CreateUniversityRepository of UniversityRepository
         public string CreateUniversity(University university)
@@ -505,7 +505,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         }
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         // Date:26-Feb-2021
         //Aim : The view TeacherUniversity method is responsible to view the teacher TeacherUniversity details for the teacherId.
         public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversity(int teacherId)

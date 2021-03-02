@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:08-Jan-2021
 //Aim: defining the pluginInterface  UnitOfWork
 
@@ -19,7 +19,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update GraduateCourse
         string UpdateGraduateCourse(GraduateCourse graduateCourse);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:14-Jan-2021
         //To update post Graduate courses
 
@@ -32,7 +32,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update post Graduate courses
         string UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourse);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:14-Jan-2021
         //Aim: To create , view ,update DoctorateCourseUsecase ;
 
@@ -46,7 +46,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //To add the single record of the CertificateCourse to the database
         string CreateCertificateCourse(CertificateCourse certificateCourse);
-        //Authors: SA, BM, SM
+        
         //Date:15-Jan-2021
         //To view CertificateCourses
         List<CertificateCourse> ViewCertificateCourses(string searchKey);
@@ -66,7 +66,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //To add the single record of the Currency to the database
         string CreateCurrency(Currency currency);
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:18-Jan-2021
         //To view Currencies
         List<Currency> ViewCurrencies(string searchKey);
@@ -75,7 +75,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
 
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:18-Jan-2021
         //To Create TeacherBasicInformation
         string CreateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
@@ -84,7 +84,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update TeacherBasicInformation
         string UpdateTeacherBasicInformation(TeacherBasicInformation teacherBasicInformation);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:15-Jan-2021
         //To Create TeacherVideo
         string CreateTeacherVideo(TeacherVideo teacherVideo);
@@ -93,7 +93,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update TeacherVideo
         string UpdateTeacherVideo(TeacherVideo teacherVideo);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:18-Jan-2021
         //To Create HighSchoolBoard
         string CreateHighSchoolBoard(HighSchoolBoard HighSchoolBoard);
@@ -102,7 +102,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update HighSchoolBoard
         string UpdateHighSchoolBoard(HighSchoolBoard HighSchoolBoard);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:15-Jan-2021
         //To Create Subject
         string CreateSubject(Subject subject);
@@ -111,7 +111,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update Subject
         string UpdateSubject(Subject subject);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:15-Jan-2021
         //To Create Grade
         string CreateGrade(Grade grade);
@@ -120,12 +120,12 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To update Grade
         string UpdateGrade(Grade grade);
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:19-Feb-2021
         //To view TeacherGraduateCourse_Qualification
         public List<TeacherGraduateCourse_QualificationWithForeignKeys> ViewTeacherGraduateCourseQualification(int teacherId);
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:22-Feb-2021
         //To create and edit TeacherGraduateCourse_Qualification
 
@@ -137,7 +137,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:23-Feb-2021
         //To View ,create and edit TeacherPostGraduateCourse_Qualification
 
@@ -151,7 +151,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         public string EditTeacherPostGraduateCourseQualification(List<TeacherPostGraduateCourse_QualificationWithForeignKeys> teacherPostGraduateCourseQualifications);
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:24-Feb-2021
         //To View ,create and edit TeacherDoctorateCourse_Qualification
 
@@ -164,7 +164,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Aim : The method is responsible to hold the contract for editing the Doctorate course qualification.
         public string EditTeacherDoctorateCourseQualification(List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualifications);
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:24-Feb-2021
         //To View ,create and edit TeacherCertificateCourse_Qualification
 
@@ -179,7 +179,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
 
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:25-Feb-2021
         //To View ,create and edit TeacherHighSchoolBoard
 
@@ -192,7 +192,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //Aim : The method is responsible to hold the contract for editing the HighSchoolBoard.
         public string EditTeacherHighSchoolBoard(List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoards);
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:25-Feb-2021
         //To View ,create and edit University
 
@@ -204,7 +204,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
         //To view University
         List<University> ViewUniversities(string searchKey);
 
-        //Authors: SA, BM, SM, BA, KK
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga, BA, KK
         //Date:25-Feb-2021
         //To View ,create and edit University
 

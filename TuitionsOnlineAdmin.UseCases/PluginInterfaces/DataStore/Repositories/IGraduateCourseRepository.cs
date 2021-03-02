@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:08-Jan-2021
 //Aim: defining the pluginInterface  Repository  for GraduateCourse;
 
@@ -17,7 +17,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for viewing graduate course 
         List<GraduateCourse> ViewGraduateCourseRepository(string searchKey);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:14-Jan-2021
         //To hold the contract for updating graduate course 
         string UpdateGraduateCourseRepository(GraduateCourse graduateCourse);

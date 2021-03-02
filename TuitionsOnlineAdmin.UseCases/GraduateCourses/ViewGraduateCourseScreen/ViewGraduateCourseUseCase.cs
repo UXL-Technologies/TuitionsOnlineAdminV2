@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:13-Jan-2021
 //Aim: defining the Interface for viewGraduateCourseUsecase ;
 
@@ -12,10 +12,7 @@ using TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore;
 
 namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen
 {
-    //Authors: SA, BM, SM
-    //Date:12-Jan-2021
     //Aim: defining the usecase for view graduate course
-
 
     public class ViewGraduateCourseUseCase : IViewGraduateCourseUseCase
     {
