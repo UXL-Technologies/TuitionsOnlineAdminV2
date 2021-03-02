@@ -1,5 +1,5 @@
-﻿@* Authors: SA,BM,SM
-     Date: 14-01-2021
+﻿@* Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
+    Date: 14-01-2021
     Aim : To create, view ,edit Subject *@
 
 @page "/subject"
@@ -7,13 +7,14 @@
 @using TuitionsOnlineAdmin.UseCases.Subjects.ViewSubjectScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Subjects.UpdateSubjectScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+
+@inject NavigationManager UriHelper
 @inject ICreateSubjectUseCase instanceOfICreateSubjectUseCase
 @inject IViewSubjectUseCase instanceOfIViewSubjectUseCase
 @inject IUpdateSubjectUseCase instanceOfIUpdateSubjectUseCase
 @inject BusinessMessage instanceOfBusinessMessage
-
+@* this TextBox is used to search the data  *@
 <div>
-    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -23,11 +24,11 @@
 
 
 <div>
-    @* To display error message for create *@
+    @* To display the success message on click of save when new subject is created *@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Subject "@subjectToBeDisplayed" has been created successfully !
+            Your Subject "@subjectName" has been created successfully !
         </p>
     }
     else
@@ -38,12 +39,13 @@
     }
 </div>
 
-@* To display error message for update *@
+
+@* To display the success message on click of save when subject is updated *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your Subject "@subjectToBeDisplayed" has been updated successfully !
+            Your Subject "@subjectName" has been updated successfully !
         </p>
     }
     else
@@ -54,7 +56,7 @@
     }
 </div>
 
-@* To error message for view *@
+@* To display server error message *@
 <div>
     @if (viewError && subjectList == null)
     {
@@ -65,7 +67,7 @@
 </div>
 
 
-@*Table is used to display the data *@
+@*Table is used to display the Subject data *@
 <DxDataGrid Data="@subjectList"
             RowInserting="@((newSubject) => CreateSubject(newSubject))"
             RowUpdating="@((subjectToBeUpdated, newValue) => UpdateSubject(subjectToBeUpdated, newValue))"
@@ -79,14 +81,28 @@
 
     @* To hold the hold the Subject details*@
     IEnumerable<Subject> subjectList = Enumerable.Empty<Subject>();
+
     @*To hold the search text*@
     String searchkey;
+
+    //Variable to hold the success message on create of subject
     public string resultForCreate;
+
+    //Boolean variable to display the message on create of subject
     bool createMessage = false;
+
+    //Variable to hold the success message on update of subject
     public string resultForUpdate;
-    bool viewErrorForUpdate = false;
+
+    //Boolean variable to display the message on update of subject
+    bool updateMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
     bool viewError = false;
-public string subjectToBeDisplayed;
+
+    //Variable to hold the subject name
+    public string subjectName;
+
     @*The init method is to invoke the Subject list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -101,22 +117,24 @@ public string subjectToBeDisplayed;
         subjectList = instanceOfIViewSubjectUseCase.ViewSubject(searchkeyword);
         viewError = true;
     }
+
+    //Method to capture the user search result
     void OnTextChanged(String searchText)
     {
-        Console.WriteLine(searchText);
+
         searchkey = searchText;
         @*To invoke the component to re-render the data*@
 
         InvokeAsync(StateHasChanged);
 
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        @*The subject list should be fetched again to display the newly created subject along with the existing the subject list *@
         GetSubjects(searchkey);
     }
 
 
-    //create Subject
+
     @*The CreateSubject() method is responsible for capturing the details enetred by the user and send it to the database.*@
-    void CreateSubject(Dictionary<string, object> newSubject)
+    private async void CreateSubject(Dictionary<string, object> newSubject)
     {
         @* To hold the new Subject to be created *@
         Subject createSubject = new Subject();
@@ -124,52 +142,62 @@ public string subjectToBeDisplayed;
         foreach (var field in newSubject.Keys)
         {
             @*For each incoming key we check and assign the values to newSubject *@
-    switch (field)
-    {
-        case "SubjectName":
-            subjectToBeDisplayed = createSubject.SubjectName = (string)newSubject[field];
-            break;
-        case "Active":
-            createSubject.Active = (bool)newSubject[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "SubjectName":
+                    subjectName = createSubject.SubjectName = (string)newSubject[field];
+                    break;
+                case "Active":
+                    createSubject.Active = (bool)newSubject[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Subject*@
         resultForCreate = instanceOfICreateSubjectUseCase.CreateSubject(createSubject);
         createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created Subject along with the existing the course list *@
-    GetSubjects(searchkey);
+        await InvokeAsync(StateHasChanged);
+        @*The subject list should be fetched again to display the newly created Subject along with the existing the subject list *@
+        GetSubjects(searchkey);
 
-}
-
-//To take and update the value for  Subject
-void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var subject in newValue.Keys)
-    {
-        switch (subject)
-        {
-            case "SubjectName":
-                subjectToBeDisplayed = subjectToBeUpdated.SubjectName = (string)newValue[subject];
-                break;
-            case "Active":
-                subjectToBeUpdated.Active = (bool)newValue[subject];
-                break;
-        }
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("subject", forceLoad: true);
 
     }
 
+    //To take and update the value for  Subject
+    private async void UpdateSubject(Subject subjectToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var subject in newValue.Keys)
+        {
+            switch (subject)
+            {
+                case "SubjectName":
+                    subjectName = subjectToBeUpdated.SubjectName = (string)newValue[subject];
+                    break;
+                case "Active":
+                    subjectToBeUpdated.Active = (bool)newValue[subject];
+                    break;
+            }
+
+        }
+
         @*subjectToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateSubjectUseCase.UpdateSubject(subjectToBeUpdated);
-        viewErrorForUpdate = true;
+        updateMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        await InvokeAsync(StateHasChanged);
+        @*The subject list should be fetched again to display the newly created subject along with the existing the subject list *@
         GetSubjects(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("subject", forceLoad: true);
 
     }
 

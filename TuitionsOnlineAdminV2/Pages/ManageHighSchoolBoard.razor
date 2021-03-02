@@ -125,7 +125,7 @@
             searchkey = searchText;
             @*To invoke the component to re-render the data*@
             InvokeAsync(StateHasChanged);
-            @*The course list should be fetched again to display the newly created course along with the existing the course list *@
+            @*The High School Board list should be fetched again to display the newly created High School Board along with the existing the High School Board list *@
             GetHighSchoolBoards(searchkey);
         }
 
@@ -156,7 +156,7 @@
             createMessage = true;
             @*The StateHasChanged makes sure that the component is notified to re-render the data*@
             await InvokeAsync(StateHasChanged);
-            @*The course list should be fetched again to display the newly created HighSchoolBoard along with the existing the course list *@
+            @*The High School Board list should be fetched again to display the newly created HighSchoolBoard along with the existing the High School Board list *@
             GetHighSchoolBoards(searchkey);
 
 
@@ -192,7 +192,7 @@
             updateMessage = true;
             @*The StateHasChanged makes sure that the component is notified to re-render the data*@
             await InvokeAsync(StateHasChanged);
-            @*The course list should be fetched again to display the newly created course along with the existing the course list *@
+            @*The High School Board list should be fetched again to display the newly created High School Board along with the existing the High School Board list *@
             GetHighSchoolBoards(searchkey);
 
 
