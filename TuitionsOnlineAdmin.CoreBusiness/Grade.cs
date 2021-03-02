@@ -19,10 +19,11 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public int GradeId { get; set; }
 
         //property to store GradeName 
-        [Required(ErrorMessage = "Please enter the name of the grade.")]
+        [Column(TypeName = "varchar(150)")]
+        [Required(ErrorMessage = "Please enter the grade.")]
         [MinLength(3, ErrorMessage = "Please enter a minimum of 3 characters.")]
-        [MaxLength(50, ErrorMessage = "The grade name you have entered is too long. Please restrict the name to less than 50 alphabets.")]
-        [RegularExpression(@"^[A-Za-z\s]{1,}[\.]{0,}[A-Za-z.\s]{0,}", ErrorMessage = "Please use only alphabets in the name of the grade.")]
+        [MaxLength(150, ErrorMessage = "The grade you have entered is too long. Please restrict the grade to less than 150 alphabets.")]
+        [RegularExpression(@"^[A-Za-z\s]{1,}[\.]{0,}[A-Za-z.\s]{0,}", ErrorMessage = "Please use either alphabets or numbers in the grade.")]
         public string GradeName { get; set; }
 
         //property to store Active status 

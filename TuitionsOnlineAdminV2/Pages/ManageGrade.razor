@@ -1,4 +1,4 @@
-﻿@* Authors: SA,BM,SM
+﻿@* Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
      Date: 15-01-2021
     Aim : To create, view ,edit Grade *@
 
@@ -7,13 +7,14 @@
 @using TuitionsOnlineAdmin.UseCases.Grades.ViewGradeScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Grades.UpdateGradeScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+
+@inject NavigationManager UriHelper
 @inject ICreateGradeUseCase instanceOfICreateGradeUseCase
 @inject IViewGradeUseCase instanceOfIViewGradeUseCase
 @inject IUpdateGradeUseCase instanceOfIUpdateGradeUseCase
 @inject BusinessMessage instanceOfBusinessMessage
-
+@* this TextBox is used to search the data  *@
 <div>
-    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -22,11 +23,11 @@
 <br />
 
 <div>
-    @* To display error message for create *@
+    @* To display the success message on click of save when new Grade is created *@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Grade "@gradeToBeDisplayed" has been created successfully !
+            Your Grade "@gradeName" has been created successfully !
         </p>
     }
     else
@@ -37,13 +38,14 @@
     }
 </div>
 
-@* To display error message for update *@
+
+@* To display the success message on click of save when Grade is updated *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
-    <p class="success_message_style">
-        Your Grade "@gradeToBeDisplayed" has been updated successfully !
-    </p>
+        <p class="success_message_style">
+            Your Grade "@gradeName" has been updated successfully !
+        </p>
     }
     else
     {
@@ -54,16 +56,16 @@
 </div>
 
 <div>
-    @* To error message for view *@
+    @* To display server error message *@
     @if (viewError && gradeList == null)
     {
-    <p class="success_message_style">
-        @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_GRADE
-    </p>
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_GRADE
+        </p>
     }
 </div>
 
-@*Table is used to display the data *@
+@*Table is used to display the Grade data *@
 <DxDataGrid Data="@gradeList"
             RowInserting="@((newGrade) => CreateGrade(newGrade))"
             RowUpdating="@((gradeToBeUpdated, newValue) => UpdateGrade(gradeToBeUpdated, newValue))"
@@ -80,13 +82,27 @@
     IEnumerable<Grade> gradeList = Enumerable.Empty<Grade>();
     @*To hold the search text*@
     String searchkey;
+
+    //Variable to hold the success message on create of Grade
     public string resultForCreate;
+
+    //Boolean variable to display the message on create of Grade
     bool createMessage = false;
+
+    //Variable to hold the success message on update of Grade
     public string resultForUpdate;
-    bool viewErrorForUpdate = false;
+
+    //Boolean variable to display the message on update of Grade
+    bool updateMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
     bool viewError = false;
-public string gradeToBeDisplayed;
-    @*The init method is to invoke the Grade list when the page is loaded*@
+
+    //Variable to hold the Grade name
+    public string gradeName;
+
+
+    @*The init method to invoke the get Grade list*@
     protected override void OnInitialized()
     {
 
@@ -94,82 +110,100 @@ public string gradeToBeDisplayed;
         GetGrades(searchkey);
 
     }
+
+
     @*To get Grade list to be displayed in the data grid columns*@
     public void GetGrades(String searchkeyword)
     {
         gradeList = instanceOfIViewGradeUseCase.ViewGrade(searchkeyword);
         viewError = true;
     }
+
+    //Method to capture the user search result
     void OnTextChanged(String searchText)
     {
-        Console.WriteLine(searchText);
         searchkey = searchText;
-        @*To invoke the component to re-render the data*@
 
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
 
-        @*The course list should be fetched again to diplay the newly created course along with the existing course list *@
+        @*The Grade list should be fetched again to display the newly created Grade along with the existing Grade list *@
         GetGrades(searchkey);
     }
 
-    //create Grade
+
     @*The CreateGrade() method is responsible for capturing the details enetred by the user and send it to the database.*@
-    void CreateGrade(Dictionary<string, object> newGrade)
+    private async void CreateGrade(Dictionary<string, object> newGrade)
     {
         @* To hold the new Grade to be created *@
         Grade createGrade = new Grade();
+
         @*The new value comes in the form of key value pair*@
         foreach (var field in newGrade.Keys)
         {
             @*For each incoming key we check and assign the values to newGrade *@
-    switch (field)
-    {
-        case "GradeName":
-            gradeToBeDisplayed =  createGrade.GradeName = (string)newGrade[field];
-            break;
-        case "Active":
-            createGrade.Active = (bool)newGrade[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "GradeName":
+                    gradeName = createGrade.GradeName = (string)newGrade[field];
+                    break;
+                case "Active":
+                    createGrade.Active = (bool)newGrade[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Grade*@
         resultForCreate = instanceOfICreateGradeUseCase.CreateGrade(createGrade);
         createMessage = true;
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created Grade along with the existing the course list *@
+        await InvokeAsync(StateHasChanged);
+
+        @*The Grade list should be fetched again to display the newly created Grade along with the existing the Grade list *@
         GetGrades(searchkey);
 
-
-}
-
-
-//To take and update the value for  Grade
-void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var grade in newValue.Keys)
-    {
-        switch (grade)
-        {
-            case "GradeName":
-                gradeToBeDisplayed =  gradeToBeUpdated.GradeName = (string)newValue[grade];
-                break;
-            case "Active":
-                gradeToBeUpdated.Active = (bool)newValue[grade];
-                break;
-        }
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("grade", forceLoad: true);
 
     }
 
+
+    //This method is used to update the Grade list
+    private async void UpdateGrade(Grade gradeToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var grade in newValue.Keys)
+        {
+            switch (grade)
+            {
+                case "GradeName":
+                    gradeName = gradeToBeUpdated.GradeName = (string)newValue[grade];
+                    break;
+                case "Active":
+                    gradeToBeUpdated.Active = (bool)newValue[grade];
+                    break;
+            }
+
+        }
+
         @*GradeToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateGradeUseCase.UpdateGrade(gradeToBeUpdated);
-        viewErrorForUpdate = true;
+
+        updateMessage = true;
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        await InvokeAsync(StateHasChanged);
+
+        @*The Grade list should be fetched again to display the newly created Grade along with the existing the Grade list *@
         GetGrades(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("grade", forceLoad: true);
 
     }
 
