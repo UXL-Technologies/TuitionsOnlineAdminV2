@@ -15,7 +15,6 @@
 @inject IUpdateGraduateCourseUseCase instanceOfIUpdateGraduateCourseUseCase
 @inject BusinessMessage instanceOfBusinessMessage
 
-
 @* this TextBox is used to search the data  *@
 <div>
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
@@ -163,54 +162,56 @@
         }
 
         @*To invoke the method to create new graduate course*@
-    resultForCreate = instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
+        resultForCreate = instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
 
-    createMessage = true;
-    await InvokeAsync(StateHasChanged);
+        createMessage = true;
+
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
+        await InvokeAsync(StateHasChanged);
 
         @*The course list should be fetched again to display the newly created course along with the existing course list *@
-    GetGraduateCourses();
+        GetGraduateCourses();
 
-    //Used to refresh the razor page
-    await Task.Delay(2000);
-    //Used to refresh the razor page
-    UriHelper.NavigateTo("graduatecourse", forceLoad: true);
-
-}
-
-
-//This method is used to update the graduate course list
-private async void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
-{
-
-    foreach (var course in newValue.Keys)
-    {
-        switch (course)
-        {
-            case "GraduateCourseName":
-                graduateCourseName = graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
-                break;
-            case "Active":
-                graduateCourseToBeUpdated.Active = (bool)newValue[course];
-                break;
-        }
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("graduatecourse", forceLoad: true);
 
     }
-    resultForUpdate = instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
 
-    updateMessage = true;
+
+    //This method is used to update the graduate course list
+    private async void UpdateGraduateCourse(GraduateCourse graduateCourseToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var course in newValue.Keys)
+        {
+            switch (course)
+            {
+                case "GraduateCourseName":
+                    graduateCourseName = graduateCourseToBeUpdated.GraduateCourseName = (string)newValue[course];
+                    break;
+                case "Active":
+                    graduateCourseToBeUpdated.Active = (bool)newValue[course];
+                    break;
+            }
+
+        }
+        resultForUpdate = instanceOfIUpdateGraduateCourseUseCase.UpdateGraduateCourse(graduateCourseToBeUpdated);
+
+        updateMessage = true;
 
 
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-       await InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to display the newly created course along with the existing course list *@
-    GetGraduateCourses();
+        GetGraduateCourses();
 
-    //Used to refresh the razor page
-    await Task.Delay(2000);
-    //Used to refresh the razor page
-    UriHelper.NavigateTo("graduatecourse", forceLoad: true);
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("graduatecourse", forceLoad: true);
 
-}
+    }
 
 }

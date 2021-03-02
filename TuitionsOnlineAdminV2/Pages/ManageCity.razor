@@ -1,12 +1,14 @@
-﻿@* Authors: SA,BM,SM
-     Date: 18-01-2021
-    Aim : To create, view ,edit City *@
+﻿@* Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
+    Date: 18-01-2021
+     Aim : To create, view ,edit City *@
 
 @page "/city"
 @using TuitionsOnlineAdmin.UseCases.Cities.CreateCityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Cities.ViewCityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Cities.UpdateCityScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+
+@inject NavigationManager UriHelper
 @inject ICreateCityUseCase instanceOfICreateCityUseCase
 @inject IViewCityUseCase instanceOfIViewCityUseCase
 @inject IUpdateCityUseCase instanceOfIUpdateCityUseCase
@@ -23,11 +25,11 @@
 
 <div>
 
-    @* To display error message for create *@
+    @* To display the success message on click of save when new City is created *@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your city "@cityToBeDisplayed" has been created successfully !
+            Your city "@cityName" has been created successfully !
         </p>
     }
     else
@@ -38,12 +40,12 @@
     }
 </div>
 
-@* To display error message for update *@
+@* To display the success message on click of save when City is updated *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your city "@cityToBeDisplayed" has been updated successfully !
+            Your city "@cityName" has been updated successfully !
         </p>
     }
     else
@@ -55,7 +57,7 @@
 </div>
 
 <div>
-    @* To error message for view *@
+    @* To display server error message *@
     @if (viewError && cityList == null)
     {
         <p class="success_message_style">
@@ -66,29 +68,43 @@
 
 
 
-@*Table is used to display the data *@
+@*Table is used to display the City data *@
 <DxDataGrid Data="@cityList"
             RowInserting="@((newCity) => CreateCity(newCity))"
             RowUpdating="@((cityToBeUpdated, newValue) => UpdateCity(cityToBeUpdated, newValue))"
             PageSize="5">
     <DxDataGridColumn Field="@nameof(City.CityName)" Width="300px" Caption="City" />
     <DxDataGridCheckBoxColumn Field="@nameof(City.Active)" Width="200px" />
-    <DxDataGridSpinEditColumn Field="@nameof(City.PinCode)" Width="300px" Caption="PinCode" TextAlignment="DataGridTextAlign.Left" ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
+    <DxDataGridSpinEditColumn Field="@nameof(City.PinCode)" Width="200px" Caption="PinCode" TextAlignment="DataGridTextAlign.Left" ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
     <DxDataGridCommandColumn Width="200px" DeleteButtonVisible="false" />
 </DxDataGrid>
 
 @code {
 
-    @* To hold the hold the City details*@
+    @* To hold the City details*@
     IEnumerable<City> cityList = Enumerable.Empty<City>();
+
     @*To hold the search text*@
     String searchkey;
+
+    //Variable to hold the success message on create of City
     public string resultForCreate;
+
+    //Boolean variable to display the message on create of City
     bool createMessage = false;
+
+    //Variable to hold the success message on update of City
     public string resultForUpdate;
-    bool viewErrorForUpdate = false;
+
+    //Boolean variable to display the message on update of City
+    bool updateMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
     bool viewError = false;
-public string cityToBeDisplayed;
+
+    //Variable to hold the City name
+    public string cityName;
+
     @*The init method is to invoke the City list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -97,27 +113,31 @@ public string cityToBeDisplayed;
         GetCities(searchkey);
 
     }
+
+
     @*To get City list to be displayed in the data grid columns*@
     public void GetCities(String searchkeyword)
     {
         cityList = instanceOfIViewCityUseCase.ViewCity(searchkeyword);
         viewError = true;
     }
+
+
+    //Method to capture the user search result
     void OnTextChanged(String searchText)
     {
-        Console.WriteLine(searchText);
         searchkey = searchText;
-        @*To invoke the component to re-render the data*@
+        @*The StateHasChanged makes sure that the component is notified to re-render the data*@
 
         InvokeAsync(StateHasChanged);
 
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        @*The City list should be fetched again to display the newly created City along with the existing the City list *@
         GetCities(searchkey);
     }
 
     //create City
     @*The CreateCity() method is responsible for capturing the details enetred by the user and send it to the database.*@
-    void CreateCity(Dictionary<string, object> newCity)
+    private async void CreateCity(Dictionary<string, object> newCity)
     {
         @* To hold the new City to be created *@
         City createCity = new City();
@@ -125,56 +145,75 @@ public string cityToBeDisplayed;
         foreach (var field in newCity.Keys)
         {
             @*For each incoming key we check and assign the values to newCity *@
-    switch (field)
-    {
-        case "CityName":
-            cityToBeDisplayed = createCity.CityName = (string)newCity[field];
-            break;
-        case "Active":
-            createCity.Active = (bool)newCity[field];
-            break;
-        case "PinCode":
-            createCity.PinCode = (int)newCity[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "CityName":
+                    cityName = createCity.CityName = (string)newCity[field];
+                    break;
+                case "Active":
+                    createCity.Active = (bool)newCity[field];
+                    break;
+                case "PinCode":
+                    createCity.PinCode = (int)newCity[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new City*@
         resultForCreate = instanceOfICreateCityUseCase.CreateCity(createCity);
+
         createMessage = true;
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created City along with the existing the course list *@
-    GetCities(searchkey);
-}
-//To take and update the value for  City
-void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
-{
+        await InvokeAsync(StateHasChanged);
 
-    foreach (var city in newValue.Keys)
-    {
-        switch (city)
-        {
-            case "CityName":
-                cityToBeDisplayed = cityToBeUpdated.CityName = (string)newValue[city];
-                break;
-            case "Active":
-                cityToBeUpdated.Active = (bool)newValue[city];
-                break;
-            case "PinCode":
-                cityToBeUpdated.PinCode = (int)newValue[city];
-                break;
-        }
+        @*The City list should be fetched again to display the newly created City along with the existing the City list *@
+        GetCities(searchkey);
 
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("city", forceLoad: true);
     }
+
+
+
+    //To take and update the value for  City
+    private async void UpdateCity(City cityToBeUpdated, Dictionary<string, object> newValue)
+    {
+
+        foreach (var city in newValue.Keys)
+        {
+            switch (city)
+            {
+                case "CityName":
+                    cityName = cityToBeUpdated.CityName = (string)newValue[city];
+                    Console.WriteLine(cityName);
+                    break;
+                case "Active":
+                    cityToBeUpdated.Active = (bool)newValue[city];
+                    break;
+                case "PinCode":
+                    cityToBeUpdated.PinCode = (int)newValue[city];
+                    break;
+            }
+
+        }
 
         @*CityToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCityUseCase.UpdateCity(cityToBeUpdated);
-        viewErrorForUpdate = true;
+        updateMessage = true;
+
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        await InvokeAsync(StateHasChanged);
+
+        @*The City list should be fetched again to display the newly created City along with the existing the City list *@
         GetCities(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("city", forceLoad: true);
 
     }
 
