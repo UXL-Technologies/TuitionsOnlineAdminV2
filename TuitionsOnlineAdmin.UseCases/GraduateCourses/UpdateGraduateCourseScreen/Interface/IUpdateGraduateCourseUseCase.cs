@@ -10,7 +10,7 @@ using TuitionsOnlineAdmin.CoreBusiness;
 
 namespace TuitionsOnlineAdmin.UseCases.GraduateCourses.UpdateGraduateCourseScreen.Interface
 {
-   public interface IUpdateGraduateCourseUseCase
+    public interface IUpdateGraduateCourseUseCase
     {
         //Declaring a method to update the graduateCourse
         string UpdateGraduateCourse(GraduateCourse graduateCourse);

@@ -1,5 +1,5 @@
 ﻿
-//Authors: SA, BM, SM
+//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 // Date:08-Jan-2021
 //Aim: defining the entity for doctorate course
 
