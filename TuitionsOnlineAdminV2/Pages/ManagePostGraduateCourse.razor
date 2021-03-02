@@ -52,7 +52,7 @@
 <div>
 
     @* To display server error message *@
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
         <p class="success_message_style">
             Your Post graduate course "@postGraduateCourse" has been updated successfully !
@@ -99,7 +99,7 @@
     bool createMessage = false;
 
     //Boolean variable to display the message on update of Postgraduate Course
-    bool viewErrorForUpdate = false;
+    bool updateMessage = false;
 
     //Boolean variable to display the message on view of Postgraduate Course
     bool viewError = false;
@@ -115,6 +115,7 @@
         GetPostGraduateCourses(searchkey);
 
     }
+
     @*To get postgraduate course list to be displayed in the data grid columns*@
     public void GetPostGraduateCourses(String searchkeyword)
     {
@@ -133,11 +134,12 @@
 
         @*The course list should be fetched again to display the newly created course along with the existing the course list *@
         GetPostGraduateCourses(searchkey);
+
     }
 
 
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-    void CreatePostGraduateCourse(Dictionary<string, object> newCourse)
+    private async void CreatePostGraduateCourse(Dictionary<string, object> newCourse)
     {
 
         @* To hold the new course to be created *@
@@ -161,12 +163,17 @@
 
         @*To invoke the method to create new postgraduate course*@
         resultForCreate = instanceOfICreatePostGraduateCourseUseCase.CreatePostGraduateCourse(createPostGraduateCourse);
-        UriHelper.NavigateTo("postgraduatecourse", forceLoad: true);
+
         createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
         GetPostGraduateCourses(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("postgraduatecourse", forceLoad: true);
 
     }
 
@@ -175,7 +182,7 @@
         Aim:update postgraduate course   *@
 
     //This method is used to update the postgraduate course list
-    void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, Dictionary<string, object> newValue)
+    private async void UpdatePostGraduateCourse(PostGraduateCourse postGraduateCourseToBeUpdated, Dictionary<string, object> newValue)
     {
 
         foreach (var course in newValue.Keys)
@@ -193,12 +200,17 @@
 
             resultForUpdate = instanceOfIUpdatePostGraduateCourseUseCase.UpdatePostGraduateCourse(postGraduateCourseToBeUpdated);
 
-            viewErrorForUpdate = true;
+            updateMessage = true;
 
             @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-            InvokeAsync(StateHasChanged);
+            await InvokeAsync(StateHasChanged);
             @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
             GetPostGraduateCourses(searchkey);
+
+            //Used to refresh the razor page
+            await Task.Delay(2000);
+            //Used to refresh the razor page
+            UriHelper.NavigateTo("postgraduatecourse", forceLoad: true);
 
         }
 

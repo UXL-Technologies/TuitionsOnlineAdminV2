@@ -41,7 +41,7 @@
 
 @* To display the success message on click of save when Certificate course is updated *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
         <p class="success_message_style">
             Your Certificate course "@certificatedCourse" has been updated successfully !
@@ -94,7 +94,7 @@
     public string resultForUpdate;
 
     //Boolean variable to display the message on update of Certificate Course
-    bool viewErrorForUpdate = false;
+    bool updateMessage = false;
 
     //Boolean variable to display the error message if the user is unable to view the data
     bool viewError = false;
@@ -130,7 +130,7 @@
 
 
     @*The OnRowInserting() method is responsible for capturing the details enetred by the user and save the data.*@
-    void CreateCertificateCourse(Dictionary<string, object> newCourse)
+    private async void CreateCertificateCourse(Dictionary<string, object> newCourse)
     {
         @* To hold the new course to be created *@
         CertificateCourse createCertificateCourse = new CertificateCourse();
@@ -152,20 +152,21 @@
         @*To invoke the method to create new certificate Course*@
         resultForCreate = instanceOfICreateCertificateCourseUseCase.CreateCertificateCourse(createCertificateCourse);
 
-        //Used to refresh the razor page
-        UriHelper.NavigateTo("certificatecourse", forceLoad: true);
-
-
         createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to display the newly created course along with the existing the course list *@
         GetCertificateCourses(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("certificatecourse", forceLoad: true);
 
     }
 
     //To take and update the value for  CertificateCourse
-    void UpdateCertificateCourse(CertificateCourse certificateCourseToBeUpdated, Dictionary<string, object> newValue)
+    private async void UpdateCertificateCourse(CertificateCourse certificateCourseToBeUpdated, Dictionary<string, object> newValue)
     {
         @*The new value comes in the form of key value pair*@
         foreach (var course in newValue.Keys)
@@ -186,11 +187,16 @@
 
         @*certificateCourseToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCertificateCourseUseCase.UpdateCertificateCourse(certificateCourseToBeUpdated);
-        viewErrorForUpdate = true;
+        updateMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
         @*The course list should be fetched again to display the newly created course along with the existing the course list *@
         GetCertificateCourses(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("certificatecourse", forceLoad: true);
 
     }
 }
