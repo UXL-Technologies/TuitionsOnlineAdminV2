@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 // Date:08-Jan-2021
 //Aim: implementing the inteface IDoctorateCourseRepository
 
@@ -42,7 +42,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         }
 
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:14-Jan-2021
         //To update doctorate course
         public string UpdateDoctorateCourseRepository(DoctorateCourse doctorateCourse)

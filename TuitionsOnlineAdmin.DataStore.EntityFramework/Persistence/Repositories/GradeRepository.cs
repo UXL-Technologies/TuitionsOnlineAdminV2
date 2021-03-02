@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:15-Jan-2021
 //Aim: implementing the inteface IGradeRepository
 
@@ -36,7 +36,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
          
         }
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:15-Jan-2021
         //To view Grade based on the search criteria 
         public List<Grade> ViewGradeRepository(string searchKey)

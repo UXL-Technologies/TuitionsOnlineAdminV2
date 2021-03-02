@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM,KK,BA
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:25-Jan-2021
 //Aim: implementing the inteface IUniversityRepository
 

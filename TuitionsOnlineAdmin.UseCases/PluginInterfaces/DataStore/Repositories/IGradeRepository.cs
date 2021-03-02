@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:12-Jan-2021
 //Aim: defining the pluginInterface  Repository  for Grade;
 
@@ -14,7 +14,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for creating the Grade and store it in a database
         string CreateGradeRepository(Grade grade);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:15-Jan-2021
         //To hold the contract for viewing Grade
         List<Grade> ViewGradeRepository(string searchKey);

@@ -1,5 +1,5 @@
 ﻿
-//Authors: SA, BM, SM
+//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:11-Jan-2021
 //Aim:implementing the inteface ICityRepository
 
@@ -37,7 +37,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
            
         }
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         // Date:18-Jan-2021
         //To view City based on the search criteria 
         public List<City> ViewCityRepository(string searchKey)

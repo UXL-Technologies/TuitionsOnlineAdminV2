@@ -1,4 +1,4 @@
-﻿//Authors: SA, BM, SM
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:08-Jan-2021
 //Aim: defining the pluginInterface  Repository  for DoctorateCourse;
 
@@ -14,7 +14,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for creating the DoctorateCourse and store it in a database
         string CreateDoctorateCourseRepository(DoctorateCourse doctorateCourse);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:14-Jan-2021
         //To hold the contract for viewing Doctorate course 
         List<DoctorateCourse> ViewDoctorateCourseRepository(string searchKey);

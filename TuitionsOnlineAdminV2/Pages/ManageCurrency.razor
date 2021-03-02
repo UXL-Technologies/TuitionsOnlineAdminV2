@@ -1,4 +1,4 @@
-﻿@* Authors: SA,BM,SM
+﻿@* Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
      Date: 15-01-2021
     Aim : To create, view ,edit Currency *@
 
@@ -7,13 +7,14 @@
 @using TuitionsOnlineAdmin.UseCases.Currencies.ViewCurrencyScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Currencies.UpdateCurrencyScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@inject NavigationManager UriHelper
 @inject ICreateCurrencyUseCase instanceOfICreateCurrencyUseCase
 @inject IViewCurrencyUseCase instanceOfIViewCurrencyUseCase
 @inject IUpdateCurrencyUseCase instanceOfIUpdateCurrencyUseCase
 @inject BusinessMessage instanceOfBusinessMessage
-
+@* this TextBox is used to search the data  *@
 <div>
-    @* this TextBox is used to search the data  *@
+
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -22,11 +23,11 @@
 <br />
 
 <div>
-    @* To display error message for create *@
+    @* To display the success message on click of save when new Graduate Currency is created *@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Currency "@currencyToBeDisplayed" has been created successfully !
+            Your Currency "@currencyName" has been created successfully !
         </p>
     }
     else
@@ -37,12 +38,12 @@
     }
 </div>
 
-@* To display error message for update *@
+@* To display the success message on click of save when Graduate Currency is updated *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your Currency "@currencyToBeDisplayed" has been updated successfully !
+            Your Currency "@currencyName" has been updated successfully !
         </p>
     }
     else
@@ -54,7 +55,7 @@
 </div>
 
 <div>
-    @* To error message for view *@
+    @* To display server error message *@
     @if (viewError && currencyList == null)
     {
         <p class="success_message_style">
@@ -65,7 +66,7 @@
 
 
 
-@*Table is used to display the data *@
+@*Table is used to display the Currency data *@
 <DxDataGrid Data="@currencyList"
             RowInserting="@((newCurrency) => CreateCurrency(newCurrency))"
             RowUpdating="@((currencyToBeUpdated, newValue) => UpdateCurrency(currencyToBeUpdated, newValue))"
@@ -80,14 +81,28 @@
 
     @* To hold the hold the Currency details*@
     IEnumerable<Currency> currencyList = Enumerable.Empty<Currency>();
+
     @*To hold the search text*@
-    String searchkey;
-    public string resultForCreate;
-    bool createMessage = false;
-    public string resultForUpdate;
-    bool viewErrorForUpdate = false;
-    bool viewError = false;
-public string currencyToBeDisplayed;
+String searchkey;
+
+//Variable to hold the success message on create of Currency
+public string resultForCreate;
+
+//Boolean variable to display the message on create of Currency
+bool createMessage = false;
+
+//Variable to hold the success message on update of Currency
+public string resultForUpdate;
+
+//Boolean variable to display the message on update of Currency
+bool updateMessage = false;
+
+//Boolean variable to display the error message if the user is unable to view the data
+bool viewError = false;
+
+//Variable to hold the Currency name
+public string currencyName;
+
     @*The init method is to invoke the Currency list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -98,26 +113,28 @@ public string currencyToBeDisplayed;
     }
 
     @*To get Currency list to be displayed in the data grid columns*@
-    public void GetCurrencies(String searchkeyword)
-    {
-        currencyList = instanceOfIViewCurrencyUseCase.ViewCurrency(searchkeyword);
-        viewError = true;
-    }
-    void OnTextChanged(String searchText)
-    {
-        Console.WriteLine(searchText);
-        searchkey = searchText;
+public void GetCurrencies(String searchkeyword)
+{
+    currencyList = instanceOfIViewCurrencyUseCase.ViewCurrency(searchkeyword);
+    viewError = true;
+}
+
+//Method to capture the user search result
+void OnTextChanged(String searchText)
+{
+    Console.WriteLine(searchText);
+    searchkey = searchText;
         @*To invoke the component to re-render the data*@
 
         InvokeAsync(StateHasChanged);
 
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        @*The Currency list should be fetched again to diplay the newly created Currency along with the existing the Currency list *@
         GetCurrencies(searchkey);
     }
 
     //create Currency
     @*The CreateCurrency() method is responsible for capturing the details enetred by the user and send it to the database.*@
-    void CreateCurrency(Dictionary<string, object> newCurrency)
+   private async void CreateCurrency(Dictionary<string, object> newCurrency)
     {
         @* To hold the new Currency to be created *@
         Currency createCurrency = new Currency();
@@ -125,32 +142,35 @@ public string currencyToBeDisplayed;
         foreach (var field in newCurrency.Keys)
         {
             @*For each incoming key we check and assign the values to newCurrency *@
-    switch (field)
-    {
-        case "CurrencyName":
-            currencyToBeDisplayed = createCurrency.CurrencyName = (string)newCurrency[field];
-            break;
-        case "Active":
-            createCurrency.Active = (bool)newCurrency[field];
-            break;
-        case "Default":
-            createCurrency.Default = (bool)newCurrency[field];
-            break;
-    }
-}
+            switch (field)
+            {
+                case "CurrencyName":
+                    currencyName = createCurrency.CurrencyName = (string)newCurrency[field];
+                    break;
+                case "Active":
+                    createCurrency.Active = (bool)newCurrency[field];
+                    break;
+                case "Default":
+                    createCurrency.Default = (bool)newCurrency[field];
+                    break;
+            }
+        }
 
         @*To invoke the method to create new Currency*@
         resultForCreate = instanceOfICreateCurrencyUseCase.CreateCurrency(createCurrency);
         createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created Currency along with the existing the course list *@
+       await InvokeAsync(StateHasChanged);
+        @*The Currency list should be fetched again to display the newly created Currency along with the existing the Currency list *@
     GetCurrencies(searchkey);
-
+    //Used to refresh the razor page
+    await Task.Delay(2000);
+    //Used to refresh the razor page
+    UriHelper.NavigateTo("currency", forceLoad: true);
 
 }
 //To take and update the value for  Currency
-void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> newValue)
+private async void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> newValue)
 {
 
     foreach (var currency in newValue.Keys)
@@ -158,7 +178,7 @@ void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> new
         switch (currency)
         {
             case "CurrencyName":
-                currencyToBeDisplayed = currencyToBeUpdated.CurrencyName = (string)newValue[currency];
+                currencyName = currencyToBeUpdated.CurrencyName = (string)newValue[currency];
                 break;
             case "Active":
                 currencyToBeUpdated.Active = (bool)newValue[currency];
@@ -172,12 +192,17 @@ void UpdateCurrency(Currency currencyToBeUpdated, Dictionary<string, object> new
 
         @*CurrencyToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateCurrencyUseCase.UpdateCurrency(currencyToBeUpdated);
-        viewErrorForUpdate = true;
+        updateMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-        GetCurrencies(searchkey);
+       await InvokeAsync(StateHasChanged);
+        @*The Currency list should be fetched again to display the newly created Currency along with the existing the Currency list *@
+    GetCurrencies(searchkey);
 
-    }
+    //Used to refresh the razor page
+    await Task.Delay(2000);
+    //Used to refresh the razor page
+    UriHelper.NavigateTo("currency", forceLoad: true);
+
+}
 
 }
