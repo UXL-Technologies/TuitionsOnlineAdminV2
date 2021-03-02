@@ -1,4 +1,4 @@
-﻿@* Authors: SA,BM,SM
+﻿@* Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
      Date: 14-01-2021
     Aim : To create, view ,edit Doctorate course*@
 
@@ -7,25 +7,26 @@
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.ViewDoctorateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.DoctorateCourses.UpdateDoctorateCourseScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@inject NavigationManager UriHelper
 @inject ICreateDoctorateCourseUseCase instanceOfICreateDoctorateCourseUseCase
 @inject IViewDoctorateCourseUseCase instanceOfIViewDoctorateCourseUseCase
 @inject IUpdateDoctorateCourseUseCase instanceOfIUpdateDoctorateCourseUseCase
 @inject BusinessMessage instanceOfBusinessMessage
-
-
+@* this TextBox is used to search the data  *@
 <div>
-    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
                NullText="Search for doctorate courses ...."></DxTextBox>
 </div>
 <br />
+
 <div>
+    @* To display the success message on click of save when new Doctorate course is created *@
     @if (viewErrorForCreate && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your Doctorate course "@doctorateCourse" has been created successfully !
+            Your Doctorate course "@doctorateCourseName" has been created successfully !
         </p>
     }
     else
@@ -37,12 +38,12 @@
 </div>
 
 <div>
-
+    @* To display the success message on click of save when Doctorate course is updated *@
     @if (viewErrorForUpdate && resultForUpdate == "done")
     {
-    <p class="success_message_style">
-        Your Doctorate course "@doctorateCourse" has been updated successfully !
-    </p>
+        <p class="success_message_style">
+            Your Doctorate course "@doctorateCourseName" has been updated successfully !
+        </p>
     }
     else
     {
@@ -54,12 +55,12 @@
 
 <div>
 
-    @* To display the success message on click of save *@
+    @* To display server error message *@
     @if (viewError && @doctorateCourseList == null)
     {
-    <p class="success_message_style">
-        @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_DOCTORATECOURSE
-    </p>
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_DOCTORATECOURSE
+        </p>
     }
 </div>
 @*Table is used to display the data *@
@@ -77,19 +78,29 @@
     @* To hold the hold the Course details*@
     IEnumerable<DoctorateCourse> doctorateCourseList = Enumerable.Empty<DoctorateCourse>();
     @*To hold the search text*@
-String searchkey;
+    String searchkey;
+
+    //Variable to hold the success message on create of Doctorate Course
+    string resultForCreate;
+
+    //Variable to hold the success message on update of Doctorate Course
+    string resultForUpdate;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on create of Doctorate Course
+    bool viewErrorForCreate = false;
+
+    //Boolean variable to display the message on update of Doctorate Course
+    bool viewErrorForUpdate = false;
+
+    //Variable to hold the Doctorate Course name
+    public string doctorateCourseName;
+
+    bool saveMessage = false;
 
 
-public string result;
-
-string resultForCreate;
-string resultForUpdate;
-bool viewError = false;
-bool viewErrorForCreate = false;
-bool viewErrorForUpdate = false;
-public string doctorateCourse;
-
-bool saveMessage = false;
     @*The init method is to invoke the doctoratecourse list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -104,15 +115,17 @@ bool saveMessage = false;
         doctorateCourseList = instanceOfIViewDoctorateCourseUseCase.ViewDoctorateCourse(searchkeyword);
         viewError = true;
     }
+
+    //Method to capture the user search result
     void OnTextChanged(String searchText)
     {
-        Console.WriteLine(searchText);
+
         searchkey = searchText;
         @*To invoke the component to re-render the data*@
 
         InvokeAsync(StateHasChanged);
 
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        @*The course list should be fetched again to display the newly created course along with the existing the course list *@
         GetDoctorateCourses(searchkey);
     }
 
@@ -130,7 +143,8 @@ bool saveMessage = false;
     switch (field)
     {
         case "DoctorateCourseName":
-            doctorateCourse =  createDoctorateCourse.DoctorateCourseName = (string)newCourse[field];
+            doctorateCourseName = createDoctorateCourse.DoctorateCourseName = (string)newCourse[field];
+
             break;
         case "Active":
             createDoctorateCourse.Active = (bool)newCourse[field];
@@ -140,10 +154,14 @@ bool saveMessage = false;
 
         @*To invoke the method to create new Doctorate course*@
         resultForCreate = instanceOfICreateDoctorateCourseUseCase.CreateDoctorateCourse(createDoctorateCourse);
+
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("doctoratecourse", forceLoad: true);
+
         viewErrorForCreate = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
         InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        @*The course list should be fetched again to display the newly created course along with the existing the course list *@
     GetDoctorateCourses(searchkey);
 
 }
@@ -158,7 +176,8 @@ void UpdateDoctorateCourse(DoctorateCourse doctorateCourseToBeUpdated, Dictionar
         switch (course)
         {
             case "DoctorateCourseName":
-                doctorateCourse =  doctorateCourseToBeUpdated.DoctorateCourseName = (string)newValue[course];
+                doctorateCourseName = doctorateCourseToBeUpdated.DoctorateCourseName = (string)newValue[course];
+                Console.WriteLine(doctorateCourseName);
                 break;
             case "Active":
                 doctorateCourseToBeUpdated.Active = (bool)newValue[course];

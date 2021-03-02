@@ -16,9 +16,8 @@
 @inject BusinessMessage instanceOfBusinessMessage
 
 
+@* this TextBox is used to search the data  *@
 <div>
-
-    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -104,7 +103,7 @@
 
     //Boolean variable to display the message on create of Graduate Course
     bool createMessage = false;
-    //Boolean variable to display the message on view of Graduate Course
+    //Boolean variable to display the error message if the user is unable to view the data
     bool viewError = false;
     //Boolean variable to display the message on update of Graduate Course
     bool viewErrorForUpdate = false;
@@ -164,6 +163,7 @@
         @*To invoke the method to create new graduate course*@
         resultForCreate = instanceOfICreateGraduateCourseUseCase.CreateGraduateCourse(createGraduateCourse);
 
+        //Used to refresh the razor page
         UriHelper.NavigateTo("graduatecourse", forceLoad: true);
 
         await InvokeAsync(StateHasChanged);
