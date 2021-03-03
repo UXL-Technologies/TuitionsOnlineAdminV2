@@ -27,7 +27,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         public List<TeacherHighSchoolBoardWithForeignKeys> ViewTeacherHighSchoolBoardRepository(int teacherId)
         {
-            Console.WriteLine(teacherId);
+           
             List<TeacherHighSchoolBoard> teacherHighSchoolBoardList = new List<TeacherHighSchoolBoard>();
             List<TeacherHighSchoolBoardWithForeignKeys> teacherHighSchoolBoardWithForeignKeyList = new List<TeacherHighSchoolBoardWithForeignKeys>() { };
             TeacherHighSchoolBoardWithForeignKeys teacherHighSchoolBoardWithForeignKey = new TeacherHighSchoolBoardWithForeignKeys();
@@ -36,13 +36,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             {
                 if (teacherId != 0)
                 {
-                    //Console.WriteLine(teacherId);
+                   
                     teacherHighSchoolBoardList = diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.Where(s => s.TeacherId == teacherId).ToList();
-                    Console.WriteLine(teacherHighSchoolBoardList);
+                    
                     foreach (var teacherHighSchoolBoard in teacherHighSchoolBoardList)
                     {
                         var list1 = new List<TeacherHighSchoolBoardWithForeignKeys>();
-                        Console.WriteLine(teacherHighSchoolBoardWithForeignKeyList);
+                       
                         var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherHighSchoolBoard.TeacherId);
                         var HighSchoolBoardDetails = diTuitionsOnlineAdminDbContext.HighSchoolBoard.FirstOrDefault(s => s.HighSchoolBoardId == teacherHighSchoolBoard.HighSchoolBoardId);
                         teacherHighSchoolBoardWithForeignKeyList.Add(new TeacherHighSchoolBoardWithForeignKeys()
@@ -69,15 +69,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //Aim : To create Teacher HighSchoolBoard in the database
         public string CreateTeacherHighSchoolBoard(int teacherId, int selectedHighSchoolBoards)
         {
-            Console.WriteLine(teacherId);
-            Console.WriteLine(selectedHighSchoolBoards);
+            
             try
             {
-                Console.WriteLine(teacherId);
-                Console.WriteLine(selectedHighSchoolBoards);
+             
 
                 var teacherHighSchoolBoard = new TeacherHighSchoolBoard{TeacherId = teacherId, HighSchoolBoardId = selectedHighSchoolBoards};
-                Console.WriteLine(teacherHighSchoolBoard);
+                
                 diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.Add(teacherHighSchoolBoard);
 
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -88,8 +86,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
 
                 BusinessMessage businessMessage = new BusinessMessage();
-                Console.WriteLine(businessMessage);
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+               
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERHIGHSCHOOLBOARD;
             }
         }
 
@@ -98,18 +96,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         {
             try
             {
-                Console.WriteLine(teacherHighSchoolBoards);
+               
                 foreach (var teacherHighSchoolBoard in teacherHighSchoolBoards)
                 {
-                    Console.WriteLine(teacherHighSchoolBoard);
+                   
                     //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
                     // };
                     // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
                     //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
                     var id = teacherHighSchoolBoard.TeacherHighSchoolBoardId;
-                    Console.WriteLine(id);
+                  
                     var recordId = diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.FirstOrDefault(s => s.TeacherHighSchoolBoardId == id);
-                    Console.WriteLine(recordId);
+                   
                     diTuitionsOnlineAdminDbContext.TeacherHighSchoolBoard.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -118,7 +116,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERHIGHSCHOOLBOARD;
             }
         }
     }

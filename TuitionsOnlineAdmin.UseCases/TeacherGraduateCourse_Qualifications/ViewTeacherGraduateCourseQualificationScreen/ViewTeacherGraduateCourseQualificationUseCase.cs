@@ -1,6 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:22-Feb-2021
-//Aim: defining the class for TeacherGraduateCourse_Qualification 
+//Aim: class to view the Teacher Graduate Course Qualification 
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourseQualification.ViewTe
             this.diIUnitOfWork = diIUnitOfWork;
         }
 
-        // Aim : The ViewGraduateCourseUseCase method is responsible to get the teacher graduate course qualification record if exists else provide an empty container of teacher graduate course qualification.
+        // Aim : The View Graduate Course UseCase method is responsible to get the teacher graduate course qualification record if exists else provide an empty container of teacher graduate course qualification.
         public List<TeacherGraduateCourse_QualificationWithForeignKeys> ViewTeacherGraduateCourseQualification(int teacherId)
         {
             var teacherGraduateCourseQualificationList = diIUnitOfWork.ViewTeacherGraduateCourseQualification(teacherId);

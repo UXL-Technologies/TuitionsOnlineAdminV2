@@ -1,21 +1,71 @@
-﻿@page "/TeacherGraduateCourseQualification"
-@*Authors : SA,BM,KK,SM,BA
+﻿@*//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
     Date:19/02/2021
-    Aim: To create a serach box and to display the list of teachers  *@
+    Aim: 1.To get the teacher name on search
+         2.To select the Teacher name
+         3.Add the Graduate Course for the selected teachers
+         4.Remove the Graduate course for the teachers*@
 
+@page "/TeacherGraduateCourseQualification"
 @*Aim:Referring usecase of TeacherBasicInformation *@
-
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.CreateTeacherGraduateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.GraduateCourses.ViewGraduateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGraduateCourseQualification.Interfaces
+@using TuitionsOnlineAdmin.CoreBusiness
 
-@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
-@inject IViewTeacherGraduateCourseQualificationUseCase diIViewTeacherGraduateCourseQualificationUseCase;
-@inject IViewGraduateCourseUseCase diIViewGraduateCourseUseCase;
-@inject ICreateTeacherGraduateCourseQualificationUseCase diICreateTeacherGraduateCourseQualificationUseCase;
-@inject IEditGraduateCourseQualificationUseCase diIEditGraduateCourseQualificationUseCase;
+
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewTeacherGraduateCourseQualificationUseCase diIViewTeacherGraduateCourseQualificationUseCase
+@inject IViewGraduateCourseUseCase diIViewGraduateCourseUseCase
+@inject ICreateTeacherGraduateCourseQualificationUseCase diICreateTeacherGraduateCourseQualificationUseCase
+@inject IEditGraduateCourseQualificationUseCase diIEditGraduateCourseQualificationUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
+<div>
+
+    @* To display the success message on click of save when new Graduate course is created *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your graduate course  has been added successfully!
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate 
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save when Graduate course is updated *@
+    @if (updateMessage && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your graduate course  has been removed successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display server error message *@
+    @if (viewError && @graduateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERGRADUATECOURSE_QUALIFICATIONS
+        </p>
+    }
+</div>
 
 
 
@@ -38,9 +88,9 @@
                         <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
 
 
-                        <div style="margin-top: -32px; margin-left: 580px;">
+                        <div class="teachersearchbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
                         </div>
                     </div>
                     <br />
@@ -54,48 +104,48 @@
                             <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
                         </DxDataGrid>
 
-                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <div class="loadbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadGraduateCourseButton" Click="@loadGraduateCourseQualifications" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadGraduateCourseButton" Click="@loadGraduateCourseQualifications" />
                         </div>
                     }
-                    </div>
-           
+                </div>
+
                 <br />
 
                 @*Aim:Search box for graduate course*@
                 @if (enableGraduateCourseGridLayout)
                 {
-            <div class=" dxgridlayoutitem_style">
-                <center><h5>Select Graduate Course</h5></center>
+                    <div class=" dxgridlayoutitem_style">
+                        <center><h5>Select Graduate Course</h5></center>
 
-                <div>
-                    <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small"  style=" width:550px;"  TextChanged="@((searchGraduateCourseKeyword) => onChangeGradauteCourseSearchText(searchGraduateCourseKeyword))"> </DxTextBox>
+                        <div>
+                            <DxTextBox NullText="Search Graduate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchGraduateCourseKeyword) => onChangeGradauteCourseSearchText(searchGraduateCourseKeyword))"> </DxTextBox>
 
 
-                    <div style="margin-top: -32px; margin-left: 572px;">
+                            <div class="coursesearchbutton_style">
 
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" Click="@getGraduateCourseOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Graduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchGraduateCourseButton" Click="@getGraduateCourseOnSearch" />
+                            </div>
+                        </div>
+                        <br />
+                        @if (enableSearchGraduateCourseButton)
+                        {
+                            <DxDataGrid Data="@graduateCourseList"
+                                        @ref="@graduateCourseGrid"
+                                        KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
+                                        @bind-SingleSelectedDataRow="@onselectofgraduatecourse"
+                                        CssClass="datagrid-border-radius-top-0 mw-1100">
+                                <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
+                                <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
+
+
+                            </DxDataGrid>
+                            <div class="loadbutton_style">
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Graduate Course" SizeMode="SizeMode.Small" Click="@AddGraduateCourses" />
+                            </div>
+                        }
                     </div>
-                </div>
-                <br />
-                @if (enableSearchGraduateCourseButton)
-                {
-                    <DxDataGrid Data="@graduateCourseList"
-                                @ref="@graduateCourseGrid"
-                                KeyFieldName="@nameof(GraduateCourse.GraduateCourseId)"
-                                @bind-SingleSelectedDataRow="@onselectofgraduatecourse"
-                                CssClass="datagrid-border-radius-top-0 mw-1100">
-                        <DxDataGridSelectionColumn></DxDataGridSelectionColumn>
-                        <DxDataGridColumn Field="@nameof(GraduateCourse.GraduateCourseName)" Caption="Graduate Course"></DxDataGridColumn>
-
-
-                    </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Graduate Course" SizeMode="SizeMode.Small" Click="@AddGraduateCourses" />
-                    </div>
-                       }
-            </div>
                 }
                 <br />
 
@@ -116,16 +166,32 @@
                         <DxDataGridColumn Field="@nameof(TeacherGraduateCourse_QualificationWithForeignKeys.GraduateCourseName)" Caption="Graduate Course Name"></DxDataGridColumn>
 
                     </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Graduate Course" SizeMode="SizeMode.Small" Click="@RemoveGraduateCourse" />
-                     </div>
-                        </Template>
+                    <div class="loadbutton_style">
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Graduate Course" SizeMode="SizeMode.Small" Click="@RemoveGraduateCourse" />
+                    </div>
+                </Template>
             </DxGridLayoutItem>
         }
     </Items>
 </DxGridLayout>
 
 @code{
+    //Variable to hold the success message on create of Graduate Course
+    public string resultForCreate;
+
+    //Variable to hold the success message on update of Graduate Course
+    public string resultForUpdate;
+
+    //Boolean variable to display the message on create of Graduate Course
+    bool createMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on update of Graduate Course
+    bool updateMessage = false;
+
+
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<GraduateCourse> graduateCourseGrid;
     DxDataGrid<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationGrid;
@@ -147,7 +213,7 @@
     //Aim : Used to capture the keyword entered by the user
     public bool enableOrDisableSearchGraduateCourseButton = false;
 
-    //Aim:To enable Search Teacher table 
+    //Aim:To enable Search Teacher table
     public bool enableSearchTeacherButton = false;
 
     //Aim:To enable search graduate course table
@@ -186,7 +252,7 @@
     {
         searchTeacherKeyword = searchTeacherText;
         enableOrDisableSearchTeacherButton = true;
-        Console.WriteLine(enableOrDisableSearchTeacherButton);
+
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
@@ -195,6 +261,8 @@
     public void getTeacherListOnSearch()
     {
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
+        viewError = true;
+
         enableSearchTeacherButton = true;
     }
 
@@ -206,15 +274,15 @@
         set
         {
             selectedTeacherDetails = value;
-            Console.WriteLine(selectedTeacherDetails);
+
             selectedTeacherId = selectedTeacherDetails.TeacherId;
             enableOrDisableLoadGraduateCourseButton = true;
-            Console.WriteLine(enableOrDisableLoadGraduateCourseButton);
+
             InvokeAsync(StateHasChanged);
         }
     }
 
-    //Aim: 
+    //Aim:
     //1.to enable the graduate course grid.
     //2.to enable the teacher graduate course qualification grid.
     //3.to invoke the method "getTeacherGraduateCourseQualifications"
@@ -222,7 +290,7 @@
     public void loadGraduateCourseQualifications()
     {
         enableGraduateCourseGridLayout = true;
-        Console.WriteLine(enableGraduateCourseGridLayout);
+
         enableTeacherGraduateCourseQualificationGridLayout = true;
         getTeacherGraduateCourseQualifications();
     }
@@ -233,11 +301,11 @@
     {
         searchGraduateCourseKeyword = searchGraduateCourseText;
         enableOrDisableSearchGraduateCourseButton = true;
-        Console.WriteLine(enableOrDisableSearchGraduateCourseButton);
+
     }
 
-    //Aim: 
-    //1.To fetch  graduate courses(which is matched with the searched criteria) on click of graduate course search button : 
+    //Aim:
+    //1.To fetch  graduate courses(which is matched with the searched criteria) on click of graduate course search button :
     // IViewGraduateCourseUseCase is used for fetching the graduate course list for the searched key.
     //2.To invoke a method "getAvailableGraduateCourses" for obtaining only the courses that are not already associated with the teacher and display the list.
 
@@ -245,7 +313,7 @@
     {
         graduateCourseList = diIViewGraduateCourseUseCase.ViewGraduateCourse(searchGraduateCourseKeyword);
         enableSearchGraduateCourseButton = true;
-        Console.WriteLine(graduateCourseList);
+
     }
 
     //Aim : To capture the selected graduate course value and to enable the "Add Graduate Course" button.
@@ -255,11 +323,11 @@
         get { return selectedGraduateCourseList; }
         set
         {
-            // Console.WriteLine(selectedGraduateCourseList);
+
             selectedGraduateCourseList = value;
-            Console.WriteLine(selectedGraduateCourseList.GraduateCourseId);
+
             selectedGraduateId = selectedGraduateCourseList.GraduateCourseId;
-            Console.WriteLine(selectedGraduateId);
+
             InvokeAsync(StateHasChanged);
         }
 
@@ -269,21 +337,25 @@
 
     public void getTeacherGraduateCourseQualifications()
     {
-        Console.WriteLine(selectedTeacherId);
+
         teacherGraduateCourseQualificationList = diIViewTeacherGraduateCourseQualificationUseCase.ViewTeacherGraduateCourseQualification(selectedTeacherId);
-        Console.WriteLine(teacherGraduateCourseQualificationList);
+
     }
 
     //Aim: To save the teacher graduate course qualification record on click of save button.
 
-    public void AddGraduateCourses()
+    private async void AddGraduateCourses()
     {
-        var addGraduateCourse = diICreateTeacherGraduateCourseQualificationUseCase.CreateTeacherGraduateCourseQualification(selectedTeacherId, selectedGraduateId);
-        Console.WriteLine(addGraduateCourse);
+        // var addGraduateCourse = diICreateTeacherGraduateCourseQualificationUseCase.CreateTeacherGraduateCourseQualification(selectedTeacherId, selectedGraduateId);
+        resultForCreate = diICreateTeacherGraduateCourseQualificationUseCase.CreateTeacherGraduateCourseQualification(selectedTeacherId, selectedGraduateId);
+        createMessage = true;
+
         getTeacherGraduateCourseQualifications();
+        //System.Threading.Thread.Sleep(1000);
+        //createMessage = false;
     }
 
-    //Aim : To capture the selected teacher graduate course qualification value and to enable the "Remove Graduate Course" button. 
+    //Aim : To capture the selected teacher graduate course qualification value and to enable the "Remove Graduate Course" button.
 
     IEnumerable<TeacherGraduateCourse_QualificationWithForeignKeys> onSelectOfTeacherGraduateCourseQualification
     {
@@ -291,7 +363,7 @@
         set
         {
             selectedTeacherGraduateCourseQualifications = value;
-            Console.WriteLine(selectedTeacherGraduateCourseQualifications);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -301,9 +373,11 @@
     public void RemoveGraduateCourse()
     {
         List<TeacherGraduateCourse_QualificationWithForeignKeys> List = selectedTeacherGraduateCourseQualifications.ToList();
-        var removeGraduateCourse = diIEditGraduateCourseQualificationUseCase.EditGraduateCourseQualification(List);
-        Console.WriteLine(removeGraduateCourse);
+        // var removeGraduateCourse = diIEditGraduateCourseQualificationUseCase.EditGraduateCourseQualification(List);
+        resultForUpdate = diIEditGraduateCourseQualificationUseCase.EditGraduateCourseQualification(List);
+        updateMessage = true;
         getTeacherGraduateCourseQualifications();
+        InvokeAsync(StateHasChanged);
     }
 }
 

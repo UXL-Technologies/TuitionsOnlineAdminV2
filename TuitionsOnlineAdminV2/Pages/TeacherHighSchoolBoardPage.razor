@@ -1,5 +1,5 @@
 ﻿@page "/TeacherHighSchoolBoard"
-@*Authors : SA,BM,KK,SM,BA
+@*Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
     Date:19/02/2021
     Aim: To create a serach box and to display the list of teachers  *@
 
@@ -8,14 +8,62 @@
 @using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.CreateTeacherHighSchoolBoardScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.EditTeacherHighSchoolBoardScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.ViewTeacherHighSchoolBoardScreen.Interfaces
+@using TuitionsOnlineAdmin.CoreBusiness
 
-@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
-@inject IViewHighSchoolBoardUseCase diIViewHighSchoolBoardUseCase;
-@inject ICreateTeacherHighSchoolBoardUseCase diICreateTeacherHighSchoolBoardUseCase;
-@inject IEditTeacherHighSchoolBoardUseCase diIEditTeacherHighSchoolBoardUseCase;
-@inject IViewTeacherHighSchoolBoardUseCase diIViewTeacherHighSchoolBoardUseCase;
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewHighSchoolBoardUseCase diIViewHighSchoolBoardUseCase
+@inject ICreateTeacherHighSchoolBoardUseCase diICreateTeacherHighSchoolBoardUseCase
+@inject IEditTeacherHighSchoolBoardUseCase diIEditTeacherHighSchoolBoardUseCase
+@inject IViewTeacherHighSchoolBoardUseCase diIViewTeacherHighSchoolBoardUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 
 
+<div>
+
+    @* To display the success message on click of save when new high school board is created *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your high school board has been added successfully!
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save when high school board is updated *@
+    @if (updateMessage && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your high school board has been removed successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display server error message *@
+    @if (viewError && @highSchoolBoardList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERHIGHSCHOOLBOARD
+        </p>
+    }
+
+
+</div>
 <DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
     <Rows>
         <DxGridLayoutRow Height="auto" />
@@ -35,9 +83,9 @@
                         <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
 
 
-                        <div style="margin-top: -32px; margin-left: 580px;">
+                        <div class="teachersearchbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
                         </div>
                     </div>
                     <br />
@@ -51,9 +99,9 @@
                             <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
                         </DxDataGrid>
 
-                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <div class="loadbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load HighSchool Board" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadHighSchoolBoardButton" Click="@loadTeacherHighSchoolBoard" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load HighSchool Board" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadHighSchoolBoardButton" Click="@loadTeacherHighSchoolBoard" />
                         </div>
 
                     }
@@ -69,9 +117,9 @@
                             <DxTextBox NullText="Search HighSchoolBoard" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchHighSchoolBoardKeyword) => onChangeHighSchoolBoardSearchText(searchHighSchoolBoardKeyword))"> </DxTextBox>
 
 
-                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                            <div class="highschoolboardsearchbutton_style">
 
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search HighSchool Board Name" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchHighSchoolBoardButton" Click="@getHighSchoolBoardOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search HighSchool Board Name" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchHighSchoolBoardButton" Click="@getHighSchoolBoardOnSearch" />
                             </div>
                         </div>
 
@@ -89,8 +137,8 @@
 
                             </DxDataGrid>
 
-                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add HighSchoolBoard" SizeMode="SizeMode.Small" Click="@AddHighSchoolBoards" />
+                            <div class="loadbutton_style">
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add HighSchoolBoard" SizeMode="SizeMode.Small" Click="@AddHighSchoolBoards" />
                             </div>
 
                         }
@@ -115,8 +163,8 @@
                         <DxDataGridColumn Field="@nameof(TeacherHighSchoolBoardWithForeignKeys.HighSchoolBoardName)" Caption="HighSchoolBoard Name"></DxDataGridColumn>
 
                     </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove HighSchoolBoard" SizeMode="SizeMode.Small" Click="@RemoveHighSchoolBoard" />
+                    <div class="loadbutton_style">
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove HighSchoolBoard" SizeMode="SizeMode.Small" Click="@RemoveHighSchoolBoard" />
                     </div>
                 </Template>
             </DxGridLayoutItem>
@@ -127,6 +175,20 @@
 
 
 @code {
+    //Variable to hold the success message on create of high School Board
+    public string resultForCreate;
+
+    //Variable to hold the success message on update of high school board
+    public string resultForUpdate;
+
+    //Boolean variable to display the message on create of high school board
+    bool createMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on update of high school board
+    bool updateMessage = false;
 
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<HighSchoolBoard> highSchoolBoardGrid;
@@ -181,16 +243,16 @@
     {
         searchTeacherKeyword = searchTeacherText;
         enableOrDisableSearchTeacherButton = true;
-        Console.WriteLine(enableOrDisableSearchTeacherButton);
+
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
     //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
     public void getTeacherListOnSearch()
     {
-        Console.Write(searchTeacherKeyword);
+
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
-        Console.Write(teacherDetailsList);
+
         enableSearchTeacherButton = true;
     }
 
@@ -201,7 +263,7 @@
         set
         {
             selectedTeacherDetails = value;
-            Console.WriteLine(selectedTeacherDetails);
+
             selectedTeacherId = selectedTeacherDetails.TeacherId;
             enableOrDisableLoadHighSchoolBoardButton = true;
             InvokeAsync(StateHasChanged);
@@ -214,7 +276,7 @@
     {
         searchHighSchoolBoardKeyword = searchHighSchoolBoardText;
         enableOrDisableSearchHighSchoolBoardButton = true;
-        Console.WriteLine(enableOrDisableSearchHighSchoolBoardButton);
+
     }
 
     //Aim:
@@ -225,17 +287,17 @@
     public void loadTeacherHighSchoolBoard()
     {
         enableHighSchoolBoardGridLayout = true;
-        Console.WriteLine(enableHighSchoolBoardGridLayout);
+
         enableTeacherHighSchoolBoardQualificationGridLayout = true;
         getTeacherHighSchoolBoard();
 
     }
 
     //Aim: To view teacher high school board
-    public void getTeacherHighSchoolBoard() 
+    public void getTeacherHighSchoolBoard()
     {
         teacherHighSchoolBoardList = diIViewTeacherHighSchoolBoardUseCase.ViewTeacherHighSchoolBoard(selectedTeacherId);
-        Console.WriteLine(teacherHighSchoolBoardList);
+
     }
 
     //Aim : To capture the selected HighSchoolBoard value and to enable the "Add HighSchoolBoard" button.
@@ -244,11 +306,11 @@
         get { return selectedHighSchoolBoardList; }
         set
         {
-            // Console.WriteLine(selectedHighSchoolBoardList);
+
             selectedHighSchoolBoardList = value;
-            Console.WriteLine(selectedHighSchoolBoardList.HighSchoolBoardId);
+
             selectedHighSchoolBoardId = selectedHighSchoolBoardList.HighSchoolBoardId;
-            Console.WriteLine(selectedHighSchoolBoardId);
+
             InvokeAsync(StateHasChanged);
         }
 
@@ -257,23 +319,22 @@
     //Aim:
     //1.To fetch  HighSchoolBoard (which is matched with the searched criteria) on click of HighSchoolBoard  search button :
     // IViewHighSchoolBoardUseCase is used for fetching the HighSchoolBoard  list for the searched key.
-    //2.To invoke a methIViewPostGraduateCourseUseCaseod "getAvailableHighSchoolBoards" for obtaining only the courses that are not already associated with the teacher and display the list.
+    //2.To invoke a method IViewHighSchoolBoardUseCase "getAvailableHighSchoolBoards" for obtaining only the high school boards that are not already associated with the teacher and display the list.
 
     public void getHighSchoolBoardOnSearch()
     {
         highSchoolBoardList = diIViewHighSchoolBoardUseCase.ViewHighSchoolBoard(searchHighSchoolBoardKeyword);
         enableSearchHighSchoolBoardButton = true;
-        Console.WriteLine(highSchoolBoardList);
+
     }
 
     //Aim: To save the teacher HighSchoolBoard record on click of save button.
 
     public void AddHighSchoolBoards()
     {
-        Console.WriteLine(selectedTeacherId);
-        Console.WriteLine(selectedHighSchoolBoardId);
-        var addHighSchoolBoard = diICreateTeacherHighSchoolBoardUseCase.CreateTeacherHighSchoolBoard(selectedTeacherId, selectedHighSchoolBoardId);
-        Console.WriteLine(addHighSchoolBoard);
+
+        resultForCreate = diICreateTeacherHighSchoolBoardUseCase.CreateTeacherHighSchoolBoard(selectedTeacherId, selectedHighSchoolBoardId);
+        createMessage = true;
         getTeacherHighSchoolBoard();
     }
 
@@ -284,7 +345,7 @@
         set
         {
             selectedTeacherHighSchoolBoards = value;
-            Console.WriteLine(selectedTeacherHighSchoolBoards);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -293,8 +354,8 @@
     public void RemoveHighSchoolBoard()
     {
         List<TeacherHighSchoolBoardWithForeignKeys> List = selectedTeacherHighSchoolBoards.ToList();
-        var removeHighSchoolBoard = diIEditTeacherHighSchoolBoardUseCase.EditTeacherHighSchoolBoard(List);
-        Console.WriteLine(removeHighSchoolBoard);
+        resultForUpdate = diIEditTeacherHighSchoolBoardUseCase.EditTeacherHighSchoolBoard(List);
+        updateMessage = true;
         getTeacherHighSchoolBoard();
     }
 }

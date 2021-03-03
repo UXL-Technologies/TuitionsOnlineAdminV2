@@ -1,7 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:23-Feb-2021
-//Aim: defining the class for TeacherPostGraduateCourse_Qualification 
-
+//Aim: class to implement edit Teacher PostGraduate Course Qualification 
 using System;
 using System.Collections.Generic;
 using System.Text;

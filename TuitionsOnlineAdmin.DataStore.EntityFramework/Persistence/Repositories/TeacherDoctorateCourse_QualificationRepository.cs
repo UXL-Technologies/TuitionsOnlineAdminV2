@@ -24,7 +24,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //Aim : To view Doctorate Course Qualifications from the database
         public List<TeacherDoctorateCourse_QualificationWithForeignKeys> ViewDoctorateCourseQualificationRepository(int teacherId)
         {
-            Console.WriteLine(teacherId);
+           
             List<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualificationList = new List<TeacherDoctorateCourse_Qualification>();
             List<TeacherDoctorateCourse_QualificationWithForeignKeys> teacherDoctorateCourseQualificationWithForeignKeyList = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>() { };
             TeacherDoctorateCourse_QualificationWithForeignKeys teacherDoctorateCourseQualificationWithForeignKey = new TeacherDoctorateCourse_QualificationWithForeignKeys();
@@ -33,21 +33,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             {
                 if (teacherId != 0)
                 {
-                    //Console.WriteLine(teacherId);
+                    
                     teacherDoctorateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherDoctorateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
-                    Console.WriteLine(teacherDoctorateCourseQualificationList);
+                    
                     foreach (var teacherDoctorateCourseQualification in teacherDoctorateCourseQualificationList)
                     {
                         var list1 = new List<TeacherDoctorateCourse_QualificationWithForeignKeys>();
-                        Console.WriteLine(teacherDoctorateCourseQualificationWithForeignKeyList);
+                        
                         var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherDoctorateCourseQualification.TeacherId);
                         var DoctorateCourseDetails = diTuitionsOnlineAdminDbContext.DoctorateCourse.FirstOrDefault(s => s.DoctorateCourseId == teacherDoctorateCourseQualification.DoctorateCourseId);
                         teacherDoctorateCourseQualificationWithForeignKeyList.Add(new TeacherDoctorateCourse_QualificationWithForeignKeys()
                         {
                             TeacherName = TeacherDetails.Teacher_Name,
                             DoctorateCourseName = DoctorateCourseDetails.DoctorateCourseName,
-                            DoctorateCourseId
-                        = DoctorateCourseDetails.DoctorateCourseId,
+                            DoctorateCourseId = DoctorateCourseDetails.DoctorateCourseId,
                             TeacherId = TeacherDetails.TeacherId,
                             TeacherDoctorateCourse_QualificationId = teacherDoctorateCourseQualification.TeacherDoctorateCourse_QualificationId
                         });
@@ -68,13 +67,12 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //Aim : To create Teacher Doctorate Course Qualification in the database
         public string CreateTeacherDoctorateCourseQualification(int teacherId, int selectedDoctorateCourses)
             {
-                Console.WriteLine(teacherId);
-                Console.WriteLine(selectedDoctorateCourses);
+               
                 try
                 {
-                    Console.WriteLine(teacherId);
+                    
                     var teacherDoctorateCourseQualification = new TeacherDoctorateCourse_Qualification { TeacherId = teacherId, DoctorateCourseId = selectedDoctorateCourses };
-                    Console.WriteLine(teacherDoctorateCourseQualification);
+                
                     diTuitionsOnlineAdminDbContext.TeacherDoctorateCourse_Qualification.Add(teacherDoctorateCourseQualification);
 
                     diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -85,8 +83,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
 
                     BusinessMessage businessMessage = new BusinessMessage();
-                    Console.WriteLine(businessMessage);
-                    return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                   
+                    return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERDOCTORATECOURSE_QUALIFICATIONS;
                 }
             }
 
@@ -95,18 +93,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         {
             try
             {
-                Console.WriteLine(teacherDoctorateCourseQualifications);
+                
                 foreach (var teacherDoctorateCourseQualification in teacherDoctorateCourseQualifications)
                 {
-                    Console.WriteLine(teacherDoctorateCourseQualification);
+                    
                     //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
                     // };
                     // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
                     //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
                     var id = teacherDoctorateCourseQualification.TeacherDoctorateCourse_QualificationId;
-                    Console.WriteLine(id);
+                 
                     var recordId = diTuitionsOnlineAdminDbContext.TeacherDoctorateCourse_Qualification.FirstOrDefault(s => s.TeacherDoctorateCourse_QualificationId == id);
-                    Console.WriteLine(recordId);
+             
                     diTuitionsOnlineAdminDbContext.TeacherDoctorateCourse_Qualification.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -115,7 +113,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERDOCTORATECOURSE_QUALIFICATIONS;
             }
         }
     }

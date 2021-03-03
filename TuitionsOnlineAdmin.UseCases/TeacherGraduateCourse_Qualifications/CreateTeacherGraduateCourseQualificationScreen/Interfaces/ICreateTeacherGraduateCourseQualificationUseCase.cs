@@ -1,6 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:22-Feb-2021
-//Aim: defining the Interface for TeacherGraduateCourse_Qualification 
+//Aim:  Interface for creating Teacher Graduate Course Qualification 
 
 using System;
 using System.Collections.Generic;

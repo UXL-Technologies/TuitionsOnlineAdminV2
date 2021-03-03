@@ -14,7 +14,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
         //To hold the contract for creating the CertificateCourse and store it in a database
         string CreateCertificateCourseRepository(CertificateCourse certificateCourse);
 
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:15-Jan-2021
         //To hold the contract for viewing graduate course 
         List<CertificateCourse> ViewCertificateCourseRepository(string searchKey);

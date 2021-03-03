@@ -1,6 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:26-Feb-2021
-//Aim: defining the class for ViewTeacherUniversity
+//Aim:  class to implement view Teacher University
 
 using System;
 using System.Collections.Generic;

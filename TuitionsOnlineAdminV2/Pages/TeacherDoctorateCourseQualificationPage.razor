@@ -1,5 +1,5 @@
 ﻿@page "/TeacherDoctorateCourseQualification"
-@*Authors : SA,BM,KK,SM,BA
+@*Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
     Date:19/02/2021
     Aim: To create a serach box and to display the list of teacher  *@
 
@@ -8,12 +8,61 @@
 @using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.ViewTeacherDoctorateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.CreateTeacherDoctorateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherDoctorateCourse_Qualifications.EditTeacherDoctorateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.CoreBusiness
 
-@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
-@inject IViewDoctorateCourseUseCase diIViewDoctorateCourseUseCase;
-@inject IViewTeacherDoctorateCourseQualificationUseCase diIViewTeacherDoctorateCourseQualificationUseCase;
-@inject ICreateTeacherDoctorateCourseQualificationUseCase diICreateTeacherDoctorateCourseQualificationUseCase;
-@inject IEditTeacherDoctorateCourseQualificationUseCase diIEditTeacherDoctorateCourseQualificationUseCase;
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewDoctorateCourseUseCase diIViewDoctorateCourseUseCase
+@inject IViewTeacherDoctorateCourseQualificationUseCase diIViewTeacherDoctorateCourseQualificationUseCase
+@inject ICreateTeacherDoctorateCourseQualificationUseCase diICreateTeacherDoctorateCourseQualificationUseCase
+@inject IEditTeacherDoctorateCourseQualificationUseCase diIEditTeacherDoctorateCourseQualificationUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
+
+<div>
+
+    @* To display the success message on click of save when new doctorate course is created *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your doctorate course has been added successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save when doctorate course is updated *@
+    @if (updateMessage && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your doctorate course has been removed successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display server error message *@
+    @if (viewError && @doctorateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERDOCTORATECOURSE_QUALIFICATIONS
+        </p>
+    }
+</div>
+
 
 <DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
     <Rows>
@@ -34,9 +83,9 @@
                         <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
 
 
-                        <div style="margin-top: -32px; margin-left: 580px;">
+                        <div class="teachersearchbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" CssClass="buttonsize_style" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
                         </div>
                     </div>
                     <br />
@@ -50,9 +99,9 @@
                             <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
                         </DxDataGrid>
 
-                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <div class="loadbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Doctorate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadDoctorateCourseButton" Click="@loadDoctorateCourseQualifications" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" CssClass="buttonsize_style" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Doctorate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadDoctorateCourseButton" Click="@loadDoctorateCourseQualifications" />
                         </div>
                     }
                 </div>
@@ -69,9 +118,9 @@
                             <DxTextBox NullText="Search Doctorate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchDoctorateCourseKeyword) => onChangeDoctorateCourseSearchText(searchDoctorateCourseKeyword))"> </DxTextBox>
 
 
-                            <div style="margin-top: -32px; margin-left: 572px;">
+                            <div class="coursesearchbutton_style">
 
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Doctorate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchDoctorateCourseButton" Click="@getDoctorateCourseOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" CssClass="buttonsize_style" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Doctorate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchDoctorateCourseButton" Click="@getDoctorateCourseOnSearch" />
                             </div>
                         </div>
                         <br />
@@ -87,8 +136,8 @@
 
 
                             </DxDataGrid>
-                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Doctorate Course" SizeMode="SizeMode.Small" Click="@AddDoctorateCourses" />
+                            <div class="loadbutton_style">
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" CssClass="buttonsize_style" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Doctorate Course" SizeMode="SizeMode.Small" Click="@AddDoctorateCourses" />
                             </div>
                         }
                     </div>
@@ -112,8 +161,8 @@
                         <DxDataGridColumn Field="@nameof(TeacherDoctorateCourse_QualificationWithForeignKeys.DoctorateCourseName)" Caption="Doctorate Course Name"></DxDataGridColumn>
 
                     </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Doctorate Course" SizeMode="SizeMode.Small" Click="@RemoveDoctorateCourse" />
+                    <div class="loadbutton_style">
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" CssClass="buttonsize_style" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Doctorate Course" SizeMode="SizeMode.Small" Click="@RemoveDoctorateCourse" />
                     </div>
                 </Template>
             </DxGridLayoutItem>
@@ -122,6 +171,22 @@
 </DxGridLayout>
 
 @code {
+    //Variable to hold the success message on create of Graduate Course
+    public string resultForCreate;
+
+    //Variable to hold the success message on update of Graduate Course
+    public string resultForUpdate;
+
+    //Boolean variable to display the message on create of Graduate Course
+    bool createMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on update of Graduate Course
+    bool updateMessage = false;
+
+
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<DoctorateCourse> doctorateCourseGrid;
     DxDataGrid<TeacherDoctorateCourse_Qualification> teacherDoctorateCourseQualificationGrid;
@@ -183,7 +248,7 @@
     {
         searchTeacherKeyword = searchTeacherText;
         enableOrDisableSearchTeacherButton = true;
-        Console.WriteLine(enableOrDisableSearchTeacherButton);
+
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
@@ -191,9 +256,9 @@
 
     public void getTeacherListOnSearch()
     {
-        Console.Write(searchTeacherKeyword);
+
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
-        Console.Write(teacherDetailsList);
+
         enableSearchTeacherButton = true;
     }
 
@@ -205,10 +270,10 @@
         set
         {
             selectedTeacherDetails = value;
-            Console.WriteLine(selectedTeacherDetails);
+
             selectedTeacherId = selectedTeacherDetails.TeacherId;
             enableOrDisableLoadDoctorateCourseButton = true;
-            Console.WriteLine(enableOrDisableLoadDoctorateCourseButton);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -221,7 +286,7 @@
     public void loadDoctorateCourseQualifications()
     {
         enableDoctorateCourseGridLayout = true;
-        Console.WriteLine(enableDoctorateCourseGridLayout);
+
         enableTeacherDoctorateCourseQualificationGridLayout = true;
         getTeacherDoctorateCourseQualifications();
     }
@@ -232,7 +297,7 @@
     {
         searchDoctorateCourseKeyword = searchDoctorateCourseText;
         enableOrDisableSearchDoctorateCourseButton = true;
-        Console.WriteLine(enableOrDisableSearchDoctorateCourseButton);
+
     }
 
     //Aim:
@@ -244,7 +309,7 @@
     {
         doctorateCourseList = diIViewDoctorateCourseUseCase.ViewDoctorateCourse(searchDoctorateCourseKeyword);
         enableSearchDoctorateCourseButton = true;
-        Console.WriteLine(doctorateCourseList);
+
     }
 
     //Aim : To capture the selected Doctorate course value and to enable the "Add Doctorate Course" button.
@@ -253,11 +318,11 @@
         get { return selectedDoctorateCourseList; }
         set
         {
-            // Console.WriteLine(selectedDoctorateCourseList);
+            
             selectedDoctorateCourseList = value;
-            Console.WriteLine(selectedDoctorateCourseList.DoctorateCourseId);
+
             selectedDoctorateId = selectedDoctorateCourseList.DoctorateCourseId;
-            Console.WriteLine(selectedDoctorateId);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -266,9 +331,9 @@
 
     public void getTeacherDoctorateCourseQualifications()
     {
-        Console.WriteLine(selectedTeacherId);
+
         teacherDoctorateCourseQualificationList = diIViewTeacherDoctorateCourseQualificationUseCase.ViewTeacherDoctorateCourseQualification(selectedTeacherId);
-        Console.WriteLine(teacherDoctorateCourseQualificationList);
+
         teacherDoctorateCourseQualificationList = diIViewTeacherDoctorateCourseQualificationUseCase.ViewTeacherDoctorateCourseQualification(selectedTeacherId);
     }
 
@@ -276,10 +341,10 @@
 
     public void AddDoctorateCourses()
     {
-        Console.WriteLine(selectedTeacherId);
-        Console.WriteLine(selectedDoctorateId);
-        var addDoctorateCourse = diICreateTeacherDoctorateCourseQualificationUseCase.CreateTeacherDoctorateCourseQualification(selectedTeacherId, selectedDoctorateId);
-        Console.WriteLine(addDoctorateCourse);
+
+
+        resultForCreate = diICreateTeacherDoctorateCourseQualificationUseCase.CreateTeacherDoctorateCourseQualification(selectedTeacherId, selectedDoctorateId);
+        createMessage = true;
         getTeacherDoctorateCourseQualifications();
     }
 
@@ -291,7 +356,7 @@
         set
         {
             selectedTeacherDoctorateCourseQualifications = value;
-            Console.WriteLine(selectedTeacherDoctorateCourseQualifications);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -301,8 +366,8 @@
     public void RemoveDoctorateCourse()
     {
         List<TeacherDoctorateCourse_QualificationWithForeignKeys> List = selectedTeacherDoctorateCourseQualifications.ToList();
-        var removeDoctorateCourse = diIEditTeacherDoctorateCourseQualificationUseCase.EditTeacherDoctorateCourseQualification(List);
-        Console.WriteLine(removeDoctorateCourse);
+        resultForUpdate = diIEditTeacherDoctorateCourseQualificationUseCase.EditTeacherDoctorateCourseQualification(List);
+        updateMessage = true;
         getTeacherDoctorateCourseQualifications();
     }
 

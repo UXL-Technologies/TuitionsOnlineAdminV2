@@ -25,7 +25,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //Aim : To view Certificate Course Qualifications from the database
         public List<TeacherCertificateCourse_QualificationWithForeignKeys> ViewCertificateCourseQualificationRepository(int teacherId)
         {
-            Console.WriteLine(teacherId);
+           
             List<TeacherCertificateCourse_Qualification> teacherCertificateCourseQualificationList = new List<TeacherCertificateCourse_Qualification>();
             List<TeacherCertificateCourse_QualificationWithForeignKeys> teacherCertificateCourseQualificationWithForeignKeyList = new List<TeacherCertificateCourse_QualificationWithForeignKeys>() { };
             TeacherCertificateCourse_QualificationWithForeignKeys teacherCertificateCourseQualificationWithForeignKey = new TeacherCertificateCourse_QualificationWithForeignKeys();
@@ -34,21 +34,20 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             {
                 if (teacherId != 0)
                 {
-                    //Console.WriteLine(teacherId);
+                    
                     teacherCertificateCourseQualificationList = diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.Where(s => s.TeacherId == teacherId).ToList();
-                    Console.WriteLine(teacherCertificateCourseQualificationList);
+                    
                     foreach (var teacherCertificateCourseQualification in teacherCertificateCourseQualificationList)
                     {
                         var list1 = new List<TeacherCertificateCourse_QualificationWithForeignKeys>();
-                        Console.WriteLine(teacherCertificateCourseQualificationWithForeignKeyList);
+                       
                         var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherCertificateCourseQualification.TeacherId);
                         var CertificateCourseDetails = diTuitionsOnlineAdminDbContext.CertificateCourse.FirstOrDefault(s => s.CertificateCourseId == teacherCertificateCourseQualification.CertificateCourseId);
                         teacherCertificateCourseQualificationWithForeignKeyList.Add(new TeacherCertificateCourse_QualificationWithForeignKeys()
                         {
                             TeacherName = TeacherDetails.Teacher_Name,
                             CertificateCourseName = CertificateCourseDetails.CertificateCourseName,
-                            CertificateCourseId
-                        = CertificateCourseDetails.CertificateCourseId,
+                            CertificateCourseId = CertificateCourseDetails.CertificateCourseId,
                             TeacherId = TeacherDetails.TeacherId,
                             TeacherCertificateCourse_QualificationId = teacherCertificateCourseQualification.TeacherCertificateCourse_QualificationId
                         });
@@ -69,13 +68,12 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //Aim : To create Teacher Certificate Course Qualification in the database
         public string CreateTeacherCertificateCourseQualification(int teacherId, int selectedCertificateCourses)
         {
-            Console.WriteLine(teacherId);
-            Console.WriteLine(selectedCertificateCourses);
+           
             try
             {
-                Console.WriteLine(teacherId);
+               
                 var teacherCertificateCourseQualification = new TeacherCertificateCourse_Qualification { TeacherId = teacherId, CertificateCourseId = selectedCertificateCourses };
-                Console.WriteLine(teacherCertificateCourseQualification);
+               
                 diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.Add(teacherCertificateCourseQualification);
 
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -87,8 +85,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
 
                 BusinessMessage businessMessage = new BusinessMessage();
-                Console.WriteLine(businessMessage);
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERCERTIFICATECOURSE_QUALIFICATIONS;
             }
         }
 
@@ -97,18 +95,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         {
             try
             {
-                Console.WriteLine(teacherCertificateCourseQualifications);
+                
                 foreach (var teacherCertificateCourseQualification in teacherCertificateCourseQualifications)
                 {
-                    Console.WriteLine(teacherCertificateCourseQualification);
+                 
                     //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
                     // };
                     // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
                     //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
                     var id = teacherCertificateCourseQualification.TeacherCertificateCourse_QualificationId;
-                    Console.WriteLine(id);
+                   
                     var recordId = diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.FirstOrDefault(s => s.TeacherCertificateCourse_QualificationId == id);
-                    Console.WriteLine(recordId);
+                    
                     diTuitionsOnlineAdminDbContext.TeacherCertificateCourse_Qualification.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -117,7 +115,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERCERTIFICATECOURSE_QUALIFICATIONS;
             }
         }
     }

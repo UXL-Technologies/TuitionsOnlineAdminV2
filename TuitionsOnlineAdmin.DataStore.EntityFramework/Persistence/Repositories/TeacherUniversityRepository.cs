@@ -25,7 +25,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
         public List<TeacherUniversityWithForeignKeys> ViewTeacherUniversityRepository(int teacherId)
         {
-            Console.WriteLine(teacherId);
+            
             List<TeacherUniversity> teacherUniversityList = new List<TeacherUniversity>();
             List<TeacherUniversityWithForeignKeys> teacherUniversityWithForeignKeyList = new List<TeacherUniversityWithForeignKeys>() { };
             TeacherUniversityWithForeignKeys teacherUniversityWithForeignKey = new TeacherUniversityWithForeignKeys();
@@ -34,13 +34,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             {
                 if (teacherId != 0)
                 {
-                    //Console.WriteLine(teacherId);
+                   
                     teacherUniversityList = diTuitionsOnlineAdminDbContext.TeacherUniversity.Where(s => s.TeacherId == teacherId).ToList();
-                    Console.WriteLine(teacherUniversityList);
+                   
                     foreach (var teacherUniversity in teacherUniversityList)
                     {
                         var list1 = new List<TeacherUniversityWithForeignKeys>();
-                        Console.WriteLine(teacherUniversityWithForeignKeyList);
+                        
                         var TeacherDetails = diTuitionsOnlineAdminDbContext.TeacherBasicInformation.FirstOrDefault(s => s.TeacherId == teacherUniversity.TeacherId);
                         var UniversityDetails = diTuitionsOnlineAdminDbContext.University.FirstOrDefault(s => s.UniversityId == teacherUniversity.UniversityId);
                         teacherUniversityWithForeignKeyList.Add(new TeacherUniversityWithForeignKeys()
@@ -55,7 +55,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
                 }
                 if (teacherUniversityWithForeignKeyList == null)
                 {
-                    Console.WriteLine(teacherUniversityWithForeignKeyList);
+                    
                     teacherUniversityWithForeignKeyList = new List<TeacherUniversityWithForeignKeys>();
                 }
                 return teacherUniversityWithForeignKeyList;
@@ -68,15 +68,13 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         //Aim : To create Teacher University in the database
         public string CreateTeacherUniversity(int teacherId, int selectedUniversities)
         {
-            Console.WriteLine(teacherId);
-            Console.WriteLine(selectedUniversities);
+           
             try
             {
-                Console.WriteLine(teacherId);
-                Console.WriteLine(selectedUniversities);
+                
 
                 var teacherUniversity = new TeacherUniversity { TeacherId = teacherId, UniversityId = selectedUniversities };
-                Console.WriteLine(teacherUniversity);
+               
                 diTuitionsOnlineAdminDbContext.TeacherUniversity.Add(teacherUniversity);
 
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -87,8 +85,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
 
 
                 BusinessMessage businessMessage = new BusinessMessage();
-                Console.WriteLine(businessMessage);
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                
+                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_TEACHERUNIVERSITY;
             }
         }
         //Aim : To remove Teacher Universities from the database
@@ -96,18 +94,18 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
         {
             try
             {
-                Console.WriteLine(teacherUniversities);
+               
                 foreach (var teacherUniversity in teacherUniversities)
                 {
-                    Console.WriteLine(teacherUniversity);
+                    
                     //  TeacherGraduateCourse_Qualification teacherGraduateCourseQualificationId = new TeacherGraduateCourse_Qualification() {TeacherGraduateCourse_QualificationId= teacherGraduateCourses.TeacherGraduateCourse_QualificationId, GraduateCourseId = teacherGraduateCourses.GraduateCourseId, TeacherId = teacherGraduateCourses.TeacherId
                     // };
                     // diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.Attach(teacherGraduateCourseQualificationId);
                     //diTuitionsOnlineAdminDbContext.TeacherGraduateCourse_Qualification.DeleteObject(teacherGraduateCourseQualificationId);
                     var id = teacherUniversity.TeacherUniversityId;
-                    Console.WriteLine(id);
+                    
                     var recordId = diTuitionsOnlineAdminDbContext.TeacherUniversity.FirstOrDefault(s => s.TeacherUniversityId == id);
-                    Console.WriteLine(recordId);
+                    
                     diTuitionsOnlineAdminDbContext.TeacherUniversity.Remove(recordId);
                 }
                 diTuitionsOnlineAdminDbContext.SaveChanges();
@@ -116,7 +114,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             catch (Exception)
             {
                 BusinessMessage businessMessage = new BusinessMessage();
-                return businessMessage.UNKNOWN_SERVER_ERROR_CREATE_SUBJECT;
+                return businessMessage.UNKNOWN_SERVER_ERROR_UPDATE_TEACHERUNIVERSITY;
             }
         }
     }

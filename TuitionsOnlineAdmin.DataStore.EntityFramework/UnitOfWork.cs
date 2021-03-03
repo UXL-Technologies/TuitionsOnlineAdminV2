@@ -345,7 +345,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         //Aim : The CreateTeacherGraduateCourseQualification method is responsible to view the teacher graduate course qualification.
                public string CreateTeacherGraduateCourseQualification(int teacherId, int selectedGraduateCourses)
         {
-            var result = diITeacherGraduateCourse_QualificationRepository.CreateTeacherGraduateCourseQualification(teacherId, selectedGraduateCourses);
+            var result = diITeacherGraduateCourse_QualificationRepository.CreateTeacherGraduateCourseQualificationRepository(teacherId, selectedGraduateCourses);
             //Console.WriteLine(teacherId);
             return result;
         }
@@ -353,7 +353,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
         // Aim : The EditTeacherGraduateCourseQualification method is responsible to remove the teacher graduate course qualification.
         public string EditGraduateCourseQualification(List<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualifications)
         {
-            var result = diITeacherGraduateCourse_QualificationRepository.EditGraduateCourseQualification(teacherGraduateCourseQualifications);
+            var result = diITeacherGraduateCourse_QualificationRepository.EditGraduateCourseQualificationRepository(teacherGraduateCourseQualifications);
             return result;
         }
 

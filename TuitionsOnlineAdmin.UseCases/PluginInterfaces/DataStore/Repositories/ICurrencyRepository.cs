@@ -15,7 +15,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     {
         //To hold the contract for creating the Currency and store it in a database
         string CreateCurrencyRepository(Currency currency);
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:18-Jan-2021
         //To hold the contract for viewing Currency
         List<Currency> ViewCurrencyRepository(string searchKey);

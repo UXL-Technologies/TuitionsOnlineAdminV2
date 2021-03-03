@@ -1,6 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:22-Feb-2021
-//Aim: defining the class for TeacherGraduateCourse_Qualification 
+//Aim:  class to implement create TeacherGraduateCourseQualification 
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.Crea
 
         // Aim: Constructor dependency injection of IUnitOfWork for creating the teacher graduate course qualifications.
         public CreateTeacherGraduateCourseQualificationUseCase(IUnitOfWork diIUnitOfWork)
-
         {
             this.diIUnitOfWork = diIUnitOfWork;
         }

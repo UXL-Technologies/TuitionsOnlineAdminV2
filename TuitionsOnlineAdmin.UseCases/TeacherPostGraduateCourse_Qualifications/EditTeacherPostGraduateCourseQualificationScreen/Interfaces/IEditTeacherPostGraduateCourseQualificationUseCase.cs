@@ -1,6 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:23-Feb-2021
-//Aim: defining the Interface for TeacherPostGraduateCourse_Qualification 
+//Aim: Interface for editing Teacher PostGraduate Course Qualification 
 
 using System;
 using System.Collections.Generic;

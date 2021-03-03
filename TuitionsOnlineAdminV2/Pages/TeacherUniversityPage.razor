@@ -1,5 +1,6 @@
 ﻿@page "/TeacherUniversity"
-@*Authors : SA,BM,KK,SM,BA
+@*Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
+
     Date:26/02/2021
     Aim: To create a search box and to display the list of teacher  *@
 
@@ -8,13 +9,59 @@
 @using TuitionsOnlineAdmin.UseCases.TeacherUniversities.ViewTeacherUniversityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherUniversities.CreateTeacherUniversityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherUniversities.EditTeacherUniversityScreen.Interfaces
+@using TuitionsOnlineAdmin.CoreBusiness
 
-@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
-@inject IViewUniversityUseCase diIViewUniversityUseCase;
-@inject IViewTeacherUniversityUseCase diIViewTeacherUniversityUseCase;
-@inject ICreateTeacherUniversityUseCase diICreateTeacherUniversityUseCase;
-@inject IEditTeacherUniversityUseCase diIEditTeacherUniversityUseCase;
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewUniversityUseCase diIViewUniversityUseCase
+@inject IViewTeacherUniversityUseCase diIViewTeacherUniversityUseCase
+@inject ICreateTeacherUniversityUseCase diICreateTeacherUniversityUseCase
+@inject IEditTeacherUniversityUseCase diIEditTeacherUniversityUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 
+<div>
+
+    @* To display the success message on click of save when new university is created *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your university  has been added successfully!
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save when university is updated *@
+    @if (updateMessage && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your university  has been removed successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display server error message *@
+    @if (viewError && @universityList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERUNIVERSITY
+        </p>
+    }
+</div>
 <DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
     <Rows>
         <DxGridLayoutRow Height="auto" />
@@ -34,9 +81,9 @@
                         <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
 
 
-                        <div style="margin-top: -32px; margin-left: 580px;">
+                        <div class="teachersearchbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
                         </div>
                     </div>
                     <br />
@@ -50,9 +97,9 @@
                             <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
                         </DxDataGrid>
 
-                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <div class="loadbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load University" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadUniversityButton" Click="@loadUniversities" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load University" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadUniversityButton" Click="@loadUniversities" />
                         </div>
                     }
                 </div>
@@ -69,9 +116,9 @@
                             <DxTextBox NullText="Search Universities" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchUniversityKeyword) => onChangeUniversitySearchText(searchUniversityKeyword))"> </DxTextBox>
 
 
-                            <div style="margin-top: -32px; margin-left: 572px;">
+                            <div class="coursesearchbutton_style">
 
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search University" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchUniversityButton" Click="@getUniversityOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search University" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchUniversityButton" Click="@getUniversityOnSearch" />
                             </div>
                         </div>
                         <br />
@@ -87,8 +134,8 @@
 
 
                             </DxDataGrid>
-                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add University" SizeMode="SizeMode.Small" Click="@AddUniversities" />
+                            <div class="loadbutton_style">
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add University" SizeMode="SizeMode.Small" Click="@AddUniversities" />
                             </div>
                         }
                     </div>
@@ -112,8 +159,8 @@
                         <DxDataGridColumn Field="@nameof(TeacherUniversityWithForeignKeys.UniversityName)" Caption="University Name"></DxDataGridColumn>
 
                     </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove University" SizeMode="SizeMode.Small" Click="@RemoveUniversity" />
+                    <div class="loadbutton_style">
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary " RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove University" SizeMode="SizeMode.Small" Click="@RemoveUniversity" />
                     </div>
                 </Template>
             </DxGridLayoutItem>
@@ -122,6 +169,21 @@
 </DxGridLayout>
 
 @code {
+    //Variable to hold the success message on create of university
+    public string resultForCreate;
+
+    //Variable to hold the success message on update of university
+    public string resultForUpdate;
+
+    //Boolean variable to display the message on create of university
+    bool createMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on update of university
+    bool updateMessage = false;
+
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<University> universityGrid;
     DxDataGrid<TeacherUniversity> teacherUniversityGrid;
@@ -182,16 +244,16 @@
     {
         searchTeacherKeyword = searchTeacherText;
         enableOrDisableSearchTeacherButton = true;
-        Console.WriteLine(enableOrDisableSearchTeacherButton);
+
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
     //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
     public void getTeacherListOnSearch()
     {
-        Console.Write(searchTeacherKeyword);
+
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
-        Console.Write(teacherDetailsList);
+
         enableSearchTeacherButton = true;
     }
 
@@ -202,10 +264,10 @@
         set
         {
             selectedTeacherDetails = value;
-            Console.WriteLine(selectedTeacherDetails);
+
             selectedTeacherId = selectedTeacherDetails.TeacherId;
             enableOrDisableLoadUniversityButton = true;
-            Console.WriteLine(enableOrDisableLoadUniversityButton);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -218,7 +280,7 @@
     public void loadUniversities()
     {
         enableUniversityGridLayout = true;
-        Console.WriteLine(enableUniversityGridLayout);
+
         enableTeacherUniversityGridLayout = true;
         getTeacherUniversities();
     }
@@ -229,7 +291,7 @@
     {
         searchUniversityKeyword = searchUniversityText;
         enableOrDisableSearchUniversityButton = true;
-        Console.WriteLine(enableOrDisableSearchUniversityButton);
+
     }
 
     //Aim:
@@ -241,7 +303,7 @@
     {
         universityList = diIViewUniversityUseCase.ViewUniversity(searchUniversityKeyword);
         enableSearchUniversityButton = true;
-        Console.WriteLine(universityList);
+
     }
 
     //Aim : To capture the selected University value and to enable the "Add University" button.
@@ -250,11 +312,10 @@
         get { return selectedUniversityList; }
         set
         {
-            // Console.WriteLine(selectedUniversityList);
+
             selectedUniversityList = value;
-            Console.WriteLine(selectedUniversityList.UniversityId);
+
             selectedUniversityId = selectedUniversityList.UniversityId;
-            Console.WriteLine(selectedUniversityId);
 
             InvokeAsync(StateHasChanged);
         }
@@ -265,9 +326,9 @@
 
     public void getTeacherUniversities()
     {
-        Console.WriteLine(selectedTeacherId);
+
         teacherUniversityList = diIViewTeacherUniversityUseCase.ViewTeacherUniversity(selectedTeacherId);
-        Console.WriteLine(teacherUniversityList);
+
 
     }
 
@@ -275,11 +336,11 @@
 
     public void AddUniversities()
     {
-        Console.WriteLine(selectedTeacherId);
-        Console.WriteLine(selectedUniversityId);
-        var addUniversity = diICreateTeacherUniversityUseCase.CreateTeacherUniversity(selectedTeacherId, selectedUniversityId);
+
+        resultForCreate = diICreateTeacherUniversityUseCase.CreateTeacherUniversity(selectedTeacherId, selectedUniversityId);
+        createMessage = true;
         getTeacherUniversities();
-        Console.WriteLine(addUniversity);
+
     }
 
     //Aim : To capture the selected teacher University value and to enable the "Remove University" button.
@@ -289,7 +350,7 @@
         set
         {
             selectedTeacherUniversities = value;
-            Console.WriteLine(selectedTeacherUniversities);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -298,8 +359,8 @@
     public void RemoveUniversity()
     {
         List<TeacherUniversityWithForeignKeys> List = selectedTeacherUniversities.ToList();
-        var removeUniversity = diIEditTeacherUniversityUseCase.EditTeacherUniversity(List);
-        Console.WriteLine(removeUniversity);
+        resultForUpdate = diIEditTeacherUniversityUseCase.EditTeacherUniversity(List);
+        updateMessage = true;
         getTeacherUniversities();
 
     }

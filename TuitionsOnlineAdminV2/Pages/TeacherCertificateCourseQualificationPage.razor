@@ -1,20 +1,69 @@
 ﻿@page "/TeacherCertificateCourseQualification"
-@*Authors : SA,BM,KK,SM,BA
+
+@*Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
     Date:19/02/2021
     Aim: To create a serach box and to display the list of teachers  *@
+
+
 @using TuitionsOnlineAdmin.UseCases.TeacherBasicInformations.ViewTeacherBasicInformationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.CertificateCourses.ViewCertificateCourseScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.ViewTeacherCertificateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.CreateTeacherCertificateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherCertificateCourse_Qualifications.EditTeacherCertificateCourseQualificationScreen.Interfaces
-
-@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
-@inject IViewCertificateCourseUseCase diIViewCertificateCourseUseCase;
-@inject IViewTeacherCertificateCourseQualificationUseCase diIViewTeacherCertificateCourseQualificationUseCase;
-@inject ICreateTeacherCertificateCourseQualificationUseCase diCreateTeacherCertificateCourseQualificationUseCase;
-@inject IEditTeacherCertificateCourseQualificationUseCase diEditTeacherCertificateCourseQualificationUseCase;
+@using TuitionsOnlineAdmin.CoreBusiness
 
 
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewCertificateCourseUseCase diIViewCertificateCourseUseCase
+@inject IViewTeacherCertificateCourseQualificationUseCase diIViewTeacherCertificateCourseQualificationUseCase
+@inject ICreateTeacherCertificateCourseQualificationUseCase diCreateTeacherCertificateCourseQualificationUseCase
+@inject IEditTeacherCertificateCourseQualificationUseCase diEditTeacherCertificateCourseQualificationUseCase
+@inject BusinessMessage instanceOfBusinessMessage
+
+<div>
+
+    @* To display the success message on click of save when new certificate course is created *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your certificate course  has been added successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save when certificate course is updated *@
+    @if (updateMessage && resultForUpdate == "done")
+    {
+    <p class="success_message_style">
+        Your certificate course  has been removed successfully !
+    </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display server error message *@
+    @if (viewError && @certificateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERCERTIFICATECOURSE_QUALIFICATIONS
+        </p>
+    }
+</div>
 
 
 <DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
@@ -36,9 +85,9 @@
                         <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
 
 
-                        <div style="margin-top: -32px; margin-left: 580px;">
+                        <div class="teachersearchbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
                         </div>
                     </div>
                     <br />
@@ -52,9 +101,9 @@
                             <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
                         </DxDataGrid>
 
-                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <div class="loadbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Certificate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadCertificateCourseButton" Click="@loadCertificateCourseQualifications" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load Certificate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadCertificateCourseButton" Click="@loadCertificateCourseQualifications" />
                         </div>
                     }
                 </div>
@@ -70,10 +119,9 @@
                         <div>
                             <DxTextBox NullText="Search Certificate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchCertificateCourseKeyword) => onChangeCertificateCourseSearchText(searchCertificateCourseKeyword))"> </DxTextBox>
 
+                            <div class="coursesearchbutton_style">
 
-                            <div style="margin-top: -32px; margin-left: 572px;">
-
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Certificate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchCertificateCourseButton" Click="@getCertificateCourseOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Certificate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchCertificateCourseButton" Click="@getCertificateCourseOnSearch" />
                             </div>
                         </div>
                         <br />
@@ -89,8 +137,8 @@
 
 
                             </DxDataGrid>
-                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Certificate Course" SizeMode="SizeMode.Small" Click="@AddCertificateCourses" />
+                            <div class="loadbutton_style">
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add Certificate Course" SizeMode="SizeMode.Small" Click="@AddCertificateCourses" />
                             </div>
                         }
                     </div>
@@ -114,8 +162,8 @@
                         <DxDataGridColumn Field="@nameof(TeacherCertificateCourse_QualificationWithForeignKeys.CertificateCourseName)" Caption="Certificate Course Name"></DxDataGridColumn>
 
                     </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Certificate Course" SizeMode="SizeMode.Small" Click="@RemoveCertificateCourse" />
+                    <div class="loadbutton_style">
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove Certificate Course" SizeMode="SizeMode.Small" Click="@RemoveCertificateCourse" />
                     </div>
                 </Template>
             </DxGridLayoutItem>
@@ -124,6 +172,20 @@
 </DxGridLayout>
 
 @code {
+    //Variable to hold the success message on create of Graduate Course
+    public string resultForCreate;
+
+    //Variable to hold the success message on update of Graduate Course
+    public string resultForUpdate;
+
+    //Boolean variable to display the message on create of Graduate Course
+    bool createMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on update of Graduate Course
+    bool updateMessage = false;
 
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<CertificateCourse> certificateCourseGrid;
@@ -187,16 +249,16 @@
     {
         searchTeacherKeyword = searchTeacherText;
         enableOrDisableSearchTeacherButton = true;
-        Console.WriteLine(enableOrDisableSearchTeacherButton);
+
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
     //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
     public void getTeacherListOnSearch()
     {
-        Console.Write(searchTeacherKeyword);
+
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
-        Console.Write(teacherDetailsList);
+
         enableSearchTeacherButton = true;
     }
 
@@ -207,10 +269,10 @@
         set
         {
             selectedTeacherDetails = value;
-            Console.WriteLine(selectedTeacherDetails);
+
             selectedTeacherId = selectedTeacherDetails.TeacherId;
             enableOrDisableLoadCertificateCourseButton = true;
-            Console.WriteLine(enableOrDisableLoadCertificateCourseButton);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -223,7 +285,7 @@
     public void loadCertificateCourseQualifications()
     {
         enableCertificateCourseGridLayout = true;
-        Console.WriteLine(enableCertificateCourseGridLayout);
+
         enableTeacherCertificateCourseQualificationGridLayout = true;
         getTeacherCertificateCourseQualifications();
     }
@@ -234,7 +296,7 @@
     {
         searchCertificateCourseKeyword = searchCertificateCourseText;
         enableOrDisableSearchCertificateCourseButton = true;
-        Console.WriteLine(enableOrDisableSearchCertificateCourseButton);
+
     }
 
     //Aim:
@@ -246,7 +308,7 @@
     {
         certificateCourseList = diIViewCertificateCourseUseCase.ViewCertificateCourse(searchCertificateCourseKeyword);
         enableSearchCertificateCourseButton = true;
-        Console.WriteLine(certificateCourseList);
+
     }
 
     //Aim : To capture the selected Certificate course value and to enable the "Add Certificate Course" button.
@@ -257,9 +319,9 @@
         {
             // Console.WriteLine(selectedPostGraduateCourseList);
             selectedCertificateCourseList = value;
-            Console.WriteLine(selectedCertificateCourseList.CertificateCourseId);
+
             selectedCertificateId = selectedCertificateCourseList.CertificateCourseId;
-            Console.WriteLine(selectedCertificateId);
+
             InvokeAsync(StateHasChanged);
         }
 
@@ -269,20 +331,18 @@
 
     public void getTeacherCertificateCourseQualifications()
     {
-        Console.WriteLine(selectedTeacherId);
-        Console.WriteLine(teacherCertificateCourseQualificationList);
+
         teacherCertificateCourseQualificationList = diIViewTeacherCertificateCourseQualificationUseCase.ViewTeacherCertificateCourseQualification(selectedTeacherId);
-        Console.WriteLine(teacherCertificateCourseQualificationList);
+
     }
 
     //Aim: To save the teacher Certificate course qualification record on click of save button.
 
     public void AddCertificateCourses()
     {
-        Console.WriteLine(selectedTeacherId);
-        Console.WriteLine(selectedCertificateId);
-        var addCertificateCourse = diCreateTeacherCertificateCourseQualificationUseCase.CreateTeacherCertificateCourseQualification(selectedTeacherId, selectedCertificateId);
-        //Console.WriteLine(addCertificateCourse);
+
+        resultForCreate = diCreateTeacherCertificateCourseQualificationUseCase.CreateTeacherCertificateCourseQualification(selectedTeacherId, selectedCertificateId);
+        createMessage = true;
         getTeacherCertificateCourseQualifications();
     }
 
@@ -293,7 +353,7 @@
         set
         {
             selectedTeacherCertificateCourseQualifications = value;
-            Console.WriteLine(selectedTeacherCertificateCourseQualifications);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -302,8 +362,8 @@
     public void RemoveCertificateCourse()
     {
         List<TeacherCertificateCourse_QualificationWithForeignKeys> List = selectedTeacherCertificateCourseQualifications.ToList();
-        var removeCertificateCourse = diEditTeacherCertificateCourseQualificationUseCase.EditTeacherCertificateCourseQualification(List);
-        //Console.WriteLine(removeCertificateCourse);
+        resultForUpdate = diEditTeacherCertificateCourseQualificationUseCase.EditTeacherCertificateCourseQualification(List);
+        updateMessage = true;
         getTeacherCertificateCourseQualifications();
 
     }

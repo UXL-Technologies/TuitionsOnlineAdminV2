@@ -10,4 +10,30 @@
     border-style: groove;
     margin-top: 10px;
     margin-bottom: 10px;
+
+}
+.buttonsize_style{
+    font-size: 12px;
+}
+
+.teachersearchbutton_style {
+    margin-top: -32px; 
+    margin-left: 580px;
+}
+
+.loadbutton_style {
+    margin-top: 14px;
+    margin-left: 280px;
+    padding-bottom: 15px;
+}
+
+.coursesearchbutton_style {
+ margin-top: -32px; 
+ margin-left: 572px;
+}
+
+.highschoolboardsearchbutton_style {
+    margin-top: 14px;
+    margin-left: 280px; 
+    padding-bottom : 15px;
 }

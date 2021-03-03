@@ -1,5 +1,5 @@
 ﻿@page "/TeacherPostGraduateCourseQualification"
-@*Authors : SA,BM,KK,SM,BA
+@*Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
     Date:19/02/2021
     Aim: To create a serach box and to display the list of teachers  *@
 
@@ -8,13 +8,60 @@
 @using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.CreateTeacherPostGraduateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.EditTeacherPostGraduateCourseQualificationScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.TeacherPostGraduateCourse_Qualifications.ViewTeacherPostGraduateCourseQualificationScreen.Interfaces
+@using TuitionsOnlineAdmin.CoreBusiness
 
+@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase
+@inject IViewPostGraduateCourseUseCase diIViewPostGraduateCourseUseCase
+@inject ICreateTeacherPostGraduateCourseQualificationUseCase diICreateTeacherPostGraduateCourseQualificationUseCase
+@inject IEditTeacherPostGraduateCourseQualificationUseCase diIEditTeacherPostGraduateCourseQualificationUseCase
+@inject IViewTeacherPostGraduateCourseQualificationUseCase diIViewTeacherPostGraduateCourseQualificationUseCase
+@inject BusinessMessage instanceOfBusinessMessage
 
-@inject IViewTeacherBasicInformationUseCase diIViewTeacherBasicInformationUseCase;
-@inject IViewPostGraduateCourseUseCase diIViewPostGraduateCourseUseCase;
-@inject ICreateTeacherPostGraduateCourseQualificationUseCase diICreateTeacherPostGraduateCourseQualificationUseCase;
-@inject IEditTeacherPostGraduateCourseQualificationUseCase diIEditTeacherPostGraduateCourseQualificationUseCase;
-@inject IViewTeacherPostGraduateCourseQualificationUseCase diIViewTeacherPostGraduateCourseQualificationUseCase;
+<div>
+
+    @* To display the success message on click of save when new Graduate course is created *@
+    @if (createMessage && resultForCreate == "done")
+    {
+        <p class="success_message_style">
+            Your postgraduate course  has been added successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForCreate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display the success message on click of save when Graduate course is updated *@
+    @if (updateMessage && resultForUpdate == "done")
+    {
+        <p class="success_message_style">
+            Your postgraduate course  has been removed successfully !
+        </p>
+    }
+    else
+    {
+        <p class="success_message_style">
+            @resultForUpdate
+        </p>
+    }
+</div>
+
+<div>
+
+    @* To display server error message *@
+    @if (viewError && @postGraduateCourseList == null)
+    {
+        <p class="success_message_style">
+            @instanceOfBusinessMessage.UNKNOWN_SERVER_ERROR_VIEW_TEACHERPOSTGRADUATECOURSE_QUALIFICATIONS
+        </p>
+    }
+</div>
+
 
 <DxGridLayout CssClass="mw-1100 dxgridlayout_style" style=" height: auto; margin-bottom: 10px;">
     <Rows>
@@ -35,9 +82,9 @@
                         <DxTextBox NullText="Search Teachers" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchTeacherKeyword) => onChangeTeacherSearchText(searchTeacherKeyword))"> </DxTextBox>
 
 
-                        <div style="margin-top: -32px; margin-left: 580px;">
+                        <div class="teachersearchbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search Teacher" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchTeacherButton" Click="@getTeacherListOnSearch" CssClass="buttonsize_style" />
                         </div>
                     </div>
                     <br />
@@ -51,9 +98,9 @@
                             <DxDataGridColumn Field="@nameof(TeacherBasicInformation.Email_Address)" Caption="Teacher Email Address"></DxDataGridColumn>
                         </DxDataGrid>
 
-                        <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
+                        <div class="loadbutton_style">
 
-                            <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load PostGraduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadPostGraduateCourseButton" Click="@loadPostGraduateCourseQualifications" />
+                            <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Load PostGraduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableLoadPostGraduateCourseButton" Click="@loadPostGraduateCourseQualifications" CssClass="buttonsize_style" />
                         </div>
                     }
                 </div>
@@ -70,9 +117,9 @@
                             <DxTextBox NullText="Search PostGraduate Courses" SizeMode="SizeMode.Small" style=" width:550px;" TextChanged="@((searchPostGraduateCourseKeyword) => onChangePostGradauteCourseSearchText(searchPostGraduateCourseKeyword))"> </DxTextBox>
 
 
-                            <div style="margin-top: -32px; margin-left: 572px;">
+                            <div class="coursesearchbutton_style">
 
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search PostGraduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchPostGraduateCourseButton" Click="@getPostGraduateCourseOnSearch" />
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Search PostGraduate Course" SizeMode="SizeMode.Small" Enabled="@enableOrDisableSearchPostGraduateCourseButton" Click="@getPostGraduateCourseOnSearch" CssClass="buttonsize_style"/>
                             </div>
                         </div>
                         <br />
@@ -88,8 +135,8 @@
 
 
                             </DxDataGrid>
-                            <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                                <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add PostGraduate Course" SizeMode="SizeMode.Small" Click="@AddPostGraduateCourses" />
+                            <div class="loadbutton_style">
+                                <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Add PostGraduate Course" SizeMode="SizeMode.Small" Click="@AddPostGraduateCourses" CssClass="buttonsize_style" />
                             </div>
                         }
                     </div>
@@ -113,8 +160,8 @@
                         <DxDataGridColumn Field="@nameof(TeacherPostGraduateCourse_QualificationWithForeignKeys.PostGraduateCourseName)" Caption="PostGraduate Course Name"></DxDataGridColumn>
 
                     </DxDataGrid>
-                    <div style="margin-top: 14px; margin-left: 280px; padding-bottom : 15px;">
-                        <DxButton RenderStyle="ButtonRenderStyle.Info" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove PostGraduate Course" SizeMode="SizeMode.Small" Click="@RemovePostGraduateCourse" />
+                    <div class="loadbutton_style">
+                        <DxButton RenderStyle="ButtonRenderStyle.Primary" RenderStyleMode="ButtonRenderStyleMode.Contained" Text="Remove PostGraduate Course" SizeMode="SizeMode.Small" Click="@RemovePostGraduateCourse" CssClass="buttonsize_style" />
                     </div>
                 </Template>
             </DxGridLayoutItem>
@@ -122,6 +169,21 @@
     </Items>
 </DxGridLayout>
 @code {
+    //Variable to hold the success message on create of Graduate Course
+    public string resultForCreate;
+
+    //Variable to hold the success message on update of Graduate Course
+    public string resultForUpdate;
+
+    //Boolean variable to display the message on create of Graduate Course
+    bool createMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
+    bool viewError = false;
+
+    //Boolean variable to display the message on update of Graduate Course
+    bool updateMessage = false;
+
     DxDataGrid<TeacherBasicInformation> teacherGrid;
     DxDataGrid<PostGraduateCourse> postGraduateCourseGrid;
     DxDataGrid<TeacherPostGraduateCourse_Qualification> teacherPostGraduateCourseQualificationGrid;
@@ -182,16 +244,16 @@
     {
         searchTeacherKeyword = searchTeacherText;
         enableOrDisableSearchTeacherButton = true;
-        Console.WriteLine(enableOrDisableSearchTeacherButton);
+
     }
 
     //Aim: To fetch teacher/teachers details on click of teacher search button :
     //IViewTeacherBasicInformationUseCase is used for fetching the teacher basic information list for the searched key.
     public void getTeacherListOnSearch()
     {
-        Console.Write(searchTeacherKeyword);
+
         teacherDetailsList = diIViewTeacherBasicInformationUseCase.ViewTeacherBasicInformationList(searchTeacherKeyword);
-        Console.Write(teacherDetailsList);
+
         enableSearchTeacherButton = true;
     }
 
@@ -202,11 +264,11 @@
         set
         {
             selectedTeacherDetails = value;
-            Console.WriteLine(selectedTeacherDetails);
+
             selectedTeacherId = selectedTeacherDetails.TeacherId;
 
             enableOrDisableLoadPostGraduateCourseButton = true;
-            Console.WriteLine(enableOrDisableLoadPostGraduateCourseButton);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -219,7 +281,7 @@
     public void loadPostGraduateCourseQualifications()
     {
         enablePostGraduateCourseGridLayout = true;
-        Console.WriteLine(enablePostGraduateCourseGridLayout);
+
         enableTeacherPostGraduateCourseQualificationGridLayout = true;
         getTeacherPostGraduateCourseQualifications();
     }
@@ -230,7 +292,7 @@
     {
         searchPostGraduateCourseKeyword = searchPostGraduateCourseText;
         enableOrDisableSearchPostGraduateCourseButton = true;
-        Console.WriteLine(enableOrDisableSearchPostGraduateCourseButton);
+
     }
 
     //Aim:
@@ -242,7 +304,7 @@
     {
         postGraduateCourseList = diIViewPostGraduateCourseUseCase.ViewPostGraduateCourse(searchPostGraduateCourseKeyword);
         enableSearchPostGraduateCourseButton = true;
-        Console.WriteLine(postGraduateCourseList);
+
     }
 
     //Aim : To capture the selected Postgraduate course value and to enable the "Add PostGraduate Course" button.
@@ -253,9 +315,9 @@
         {
             // Console.WriteLine(selectedPostGraduateCourseList);
             selectedPostGraduateCourseList = value;
-            Console.WriteLine(selectedPostGraduateCourseList.PostGraduateCourseId);
+
             selectedPostGraduateId = selectedPostGraduateCourseList.PostGraduateCourseId;
-            Console.WriteLine(selectedPostGraduateId);
+
             InvokeAsync(StateHasChanged);
         }
 
@@ -265,9 +327,9 @@
 
     public void getTeacherPostGraduateCourseQualifications()
     {
-        Console.WriteLine(selectedTeacherId);
+
         //teacherPostGraduateCourseQualificationList = diIViewTeacherPostGraduateCourseQualificationUseCase.ViewTeacherPostGraduateCourseQualification(selectedTeacherId);
-        Console.WriteLine(teacherPostGraduateCourseQualificationList);
+
         teacherPostGraduateCourseQualificationList = diIViewTeacherPostGraduateCourseQualificationUseCase.ViewTeacherPostGraduateCourseQualification(selectedTeacherId);
     }
 
@@ -275,10 +337,10 @@
 
     public void AddPostGraduateCourses()
     {
-        Console.WriteLine(selectedTeacherId);
-        Console.WriteLine(selectedPostGraduateId);
-        var addPostGraduateCourse = diICreateTeacherPostGraduateCourseQualificationUseCase.CreateTeacherPostGraduateCourseQualification(selectedTeacherId,selectedPostGraduateId);
-        Console.WriteLine(addPostGraduateCourse);
+
+        // var addPostGraduateCourse = diICreateTeacherPostGraduateCourseQualificationUseCase.CreateTeacherPostGraduateCourseQualification(selectedTeacherId, selectedPostGraduateId);
+        resultForCreate = diICreateTeacherPostGraduateCourseQualificationUseCase.CreateTeacherPostGraduateCourseQualification(selectedTeacherId, selectedPostGraduateId);
+        createMessage = true;
         getTeacherPostGraduateCourseQualifications();
     }
 
@@ -289,7 +351,7 @@
         set
         {
             selectedTeacherPostGraduateCourseQualifications = value;
-            Console.WriteLine(selectedTeacherPostGraduateCourseQualifications);
+
             InvokeAsync(StateHasChanged);
         }
     }
@@ -298,8 +360,10 @@
     public void RemovePostGraduateCourse()
     {
         List<TeacherPostGraduateCourse_QualificationWithForeignKeys> List = selectedTeacherPostGraduateCourseQualifications.ToList();
-        var removePostGraduateCourse = diIEditTeacherPostGraduateCourseQualificationUseCase.EditTeacherPostGraduateCourseQualification(List);
-        Console.WriteLine(removePostGraduateCourse);
+        // var removePostGraduateCourse = diIEditTeacherPostGraduateCourseQualificationUseCase.EditTeacherPostGraduateCourseQualification(List);
+        resultForUpdate = diIEditTeacherPostGraduateCourseQualificationUseCase.EditTeacherPostGraduateCourseQualification(List);
+        updateMessage = true;
         getTeacherPostGraduateCourseQualifications();
+        InvokeAsync(StateHasChanged);
     }
 }

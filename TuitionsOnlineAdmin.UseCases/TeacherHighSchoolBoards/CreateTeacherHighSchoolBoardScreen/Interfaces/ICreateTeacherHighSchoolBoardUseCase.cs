@@ -1,6 +1,6 @@
-﻿//Authors: SA, BM, SM,BA ,KK
+﻿//Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
 //Date:25-Feb-2021
-//Aim: defining the Interface for TeacherHighSchoolBoard 
+//Aim: Interface for creating Teacher High School Board
 
 
 using System;

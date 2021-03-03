@@ -1,19 +1,21 @@
-﻿@* Authors: SA,BM,SM,KK,BA
-     Date: 25-01-2021
-    Aim : To create, view ,edit University *@
+﻿@*Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
+    Date: 25-01-2021
+    Aim : To create, view ,edit University*@
 
 @page "/university"
 @using TuitionsOnlineAdmin.UseCases.Universities.CreateUniversityScreen.Interfaces
 @using TuitionsOnlineAdmin.UseCases.Universities.ViewUniversityScreen.Intefaces
 @using TuitionsOnlineAdmin.UseCases.Universities.UpdateUniversityScreen.Interface
 @using TuitionsOnlineAdmin.CoreBusiness
+@inject NavigationManager UriHelper
 @inject ICreateUniversityUseCase instanceOfICreateUniversityUseCase
 @inject IViewUniversityUseCase instanceOfIViewUniversityUseCase
 @inject IUpdateUniversityUseCase instanceOfIUpdateUniversityUseCase
 @inject BusinessMessage instanceOfBusinessMessage
 
+
+@* this TextBox is used to search the data  *@
 <div>
-    @* this TextBox is used to search the data  *@
     <DxTextBox TextChanged="@((searchText) => OnTextChanged(searchText))"
                ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto"
                SizeMode="SizeMode.Small"
@@ -22,11 +24,11 @@
 <br />
 
 <div>
-    @* To display error message for create *@
+    @* To display the success message on click of save when new University is created *@
     @if (createMessage && resultForCreate == "done")
     {
         <p class="success_message_style">
-            Your University "@universityToBeDisplayed" has been created successfully !
+            Your University "@universityName" has been created successfully !
         </p>
     }
     else
@@ -37,12 +39,12 @@
     }
 </div>
 
-@* To display error message for update *@
+@* To display the success message on click of save when University is updated *@
 <div>
-    @if (viewErrorForUpdate && resultForUpdate == "done")
+    @if (updateMessage && resultForUpdate == "done")
     {
         <p class="success_message_style">
-            Your University "@universityToBeDisplayed" has been updated successfully !
+            Your University "@universityName" has been updated successfully !
         </p>
     }
     else
@@ -54,7 +56,7 @@
 </div>
 
 <div>
-    @* To error message for view *@
+    @* To display server error message *@
     @if (viewError && universityList == null)
     {
         <p class="success_message_style">
@@ -63,7 +65,7 @@
     }
 </div>
 
-@*Table is used to display the data *@
+@*Table is used to display the University data *@
 <DxDataGrid Data="@universityList"
             RowInserting="@((newUniversity) => CreateUniversity(newUniversity))"
             RowUpdating="@((universityToBeUpdated, newValue) => UpdateUniversity(universityToBeUpdated, newValue))"
@@ -76,16 +78,30 @@
 @code {
 
 
-    @* To hold the hold the University details*@
+    @* To hold the University details*@
     IEnumerable<University> universityList = Enumerable.Empty<University>();
+
     @*To hold the search text*@
     String searchkey;
+
+    //Variable to hold the success message on create of University
     public string resultForCreate;
+
+    //Boolean variable to display the message on create of University
     bool createMessage = false;
+
+    //Variable to hold the success message on update of University
     public string resultForUpdate;
-    bool viewErrorForUpdate = false;
+
+    //Boolean variable to display the message on update of University
+    bool updateMessage = false;
+
+    //Boolean variable to display the error message if the user is unable to view the data
     bool viewError = false;
-    public string universityToBeDisplayed;
+
+    //Variable to hold the University name
+    public string universityName;
+
     @*The init method is to invoke the University list when the page is loaded*@
     protected override void OnInitialized()
     {
@@ -94,30 +110,32 @@
         GetUniversities(searchkey);
 
     }
+
     @*To get University list to be displayed in the data grid columns*@
     public void GetUniversities(String searchkeyword)
     {
         universityList = instanceOfIViewUniversityUseCase.ViewUniversity(searchkeyword);
         viewError = true;
     }
+
     void OnTextChanged(String searchText)
     {
-        Console.WriteLine(searchText);
-        searchkey = searchText;
-        @*To invoke the component to re-render the data*@
 
+        searchkey = searchText;
+
+        @*To invoke the component to re-render the data*@
         InvokeAsync(StateHasChanged);
 
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
+        @*The University list should be fetched again to display the newly created University along with the existing the University list *@
         GetUniversities(searchkey);
     }
 
     //create University
     @*The CreateUniversity() method is responsible for capturing the details enetred by the user and send it to the database.*@
-    void CreateUniversity(Dictionary<string, object> newUniversity)
+    private async void CreateUniversity(Dictionary<string, object> newUniversity)
     {
         @* To hold the new University to be created *@
-University createUniversity = new University();
+        University createUniversity = new University();
         @*The new value comes in the form of key value pair*@
         foreach (var field in newUniversity.Keys)
         {
@@ -125,7 +143,7 @@ University createUniversity = new University();
             switch (field)
             {
                 case "UniversityName":
-                    universityToBeDisplayed = createUniversity.UniversityName = (string)newUniversity[field];
+                    universityName = createUniversity.UniversityName = (string)newUniversity[field];
                     break;
                 case "Active":
                     createUniversity.Active = (bool)newUniversity[field];
@@ -137,16 +155,20 @@ University createUniversity = new University();
         resultForCreate = instanceOfICreateUniversityUseCase.CreateUniversity(createUniversity);
         createMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created University along with the existing the course list *@
+        await InvokeAsync(StateHasChanged);
+        @*The University list should be fetched again to display the newly created University along with the existing the University list *@
         GetUniversities(searchkey);
 
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("university", forceLoad: true);
 
     }
 
 
     //To take and update the value for  University
-    void UpdateUniversity(University universityToBeUpdated, Dictionary<string, object> newValue)
+    private async void UpdateUniversity(University universityToBeUpdated, Dictionary<string, object> newValue)
     {
 
         foreach (var university in newValue.Keys)
@@ -154,7 +176,7 @@ University createUniversity = new University();
             switch (university)
             {
                 case "UniversityName":
-                    universityToBeDisplayed = universityToBeUpdated.UniversityName = (string)newValue[university];
+                    universityName = universityToBeUpdated.UniversityName = (string)newValue[university];
                     break;
                 case "Active":
                     universityToBeUpdated.Active = (bool)newValue[university];
@@ -165,13 +187,19 @@ University createUniversity = new University();
 
         @*UniversityToBeUpdated this variable holds the updated value and is sent to the database*@
         resultForUpdate = instanceOfIUpdateUniversityUseCase.UpdateUniversity(universityToBeUpdated);
-        viewErrorForUpdate = true;
+        updateMessage = true;
         @*The StateHasChanged makes sure that the component is notified to re-render the data*@
-        InvokeAsync(StateHasChanged);
-        @*The course list should be fetched again to diplay the newly created course along with the existing the course list *@
-    GetUniversities(searchkey);
+        await InvokeAsync(StateHasChanged);
 
-}
+        @*The University list should be fetched again to display the newly created University along with the existing the University list *@
+        GetUniversities(searchkey);
+
+        //Used to refresh the razor page
+        await Task.Delay(2000);
+        //Used to refresh the razor page
+        UriHelper.NavigateTo("university", forceLoad: true);
+
+    }
 
 
 }

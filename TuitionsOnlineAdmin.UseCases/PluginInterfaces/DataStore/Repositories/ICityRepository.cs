@@ -13,7 +13,7 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore.Repositories
     {
         //To hold the contract for creating the City and store it in a database
         string CreateCityRepository(City city);
-        //Authors: SA, BM, SM
+        //Authors: Shravan A, Bhavya MU, Sneha M , Karan Kumar , Bhargavi S Adiga
         //Date:18-Jan-2021
         //To hold the contract for viewing City
         List<City> ViewCityRepository(string searchKey);

@@ -52,14 +52,34 @@ namespace TuitionsOnlineAdmin.CoreBusiness
         public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERBASICINFORMATION = "There has been an error with the error code 211. Please inform systemadmin@tuitionsonline.center with the screen shot";
         public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERBASICINFORMATION = "There has been an error with the error code 311. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
-        public string UNKNOWN_SERVER_ERROR_CREATE_UNIVERSITY = "There has been an error with the error code 105. Please inform systemadmin@tuitionsonline.center with the screen shot";
-        public string UNKNOWN_SERVER_ERROR_UPDATE_UNIVERSITY = "There has been an error with the error code 305. Please inform systemadmin@tuitionsonline.center with the screen shot";
-        public string UNKNOWN_SERVER_ERROR_VIEW_UNIVERSITY = "There has been an error with the error code 205. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_CREATE_UNIVERSITY = "There has been an error with the error code 112. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_UNIVERSITY = "There has been an error with the error code 212. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_UNIVERSITY = "There has been an error with the error code 312. Please inform systemadmin@tuitionsonline.center with the screen shot";
+       
 
 
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERGRADUATECOURSE_QUALIFICATIONS = "There has been an error with the error code 113. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERGRADUATECOURSE_QUALIFICATIONS = "There has been an error with the error code 213. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERGRADUATECOURSE_QUALIFICATIONS = "There has been an error with the error code 313. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERPOSTGRADUATECOURSE_QUALIFICATIONS = "There has been an error with the error code 114. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERPOSTGRADUATECOURSE_QUALIFICATIONS = "There has been an error with the error code 214. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERPOSTGRADUATECOURSE_QUALIFICATIONS = "There has been an error with the error code 314. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERDOCTORATECOURSE_QUALIFICATIONS = "There has been an error with the error code 115. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERDOCTORATECOURSE_QUALIFICATIONS = "There has been an error with the error code 215. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERDOCTORATECOURSE_QUALIFICATIONS = "There has been an error with the error code 315. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERCERTIFICATECOURSE_QUALIFICATIONS = "There has been an error with the error code 116. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERCERTIFICATECOURSE_QUALIFICATIONS = "There has been an error with the error code 216. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERCERTIFICATECOURSE_QUALIFICATIONS = "There has been an error with the error code 316. Please inform systemadmin@tuitionsonline.center with the screen shot";
 
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERHIGHSCHOOLBOARD = "There has been an error with the error code 117. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERHIGHSCHOOLBOARD = "There has been an error with the error code 217. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERHIGHSCHOOLBOARD = "There has been an error with the error code 317. Please inform systemadmin@tuitionsonline.center with the screen shot";
+
+        public string UNKNOWN_SERVER_ERROR_CREATE_TEACHERUNIVERSITY = "There has been an error with the error code 118. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_VIEW_TEACHERUNIVERSITY = "There has been an error with the error code 218. Please inform systemadmin@tuitionsonline.center with the screen shot";
+        public string UNKNOWN_SERVER_ERROR_UPDATE_TEACHERUNIVERSITY = "There has been an error with the error code 318. Please inform systemadmin@tuitionsonline.center with the screen shot";
     }
 }
