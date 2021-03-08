@@ -216,5 +216,10 @@ namespace TuitionsOnlineAdmin.UseCases.PluginInterfaces.DataStore
 
         //Aim : The method is responsible to hold the contract for editing the University.
         public string EditTeacherUniversity(List<TeacherUniversityWithForeignKeys> teacherUniversities);
+
+
+        //To View Teacher Graduate Course Qualification Subject
+        public List<TeacherGraduateCourse_Qualification_SubjectWithForeignKeys> ViewTeacherGraduateCourseQualificationSubject(int teacherId, int graduateCourseId);
+
     }
 }

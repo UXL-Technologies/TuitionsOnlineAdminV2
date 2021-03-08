@@ -50,6 +50,8 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework
 
         public DbSet<TeacherUniversity> TeacherUniversity { get; set; }
 
+       public DbSet<TeacherGraduateCourse_Qualification_Subject> TeacherGraduateCourse_Qualification_Subject { get; set; }
+
     }
 
 }

@@ -28,7 +28,7 @@ namespace TuitionsOnlineAdmin.DataStore.EntityFramework.Persistence.Repositories
             List<TeacherGraduateCourse_Qualification> teacherGraduateCourseQualificationList = new List<TeacherGraduateCourse_Qualification>();
             List<TeacherGraduateCourse_QualificationWithForeignKeys> teacherGraduateCourseQualificationWithForeignKeyList = new List<TeacherGraduateCourse_QualificationWithForeignKeys>() { };
             TeacherGraduateCourse_QualificationWithForeignKeys teacherGraduateCourseQualificationWithForeignKey = new TeacherGraduateCourse_QualificationWithForeignKeys();
-            //  List<TeacherGraduateCourse_QualificationWithForeignKeys> list = new List<TeacherGraduateCourse_QualificationWithForeignKeys>();
+            //List<TeacherGraduateCourse_QualificationWithForeignKeys> list = new List<TeacherGraduateCourse_QualificationWithForeignKeys>();
             try
             {
                 if (teacherId != 0)

@@ -100,6 +100,8 @@ using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGrad
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.EditGraduateCourseQualification.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications.ViewTeacherGraduateCourseQualificationScreen.Interfaces;
+using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications_Subjects.ViewTeacherGraduateQualificationSubjectScreen;
+using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourse_Qualifications_Subjects.ViewTeacherGraduateQualificationSubjectScreen.Interfaces;
 using TuitionsOnlineAdmin.UseCases.TeacherGraduateCourseQualification.ViewTeacherGraduateCourseQualificationScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.CreateTeacherHighSchoolBoardScreen;
 using TuitionsOnlineAdmin.UseCases.TeacherHighSchoolBoards.CreateTeacherHighSchoolBoardScreen.Interfaces;
@@ -261,6 +263,9 @@ namespace TuitionsOnlineAdminV2
             services.AddTransient<ITeacherUniversityRepository, TeacherUniversityRepository>();
             services.AddTransient<ICreateTeacherUniversityUseCase, CreateTeacherUniversityUseCase>();
             services.AddTransient<IEditTeacherUniversityUseCase, EditTeacherUniversityUseCase>();
+
+            services.AddTransient<IViewTeacherGraduateCourseQualificationSubjectUseCase, ViewTeacherGraduateCourseQualificationSubjectUseCase>();
+            services.AddTransient<ITeacherGraduateCourse_Qualification_SubjectRepository, TeacherGraduateCourse_Qualification_SubjectRepository>();
 
             var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TuitionsOnlineAdminDbContext>(options => options.UseSqlServer(connection));
